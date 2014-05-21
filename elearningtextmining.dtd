@@ -1,0 +1,49 @@
+<!ELEMENT a ( #PCDATA ) >
+<!ATTLIST a href CDATA #REQUIRED >
+
+<!ELEMENT author ( #PCDATA ) >
+
+<!ELEMENT authors ( author+ ) >
+
+<!ELEMENT bib ( #PCDATA | person )* >
+<!ATTLIST bib id NMTOKEN #REQUIRED >
+
+<!ELEMENT chapter ( meta | page )* >
+<!ATTLIST chapter id NMTOKEN #REQUIRED >
+
+<!ELEMENT date ( #PCDATA ) >
+
+<!ELEMENT emph ( #PCDATA ) >
+
+<!ELEMENT h1 ( #PCDATA ) >
+
+<!ELEMENT h2 ( #PCDATA ) >
+
+<!ELEMENT img EMPTY >
+<!ATTLIST img src CDATA #REQUIRED >
+
+<!ELEMENT learningObjective ( h1 | p | ul )* >
+
+<!ELEMENT li ( #PCDATA | emph | a | bib | img | person | term )* >
+
+<!ELEMENT meta ( title, version, date, authors ) >
+
+<!ELEMENT module ( meta, chapter+ ) >
+
+<!ELEMENT p ( #PCDATA | a | bib | emph | img | person | term )* >
+<!ATTLIST p type NMTOKEN #IMPLIED >
+
+<!ELEMENT page ( h1 | h2 | learningObjective | p | ul )* >
+
+<!ELEMENT person ( #PCDATA ) >
+<!ATTLIST person name CDATA #REQUIRED >
+
+<!ELEMENT term ( #PCDATA ) >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT ul ( li+ ) >
+
+<!ELEMENT version ( #PCDATA ) >
+
+
