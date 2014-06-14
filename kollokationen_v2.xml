@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE course SYSTEM "elearningtextmining.dtd">
+<?xml-stylesheet type="text/xsl" href="elearningtextmining.xsl" ?>
+
+<course>
+	<meta>
+		<title>e-Learning-Kurs Text Mining</title>
+		<version>1.0</version>
+		<date>2014-05-01</date>
+		<authors>
+			<author>Yvonne Krämer</author>
+			<author>N. N.</author>
+		</authors>
+	</meta>
+<module id="1">
+		<meta>
+			<title>Kollokationen</title>
+			<version>1.0</version>
+			<date>2014-05-01</date>
+			<authors>
+				<author>Yvonne Krämer</author>
+			</authors>
+		</meta>
+    <chapter id="0" type="learningObjective">
+			<page>
+			<h1>Lernziele des Moduls "Kollokationen"</h1>
+				<p>Nach Bearbeitung des Moduls</p>
+				<ul>
+					<li>können Sie unterschiedliche Definitionsansätze von Kollokationen wiedergeben.</li>
+					<li>sind Sie sich der terminologischen Problematik des Begriffs bewusst.</li>
+					<li>haben Sie ein Grundverständnis für statistische Berechnungen und Begrifflichkeiten erworben.</li>
+					<li>sind Sie in der Lage, Ihrer Frage- oder Zielstellung entsprechend, aus verschiedenen Parametern zu wählen.</li>
+					<li>haben Sie das Handwerkszeug (und die Übung) zur Interpretation von Kollokationsprofilen.</li>
+				</ul>
+				</page>
+    </chapter>
+		<chapter id="1">	
+		<page>
+					<h1>Einführung</h1>
+			<h2>Was ist eine Kollokation?</h2>
+					<p>Der Begriff <term>Kollokation</term> geht auf <person name="Firth, John Rupert">J. R. Firth</person> (<bib id="Firth1957">1957</bib>) zurück, 
+					der damit charakteristische und <emph>häufig wiederkehrende Wortkombinationen</emph> bezeichnete. Er war der Ansicht, dass man anhand der Kollokatoren eines Wortes, 
+					dessen Bedeutung und Verwendungsweise veranschaulichen kann. </p>
+<p type="details">Ein Kollokator ist ein Element, also ein einzelnes Wort einer Wortverbindung bzw. Kollokation.</p>
+<p>Vielzitiert ist in diesem Zusammenhang der Satz <person name="Firth, John Rupert">Firths</person> <emph>"You shall know a word by the company it keeps"</emph> (<bib id="Firth1957">
+<person name="Firth, John Rupert">Firth</person> 1957</bib>, in <bib id="Evert2009:1213"><person name="Evert, Stefan">Evert</person> 2009: 1213</bib>).</p>
+<p type="details">Dieser Ausspruch erinnert an Wittgenstein und seine Gebrauchstheorie der Bedeutung. (vgl. <bib id="Lemnitzer/Zinsmeister 2010:30"> 
+<person name="Lemnitzer, Lothar">Lemnitzer</person>/<person name="Zinsmeister, Heike">Zinsmeister</person> 2010:30</bib>)</p>
+<p type="example">Beispiele für Kollokationen nach Firth wären "Kuh" und "Milch" oder "Tag" und "Nacht".</p>
+<p>Im Vordergrund steht für ihn bei Kollokationen die <emph>gegenseitige Erwartbarkeit</emph> (<foreign>mutual expectancy</foreign>) der Wörter und somit auch der Einfluss der <emph>Statistik</emph>.</p>
+<p>Die Definition Firths bleibt ein recht vager Ausgangspunkt. Heutzutage werden Kollokationen in der Computerlinguistik, der Phraseologie, der Fremdsprachendidaktik und nicht zuletzt der Korpuslinguistik 
+daher verschieden ausgelegt.</p>
+</page>
+<page>
+<h2>Lesarten des Begriffs <term>Kollokation</term></h2>
+<h3>In der Phraseologie</h3>
+<p>versteht man unter einer Kollokation, basierend auf <person name="Hausmann, Franz Josef">Hausmann</person> (<bib id="Hausmann1989">1989</bib>), eine <emph>binäre Struktur</emph>, bestehend aus den zwei Einheiten 
+<emph>Basis und Kollokator</emph>.
+Es handelt sich um eine <emph>phraseologische Kombination zweier Wörter </emph>zwischen denen ein <emph>hierarchisches Determiniertheitsverhältnis</emph> besteht. 
+Anschaulicher wird insbesondere der letzte Punkt durch <person name="Hausmann, Franz Josef">Hausmanns</person> folgende Erklärung: "Der Tisch braucht das Decken nicht, um Tisch zu sein. 
+Der Kollokator <kursiv>decken</kursiv> aber braucht dringend <kursiv>Basen</kursiv>, um überhaupt etwas zu sein: 
+<kursiv>Dach decken,</kursiv> <kursiv>Stute decken,</kursiv> <kursiv>Unkosten decken</kursiv>  [...]" (<bib id="Hausmann2004: 312"><person name="Hausmann, Franz Josef">Hausmann</person> 2004: 312</bib>).</p>
+<p type="example">Weitere Beispiele für Kollokationen nach <person name="Hausmann, Franz Josef">Hausmann</person> sind "Anker lichten" oder "himmelweiter Unterschied".</p>
+<p type="details">Zusammengefasst sind Kollokationen bei <person name="Hausmann, Franz Josef">Hausmann</person> demnach zweiteilige Wortverbindungen, 
+zwischen denen ein Abhängigkeitsverhältnis und eine Rangordnung bestehen.</p>
+<p type="details">Kollokationen werden auch in <person name="Burger, Harald">Harald Burgers</person> Dreibein-Modell der Phraseologie aufgegriffen, in welchem Phraseologismen in die drei Typen 
+"Kollokationen", "Idiome" und "Teilidiome" unterteilt sind. Es gilt zu beachten, dass Redewendungen bzw. Idiome von Kollokationen unterschieden werden, da die jeweilige Struktur verschieden ist. 
+(<bib id="Hausmann2004:313f."><person name="Hausmann, Franz Josef">vgl. Hausmann </person>2004: 313f.</bib>)
+</p>
+<p>Auch in der Lexikographie und Fremdsprachendidaktik orientiert man sich am Kollokationsbegriff <person name="Hausmann, Franz Josef">Hausmanns</person>.</p>
+<p type="details">Seiner Meinung nach herrscht derzeit ein Terminologiekrieg um die Besetzung des Begriffs <term>Kollokation,</term> wobei das Nebeneinander der verschiedenen Definitionen 
+"[...] eine historisch gewachsene Perversion des wissenschaftlichen Diskurses darstellt [...]" (<bib id="Hausmann2004: 312"><person name="Hausmann, Franz Josef">Hausmann</person> 2004: 312</bib>).</p>
+</page>
+<page>
+<h3>In der Computerlinguistik</h3>
+<p>sind Kollokationen <emph>lexikalisierte</emph>, also festgelegte <emph>Wortverbindungen mit semantischen oder syntaktischen Besonderheiten</emph>. 
+Sie sind <emph>nicht kompositionell</emph> und ihre Elemente sind <emph>nicht modifizierbar </emph>und <emph>nicht substituierbar</emph>. </p>
+<p type="details"><emph>Nicht kompositionell</emph> bedeutet, dass sich die Bedeutung der Kollokation nicht aus ihren einzelnen Elementen ableiten lässt.
+<emph>Nicht modifizierbar</emph> meint, dass ein Kollokator nicht abgewandelt werden kann, indem beispielsweise statt der Singularform ("Mittel zum Zweck") die Pluralform verwendet wird ("Mittel zu Zwecken").
+<emph>Nicht substituierbar</emph> heißt, dass ein Element ("zur Sache kommen") nicht durch ein anderes, wenn auch bedeutungsgleiches Element ausgetauscht werden kann ("zur Sache gelangen").
+</p>
+<p>Aufgrund dessen stellen sie für die maschinelle Sprachverarbeitung eine Herausforderung dar. 
+Neuerdings wird der Terminus <term>Kollokation</term> jedoch durch den weniger vorbelasteten Begriff <term><foreign>multiword expression</foreign></term> abgelöst.</p>
+<p type="example">Computerlinguistische Kollokationen sind beispielsweise "Mittel zum Zweck" oder "zur Sache kommen".</p>
+</page>
+<page>
+<h3>In der Korpuslinguistik</h3>
+<p>werden Kollokationen zumeist in der Tradition <person name="Firth, John Rupert">Firths</person> als <emph>überzufällig häufig gemeinsames Vorkommen zweier Wörter</emph> ausgelegt. </p>
+<p type="details">Kann man also mit statistischen Methoden nachweisen, dass "[...] Paare von Wörtern signifikant häufiger miteinander vorkommen, 
+als dies auf Grund einer zufälligen Verteilung von Wörtern in Texten zu erwarten wäre [...]" (<bib id="Lemnitzer/Zinsmeister 2010:15f."> <person name="Lemnitzer, Lothar">Lemnitzer</person>/
+<person name="Zinsmeister, Heike">Zinsmeister</person>2010:15f.</bib>), so bezeichnet man diese, unabhängig von deren Wohlgeformtheit, als Kollokationen.</p>
+<p>Um sie von der phraseologischen Definition klar abzugrenzen, erweitern einige Wissenschaftler wie <person name="Evert, Stefan">Evert</person> (<bib id="Evert2009">2009</bib>) oder 
+<person name="Biemann, Chris">Biemann</person>/<person name="Bordag, Stefan">Bordag</person>/<person name="Quasthoff, Uwe">Quasthoff</person> (<bib id="Biemann/Bordag/Quasthoff 2003">2003</bib>) 
+die Begriffsbezeichnung und unterscheiden zwischen <emph>empirischen</emph> und theoretischen bzw. <emph>statistischen</emph> und linguistischen <emph>Kollokationen</emph>.</p>
+<p type="example">Beispiele für solche empirischen oder statistischen Kollokationen wären demnach Wortpaare wie "und er" oder "welchen Einfluss".</p>
+<p>Einen anderen Weg aus dem definitorischen Dilemma geht man beispielsweise am Institut für Deutsche Sprache. 
+Dort werden lediglich wohlgeformte Kookkurrenzen, die der Basis-Kollokator-Dichotomie gemäß <person name="Hausmann, Franz Josef">Hausmann</person> entsprechen, als Kollokationen bezeichnet.</p>
+</page>
+<page>
+<h2>Was ist denn eine Kookkurrenz?</h2>
+<p>Für <person name="Scherer, Carmen">Scherer</person> beispielsweise sind Kookkurrenzen <emph>überdurchschnittlich häufig benachbarte Wörter</emph> und ein Synonym zu Kollokationen. </p>
+<p><person name="Perkuhn, Rainer">Perkuhn</person>/<person name="Keibel, Holger">Keibel</person>/<person name="Kupietz, Marc">Kupietz </person> (<bib id="Perkuhn/Keibel/Kupietz2012">2012</bib>)
+ bevorzugen den Begriff <term>Kookkurrenz</term> aufgrund der Problematik der unterschiedlichen Auffassungen des Kollokationsbegriffs nach <person name="Firth, John Rupert">Firth</person> und 
+ <person name="Hausmann, Franz Josef">Hausmann</person>. Dabei betonen sie jedoch, dass es nicht um das <emph>bloße Kovorkommen</emph> zweier Wörter geht, wie die wörtliche Bedeutung des Terminus nahelegt, 
+sondern dass die Rekurrenz und die statistische Bewertung wesentliche Aspekte der Verbindung darstellen. </p>
+<p>Am IDS wiederum sagt man: "Wir definieren 'Kookkurrenz' als eine Kohäsionsqualität, die durch mathematisch-statistische Berechnungen ermittelt wird [...]" (<bib id="Steyer2004: 96">
+<person name="Steyer, Kathrin">Steyer</person> 2004: 96</bib>). Lassen sich die statistisch auffälligen Wortverbindungen darüber hinaus in eine hierarchische Beziehung setzen und 
+im Sinne <person name="Hausmann, Franz Josef">Hausmanns </person>interpretieren, qualifizieren sie sich außerdem als Kollokationen.</p>
+<p type="details">Die kontextuelle Verbindung von "Wasser" und "Verbrauch" wäre gemäß der am IDS vertretenen Auffassung also eine Kookkurrenz, 
+da mittels mathematisch-statistischer Berechnungen ein starker und auffälliger Zusammenhalt der Wörter nachgewiesen werden konnte. Das Wortpaar "sauber" und "Wasser" entspricht zusätzlich noch 
+der Definition von <person name="Hausmann, Franz Josef">Hausmann</person> und stellt somit eine Kollokation dar.	</p>
+</page>
+<page>
+<h2>Und dann wäre da auch noch die Kolligation...</h2>
+<p>Der Begriff <term>Kolligation</term> findet sich nicht allzu oft in korpuslinguistischer Sekundärliteratur, wird dann aber zumindest einheitlich gebraucht. 
+Im Gegensatz zur lexikalischen oder inhaltlichen Ebene der Kollokation, steht bei der Kolligation die <emph>innere Struktur</emph>, also die <emph>grammatikalische Ebene</emph> im Vordergrund. 
+Das Augenmerk liegt dabei auf der <emph>grammatischen Beziehung zwischen Wortpaaren</emph>, wie sie etwa zwischen Verben und Adverbien besteht. </p>
+<p type="details">Diese, ein Syntagma bildenden Einheiten, erinnern an Kollokationen nach <person name="Hausmann, Franz Josef">Hausmann</person>. 
+<person name="Lemnitzer, Lothar">Lemnitzer</person>/<person name="Zinsmeister, Heike">Zinsmeister</person> führen als Beispiel für eine Kolligation "Antrag stellen" an und bezeichnen im Gegensatz dazu 
+die frequente Wortverbindung "und er" als Kollokation. </p>
+<p type="example">Ein Beispiel für eine Kolligation ist "Antrag stellen".</p>
+</page>
+<page>
+<p>Referenzliteratur:</p>
+<ul>
+<li>vgl. Biemann/Bordag/Quasthoff 2003</li>
+<li>vgl. Evert 2009: 1212-1214</li>
+<li>vgl. Hausmann 2004: 312-320</li>
+<li>vgl. Lemnitzer/Zinsmeister 2010: 15f., 30f.</li>
+<li>vgl. Perkuhn/Keibel/Kupietz 2012: 112f.</li>
+<li>vgl. Scherer 2006: 46</li>
+<li>vgl. Steiner 2004: 38f.</li>
+<li>vgl. Steyer 2004: 96-99</li>
+</ul> 
+<p>Davon lohnenswerte/lesenswerte Vertiefungsliteratur:</p>
+<ul>
+<li>vgl. Evert 2009: 1212-1214</li>
+<li>Perkuhn/Keibel/Kupietz 2012: 112f.</li>
+<li>Steyer 2004: 96-99</li>
+</ul>
+</page>
+<page>
+<img>Animation/Bild oder ähnliches</img>
+</page>
+  </chapter>
+<chapter id="2">
+<page>
+<h1>Terminlogische Festlegung</h1>
+<p>Durch die vorhergehenden Ausführungen sollte klar geworden sein, dass es sowohl in Bezug auf den Begriff <term>Kollokation</term>, wie auch auf den Begriff <term>Kookkurrenz</term> eine gewisse Problematik gibt, 
+während von <term>Kolligationen</term> eher selten die Rede ist.</p>
+<p>Im Fokus der Korpuslinguistik steht das <emph>Kovorkommen von Wörtern</emph>. Von Interesse ist dabei aber nicht die bloße Kookkurrenz, sondern die Frage, ob eine Art Anziehungskraft zwischen den Wörtern besteht 
+und deren gemeinsames Auftreten <emph>überzufällig häufig</emph>, wenn nicht gar <emph>signifikant</emph> ist. Dabei gilt es zu beachten, dass die Wörter nicht unmittelbar nebeneinander stehen müssen. 
+Üblicherweise werden <emph>Textfenster</emph> von fünf Wörtern rechts und links vom Bezugswort als Analysegrundlage herangezogen. </p>
+<p type="details">Darüber hinaus gibt es aber auch Ansätze, die das signifikant gemeinsame Vorkommen zweier Wörter in einem Textausschnitt (z.B. innerhalb eines Satzteils oder Satzes) untersuchen, 
+was sich vor allem bei Sprachen mit vergleichsweise freier Wortstellung anbietet. Bei einer anderen Herangehensweise, werden nur die Wörter als Kookkurrenzen  aufgefasst, 
+die in direkter oder zum Teil auch indirekter syntaktischer Beziehung stehen. Es werden also nur Kolligationen analysiert. (<bib id="Evert2009:1222f."><person name="Evert, Stefan">vgl. Evert </person>2009: 1222f.</bib> )</p>
+<p>Dieser statistische Mehrwert gegenüber einer Kookkurrenz soll in der Tradition <person name="Firth, John Rupert">Firths </person>nachfolgend als <emph>Kollokation</emph> bezeichnet werden. 
+Zwar besteht somit eine Ambiguität zur Begrifflichkeit <person name="Hausmann, Franz Josef">Hausmanns</person>, doch die Aspekte der Wohlgeformtheit und der hierarchischen Determiniertheit bleiben unberücksichtigt. </p>
+<p type="details">Zusammenfassend heißt das: Wenn zwei Begriffe mittels mathematisch-statistischer Verfahren als auffällig dargestellt werden, handelt es sich um eine Kollokation, 
+egal ob die beiden Wörter eine grammatikalisch korrekte oder inhaltlich sinnvolle Einheit bilden oder nicht.</p>
+</page>
+</chapter>
+<chapter id="3">
+<page>
+<h1>Wissenswerte Begriffe</h1>
+<h2>Kollokationsanalyse</h2>
+<p>Bei einer Kollokationsanalyse - in der Sekundärliteratur auch Kookkurrenzanalyse genannt - werden <emph>mithilfe statistischer Verfahren</emph> die <emph>auffälligsten Kollokatoren</emph> oder auch Kookkurrenzpartner 
+eines <emph>gewählten Bezugswortes</emph> ermittelt. Hierfür müssen einige <emph>Parameter</emph> sowie ein <emph>Signifikanzmaß</emph> festgelegt werden. </p>
+<p type="details">Diese bilden die Grundlage der Berechnungen und können unterschiedliche Betrachtungsweisen des Korpus wiederspiegeln. Sie sollten daher an die Frage- bzw. Zielstellung angepasst werden.</p>
+<p>Als Ergebnis einer Kollokationsanalyse wird das Kollokationsprofil eines Bezugswortes angezeigt.</p>
+<h2>Kollokationsprofil</h2>
+<p>Das Kollokationsprofil eines Wortes ist die <emph>Gesamtheit seiner relevanten Kollokationen</emph>. Während eine einzelne Kollokation einen Teilbereich davon abbildet, wie ein Wort üblicherweise gebraucht wird, 
+stellt ein Kollokationsprofil "[...] viele, wenn nicht sogar alle wichtigen Aspekte oder Nuancen der Verwendung eines Wortes [dar]. Wir können uns damit einen Überblick über alle wichtigen Diskurse verschaffen, 
+in denen sich die vielleicht unterschiedlichen Bedeutungen eines Wortes konstituiert haben" 
+(<bib id="Perkuhn/Keibel/Kupietz2012:127"><person name="Perkuhn, Rainer">Perkuhn</person>/<person name="Keibel, Holger">Keibel</person>/<person name="Kupietz, Marc">Kupietz</person>
+Perkuhn/Keibel/Kupietz 2012: 127</bib>). </p>
+<h2>Kollokationen erster/zweiter/dritter Ordnung</h2>
+</page>
+</chapter>
+		<chapter>
+			<p type="quote">Ein Blockzitat...</p>
+			<p><a href="http://linguistik.zih.tu-dresden.de">Ein Link</a>.</p>
+			<p><img src="http://linguistik.zih.tu-dresden.de/LogoDCDL160.png"></img></p>
+			</chapter>
+	<chapter id="10">
+		<page>
+			<h1>Ein Titel</h1>
+			<p></p>
+			<p type="quote">Ein Blockzitat...</p>
+		</page>
+		</chapter>
+</module>
+</course>

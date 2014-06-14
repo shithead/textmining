@@ -1,0 +1,1790 @@
+<?xml version="1.0"?>
+<listbibl xmlns="http://www.tei-c.org/ns/1.0">
+	<biblstruct type="journalArticle" xml:id="Vogel2012">
+		<analytic>
+			<title level="a">
+				Das LDA-Toolkit Korpuslinguistisches Analyseinstrument für kontrastive Diskurs- und Imageanalysen in Forschung und Lehre
+			</title>
+			<author>
+				<forename>
+					Friedemann
+				</forename>
+				<surname>
+					Vogel
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Zeitschrift für angewandte Linguistik
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					57
+				</biblscope>
+				<biblscope type="issue">
+					1
+				</biblscope>
+				<date>
+					2012
+				</date>
+				<note type="accessed">
+					2014-04-05 15:47:21
+				</note>
+				<note type="url">
+					http://www.degruyter.com/view/j/zfal-2012-57.issue-1/zfal-2012-0013/zfal-2012-0013.xml?format=INT
+				</note>
+			</imprint>
+		</monogr>
+		<idno type="ISSN">
+			1433-9889, 2190-0191
+		</idno>
+		<idno type="DOI">
+			10.1515/zfal-2012-0013
+		</idno>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Bopp2010">
+		<analytic>
+			<title level="a">
+				Der Verdrossenheit verdrossen? Der Diskurs über Politikverdrossenheit. Eine korpuslinguistische Untersuchung
+			</title>
+			<author>
+				<forename>
+					Sebastian
+				</forename>
+				<surname>
+					Bopp
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Sprachreport
+			</title>
+			<imprint>
+				<biblscope type="issue">
+					3
+				</biblscope>
+				<biblscope type="pp">
+					5-8
+				</biblscope>
+				<date>
+					2010
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="webpage" xml:id="Belica2007">
+		<monogr>
+			<title level="m">
+				Kookkurrenzdatenbank CCDB - V3. Eine korpuslinguistische Denk- und Experimentierplattform für die Erforschung und theoretische Begründung von systemisch-strukturellen Eigenschaften von Kohäsionsrelationen zwischen den Konstituenten des Sprachgebrauchs.
+			</title>
+			<author>
+				<forename>
+					Cyril
+				</forename>
+				<surname>
+					Belica
+				</surname>
+			</author>
+			<imprint>
+				<date>
+					2007
+				</date>
+				<note type="accessed">
+					2014-03-03
+				</note>
+				<note type="url">
+					http://corpora.ids-mannheim.de/ccdb/
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Perkuhn2012">
+		<monogr>
+			<title level="m">
+				Korpuslinguistik
+			</title>
+			<author>
+				<forename>
+					Rainer
+				</forename>
+				<surname>
+					Perkuhn
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Holger
+				</forename>
+				<surname>
+					Keibel
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Marc
+				</forename>
+				<surname>
+					Kupietz
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Stuttgart
+				</pubplace>
+				<publisher>
+					UTB GmbH
+				</publisher>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+		<idno type="ISBN">
+			9783825234331
+		</idno>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Bubenhofer2011a">
+		<analytic>
+			<title level="a">
+				Rezension von: Iva Kratochvílová/Norbert Richard Wolf (Hg.): Kompendium Korpuslinguistik. Eine Bestandesaufnahme aus deutsch-tschechischer Perspektive. Heidelberg: Winter 2010.
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Zeitschrift für Dialektologie und Linguistik
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					LXXVIII
+				</biblscope>
+				<biblscope type="issue">
+					3
+				</biblscope>
+				<biblscope type="pp">
+					353-355
+				</biblscope>
+				<date>
+					2011
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Lasch">
+		<analytic>
+			<title level="a">
+				Korpuslinguistik konstruktionsgrammatisch. Diskursspezifische n-Gramme zwischen statistischer Signifikanz und semantisch-pragmatischem Mehrwert
+			</title>
+			<author>
+				<forename>
+					Katrin
+				</forename>
+				<surname>
+					Hein
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Konstruktionsgrammatik IV: Konstruktionen als soziale Konventionen und kognitive Routinen
+			</title>
+			<editor>
+				<forename>
+					Alexander
+				</forename>
+				<surname>
+					Lasch
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Alexander
+				</forename>
+				<surname>
+					Ziem
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Tübingen
+				</pubplace>
+				<publisher>
+					Stauffenburg
+				</publisher>
+				<date>
+					im Druck
+				</date>
+			</imprint>
+		</monogr>
+		<idno type="ISBN">
+			3860571966
+		</idno>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Bubenhofer2012a">
+		<analytic>
+			<title level="a">
+				Zur grammatischen Oberflächenstruktur von Kommentaren. Eine korpuslinguistische Analyse typischer Sprachgebrauchsmuster im kontrastiven Vergleich
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Constanze
+				</forename>
+				<surname>
+					Spieß
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Pressetextsorten jenseits der "News": Medienlinguistische Perspektiven auf journalistische Kreativität
+			</title>
+			<editor>
+				<forename>
+					Christian
+				</forename>
+				<surname>
+					Grösslinger
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Gudrun
+				</forename>
+				<surname>
+					Held
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Hartmut
+				</forename>
+				<surname>
+					Stöckl
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Frankfurt am Main
+				</pubplace>
+				<biblscope type="pp">
+					87-105
+				</biblscope>
+				<publisher>
+					Peter Lang
+				</publisher>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Sprache im Kontext
+			</title>
+			<biblscope type="vol">
+				38
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Reichel2010">
+		<analytic>
+			<title level="a">
+				Rezension zu Noah Bubenhofer (2009): Sprachgebrauchsmuster. Korpuslinguistik als Methode der Diskurs- und Kulturanalyse. Berlin/New York: Walter de Gruyter. (= Sprache und Wissen 4).
+			</title>
+			<author>
+				<forename>
+					Sibylle
+				</forename>
+				<surname>
+					Reichel
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Linguistik online
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					2
+				</biblscope>
+				<biblscope type="issue">
+					42
+				</biblscope>
+				<date>
+					2010
+				</date>
+				<note type="url">
+					http://www.linguistik-online.com/42_10/reichel.html
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Staffeldt2012">
+		<analytic>
+			<title level="a">
+				Rezension von: Bubenhofer, Noah (2009): Sprachgebrauchsmuster. Korpuslinguistik als Methode der Diskurs- und Kulturanalyse. Berlin/New York: de Gruyter. 1. Aufl., 388 Seiten. ( = Sprache und Wissen 4).
+			</title>
+			<author>
+				<forename>
+					Sven
+				</forename>
+				<surname>
+					Staffeldt
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Studia Germanistica
+			</title>
+			<imprint>
+				<biblscope type="issue">
+					11
+				</biblscope>
+				<biblscope type="pp">
+					145-149
+				</biblscope>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Bubenhofer2013a">
+		<analytic>
+			<title level="a">
+				Skandalisierung korpuslinguistisch. Ein empirisch-linguistischer Blick auf die Berichterstattung zur "Wulff-Affäre"
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Linguistik online
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					4
+				</biblscope>
+				<biblscope type="issue">
+					61
+				</biblscope>
+				<date>
+					2013
+				</date>
+				<note type="url">
+					http://www.linguistik-online.de/61_13/bubenhofer.html
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Schuster2012">
+		<analytic>
+			<title level="a">
+				Andersschreiben aus korpuslinguistischer Perspektive: Datengeleitete Zugänge zum Stil
+			</title>
+			<author>
+				<forename>
+					Joachim
+				</forename>
+				<surname>
+					Scharloth
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Klaus
+				</forename>
+				<surname>
+					Rothenhäusler
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Andersschreiben: Formen, Funktionen, Traditionen
+			</title>
+			<editor>
+				<forename>
+					Britt-Marie
+				</forename>
+				<surname>
+					Schuster
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Doris
+				</forename>
+				<surname>
+					Tophinke
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin
+				</pubplace>
+				<biblscope type="pp">
+					157-178
+				</biblscope>
+				<publisher>
+					Schmidt
+				</publisher>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+		<idno type="ISBN">
+			3503137092
+		</idno>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Spie&szlig;2011">
+		<analytic>
+			<title level="a">
+				Noah Bubenhofer. 2009. Sprachgebrauchsmuster. Korpuslinguistik als Methode der Diskurs- und Kulturanalyse (Sprache und Wissen 4). Berlin, New York: De Gruyter. 388 S
+			</title>
+			<author>
+				<forename>
+					Constanze
+				</forename>
+				<surname>
+					Spieß
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Zeitschrift für Rezensionen zur germanistischen Sprachwissenschaft
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					3
+				</biblscope>
+				<biblscope type="issue">
+					2
+				</biblscope>
+				<biblscope type="pp">
+					195-200
+				</biblscope>
+				<date>
+					2011
+				</date>
+				<note type="accessed">
+					2012-03-12 09:57:01
+				</note>
+				<note type="url">
+					http://www.degruyter.com/view/j/zrs.2011.3.issue-2/zrs.2011.039/zrs.2011.039.xml
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Bubenhofer2011b">
+		<analytic>
+			<title level="a">
+				Welcher Wortschatz? Korpuslinguistische Untersuchungen zur Wortschatzselektion japanischer Deutschlehrbücher für Anfänger
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Willi
+				</forename>
+				<surname>
+					Lange
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Saburo
+				</forename>
+				<surname>
+					Okamura
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Joachim
+				</forename>
+				<surname>
+					Scharloth
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Doitsugo Kyoiku – Deutschunterricht in Japan
+			</title>
+			<imprint>
+				<biblscope type="issue">
+					16
+				</biblscope>
+				<biblscope type="pp">
+					43-60
+				</biblscope>
+				<date>
+					2011
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="document" xml:id="Programmbereich_Korpuslinguistik2011">
+		<monogr>
+			<title level="m">
+				Korpusbasierte Wortgrundformenliste DeReWo, v-ww-bll-250000g-2011-12-31-0.1, mit Benutzerdokumentation
+			</title>
+			<author>
+				<name>
+					Programmbereich Korpuslinguistik
+				</name>
+			</author>
+			<imprint>
+				<publisher>
+					Institut für Deutsche Sprache
+				</publisher>
+				<date>
+					2011
+				</date>
+				<note type="url">
+					http://www.ids-mannheim.de/kl/derewo/
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="document" xml:id="Programmbereich_Korpuslinguistik2009">
+		<monogr>
+			<title level="m">
+				Korpusbasierte Grundformenliste DeReWo, v-40000g-2009-12-31-0.1, mit Benutzerdokumentation
+			</title>
+			<author>
+				<name>
+					Programmbereich Korpuslinguistik
+				</name>
+			</author>
+			<imprint>
+				<publisher>
+					Institut für Deutsche Sprache
+				</publisher>
+				<date>
+					2009
+				</date>
+				<note type="url">
+					http://www.ids-mannheim.de/kl/derewo/
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Bubenhofer2013b">
+		<analytic>
+			<title level="a">
+				Quantitativ informierte qualitative Diskursanalyse. Korpuslinguistische Zugänge zu Einzeltexten und Serien
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Angewandte Diskurslinguistik. Felder, Probleme, Perspektiven
+			</title>
+			<editor>
+				<forename>
+					Kersten Sven
+				</forename>
+				<surname>
+					Roth
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Carmen
+				</forename>
+				<surname>
+					Spiegel
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin
+				</pubplace>
+				<biblscope type="pp">
+					109-134
+				</biblscope>
+				<publisher>
+					Akademie-Verlag
+				</publisher>
+				<date>
+					2013
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Diskursmuster - Discourse Patterns
+			</title>
+			<biblscope type="vol">
+				2
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Felder2012">
+		<analytic>
+			<title level="a">
+				Pragma-semiotische Textarbeit und der hermeneutische Nutzen von Korpusanalysen für die linguistische Mediendiskursanalyse
+			</title>
+			<author>
+				<forename>
+					Ekkehard
+				</forename>
+				<surname>
+					Felder
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Korpuslinguistik. Thematische Korpora als Basis diskurslinguistischer Analysen
+			</title>
+			<editor>
+				<forename>
+					Ekkehard
+				</forename>
+				<surname>
+					Felder
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Marcus
+				</forename>
+				<surname>
+					Müller
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Friedemann
+				</forename>
+				<surname>
+					Vogel
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin/New York
+				</pubplace>
+				<biblscope type="pp">
+					115-174
+				</biblscope>
+				<publisher>
+					de Gruyter
+				</publisher>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Linguistik – Impulse &amp; Tendenzen
+			</title>
+			<biblscope type="vol">
+				44
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="conferencePaper" xml:id="Mautner2012">
+		<analytic>
+			<title level="a">
+				Die kritische Masse. Korpuslinguistik und kritische Diskursanalyse
+			</title>
+			<author>
+				<forename>
+					Gerlinde
+				</forename>
+				<surname>
+					Mautner
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Korpuspragmatik. Thematische Korpora als Basis diskurslinguistischer Analysen von Texten und Gesprächen
+			</title>
+			<editor>
+				<forename>
+					Ekkehard
+				</forename>
+				<surname>
+					Felder
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Marcus
+				</forename>
+				<surname>
+					Müller
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Friedemann
+				</forename>
+				<surname>
+					Vogel
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin, New York
+				</pubplace>
+				<biblscope type="vol">
+					44
+				</biblscope>
+				<publisher>
+					de Gruyter
+				</publisher>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Linguistik – Impulse und Tendenzen
+			</title>
+		</series>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Bubenhofer2013c">
+		<analytic>
+			<title level="a">
+				Korpuslinguistische Diskursanalyse: Der Nutzen empirisch-quantitativer Verfahren
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Joachim
+				</forename>
+				<surname>
+					Scharloth
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Diskurslinguistik im Spannungsfeld von Deskription und Kritik
+			</title>
+			<editor>
+				<forename>
+					Ingo
+				</forename>
+				<surname>
+					Warnke
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Ulrike
+				</forename>
+				<surname>
+					Meinhof
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Martin
+				</forename>
+				<surname>
+					Reisigl
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin
+				</pubplace>
+				<biblscope type="pp">
+					147-168
+				</biblscope>
+				<publisher>
+					Akademie-Verlag
+				</publisher>
+				<date>
+					2013
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Diskursmuster – Discourse Patterns
+			</title>
+			<biblscope type="vol">
+				1
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Bubenhofer2011c">
+		<analytic>
+			<title level="a">
+				Korpuspragmatische Analysen alpinistischer Literatur
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Joachim
+				</forename>
+				<surname>
+					Scharloth
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				La linguistique de corpus – de l'analyse quantitative à l'interpretation qualitative / Korpuslinguistik – von der quantitativen Analyse zur qualitativen Interpretatino
+			</title>
+			<editor>
+				<forename>
+					Daniel
+				</forename>
+				<surname>
+					Elmiger
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Alain
+				</forename>
+				<surname>
+					Kamber
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Neuchâtel
+				</pubplace>
+				<biblscope type="pp">
+					241-259
+				</biblscope>
+				<publisher>
+					Institut des sciences du langage et de la communication
+				</publisher>
+				<date>
+					2011
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Travaux neuchâtelois de linguistique
+			</title>
+			<biblscope type="vol">
+				55
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Bubenhofer2011d">
+		<analytic>
+			<title level="a">
+				Korpuslinguistik in der linguistischen Lehre: Erfolge und Misserfolge
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				JLCL
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					26
+				</biblscope>
+				<biblscope type="issue">
+					1
+				</biblscope>
+				<biblscope type="pp">
+					141-156
+				</biblscope>
+				<date>
+					2011
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Donalies2011">
+		<monogr>
+			<title level="m">
+				Grammatische Variation im Deutschen: Tagtraum, Tageslicht, Tagedieb - Ein korpuslinguistisches Experiment zu variierenden Wortformen und Fugenelementen in zusammengesetzten Substantiven. Mit einem Exkurs und zahlreichen Statistiken von Noah Bubenhofer
+			</title>
+			<author>
+				<forename>
+					Elke
+				</forename>
+				<surname>
+					Donalies
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Mannheim
+				</pubplace>
+				<publisher>
+					Institut für Deutsche Sprache
+				</publisher>
+				<date>
+					2011
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				amades
+			</title>
+			<biblscope type="vol">
+				42
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Vogel2011">
+		<analytic>
+			<title level="a">
+				Das Recht im Text. Rechtssprachlicher Usus in korpuslinguistischer Perspektive
+			</title>
+			<author>
+				<forename>
+					Friedemann
+				</forename>
+				<surname>
+					Vogel
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Korpuspragmatik. Thematische Korpora als Basis diskurslinguistischer Analysen von Texten und Gesprächen
+			</title>
+			<editor>
+				<forename>
+					Ekkehard
+				</forename>
+				<surname>
+					Felder
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Marcus
+				</forename>
+				<surname>
+					Müller
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Friedemann
+				</forename>
+				<surname>
+					Vogel
+				</surname>
+			</editor>
+			<imprint>
+				<date>
+					2011
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Teubert2006">
+		<analytic>
+			<title level="a">
+				Korpuslinguistik, Hermeneutik und die soziale Konstruktion von Wirklichkeit
+			</title>
+			<author>
+				<forename>
+					Wolfgang
+				</forename>
+				<surname>
+					Teubert
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Linguistik online
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					28
+				</biblscope>
+				<biblscope type="issue">
+					3
+				</biblscope>
+				<biblscope type="pp">
+					41–60
+				</biblscope>
+				<date>
+					2006
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Schwitalla2005">
+		<monogr>
+			<title level="m">
+				Korpuslinguistik deutsch: synchron – diachron – kontrastiv. Würzburger Kolloquium 2003
+			</title>
+			<author>
+				<forename>
+					Johannes
+				</forename>
+				<surname>
+					Schwitalla
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Werner
+				</forename>
+				<surname>
+					Wegstein
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Tübingen
+				</pubplace>
+				<publisher>
+					Niemeyer
+				</publisher>
+				<date>
+					2005
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Scherer2006">
+		<monogr>
+			<title level="m">
+				Korpuslinguistik
+			</title>
+			<author>
+				<forename>
+					Carmen
+				</forename>
+				<surname>
+					Scherer
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Heidelberg
+				</pubplace>
+				<publisher>
+					Winter
+				</publisher>
+				<date>
+					2006
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Kurze Einführungen in die Germanistische Linguistik
+			</title>
+			<biblscope type="vol">
+				2
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="conferencePaper" xml:id="Perkuhn2005">
+		<analytic>
+			<title level="a">
+				Korpustechnologie am Institut für Deutsche Sprache
+			</title>
+			<author>
+				<forename>
+					Rainer
+				</forename>
+				<surname>
+					Perkuhn
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Cyril
+				</forename>
+				<surname>
+					Belica
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Doris
+				</forename>
+				<surname>
+					al-Wadi
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Meike
+				</forename>
+				<surname>
+					Lauer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Kathrin
+				</forename>
+				<surname>
+					Steyer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Christian
+				</forename>
+				<surname>
+					Weiß
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Korpuslinguistik deutsch: synchron – diachron – kontrastiv. Würzburger Kolloquium 2003
+			</title>
+			<editor>
+				<forename>
+					Johannes
+				</forename>
+				<surname>
+					Schwitalla
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Werner
+				</forename>
+				<surname>
+					Wegstein
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Tübingen
+				</pubplace>
+				<biblscope type="pp">
+					57–70
+				</biblscope>
+				<publisher>
+					Niemeyer
+				</publisher>
+				<date>
+					2005
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Perkuhn2006">
+		<analytic>
+			<title level="a">
+				Korpuslinguistik – Das unbekannte Wesen. Oder Mythen über Korpora und Korpuslinguistik
+			</title>
+			<author>
+				<forename>
+					Rainer
+				</forename>
+				<surname>
+					Perkuhn
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Cyril
+				</forename>
+				<surname>
+					Belica
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Sprachreport
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					22
+				</biblscope>
+				<biblscope type="issue">
+					1
+				</biblscope>
+				<biblscope type="pp">
+					2–8
+				</biblscope>
+				<date>
+					2006
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Lenz2000">
+		<monogr>
+			<title level="m">
+				Korpuslinguistik. Bibliographie
+			</title>
+			<author>
+				<forename>
+					Susanne
+				</forename>
+				<surname>
+					Lenz
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Heidelberg
+				</pubplace>
+				<publisher>
+					Julius Groos
+				</publisher>
+				<date>
+					2000
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Lemnitzer2006">
+		<monogr>
+			<title level="m">
+				Korpuslinguistik. Eine Einführung
+			</title>
+			<author>
+				<forename>
+					Lothar
+				</forename>
+				<surname>
+					Lemnitzer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Heike
+				</forename>
+				<surname>
+					Zinsmeister
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Tübingen
+				</pubplace>
+				<publisher>
+					Narr
+				</publisher>
+				<date>
+					2006
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="K&ouml;hler2005">
+		<analytic>
+			<title level="a">
+				Korpuslinguistik - zu wissenschaftstheoretischer Grundlagen und methodologischen Perspektiven
+			</title>
+			<author>
+				<forename>
+					Reinhard
+				</forename>
+				<surname>
+					Köhler
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				LDV-Forum
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					20
+				</biblscope>
+				<biblscope type="issue">
+					2
+				</biblscope>
+				<biblscope type="pp">
+					1-16
+				</biblscope>
+				<date>
+					2005
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="bookSection" xml:id="Bubenhofer2012b">
+		<analytic>
+			<title level="a">
+				Die Alpen. Sprachgebrauchsgeschichte – Korpuslinguistik – Kulturanalye
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Juliane
+				</forename>
+				<surname>
+					Schröter
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Historische Sprachwissenschaft. Erkenntnisinteressen, Grundlagenprobleme, Desiderate
+			</title>
+			<editor>
+				<forename>
+					Péter
+				</forename>
+				<surname>
+					Maitz
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin/Boston
+				</pubplace>
+				<biblscope type="pp">
+					263-287
+				</biblscope>
+				<publisher>
+					de Gruyter
+				</publisher>
+				<date>
+					2012
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Studia Linguistica Germanica
+			</title>
+			<biblscope type="vol">
+				110
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="conferencePaper" xml:id="Bubenhofer2010">
+		<analytic>
+			<title level="a">
+				Kontext korpuslinguistisch: Die induktive Berechnung von Sprachgebrauchsmustern in großen Textkorpora
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Joachim
+				</forename>
+				<surname>
+					Scharloth
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Kontexte und Texte. Studien zu soziokulturellen Konstellationen literalen Handelns
+			</title>
+			<editor>
+				<forename>
+					Peter
+				</forename>
+				<surname>
+					Klotz
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Paul R
+				</forename>
+				<surname>
+					Portmann-Tselikas
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Georg
+				</forename>
+				<surname>
+					Weidacher
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Tübingen
+				</pubplace>
+				<publisher>
+					Narr
+				</publisher>
+				<date>
+					2010
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="journalArticle" xml:id="Bubenhofer2009a">
+		<analytic>
+			<title level="a">
+				"So etwas wie eine Botschaft." Korpuslinguistische Analysen der Bundestagswahl 2009
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Tobias
+				</forename>
+				<surname>
+					Dussa
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Sarah
+				</forename>
+				<surname>
+					Ebling
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Martin
+				</forename>
+				<surname>
+					Klimke
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Klaus
+				</forename>
+				<surname>
+					Rothenhäusler
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Joachim
+				</forename>
+				<surname>
+					Scharloth
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Suarès
+				</forename>
+				<surname>
+					Tamekue
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Saskia
+				</forename>
+				<surname>
+					Vola
+				</surname>
+			</author>
+			<author>
+				<forename>
+					Forschergruppe
+				</forename>
+				<surname>
+					semtracks
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="j">
+				Sprachreport
+			</title>
+			<imprint>
+				<biblscope type="vol">
+					4
+				</biblscope>
+				<biblscope type="pp">
+					2–10
+				</biblscope>
+				<date>
+					2009
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Bubenhofer2009b">
+		<monogr>
+			<title level="m">
+				Sprachgebrauchsmuster. Korpuslinguistik als Methode der Diskurs- und Kulturanalyse
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<imprint>
+				<pubplace>
+					Berlin, New York
+				</pubplace>
+				<publisher>
+					de Gruyter
+				</publisher>
+				<date>
+					2009
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Sprache und Wissen
+			</title>
+			<biblscope type="vol">
+				4
+			</biblscope>
+		</series>
+	</biblstruct>
+	<biblstruct type="conferencePaper" xml:id="Bubenhofer2008a">
+		<analytic>
+			<title level="a">
+				Diskurse berechnen? Wege zu einer korpuslinguistischen Diskursanalyse
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Methoden der Diskurslinguistik. Sprachwissenschaftliche Zugänge zur transtextuellen Ebene
+			</title>
+			<editor>
+				<forename>
+					Jürgen
+				</forename>
+				<surname>
+					Spitzmüller
+				</surname>
+			</editor>
+			<editor>
+				<forename>
+					Ingo
+				</forename>
+				<surname>
+					Warnke
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Berlin/New York
+				</pubplace>
+				<biblscope type="pp">
+					407-434
+				</biblscope>
+				<publisher>
+					de Gruyter
+				</publisher>
+				<date>
+					2008
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Linguistik – Impulse &amp; Tendenzen
+			</title>
+		</series>
+	</biblstruct>
+	<biblstruct type="conferencePaper" xml:id="Bubenhofer2008b">
+		<analytic>
+			<title level="a">
+				"Es liegt in der Natur der Sache…". Korpuslinguistische Untersuchungen zu Kollokationen in Argumentationsfiguren
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+		</analytic>
+		<monogr>
+			<title level="m">
+				Studien zur Phraseologie aus textueller Sicht
+			</title>
+			<editor>
+				<forename>
+					Carmen
+				</forename>
+				<surname>
+					Mellado Blanco
+				</surname>
+			</editor>
+			<imprint>
+				<pubplace>
+					Hamburg
+				</pubplace>
+				<biblscope type="pp">
+					53–72
+				</biblscope>
+				<publisher>
+					Kova\v c
+				</publisher>
+				<date>
+					2008
+				</date>
+			</imprint>
+		</monogr>
+		<series>
+			<title level="s">
+				Philologia – Sprachwissenschaftliche Forschungsergebnisse
+			</title>
+		</series>
+	</biblstruct>
+	<biblstruct type="book" xml:id="Bubenhofer2006">
+		<monogr>
+			<title level="m">
+				Einführung in die Korpuslinguistik: Praktische Grundlagen und Werkzeuge
+			</title>
+			<author>
+				<forename>
+					Noah
+				</forename>
+				<surname>
+					Bubenhofer
+				</surname>
+			</author>
+			<imprint>
+				<date>
+					2006
+				</date>
+			</imprint>
+		</monogr>
+	</biblstruct>
+	<biblstruct type="webpage" xml:id="Belica2001">
+		<monogr>
+			<title level="m">
+				Kookkurrenzdatenbank CCDB. Eine korpuslinguistische Denk- und Experimentierplattform für die Erforschung und theoretische Begründung von systemisch-strukturellen Eigenschaften von Kohäsionsrelationen zwischen den Konstituenten des Sprachgebrauchs
+			</title>
+			<author>
+				<forename>
+					Cyril
+				</forename>
+				<surname>
+					Belica
+				</surname>
+			</author>
+			<imprint>
+				<date>
+					2001
+				</date>
+				<note type="url">
+					http://corpora.ids-mannheim.de
+				</note>
+			</imprint>
+		</monogr>
+	</biblstruct>
+</listbibl>
