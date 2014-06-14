@@ -142,7 +142,7 @@
                 </ul>
             </page>
             <page>
-                <img>Animation/Bild oder ähnliches</img>
+                <img src="layout/images/beastie.png" >Animation/Bild oder ähnliches</img>
             </page>
         </chapter>
         <chapter id="2">
@@ -180,9 +180,11 @@
             </page>
         </chapter>
         <chapter>
-            <p type="quote">Ein Blockzitat...</p>
-            <p><a href="http://linguistik.zih.tu-dresden.de">Ein Link</a>.</p>
-            <p><img src="http://linguistik.zih.tu-dresden.de/LogoDCDL160.png"></img></p>
+            <page>
+                <p type="quote">Ein Blockzitat...</p>
+                <p><a href="http://linguistik.zih.tu-dresden.de">Ein Link</a>.</p>
+                <p><img src="http://linguistik.zih.tu-dresden.de/LogoDCDL160.png"></img></p>
+            </page>
         </chapter>
         <chapter id="10">
             <page>
