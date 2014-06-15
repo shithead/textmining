@@ -4,12 +4,13 @@
         <html>
             <head>
                 <title> <xsl:value-of select="course/meta/title"/> </title>
+                <link href="elearningtextmining.xsl.css" rel="stylesheet" type="text/css" />
             </head>
             <body>
-                <div class="site-wrapper">
+                <div id="site_wrapper" class="site-wrap">
                     <div id="header_wrapper" class="header-wrap">
                         <div id="header" class="header  cw">
-                            <span> <xsl:value-of select="course/module/meta/title"/> </span>
+                            <xsl:value-of select="course/module/meta/title"/>
                         </div>
                     </div>
                     <div class="site-nc-wrapper">
@@ -256,3 +257,4 @@
 <!-- XXX <xsl:value-of select="document('celsius.xml')/celsius/result[@value=$value]"/>
      fuer die Libary
 -->
+
