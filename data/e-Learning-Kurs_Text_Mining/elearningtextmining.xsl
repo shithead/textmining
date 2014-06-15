@@ -279,7 +279,7 @@
         </xsl:choose>
     </xsl:template>
     <!--
-    <!ELEMENT module ( chapter | h1 | h2 | h3 | meta | p )* >
+    <!ELEMENT module ( chapter | meta )* >
     <!ATTLIST module id NMTOKEN #REQUIRED >
     -->
      <xsl:template match="module">
@@ -287,20 +287,8 @@
              <xsl:when test="chapter">
                  <xsl:apply-templates select="chapter"/>
              </xsl:when>
-             <xsl:when test="h1">
-                 <xsl:apply-templates select="h1"/>
-             </xsl:when>
-             <xsl:when test="h2">
-                 <xsl:apply-templates select="h2"/>
-             </xsl:when>
-             <xsl:when test="h3">
-                 <xsl:apply-templates select="h3"/>
-             </xsl:when>
              <xsl:when test="meta">
                  <xsl:apply-templates select="meta"/>
-             </xsl:when>
-             <xsl:when test="p">
-                 <xsl:apply-templates select="p"/>
              </xsl:when>
              <xsl:when test="@id">
                  <xsl:value-of select="current()"/>

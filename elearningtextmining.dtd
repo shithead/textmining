@@ -37,7 +37,7 @@
 
 <!ELEMENT meta ( title, version, date, authors ) >
 
-<!ELEMENT module ( chapter | h1 | h2 | h3 | meta | p )* >
+<!ELEMENT module ( chapter | meta )* >
 <!ATTLIST module id NMTOKEN #REQUIRED >
 
 <!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
