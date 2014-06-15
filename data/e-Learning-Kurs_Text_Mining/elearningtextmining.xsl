@@ -39,25 +39,9 @@
                                 </ul>
                             </div>
                         </div>
-                        <div id="page-content_wrapper" class="page-content-wrap">
-                            <xsl:for-each select="course/module/chapter/page">
-                                <div id="page_header" class="page-header">
-                                    <!-- TODO headlines grammatik erzeugen -->
-                                    <xsl:if test="h1">
-                                        <h1> <xsl:value-of select="h1"/> </h1>
-                                    </xsl:if>
-                                    <xsl:if test="h2">
-                                        <h2> <xsl:value-of select="h2"/> </h2>
-                                    </xsl:if>
-                                    <xsl:if test="h3">
-                                        <h3> <xsl:value-of select="h3"/> </h3>
-                                    </xsl:if>
-                                </div>
-                                <div id="page_body" class="page-body">
-                                    <xsl:apply-templates select="(a|p|ul)"/>
-                                </div>
-                            </xsl:for-each>
-                        </div>
+                        <xsl:for-each select="course/module/chapter">
+                            <xsl:apply-templates select="current()"/>
+                        </xsl:for-each>
                     </div>
                     <div id="footer_wrapper" class="footer-wrap">
                         <span>Author:
@@ -79,14 +63,7 @@
     <!ATTLIST a href CDATA #REQUIRED >
     -->
     <xsl:template match="a">
-        <xsl:choose>
-            <xsl:when test="@href">
-                <a href="{@href}"><xsl:value-of select="current()"/></a>
-            </xsl:when>
-            <xsl:otherwise>
-                <a><xsl:value-of select="current()"/></a>
-            </xsl:otherwise>
-        </xsl:choose>
+        <a href="{@href}"><xsl:value-of select="current()"/></a>
     </xsl:template>
     <!--
     <!ELEMENT author ( #PCDATA ) >
@@ -99,24 +76,25 @@
     -->
     <xsl:template match="authors">
         <xsl:apply-templates select="author"/>
+        <xsl:if test="position() &lt; last()-1">
+            <xsl:text>, </xsl:text>
+        </xsl:if>
+        <xsl:if test="position()=last()-1">
+            <xsl:text>, and </xsl:text>
+        </xsl:if>
+        <xsl:if test="position()=last()">
+            <xsl:text> </xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--
     <!ELEMENT bib ( #PCDATA | person )* >
     <!ATTLIST bib id CDATA #REQUIRED >
-    <!ATTLIST bib page CDATA >
+    <!ATTLIST bib page CDATA #IMPLIED>
     -->
     <xsl:template match="bib">
-        <xsl:choose>
-            <xsl:when test="@id">
-                <xsl:value-of select="current()"/>
-            </xsl:when>
-            <xsl:when test="@page">
-                <xsl:value-of select="current()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="current()"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <bib id="{@id}" page="{@page}">
+            <xsl:apply-templates select="( #PCDATA | person )"/>
+        </bib>
     </xsl:template>
     <!--
     <!ELEMENT chapter ( page+ ) >
@@ -124,23 +102,15 @@
     <!ATTLIST chapter type NMTOKEN #IMPLIED >
     -->
     <xsl:template match="chapter">
-        <xsl:choose>
-            <xsl:when test="@id">
-                <xsl:value-of select="current()"/>
-            </xsl:when>
-            <xsl:when test="@type">
-                <xsl:value-of select="current()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="page"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <div id="chapter_wrapper_{@id}" class="chapter-wrap" type="{@type}">
+            <xsl:apply-templates select="( page+ )"/>
+        </div>
     </xsl:template>
     <!--
     <!ELEMENT course ( meta, module ) >
     -->
     <xsl:template match="course">
-        <xsl:apply-templates select="(meta|module)"/>
+        <xsl:apply-templates select="(meta,module)"/>
     </xsl:template>
     <!--
     <!ELEMENT date ( #PCDATA ) >
@@ -166,54 +136,26 @@
     <!ELEMENT h1 ( #PCDATA | term )* >
     -->
     <xsl:template match="h1">
-        <xsl:choose>
-            <xsl:when test="term">
-                <xsl:apply-templates select="term"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="current()"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="( #PCDATA | term )*"/>
     </xsl:template>
     <!--
     <!ELEMENT h2 ( #PCDATA | term )* >
     -->
     <xsl:template match="h2">
-        <xsl:choose>
-            <xsl:when test="term">
-                <xsl:apply-templates select="term"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="current()"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="( #PCDATA | term )*"/>
     </xsl:template>
     <!--
     <!ELEMENT h3 ( #PCDATA | term )* >
     -->
     <xsl:template match="h3">
-        <xsl:choose>
-            <xsl:when test="term">
-                <xsl:apply-templates select="term"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="current()"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="( #PCDATA | term )*"/>
     </xsl:template>
     <!--
     <!ELEMENT img EMPTY >
     <!ATTLIST img src CDATA #REQUIRED >
     -->
     <xsl:template match="img">
-        <xsl:choose>
-            <xsl:when test="@src">
-                <img src="{@src}"><xsl:value-of select="current()"/></img>
-            </xsl:when>
-            <xsl:otherwise>
-                <img></img>
-            </xsl:otherwise>
-        </xsl:choose>
+        <img src="{@src}"></img>
     </xsl:template>
     <!--
     <!ELEMENT kursiv ( #PCDATA ) >
@@ -228,167 +170,64 @@
     -->
     <xsl:template match="li">
         <li>
-            <xsl:choose>
-                <xsl:when test="a">
-                    <xsl:apply-templates select="a"/>
-                </xsl:when>
-                <xsl:when test="bib">
-                    <xsl:apply-templates select="bib"/>
-                </xsl:when>
-                <xsl:when test="emph">
-                    <xsl:apply-templates select="emph"/>
-                </xsl:when>
-                <xsl:when test="foreign">
-                    <xsl:apply-templates select="foreign"/>
-                </xsl:when>
-                <xsl:when test="img">
-                    <xsl:apply-templates select="img"/>
-                </xsl:when>
-                <xsl:when test="kursiv">
-                    <xsl:apply-templates select="kursiv"/>
-                </xsl:when>
-                <xsl:when test="person">
-                    <xsl:apply-templates select="person"/>
-                </xsl:when>
-                <xsl:when test="term">
-                    <xsl:apply-templates select="term"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="current()"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )*"/>
         </li>
     </xsl:template>
     <!--
     <!ELEMENT meta ( title, version, date, authors ) >
     -->
     <xsl:template match="meta">
-        <xsl:choose>
-            <xsl:when test="authors">
-                <xsl:apply-templates select="authors"/>
-            </xsl:when>
-            <xsl:when test="date">
-                <xsl:apply-templates select="date"/>
-            </xsl:when>
-            <xsl:when test="title">
-                <xsl:apply-templates select="title"/>
-            </xsl:when>
-            <xsl:when test="version">
-                <xsl:apply-templates select="version"/>
-            </xsl:when>
-        </xsl:choose>
+        <xsl:apply-templates select="( title, version, date, authors )"/>
     </xsl:template>
     <!--
     <!ELEMENT module ( chapter | meta )* >
     <!ATTLIST module id NMTOKEN #REQUIRED >
     -->
      <xsl:template match="module">
-         <xsl:choose>
-             <xsl:when test="chapter">
-                 <xsl:apply-templates select="chapter"/>
-             </xsl:when>
-             <xsl:when test="meta">
-                 <xsl:apply-templates select="meta"/>
-             </xsl:when>
-             <xsl:when test="@id">
-                 <xsl:value-of select="current()"/>
-             </xsl:when>
-         </xsl:choose>
+         <xsl:apply-templates select="(chapter|meta)*"/>
      </xsl:template>
      <!--
     <!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
     <!ATTLIST p type NMTOKEN #IMPLIED >
     -->
     <xsl:template match="p">
-        <p align="justify">
-            <xsl:choose>
-                <xsl:when test="a">
-                    <xsl:apply-templates select="a"/>
-                </xsl:when>
-                <xsl:when test="bib">
-                    <xsl:apply-templates select="bib"/>
-                </xsl:when>
-                <xsl:when test="emph">
-                    <xsl:apply-templates select="emph"/>
-                </xsl:when>
-                <xsl:when test="foreign">
-                    <xsl:apply-templates select="foreign"/>
-                </xsl:when>
-                <xsl:when test="img">
-                    <xsl:apply-templates select="img"/>
-                </xsl:when>
-                <xsl:when test="kursiv">
-                    <xsl:apply-templates select="kursiv"/>
-                </xsl:when>
-                <xsl:when test="person">
-                    <xsl:apply-templates select="person"/>
-                </xsl:when>
-                <xsl:when test="term">
-                    <xsl:apply-templates select="term"/>
-                </xsl:when>
-                <xsl:when test="@type">
-                    <xsl:value-of select="current()"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="current()"/>
-                </xsl:otherwise>
-            </xsl:choose>
+        <p align="justify" type="{@type}">
+            <xsl:apply-templates select="( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )*"/>
         </p>
     </xsl:template>
     <!--
     <!ELEMENT page ( h1 | h2 | h3 | p | ul )* >
     -->
     <xsl:template match="page">
-        <xsl:choose>
-            <xsl:when test="h1">
-                <xsl:apply-templates select="h1"/>
-            </xsl:when>
-            <xsl:when test="h2">
-                <xsl:apply-templates select="h2"/>
-            </xsl:when>
-            <xsl:when test="h3">
-                <xsl:apply-templates select="h3"/>
-            </xsl:when>
-            <xsl:when test="p">
-                <xsl:apply-templates select="p"/>
-            </xsl:when>
-            <xsl:when test="ul">
-                <xsl:apply-templates select="ul"/>
-            </xsl:when>
-        </xsl:choose>
+        <div id="page_header" class="page-header">
+            <xsl:if test="h1">
+                <h1> <xsl:value-of select="h1"/> </h1>
+            </xsl:if>
+            <xsl:if test="h2">
+                <h2> <xsl:value-of select="h2"/> </h2>
+            </xsl:if>
+            <xsl:if test="h3">
+                <h3> <xsl:value-of select="h3"/> </h3>
+            </xsl:if>
+        </div>
+        <div id="page_body" class="page-body">
+            <xsl:apply-templates select="(p|ul)"/>
+        </div>
     </xsl:template>
     <!--
     <!ELEMENT person ( #PCDATA )* >
     <!ATTLIST person name CDATA #REQUIRED >
     -->
     <xsl:template match="person">
-        <xsl:choose>
-            <xsl:when test="@name">
-                <xsl:value-of select="current()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="current()"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <person name="{@name}">
+            <xsl:value-of select="current()"/>
+        </person>
     </xsl:template>
     <!--
     <!ELEMENT term ( #PCDATA | emph | foreign | kursiv ) >
     -->
     <xsl:template match="term">
-        <xsl:choose>
-            <xsl:when test="emph">
-                <xsl:apply-templates select="emph"/>
-            </xsl:when>
-            <xsl:when test="foreign">
-                <xsl:apply-templates select="foreign"/>
-            </xsl:when>
-            <xsl:when test="kursiv">
-                <xsl:apply-templates select="kursiv"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="current()"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="( #PCDATA | emph | foreign | kursiv )"/>
     </xsl:template>
     <!--
     <!ELEMENT title ( #PCDATA ) >

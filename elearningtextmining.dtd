@@ -7,7 +7,7 @@
 
 <!ELEMENT bib ( #PCDATA | person )* >
 <!ATTLIST bib id CDATA #REQUIRED >
-<!ATTLIST bib page CDATA >
+<!ATTLIST bib page CDATA #IMPLIED>
 
 
 <!ELEMENT chapter ( page+ ) >
