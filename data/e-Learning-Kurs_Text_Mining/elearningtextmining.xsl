@@ -43,6 +43,7 @@
                         <xsl:for-each select="course/module/chapter">
                             <xsl:apply-templates select="current()"/>
                         </xsl:for-each>
+                        <div class="clearing"/>
                     </div>
                     <div id="footer_wrapper" class="footer-wrap">
                         <span>Author:

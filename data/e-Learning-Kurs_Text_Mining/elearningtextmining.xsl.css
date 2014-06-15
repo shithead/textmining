@@ -13,4 +13,12 @@ body {
 .header-wrap {
         height: 50px;
     }
-
+.chapter-wrap {
+    float: right;
+}
+.navi-sidebar-wrap {
+    float: left;
+}
+.clearing {
+    clear:both;
+}
