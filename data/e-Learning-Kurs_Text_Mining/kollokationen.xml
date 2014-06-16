@@ -142,7 +142,9 @@
                 </ul>
             </page>
             <page>
+                <p>
                 <img src="layout/images/beastie.png" >Animation/Bild oder ähnliches</img>
+                </p>
             </page>
         </chapter>
         <chapter id="2">
