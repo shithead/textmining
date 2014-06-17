@@ -25,10 +25,24 @@ html {
     height:100%;
 }
 
-
+.css-truncate.css-truncate-target, .css-truncate .css-truncate-target {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+}
 
 #div_example {
     background: none repeat scroll 0 0 #555;
+}
+
+div.page-body bib.message a {
+    color: #052;
+}
+
+div.page-body bib.message a:hover {
+    color: #055555;
 }
 
 .footer-wrap {

@@ -105,8 +105,12 @@
     <!ATTLIST bib page CDATA #IMPLIED>
     -->
     <xsl:template match="bib">
-        <bib id="{@id}" page="{@page}">
-            <xsl:apply-templates select="text() | person"/>
+        <bib class="message" id="{@id}" page="{@page}">
+            <span>
+                <a class="css-truncate css-truncate-target" title="Hier steht der Bibliotheksinhalt">
+                    <xsl:apply-templates select="text() | person"/>
+                </a>
+            </span>
         </bib>
     </xsl:template>
     <!--
