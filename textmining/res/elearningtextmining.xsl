@@ -65,13 +65,13 @@
     <!ATTLIST a href CDATA #REQUIRED >
     -->
     <xsl:template match="a">
-        <a href="{@href}"><xsl:value-of select="current()"/></a>
+        <a href="{@href}"><xsl:value-of select="text()"/></a>
     </xsl:template>
     <!--
     <!ELEMENT author ( #PCDATA ) >
     -->
     <xsl:template match="author">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
     <!ELEMENT authors ( author+ ) >
@@ -95,7 +95,7 @@
     -->
     <xsl:template match="bib">
         <bib id="{@id}" page="{@page}">
-            <xsl:apply-templates select="( #PCDATA | person )"/>
+            <xsl:apply-templates select="text() | person"/>
         </bib>
     </xsl:template>
     <!--
@@ -105,52 +105,52 @@
     -->
     <xsl:template match="chapter">
         <div id="chapter_wrapper_{@id}" class="chapter-wrap" type="{@type}">
-            <xsl:apply-templates select="( page+ )"/>
+            <xsl:apply-templates select="page"/>
         </div>
     </xsl:template>
     <!--
     <!ELEMENT course ( meta, module ) >
     -->
     <xsl:template match="course">
-        <xsl:apply-templates select="(meta,module)"/>
+        <xsl:apply-templates select="meta | module"/>
     </xsl:template>
     <!--
     <!ELEMENT date ( #PCDATA ) >
     -->
     <xsl:template match="date">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
     <!ELEMENT emph ( #PCDATA ) >
     -->
     <xsl:template match="emph">
         <em>
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </em>
     </xsl:template>
     <!--
     <!ELEMENT foreign ( #PCDATA ) >
     -->
     <xsl:template match="foreign">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
     <!ELEMENT h1 ( #PCDATA | term )* >
     -->
     <xsl:template match="h1">
-        <xsl:apply-templates select="( #PCDATA | term )*"/>
+        <xsl:apply-templates select="text() | term"/>
     </xsl:template>
     <!--
     <!ELEMENT h2 ( #PCDATA | term )* >
     -->
     <xsl:template match="h2">
-        <xsl:apply-templates select="( #PCDATA | term )*"/>
+        <xsl:apply-templates select="text() | term"/>
     </xsl:template>
     <!--
     <!ELEMENT h3 ( #PCDATA | term )* >
     -->
     <xsl:template match="h3">
-        <xsl:apply-templates select="( #PCDATA | term )*"/>
+        <xsl:apply-templates select="text() | term"/>
     </xsl:template>
     <!--
     <!ELEMENT img EMPTY >
@@ -164,7 +164,7 @@
     -->
     <xsl:template match="kursiv">
         <i>
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </i>
     </xsl:template>
     <!--
@@ -172,30 +172,39 @@
     -->
     <xsl:template match="li">
         <li>
-            <xsl:apply-templates select="( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )*"/>
+            <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
         </li>
     </xsl:template>
     <!--
     <!ELEMENT meta ( title, version, date, authors ) >
     -->
     <xsl:template match="meta">
-        <xsl:apply-templates select="( title, version, date, authors )"/>
+        <xsl:apply-templates select="title | version | date | authors"/>
     </xsl:template>
     <!--
     <!ELEMENT module ( chapter | meta )* >
     <!ATTLIST module id NMTOKEN #REQUIRED >
     -->
      <xsl:template match="module">
-         <xsl:apply-templates select="(chapter|meta)*"/>
+         <xsl:apply-templates select="chapter | meta"/>
      </xsl:template>
      <!--
     <!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
     <!ATTLIST p type NMTOKEN #IMPLIED >
     -->
     <xsl:template match="p">
-        <p align="justify" type="{@type}">
-            <xsl:apply-templates select="( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )*"/>
-        </p>
+        <xsl:choose>
+            <xsl:when test="@type">
+                <p align="justify" type="{@type}">
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                </p>
+            </xsl:when>
+            <xsl:otherwise>
+                <p align="justify">
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
     <!ELEMENT page ( h1 | h2 | h3 | p | ul )* >
@@ -213,7 +222,7 @@
             </xsl:if>
         </div>
         <div id="page_body" class="page-body">
-            <xsl:apply-templates select="(p|ul)"/>
+            <xsl:apply-templates select="p | ul"/>
         </div>
     </xsl:template>
     <!--
@@ -222,21 +231,21 @@
     -->
     <xsl:template match="person">
         <person name="{@name}">
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </person>
     </xsl:template>
     <!--
     <!ELEMENT term ( #PCDATA | emph | foreign | kursiv ) >
     -->
     <xsl:template match="term">
-        <xsl:apply-templates select="( #PCDATA | emph | foreign | kursiv )"/>
+        <xsl:apply-templates select="text() | emph | foreign | kursiv"/>
     </xsl:template>
     <!--
     <!ELEMENT title ( #PCDATA ) >
     -->
     <xsl:template match="title">
         <title>
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </title>
     </xsl:template>
     <!--
@@ -251,7 +260,7 @@
     <!ELEMENT version ( #PCDATA ) >
     -->
     <xsl:template match="version">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
 </xsl:stylesheet>
 
