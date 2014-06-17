@@ -1,4 +1,4 @@
-﻿<!ELEMENT a ( #PCDATA ) >
+<!ELEMENT a ( #PCDATA ) >
 <!ATTLIST a href CDATA #REQUIRED >
 
 <!ELEMENT author ( #PCDATA ) >
@@ -48,12 +48,10 @@
 <!ELEMENT person ( #PCDATA | person )* >
 <!ATTLIST person name CDATA #REQUIRED >
 
-<!ELEMENT term ( #PCDATA | emph | foreign | kursiv ) >
+<!ELEMENT term ( #PCDATA | emph | foreign | kursiv )* >
 
 <!ELEMENT title ( #PCDATA ) >
 
 <!ELEMENT ul ( li+ ) >
 
 <!ELEMENT version ( #PCDATA ) >
-
-
