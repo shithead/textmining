@@ -1,4 +1,4 @@
-﻿<!ELEMENT a ( #PCDATA ) >
+<!ELEMENT a ( #PCDATA ) >
 <!ATTLIST a href CDATA #REQUIRED >
 
 <!ELEMENT author ( #PCDATA ) >
@@ -9,7 +9,6 @@
 <!ATTLIST bib id CDATA #REQUIRED >
 <!ATTLIST bib page CDATA #IMPLIED>
 
-
 <!ELEMENT chapter ( page+ ) >
 <!ATTLIST chapter id NMTOKEN #REQUIRED >
 <!ATTLIST chapter type NMTOKEN #IMPLIED >
@@ -18,7 +17,12 @@
 
 <!ELEMENT date ( #PCDATA ) >
 
+<!ELEMENT details ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+<!ATTLIST details id ID #REQUIRED >
+
 <!ELEMENT emph ( #PCDATA ) >
+
+<!ELEMENT example ( p | ul | details )* >
 
 <!ELEMENT foreign ( #PCDATA ) >
 
@@ -41,19 +45,18 @@
 <!ATTLIST module id NMTOKEN #REQUIRED >
 
 <!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+<!-- NMTOKEN: quota -->
 <!ATTLIST p type NMTOKEN #IMPLIED >
 
-<!ELEMENT page ( h1 | h2 | h3 | p | ul )* >
+<!ELEMENT page ( h1 | h2 | h3 | p | ul | details | example )* >
 
 <!ELEMENT person ( #PCDATA | person )* >
 <!ATTLIST person name CDATA #REQUIRED >
 
-<!ELEMENT term ( #PCDATA | emph | foreign | kursiv ) >
+<!ELEMENT term ( #PCDATA | emph | foreign | kursiv )* >
 
 <!ELEMENT title ( #PCDATA ) >
 
 <!ELEMENT ul ( li+ ) >
 
 <!ELEMENT version ( #PCDATA ) >
-
-
