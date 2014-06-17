@@ -5,6 +5,14 @@
             <head>
                 <title> <xsl:value-of select="course/meta/title"/> </title>
                 <link href="layouts/elearningtextmining.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript">
+                    function unhide(divID) {
+                    var item = document.getElementById(divID);
+                    if (item) {
+                    item.className=(item.className=='hidden')?'unhidden':'hidden';
+                    }
+                    }
+                </script> 
             </head>
             <body>
                 <!-- OPEN GLOBEL DIV -->
@@ -65,25 +73,28 @@
     <!ATTLIST a href CDATA #REQUIRED >
     -->
     <xsl:template match="a">
-        <a href="{@href}"><xsl:value-of select="current()"/></a>
+        <a href="{@href}"><xsl:value-of select="text()"/></a>
     </xsl:template>
     <!--
     <!ELEMENT author ( #PCDATA ) >
     -->
     <xsl:template match="author">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
     <!ELEMENT authors ( author+ ) >
     -->
     <xsl:template match="authors">
         <xsl:apply-templates select="author"/>
+        <!-- wenn noch mehr als 2 AuthorInnen folgen ein ", " setzen -->
         <xsl:if test="position() &lt; last()-1">
             <xsl:text>, </xsl:text>
         </xsl:if>
+        <!-- Wenn der/die vorletzte AuthorIn ist ", and " setzen -->
         <xsl:if test="position()=last()-1">
             <xsl:text>, and </xsl:text>
         </xsl:if>
+        <!-- Wenn letzte(r) AuthorIn ist " " setzen -->
         <xsl:if test="position()=last()">
             <xsl:text> </xsl:text>
         </xsl:if>
@@ -94,8 +105,12 @@
     <!ATTLIST bib page CDATA #IMPLIED>
     -->
     <xsl:template match="bib">
-        <bib id="{@id}" page="{@page}">
-            <xsl:apply-templates select="( #PCDATA | person )"/>
+        <bib class="message" id="{@id}" page="{@page}">
+            <span>
+                <a class="css-truncate css-truncate-target" title="Hier steht der Bibliotheksinhalt">
+                    <xsl:apply-templates select="text() | person"/>
+                </a>
+            </span>
         </bib>
     </xsl:template>
     <!--
@@ -105,52 +120,78 @@
     -->
     <xsl:template match="chapter">
         <div id="chapter_wrapper_{@id}" class="chapter-wrap" type="{@type}">
-            <xsl:apply-templates select="( page+ )"/>
+            <xsl:apply-templates select="page"/>
         </div>
     </xsl:template>
     <!--
     <!ELEMENT course ( meta, module ) >
     -->
     <xsl:template match="course">
-        <xsl:apply-templates select="(meta,module)"/>
+        <xsl:apply-templates select="meta | module"/>
     </xsl:template>
     <!--
     <!ELEMENT date ( #PCDATA ) >
     -->
     <xsl:template match="date">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
+    </xsl:template>
+    <!--
+    <!ELEMENT details ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+    <!ATTLIST details id ID #REQUIRED >
+    -->
+    <xsl:template match="details">
+        <a href="javascript:unhide('div_details_{@id}');">Details</a> 
+        <div id="div_details_{@id}">
+            <p align="justify">
+                <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+            </p>
+        </div>
     </xsl:template>
     <!--
     <!ELEMENT emph ( #PCDATA ) >
     -->
     <xsl:template match="emph">
         <em>
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </em>
+    </xsl:template>
+    <!--
+    <!ELEMENT example ( p | ul | details )* >
+    -->
+    <xsl:template match="example">
+        <div id="div_example">
+            <xsl:apply-templates select="p | ul"/>
+        </div>
     </xsl:template>
     <!--
     <!ELEMENT foreign ( #PCDATA ) >
     -->
     <xsl:template match="foreign">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
     <!ELEMENT h1 ( #PCDATA | term )* >
     -->
     <xsl:template match="h1">
-        <xsl:apply-templates select="( #PCDATA | term )*"/>
+        <h1>
+            <xsl:apply-templates select="text() | term"/>
+        </h1>
     </xsl:template>
     <!--
     <!ELEMENT h2 ( #PCDATA | term )* >
     -->
     <xsl:template match="h2">
-        <xsl:apply-templates select="( #PCDATA | term )*"/>
+        <h2>
+            <xsl:apply-templates select="text() | term"/>
+        </h2>
     </xsl:template>
     <!--
     <!ELEMENT h3 ( #PCDATA | term )* >
     -->
     <xsl:template match="h3">
-        <xsl:apply-templates select="( #PCDATA | term )*"/>
+        <h3>
+            <xsl:apply-templates select="text() | term"/>
+        </h3>
     </xsl:template>
     <!--
     <!ELEMENT img EMPTY >
@@ -164,7 +205,7 @@
     -->
     <xsl:template match="kursiv">
         <i>
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </i>
     </xsl:template>
     <!--
@@ -172,33 +213,44 @@
     -->
     <xsl:template match="li">
         <li>
-            <xsl:apply-templates select="( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )*"/>
+            <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
         </li>
     </xsl:template>
     <!--
     <!ELEMENT meta ( title, version, date, authors ) >
     -->
     <xsl:template match="meta">
-        <xsl:apply-templates select="( title, version, date, authors )"/>
+        <xsl:apply-templates select="title | version | date | authors"/>
     </xsl:template>
     <!--
     <!ELEMENT module ( chapter | meta )* >
     <!ATTLIST module id NMTOKEN #REQUIRED >
     -->
      <xsl:template match="module">
-         <xsl:apply-templates select="(chapter|meta)*"/>
+         <xsl:apply-templates select="chapter | meta"/>
      </xsl:template>
      <!--
     <!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
     <!ATTLIST p type NMTOKEN #IMPLIED >
     -->
     <xsl:template match="p">
-        <p align="justify" type="{@type}">
-            <xsl:apply-templates select="( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )*"/>
-        </p>
+        <xsl:choose>
+            <xsl:when test="@type='example'">
+            </xsl:when>
+            <xsl:when test="@type='quota'">
+                <p align="justify">
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                </p>
+            </xsl:when>
+            <xsl:otherwise>
+                <p>
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
-    <!ELEMENT page ( h1 | h2 | h3 | p | ul )* >
+    <!ELEMENT page ( h1 | h2 | h3 | p | ul | details | example)* >
     -->
     <xsl:template match="page">
         <div id="page_header" class="page-header">
@@ -213,7 +265,7 @@
             </xsl:if>
         </div>
         <div id="page_body" class="page-body">
-            <xsl:apply-templates select="(p|ul)"/>
+            <xsl:apply-templates select="p | ul | details | example"/>
         </div>
     </xsl:template>
     <!--
@@ -222,21 +274,21 @@
     -->
     <xsl:template match="person">
         <person name="{@name}">
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </person>
     </xsl:template>
     <!--
     <!ELEMENT term ( #PCDATA | emph | foreign | kursiv ) >
     -->
     <xsl:template match="term">
-        <xsl:apply-templates select="( #PCDATA | emph | foreign | kursiv )"/>
+        <xsl:apply-templates select="text() | emph | foreign | kursiv"/>
     </xsl:template>
     <!--
     <!ELEMENT title ( #PCDATA ) >
     -->
     <xsl:template match="title">
         <title>
-            <xsl:value-of select="current()"/>
+            <xsl:value-of select="text()"/>
         </title>
     </xsl:template>
     <!--
@@ -251,11 +303,11 @@
     <!ELEMENT version ( #PCDATA ) >
     -->
     <xsl:template match="version">
-        <xsl:value-of select="current()"/>
+        <xsl:value-of select="text()"/>
     </xsl:template>
 </xsl:stylesheet>
 
 <!-- XXX <xsl:value-of select="document('celsius.xml')/celsius/result[@value=$value]"/>
-     fuer die Libary
+     fuer die Library
 -->
 
