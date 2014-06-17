@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 use Mojolicious::Lite;
-use XML::XSLT;
+use XML::LibXSLT;
+use XML::LibXML;
 use Data::Printer;
 
 use lib 'lib';
@@ -15,7 +16,7 @@ get '/' => sub {
 };
 
 # Helper to lazy initialize and store our model object
-helper users => sub { state $users = Login->new };
+helper users => sub { state $users = Login->new() };
 
 # /admin/?user=sri&pass=secr3t
 any '/admin/' => sub {
@@ -35,21 +36,23 @@ any '/admin/' => sub {
 
 get '/data/' => sub {
     my $self = shift;
-    my $xslfilename = './res/elearningtextmining.xsl';
+    # my $xslfilename = './res/elearningtextmining.xsl';
+    my $xslfilename = './data/e-Learning-Kurs_Text_Mining/elearningtextmining.xsl';
     my $xmlfilename = './data/e-Learning-Kurs_Text_Mining/kollokationen.xml';
     my $htmlfilename = 'testhtml.html';
 
-    my $xslt = XML::XSLT->new ( $xslfilename, warnings => 1);
-    $xslt->transform ($xmlfilename);
+    my $source = XML::LibXML->load_xml(location => $xmlfilename);
+    my $style_doc = XML::LibXML->load_xml(location=> $xslfilename, , no_cdata=>1);
+    my $xslt = XML::LibXSLT->new ( );
+    my $stylesheet = $xslt->parse_stylesheet($style_doc);
+
+
+    my $results = $stylesheet->transform($source);
     open (my $htmlfile, '>', './public/' . $htmlfilename) or die $!;
-    print $htmlfile  "<!doctype html>" . $xslt->toString;
-    open my $xmlfile , "<", $xmlfilename or die $!;
-    print $xslt->serve <$xmlfile;
+    print $htmlfile  "<!doctype html>\n" . $stylesheet->output_as_bytes($results);
     close $htmlfile;
 
     $self->render_static($htmlfilename);
-
-    $xslt->dispose();
 
 };
 
