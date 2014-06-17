@@ -25,6 +25,12 @@ html {
     height:100%;
 }
 
+
+
+#div_example {
+    background: none repeat scroll 0 0 #555;
+}
+
 .footer-wrap {
     border-top: 1px dashed;
     height: 50px:
@@ -92,3 +98,7 @@ html {
     margin:0 auto -100px; /* negative height footer margin */
 }
 
+.chidden { display: none; }
+.cunhidden { display: block; }
+.hidden { visibility: hidden; }
+.unhidden { visibility: visible; } 

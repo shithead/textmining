@@ -5,6 +5,14 @@
             <head>
                 <title> <xsl:value-of select="course/meta/title"/> </title>
                 <link href="layouts/elearningtextmining.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript">
+                    function unhide(divID) {
+                    var item = document.getElementById(divID);
+                    if (item) {
+                    item.className=(item.className=='hidden')?'unhidden':'hidden';
+                    }
+                    }
+                </script> 
             </head>
             <body>
                 <!-- OPEN GLOBEL DIV -->
@@ -78,12 +86,15 @@
     -->
     <xsl:template match="authors">
         <xsl:apply-templates select="author"/>
+        <!-- wenn noch mehr als 2 AuthorInnen folgen ein ", " setzen -->
         <xsl:if test="position() &lt; last()-1">
             <xsl:text>, </xsl:text>
         </xsl:if>
+        <!-- Wenn der/die vorletzte AuthorIn ist ", and " setzen -->
         <xsl:if test="position()=last()-1">
             <xsl:text>, and </xsl:text>
         </xsl:if>
+        <!-- Wenn letzte(r) AuthorIn ist " " setzen -->
         <xsl:if test="position()=last()">
             <xsl:text> </xsl:text>
         </xsl:if>
@@ -121,12 +132,32 @@
         <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
+    <!ELEMENT details ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+    <!ATTLIST details id ID #REQUIRED >
+    -->
+    <xsl:template match="details">
+        <a href="javascript:unhide('div_details_{@id}');">Details</a> 
+        <div id="div_details_{@id}">
+            <p align="justify">
+                <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+            </p>
+        </div>
+    </xsl:template>
+    <!--
     <!ELEMENT emph ( #PCDATA ) >
     -->
     <xsl:template match="emph">
         <em>
             <xsl:value-of select="text()"/>
         </em>
+    </xsl:template>
+    <!--
+    <!ELEMENT example ( p | ul | details )* >
+    -->
+    <xsl:template match="example">
+        <div id="div_example">
+            <xsl:apply-templates select="p | ul"/>
+        </div>
     </xsl:template>
     <!--
     <!ELEMENT foreign ( #PCDATA ) >
@@ -138,19 +169,25 @@
     <!ELEMENT h1 ( #PCDATA | term )* >
     -->
     <xsl:template match="h1">
-        <xsl:apply-templates select="text() | term"/>
+        <h1>
+            <xsl:apply-templates select="text() | term"/>
+        </h1>
     </xsl:template>
     <!--
     <!ELEMENT h2 ( #PCDATA | term )* >
     -->
     <xsl:template match="h2">
-        <xsl:apply-templates select="text() | term"/>
+        <h2>
+            <xsl:apply-templates select="text() | term"/>
+        </h2>
     </xsl:template>
     <!--
     <!ELEMENT h3 ( #PCDATA | term )* >
     -->
     <xsl:template match="h3">
-        <xsl:apply-templates select="text() | term"/>
+        <h3>
+            <xsl:apply-templates select="text() | term"/>
+        </h3>
     </xsl:template>
     <!--
     <!ELEMENT img EMPTY >
@@ -194,20 +231,22 @@
     -->
     <xsl:template match="p">
         <xsl:choose>
-            <xsl:when test="@type">
-                <p align="justify" type="{@type}">
+            <xsl:when test="@type='example'">
+            </xsl:when>
+            <xsl:when test="@type='quota'">
+                <p align="justify">
                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
                 </p>
             </xsl:when>
             <xsl:otherwise>
-                <p align="justify">
+                <p>
                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
                 </p>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--
-    <!ELEMENT page ( h1 | h2 | h3 | p | ul )* >
+    <!ELEMENT page ( h1 | h2 | h3 | p | ul | details | example)* >
     -->
     <xsl:template match="page">
         <div id="page_header" class="page-header">
@@ -222,7 +261,7 @@
             </xsl:if>
         </div>
         <div id="page_body" class="page-body">
-            <xsl:apply-templates select="p | ul"/>
+            <xsl:apply-templates select="p | ul | details | example"/>
         </div>
     </xsl:template>
     <!--
@@ -265,6 +304,6 @@
 </xsl:stylesheet>
 
 <!-- XXX <xsl:value-of select="document('celsius.xml')/celsius/result[@value=$value]"/>
-     fuer die Libary
+     fuer die Library
 -->
 
