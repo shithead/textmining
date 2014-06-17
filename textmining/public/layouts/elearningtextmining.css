@@ -63,6 +63,10 @@ html {
     text-indent:    -50px;
 }
 
+.navi-sidebar-ul ul ul ul {
+    text-indent: -75px;
+}
+
 .navi-sidebar-wrap {
     float: left;
     min-width: 250px;

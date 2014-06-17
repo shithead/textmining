@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="/">
-        <html>
+            <html>
             <head>
                 <title> <xsl:value-of select="course/meta/title"/> </title>
-                <link href="elearningtextmining.xsl.css" rel="stylesheet" type="text/css" />
+                <link href="layouts/elearningtextmining.css" rel="stylesheet" type="text/css" />
             </head>
             <body>
-    <!-- OPEN GLOBEL DIV -->
+                <!-- OPEN GLOBEL DIV -->
                 <div id="site_wrapper" class="site-wrap">
                     <div id="header_wrapper" class="header-wrap">
                         <div id="header" class="header  cw">
                             <xsl:value-of select="course/module/meta/title"/>
                         </div>
                     </div>
-    <!-- OPEN SITE DIV for navigation and pages -->
+                    <!-- OPEN SITE DIV for navigation and pages -->
                     <div class="site-nc-wrapper">
-    <!-- OPEN NAVI DIV -->
+                        <!-- OPEN NAVI DIV -->
                         <div id="navi-sidebar_wrapper" class="navi-sidebar-wrap">
                             <div id="navi-sidebar" class="navi-sidebar-menu">
-    <!-- OPEN NAVI LISTE  get all headlines and build hierach list elements -->
+                                <!-- OPEN NAVI LISTE  get all headlines and build hierach list elements -->
                                 <ul class="navi-sidebar-ul" id="navi-sidebar-menu__list">
                                     <xsl:for-each select="course/module/chapter/page">
                                         <xsl:if test="h1">
@@ -29,22 +29,22 @@
                                             <xsl:if test="h2">
                                                 <li> <xsl:value-of select="h2"/> </li>
                                             </xsl:if>
-                                            <ul>
-                                                <xsl:if test="h3">
+                                            <xsl:if test="h3">
+                                                <ul>
                                                     <li> <xsl:value-of select="h3"/> </li>
-                                                </xsl:if>
-                                            </ul>
+                                                </ul>
+                                            </xsl:if>
                                         </ul>
                                     </xsl:for-each>
                                 </ul>
                             </div>
                         </div>
-    <!-- BUILD PAGES -->
-                        <xsl:for-each select="course/module/chapter[1]">
+                        <!-- BUILD PAGES -->
+                        <xsl:for-each select="course/module/chapter">
                             <xsl:apply-templates select="current()"/>
                         </xsl:for-each>
                     </div>
-    <!-- FOOTER -->
+                    <!-- FOOTER -->
                     <div id="footer_wrapper" class="footer-wrap">
                         <span>Author:
                             <xsl:for-each select="course/module/meta">

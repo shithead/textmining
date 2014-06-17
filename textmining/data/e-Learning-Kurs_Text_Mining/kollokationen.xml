@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 
-<!DOCTYPE course SYSTEM "elearningtextmining.dtd">
+<!DOCTYPE course SYSTEM "../../res/elearningtextmining.dtd">
 <?xml-stylesheet type="text/xsl" href="elearningtextmining.xsl" ?>
 
 <course>
