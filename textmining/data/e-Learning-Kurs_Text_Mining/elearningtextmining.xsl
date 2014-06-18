@@ -235,8 +235,6 @@
     -->
     <xsl:template match="p">
         <xsl:choose>
-            <xsl:when test="@type='example'">
-            </xsl:when>
             <xsl:when test="@type='quota'">
                 <p align="justify">
                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
