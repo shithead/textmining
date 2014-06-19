@@ -33,6 +33,9 @@ html {
     white-space: nowrap;
 }
 
+.detail {
+}
+
 #div_example {
     background: none repeat scroll 0 0 #555;
 }
@@ -111,8 +114,3 @@ div.page-body bib.message a:hover {
     height:100%;
     margin:0 auto -100px; /* negative height footer margin */
 }
-
-.chidden { display: none; }
-.cunhidden { display: block; }
-.hidden { visibility: hidden; }
-.unhidden { visibility: visible; } 

@@ -6,10 +6,18 @@
                 <title> <xsl:value-of select="course/meta/title"/> </title>
                 <link href="layouts/elearningtextmining.css" rel="stylesheet" type="text/css" />
                 <script type="text/javascript">
-                    function unhide(divID) {
-                    var item = document.getElementById(divID);
-                    if (item) {
-                    item.className=(item.className=='hidden')?'unhidden':'hidden';
+                    function showElementByDisplay(obj,prop) {
+                    var Liste = document.getElementsByClassName(obj);
+                    if(prop == "block") {
+
+                    for (var i = 0; Liste.length > i; i++) {
+                    Liste[i].style.display = "block";
+                    }
+                    }
+                    else if(prop == "none") {
+                    for (var i = 0; Liste.length > i; i++) {
+                    Liste[i].style.display = "none";
+                    }
                     }
                     }
                 </script> 
@@ -45,6 +53,12 @@
                                         </ul>
                                     </xsl:for-each>
                                 </ul>
+                                <p>
+                                    <a href="javascript:showElementByDisplay('detail','none');">Details aus</a>
+                                </p>
+                                <p>
+                                    <a href="javascript:showElementByDisplay('detail','block');">Details ein</a>
+                                </p>
                             </div>
                         </div>
                         <!-- BUILD PAGES -->
@@ -136,16 +150,13 @@
         <xsl:value-of select="text()"/>
     </xsl:template>
     <!--
-    <!ELEMENT details ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+    <!ELEMENT details ( #PCDATA | p | ul )* >
     <!ATTLIST details id ID #REQUIRED >
     -->
     <xsl:template match="details">
-        <a href="javascript:unhide('div_details_{@id}');">Details</a> 
-        <div id="div_details_{@id}">
-            <p align="justify">
-                <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
-            </p>
-        </div>
+        <span class="detail">
+                <xsl:apply-templates select="text() | p | ul"/>
+        </span>
     </xsl:template>
     <!--
     <!ELEMENT emph ( #PCDATA ) >
@@ -160,7 +171,7 @@
     -->
     <xsl:template match="example">
         <div id="div_example">
-            <xsl:apply-templates select="p | ul"/>
+            <xsl:apply-templates select="p | ul | details"/>
         </div>
     </xsl:template>
     <!--
@@ -235,16 +246,14 @@
     -->
     <xsl:template match="p">
         <xsl:choose>
-            <xsl:when test="@type='example'">
-            </xsl:when>
             <xsl:when test="@type='quota'">
                 <p align="justify">
-                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                    <xsl:apply-templates select="text() | a | bib | details | emph | foreign | img | kursiv | person | term"/>
                 </p>
             </xsl:when>
             <xsl:otherwise>
                 <p>
-                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                    <xsl:apply-templates select="text() | a | bib | details | emph | foreign | img | kursiv | person | term"/>
                 </p>
             </xsl:otherwise>
         </xsl:choose>

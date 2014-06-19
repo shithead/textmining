@@ -17,7 +17,7 @@
 
 <!ELEMENT date ( #PCDATA ) >
 
-<!ELEMENT details ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+<!ELEMENT details ( #PCDATA | p | ul )* >
 <!ATTLIST details id ID #REQUIRED >
 
 <!ELEMENT emph ( #PCDATA ) >
@@ -44,7 +44,7 @@
 <!ELEMENT module ( chapter | meta )* >
 <!ATTLIST module id NMTOKEN #REQUIRED >
 
-<!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+<!ELEMENT p ( #PCDATA | a | bib | details | emph | foreign | img | kursiv | person | term )* >
 <!-- NMTOKEN: quota -->
 <!ATTLIST p type NMTOKEN #IMPLIED >
 
