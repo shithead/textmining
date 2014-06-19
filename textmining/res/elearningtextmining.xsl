@@ -162,9 +162,9 @@
     <!ELEMENT emph ( #PCDATA ) >
     -->
     <xsl:template match="emph">
-        <em>
+        <b>
             <xsl:value-of select="text()"/>
-        </em>
+        </b>
     </xsl:template>
     <!--
     <!ELEMENT example ( p | ul | details )* >
