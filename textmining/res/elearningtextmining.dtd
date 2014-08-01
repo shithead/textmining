@@ -32,7 +32,7 @@
 
 <!ELEMENT h3 ( #PCDATA | term )* >
 
-<!ELEMENT img EMPTY >
+<!ELEMENT img >
 <!ATTLIST img src CDATA #REQUIRED >
 
 <!ELEMENT kursiv ( #PCDATA ) >
@@ -48,7 +48,7 @@
 <!-- NMTOKEN: quota -->
 <!ATTLIST p type NMTOKEN #IMPLIED >
 
-<!ELEMENT page ( h1 | h2 | h3 | p | ul | details | example )* >
+<!ELEMENT page ( h1 | h2 | h3 | img | p | ul | details | example )* >
 
 <!ELEMENT person ( #PCDATA | person )* >
 <!ATTLIST person name CDATA #REQUIRED >
