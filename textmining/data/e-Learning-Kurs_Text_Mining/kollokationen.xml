@@ -24,13 +24,13 @@
             <page>
                 <h1>Lernziele des Moduls "Kollokationen"</h1>
                 <p>Nach Bearbeitung des Moduls</p>
-                <ul>
+                <list>
                     <li>können Sie unterschiedliche Definitionsansätze von Kollokationen wiedergeben.</li>
                     <li>sind Sie sich der terminologischen Problematik des Begriffs bewusst.</li>
                     <li>haben Sie ein Grundverständnis für statistische Berechnungen und Begrifflichkeiten, insbesondere für Signifikanzmaße, erworben.</li>
                     <li>sind Sie in der Lage, Ihrer Fragestellung bzw. Hypothese entsprechend aus verschiedenen Parametern zu wählen.</li>
                     <li>haben Sie das Handwerkszeug und die Übung zur Interpretation von Kollokationsprofilen.</li>
-                </ul>
+                </list>
             </page>
         </chapter>
         <chapter id="1">	
@@ -40,11 +40,11 @@
                 <p>Der Begriff <term>Kollokation</term> geht auf <person name="Firth, John Rupert">J. R. Firth</person> (<bib id="Firth1957">1957</bib>) zurück, 
                     der damit charakteristische und <emph>häufig wiederkehrende Wortkombinationen</emph> bezeichnete. Er war der Ansicht, dass man anhand der Kollokatoren eines Wortes, 
                     dessen Bedeutung und Verwendungsweise veranschaulichen kann. </p>
-                <p type="details">Ein Kollokator ist ein Element, also ein einzelnes Wort einer Wortverbindung bzw. Kollokation.</p>
+                <p type="detail">Ein Kollokator ist ein Element, also ein einzelnes Wort einer Wortverbindung bzw. Kollokation.</p>
                 <p>Vielzitiert ist in diesem Zusammenhang der Satz <person name="Firth, John Rupert">Firths</person> <emph>"You shall know a word by the company it keeps"</emph> (<bib id="Firth1957">
                         <person name="Firth, John Rupert">Firth</person> 1957</bib>, in <bib id="Evert2009:1213"><person name="Evert, Stefan">Evert</person> 2009: 1213</bib>).</p>
-                <p type="details">Dieser Ausspruch erinnert an Wittgenstein und seine Gebrauchstheorie der Bedeutung. (vgl. <bib id="Lemnitzer/Zinsmeister 2010:30"> 
-                        <person name="Lemnitzer, Lothar">Lemnitzer</person>/<person name="Zinsmeister, Heike">Zinsmeister</person> 2010:30</bib>)</p>
+                <p type="detail">Dieser Ausspruch erinnert an Wittgenstein und seine Gebrauchstheorie der Bedeutung. (vgl. <bib id="Lemnitzer/Zinsmeister 2010:30"> 
+                            <person name="Lemnitzer, Lothar">Lemnitzer</person>/<person name="Zinsmeister, Heike">Zinsmeister</person> 2010:30</bib>)</p>
                 <p type="example">Beispiele für Kollokationen nach <person name="Firth, John Rupert">Firth</person> wären "Kuh" und "Milch" oder "Tag" und "Nacht".</p>
                 <p>Im Vordergrund steht für ihn bei Kollokationen die <emph>gegenseitige Erwartbarkeit</emph> (<foreign>mutual expectancy</foreign>) der Wörter und somit auch der <emph>Einfluss der Statistik</emph>.</p>
                 <p>Die Definition <person name="Firth, John Rupert">Firths</person> bleibt ein recht vager Ausgangspunkt. Heutzutage werden Kollokationen in der Computerlinguistik, der Phraseologie, der Fremdsprachendidaktik 
@@ -60,24 +60,24 @@
                     Der Kollokator <kursiv>decken</kursiv> aber braucht dringend <kursiv>Basen</kursiv>, um überhaupt etwas zu sein: 
                     <kursiv>Dach decken,</kursiv> <kursiv>Stute decken,</kursiv> <kursiv>Unkosten decken</kursiv>  [...]" (<bib id="Hausmann2004: 312"><person name="Hausmann, Franz Josef">Hausmann</person> 2004: 312</bib>).</p>
                 <p type="example">Weitere Beispiele für Kollokationen nach <person name="Hausmann, Franz Josef">Hausmann</person> sind "Anker lichten" oder "himmelweiter Unterschied".</p>
-                <p type="details">Zusammengefasst sind Kollokationen bei <person name="Hausmann, Franz Josef">Hausmann</person> demnach zweiteilige Wortverbindungen, 
-                    zwischen denen ein Abhängigkeitsverhältnis und eine Rangordnung bestehen.</p>
-                <p type="details">Kollokationen werden auch in <person name="Burger, Harald">Harald Burgers</person> Dreibein-Modell der Phraseologie aufgegriffen, in welchem Phraseologismen in die drei Typen 
+                <p type="detail">Zusammengefasst sind Kollokationen bei <person name="Hausmann, Franz Josef">Hausmann</person> demnach zweiteilige Wortverbindungen, 
+                        zwischen denen ein Abhängigkeitsverhältnis und eine Rangordnung bestehen.</p>
+                <p type="detail">Kollokationen werden auch in <person name="Burger, Harald">Harald Burgers</person> Dreibein-Modell der Phraseologie aufgegriffen, in welchem Phraseologismen in die drei Typen 
                     "Kollokationen", "Idiome" und "Teilidiome" unterteilt sind. Es gilt zu beachten, dass Redewendungen bzw. Idiome von Kollokationen unterschieden werden, da die jeweilige Struktur verschieden ist. 
                     (<bib id="Hausmann2004:313f."><person name="Hausmann, Franz Josef">vgl. Hausmann </person>2004: 313f.</bib>)
-                </p>
+            </p>
                 <p>Auch in der Lexikographie und Fremdsprachendidaktik orientiert man sich am Kollokationsbegriff <person name="Hausmann, Franz Josef">Hausmanns</person>.</p>
-                <p type="details">Seiner Meinung nach herrschte ein Terminologiekrieg um die Besetzung des Begriffs <term>Kollokation,</term> wobei das Nebeneinander der verschiedenen Definitionen 
+                <p type="detail">Seiner Meinung nach herrschte ein Terminologiekrieg um die Besetzung des Begriffs <term>Kollokation,</term> wobei das Nebeneinander der verschiedenen Definitionen 
                     "[...] eine historisch gewachsene Perversion des wissenschaftlichen Diskurses darstellt [...]" (<bib id="Hausmann2004: 320f."><person name="Hausmann, Franz Josef">Hausmann</person> 2004: 320f.</bib>).</p>
             </page>
             <page>
                 <h3>In der Computerlinguistik</h3>
                 <p>sind Kollokationen <emph>lexikalisierte Wortverbindungen mit semantischen oder syntaktischen Besonderheiten</emph>. 
                     Sie sind <emph>nicht kompositionell</emph> und ihre Elemente sind <emph>nicht modifizierbar </emph>und <emph>nicht substituierbar</emph>. </p>
-                <p type="details"><emph>Nicht kompositionell</emph> bedeutet, dass sich die Bedeutung der Kollokation nicht aus ihren einzelnen Elementen ableiten lässt.
+                <p type="detail"><emph>Nicht kompositionell</emph> bedeutet, dass sich die Bedeutung der Kollokation nicht aus ihren einzelnen Elementen ableiten lässt.
                     <emph>Nicht modifizierbar</emph> meint, dass ein Kollokator nicht abgewandelt werden kann, indem beispielsweise statt der Singularform ("Mittel zum Zweck") die Pluralform verwendet wird ("Mittel zu Zwecken").
                     <emph>Nicht substituierbar</emph> heißt, dass ein Element ("zur Sache kommen") nicht durch ein anderes, wenn auch bedeutungsgleiches Element ausgetauscht werden kann ("zur Sache gelangen").
-                </p>
+            </p>
                 <p>Gemäß dieser Definition, können Kollokationen somit beispielsweise im Bereich der maschinellen Übersetzung nicht Wort für Wort in die Zielsprache übertragen werden 
                     und stellen für die maschinelle Sprachverarbeitung im Allgemeinen eine Herausforderung dar.</p>
                 <p>Neuerdings wird der Terminus <term>Kollokation</term> in der Computerlinguistik jedoch durch den weniger vorbelasteten Begriff <term><foreign>multiword expression</foreign></term> abgelöst.</p>
@@ -86,7 +86,7 @@
             <page>
                 <h3>In der Korpuslinguistik</h3>
                 <p>werden Kollokationen zumeist in der Tradition <person name="Firth, John Rupert">Firths</person> als <emph>überzufällig häufig gemeinsames Vorkommen zweier Wörter</emph> ausgelegt. </p>
-                <p type="details">Kann man also mit statistischen Methoden nachweisen, dass "[...] Paare von Wörtern signifikant häufiger miteinander vorkommen, 
+                <p type="detail">Kann man also mit statistischen Methoden nachweisen, dass "[...] Paare von Wörtern signifikant häufiger miteinander vorkommen, 
                     als dies auf Grund einer zufälligen Verteilung von Wörtern in Texten zu erwarten wäre [...]" (<bib id="Lemnitzer/Zinsmeister 2010:15f."> <person name="Lemnitzer, Lothar">Lemnitzer</person>/
                         <person name="Zinsmeister, Heike">Zinsmeister</person>2010:15f.</bib>), so bezeichnet man diese, unabhängig von deren Wohlgeformtheit, als Kollokationen.</p>
                 <p>Um sie von der phraseologischen Definition klar abzugrenzen, erweitern einige Wissenschaftler wie <person name="Evert, Stefan">Evert</person> (<bib id="Evert2009">2009</bib>) oder 
@@ -106,23 +106,23 @@
                 <p>Steyer wiederum sagt: "Wir definieren 'Kookkurrenz' als eine Kohäsionsqualität, die durch mathematisch-statistische Berechnungen ermittelt wird [...]" (<bib id="Steyer2004: 96">
                         <person name="Steyer, Kathrin">Steyer</person> 2004: 96</bib>). Lassen sich die statistisch auffälligen Wortverbindungen darüber hinaus in eine hierarchische Beziehung setzen und 
                     im Sinne <person name="Hausmann, Franz Josef">Hausmanns </person>interpretieren, qualifizieren sie sich außerdem als Kollokationen.</p>
-                <p type="details">Die kontextuelle Verbindung von "Wasser" und "Verbrauch" wäre gemäß der von Steyer oder auch Belica vertretenen Auffassung also eine Kookkurrenz, 
+                <p type="detail">Die kontextuelle Verbindung von "Wasser" und "Verbrauch" wäre gemäß der von Steyer oder auch Belica vertretenen Auffassung also eine Kookkurrenz, 
                     da mittels mathematisch-statistischer Berechnungen ein starker und auffälliger Zusammenhalt der Wörter nachgewiesen werden konnte. Das Wortpaar "sauber" und "Wasser" entspricht zusätzlich noch 
-                    der Definition von <person name="Hausmann, Franz Josef">Hausmann</person> und stellt somit eine Kollokation dar.	</p>
+                    er Definition von <person name="Hausmann, Franz Josef">Hausmann</person> und stellt somit eine Kollokation dar.	</p>
             </page>
             <page>
                 <h2>Und dann wäre da auch noch die Kolligation...</h2>
                 <p>Der Begriff <term>Kolligation</term> findet sich nicht allzu oft in korpuslinguistischer Sekundärliteratur, wird dann aber zumindest einheitlich gebraucht. 
                     Im Gegensatz zur lexikalischen oder inhaltlichen Ebene der Kollokation, steht bei der Kolligation die <emph>innere Struktur</emph>, also die <emph>grammatikalische Ebene</emph> im Vordergrund. 
                     Das Augenmerk liegt dabei auf der <emph>grammatischen Beziehung zwischen Wortpaaren</emph>, wie sie etwa zwischen Verben und Adverbien besteht. </p>
-                <p type="details">Diese, ein Syntagma bildenden Einheiten, erinnern an Kollokationen nach <person name="Hausmann, Franz Josef">Hausmann</person>. 
+                <p type="detail">Diese, ein Syntagma bildenden Einheiten, erinnern an Kollokationen nach <person name="Hausmann, Franz Josef">Hausmann</person>. 
                     <person name="Lemnitzer, Lothar">Lemnitzer</person>/<person name="Zinsmeister, Heike">Zinsmeister</person> führen als Beispiel für eine Kolligation "Antrag stellen" an und bezeichnen im Gegensatz dazu 
                     die frequente Wortverbindung "und er" als Kollokation. </p>
                 <p type="example">Ein Beispiel für eine Kolligation ist "Antrag stellen".</p>
             </page>
             <page>
                 <p>Referenzliteratur:</p>
-                <ul>
+                <list>
                     <li>vgl. Belica </li>
                     <li>vgl. Biemann/Bordag/Quasthoff 2003</li>
                     <li>vgl. Evert 2009: 1212-1214</li>
@@ -132,13 +132,13 @@
                     <li>vgl. Scherer 2006: 46</li>
                     <li>vgl. Steiner 2004: 38f.</li>
                     <li>vgl. Steyer 2004: 96-99</li>
-                </ul> 
+                </list> 
                 <p>Davon lohnenswerte/lesenswerte Vertiefungsliteratur:</p>
-                <ul>
+                <list>
                     <li>vgl. Evert 2009: 1212-1214</li>
                     <li>Perkuhn/Keibel/Kupietz 2012: 112f.</li>
                     <li>Steyer 2004: 96-99</li>
-                </ul>
+                </list>
             </page>
             <page>
                 <img src="">Animation/Bild oder ähnliches</img>
@@ -152,12 +152,12 @@
                 <p>Im Fokus der Korpuslinguistik steht das <emph>Kovorkommen von Wörtern</emph>. Von Interesse ist dabei aber nicht die bloße Kookkurrenz, sondern die Frage, ob eine Art Anziehungskraft zwischen den Wörtern besteht 
                     und deren gemeinsames Auftreten <emph>überzufällig häufig</emph>, wenn nicht gar <emph>signifikant</emph> ist. Dabei gilt es zu beachten, dass die Wörter nicht unmittelbar nebeneinander stehen müssen. 
                     Üblicherweise werden <emph>Textfenster</emph> von fünf Wörtern rechts und links vom Bezugswort als Analysegrundlage herangezogen. </p>
-                <p type="details">Darüber hinaus gibt es aber auch Ansätze, die das signifikant gemeinsame Vorkommen zweier Wörter in einem Textausschnitt (z.B. innerhalb eines Satzteils oder Satzes) untersuchen, 
+                <p type="detail">Darüber hinaus gibt es aber auch Ansätze, die das signifikant gemeinsame Vorkommen zweier Wörter in einem Textausschnitt (z.B. innerhalb eines Satzteils oder Satzes) untersuchen, 
                     was sich vor allem bei Sprachen mit vergleichsweise freier Wortstellung anbietet. Bei einer anderen Herangehensweise werden nur die Wörter als Kookkurrenzen  aufgefasst, 
                     die in direkter oder zum Teil auch indirekter syntaktischer Beziehung stehen. Es werden also nur Kolligationen analysiert. (<bib id="Evert2009:1222f."><person name="Evert, Stefan">vgl. Evert </person>2009: 1222f.</bib> )</p>
                 <p>Dieser statistische Mehrwert gegenüber einer Kookkurrenz soll in der Tradition <person name="Firth, John Rupert">Firths </person>nachfolgend als <emph>Kollokation</emph> bezeichnet werden. 
                     Zwar besteht somit eine Ambiguität zur Begrifflichkeit <person name="Hausmann, Franz Josef">Hausmanns</person>, doch die Aspekte der Wohlgeformtheit und der hierarchischen Determiniertheit bleiben unberücksichtigt. </p>
-                <p type="details">Zusammengefasst heißt das: Wenn zwei Begriffe mittels mathematisch-statistischer Verfahren als auffällig dargestellt werden, handelt es sich um eine Kollokation, 
+                <p type="detail">Zusammengefasst heißt das: Wenn zwei Begriffe mittels mathematisch-statistischer Verfahren als auffällig dargestellt werden, handelt es sich um eine Kollokation, 
                     egal ob die beiden Wörter eine grammatikalisch korrekte oder inhaltlich sinnvolle Einheit bilden oder nicht.</p>
             </page>
         </chapter>
@@ -167,9 +167,9 @@
                 <h2>Kollokationsanalyse</h2>
                 <p>Bei einer Kollokationsanalyse - in der Sekundärliteratur teilweise auch Kookkurrenzanalyse genannt - werden <emph>mithilfe statistischer Verfahren</emph> die <emph>auffälligsten Kollokatoren</emph> oder auch Kookkurrenzpartner 
                     <emph>eines gewählten Bezugswortes</emph> ermittelt. Hierfür müssen einige <emph>Parameter</emph> sowie ein <emph>Signifikanzmaß</emph> festgelegt werden. </p>
-                <p type="details">Diese bilden die Grundlage der Berechnungen und können unterschiedliche Betrachtungsweisen des Korpus wiederspiegeln. Sie sollten daher an die Frage- bzw. Zielstellung angepasst werden.</p>
+                <p type="detail">Diese bilden die Grundlage der Berechnungen und können unterschiedliche Betrachtungsweisen des Korpus wiederspiegeln. Sie sollten daher an die Frage- bzw. Zielstellung angepasst werden.</p>
                 <p>Als Ergebnis einer Kollokationsanalyse wird das Kollokationsprofil eines Bezugswortes angezeigt.</p>
-                <img>"Beispielhaftes Ergebnis einer Kollokationsanalyse"</img>
+                <img src="">"Beispielhaftes Ergebnis einer Kollokationsanalyse"</img>
             </page>
             <page>
                 <h2>Kollokationsprofil</h2>
@@ -184,41 +184,41 @@
                 <p>Grundsätzlich liegt Kollokationen eine binäre Struktur zugrunde: Üblicherweise wird als Resultat einer Kollokationsanalyse für ein Bezugswort eine Liste mit den signifikantesten Kollokatoren erster Ordnung ausgegeben.</p>
                 <p>Ansätze wie bspw. das Clustering erweitern diese Struktur: In einem zweiten Schritt werden nämlich zusätzlich die signifikantesten Kollokatoren von einem Kollokator erster Ordnung berechnet. Auf diese Weise erhält man die Kollokatoren zweiter Ordnung. </p>
                 <p>Man kann dieses Vorgehen auch auf Kollokatoren dritter Ordnung und darüber hinaus anwenden. Die erzielten Ergebnisse bilden dann sozusagen ein Kollokationsnetz, entsprechend der dargestellten Visualisierung:</p>
-                <img>animiertes Kollokationsnetz/Cluster/Graph</img>
+                <img src="" >animiertes Kollokationsnetz/Cluster/Graph</img>
             </page>
         </chapter>
         <chapter id="4">
             <page>
-                <img>Wozu?</img>
+                <img src="">Wozu?</img>
             </page>
         </chapter>
         <chapter id="4">
             <page>
                 <h1>Anwendungsmöglichkeiten</h1>
                 <h2>Wozu kann die Berechnung von Kollokationen dienen?</h2>
-                <ul>
+                <list>
                     <li>Als Hinweis für die Anordnung bzw. Hierarchie von Lesarten eines sprachlichen Zeichens in einem Wörterbuchartikel.</li>
-                    <li type="details">	Welches sind die gängigsten Bedeutungen des Lexems?</li>
+                    <li type="detail">Welches sind die gängigsten Bedeutungen des Lexems?</li>
                     <li>Zur Identifikation, Verifizierung und Beschreibung typischer Wortverbindungen und Wortverbindungphänomene (z.B. Idiome) </li>
-                    <li type="details">	Welche Kollokationen werden verwendet?</li>
-                    <li type="details">	Welche sind besonders gebräuchliche Kollokationen und welche finden sich kaum oder gar nicht?</li>
-                    <li type="details">	In welcher Bedeutung und in welchem Kontext werden sie gebraucht?</li>
+                    <li type="detail">Welche Kollokationen werden verwendet?</li>
+                    <li type="detail">Welche sind besonders gebräuchliche Kollokationen und welche finden sich kaum oder gar nicht?</li>
+                    <li type="detail">In welcher Bedeutung und in welchem Kontext werden sie gebraucht?</li>
                     <li>Gängige grammatische Gebrauchsmuster können ermittelt werden</li>
                     <li>Syntaktische Bindungen können ausfindig gemacht werden</li>
-                    <li type="details">z.B. typische präpositionale Anschlüsse</li>
+                    <li type="detail">z.B. typische präpositionale Anschlüsse</li>
                     <li>Die Bedeutungsfelder eines Wortes werden anschaulich</li>
                     <li>Thematische Felder können ausgemacht werden</li>
                     <li>Die Verwendungsweisen von bestimmten Begriffen im Diskurs können deutlich gemacht werden </li>
                     <li>Kollokationen können als Widerspiegelung von Traditionen des Formulierens bzw. Gebrauchskonventionen untersucht werden</li>
-                </ul>
+                </list>
                 <p>Kollokationsanalysen sind damit auch für die Lexikographie und Lexikologie, die Fremdsprachendidaktik, die Übersetzungswissenschaft und die Diskurslinguistik von besonderer Bedeutung.</p>
             </page>
             <page>
                 <p>Referenzliteratur:</p>
-                <ul>
+                <list>
                     <li>vgl. Lemnitzer/Zinsmeister 2010: 144f.</li>
                     <li>Steyer 2004: 87-94, 103</li>
-                </ul>
+                </list>
             </page>
             <page>
                 <h2>Praxisbezug</h2>
@@ -236,17 +236,17 @@
                     Die 300 Wörterbuchartikel beinhalten eine Validierung des Sprichwortstatus, die Bedeutung, in der das Sprichwort verwendet wird, seine typischen Formvarianten und lexikalischen Ersetzungen, 
                     Beispiele für die textuelle Einbettung des Sprichwortes sowie seine typischen Gebrauchsbesonderheiten. Zudem sind Sprichwort-Äquivalente für andere Sprachen verlinkt. 
                     Das Sprichwörterbuch ist zum einen über die SprichWort-Plattform verfügbar und wurde zum anderen in das Online-Wortschatz-Informationssystem Deutsch (OWID) des Instituts für Deutsche Sprache integriert.</p>
-                <p><a href="http://www.owid.de/index.jsp"/></p>
-                <p><a href="http://www.sprichwort-plattform.org/"/></p>
+                <p><url href="http://www.owid.de/index.jsp"/></p>
+                <p><url href="http://www.sprichwort-plattform.org/"/></p>
             </page>
             <page>
                 <p>Referenzliteratur</p>
-                <ul>
-                    <li><a href="http://www1.ids-mannheim.de/lexik/uwv.html"/></li>
-                    <li><a href="http://www1.ids-mannheim.de/lexik/uwv/uwv.html"/></li>
-                    <li><a href="http://www.owid.de/wb/sprw/start.html"/></li>
-                    <li><a href="http://www1.ids-mannheim.de/lexik/sprichwort/projekt.html"/></li>
-                </ul>
+                <list>
+                    <li><url href="http://www1.ids-mannheim.de/lexik/uwv.html"/></li>
+                    <li><url href="http://www1.ids-mannheim.de/lexik/uwv/uwv.html"/></li>
+                    <li><url href="http://www.owid.de/wb/sprw/start.html"/></li>
+                    <li><url href="http://www1.ids-mannheim.de/lexik/sprichwort/projekt.html"/></li>
+                </list>
             </page>
             <page>
                 <h3>Anwendungsbeispiel aus der Diskurslinguistik</h3>
@@ -272,7 +272,7 @@
         <chapter id="5">
             <page>
                 <h1>Ein bisschen Statistik</h1>
-                <img>Auch das noch!</img>
+                <img src="" >Auch das noch!</img>
                 <p>Statistische Berechnungen spielen eine wesentliche Rolle bei Kollokationsanalysen. Um die Analyseparameter einstellen und die Ergebnisse richtig interpretieren zu können, sollte man gewisse Grundkenntnisse in diesem Bereich erwerben.
                     In den bisherigen Aussagen über Kollokationen fielen bereits die mathematisch-statistischen Begriffe <term>überzufällig häufig </term>und <term>signifikant</term>. Zunächst soll geklärt werden, was genau man darunter versteht:</p>
             </page>
@@ -280,8 +280,9 @@
                 <h2>Überzufällig häufig</h2> 
                 <p>Verteilt man die Wörter in einem Korpus ganz beliebig, so können ein Wort a und ein Wort b <emph>x-mal zufällig</emph> gemeinsam vorkommen. Ist eine Wortverbindung zufällig, so sind die beiden Wörter voneinander unabhängig. 
                     Man nennt dies auch die <emph>Nullhypothese</emph>. Kommen die beiden Wörter aber <emph>häufiger </emph>gemeinsam vor <emph>als x</emph>, so ist dieses Vorkommen <emph>überzufällig häufig</emph>.</p>
-                <p type="details">In natürlichen Sprachen ist auszuschließen, dass Wörter zufällig aufeinandertreffen, da sie  syntaktischen, semantischen und lexikalischen Einschränkungen unterliegen. 
-                    Daher ist die sogenannte Nullhypothese, bei der man davon ausgeht, dass Wort a und Wort b voneinander unabhängig sind und keinerlei Attraktion zwischen ihnen besteht, umstritten.</p>
+                <p type="detail">In natürlichen Sprachen ist auszuschließen, dass Wörter zufällig aufeinandertreffen, da sie  syntaktischen, semantischen und lexikalischen Einschränkungen unterliegen. 
+                        Daher ist die sogenannte Nullhypothese, bei der man davon ausgeht, dass Wort a und Wort b voneinander unabhängig sind und keinerlei Attraktion zwischen ihnen besteht, umstritten.
+                    </p>
                 <p>Denken Sie zurück an Ihren Mathematikunterricht:</p> 
                 <p>Zu Beginn wird die Wahrscheinlichkeitsrechnung oftmals anhand von Würfeln erklärt. Wir wollen das einfachere Beispiel einer Münze heranziehen: Wirft man eine Münze zehnmal, so könnte man erwarten, 
                     dass fünfmal Kopf und fünfmal Zahl erscheint. Zeigt die Münze sechs- oder siebenmal Kopf, so kann das immer noch Zufall sein. Trotzdem <emph>übersteigt </emph>das Ergebnis 
@@ -303,16 +304,19 @@
                 <p>Die sogenannte <emph>Observed Frequency</emph> <quantity>(O)</quantity> ist schlicht die <emph>Anzahl der tatsächlichen Vorkommen</emph> einer Wortverbindung im Korpus. </p>
                 <p>Diese Frequenz sowie das tatsächliche Vorkommen von Bezugswort, Kollokator und der anderen Wörter im Korpus sind erforderlich, um die Signifikanz einer Kollokation berechnen zu können. Man erhält die benötigten Werte, 
                     indem ausgezählt wird: </p>
-                <ul>
+                <list type="ordered" >
                     <li>a) wie oft Wort&#8321; und Wort&#8322; (in einem vorher definierten Textfenster) gemeinsam vorkommen, </li>
                     <li>b) wie oft nur Wort&#8321; vorkommt, </li>
                     <li>c) wie oft Wort&#8322; alleine vorkommt und </li>
                     <li>d) wie oft weder Wort&#8321; noch Wort&#8322; vorkommen, also wie viele Wörter nicht Wort&#8321; oder Wort&#8322; sind.</li>
-                </ul>
+                </list>
                 <p>Es kann hilfreich sein, die beschriebenen Angaben in einer sogenannten Kontingenztabelle zu erfassen. </p>
-                <p type="details">In der Statistik bedeutet "Kontingenz": "Häufigkeit bzw. Grad der Wahrscheinlichkeit des gemeinsamen Auftretens zweier Sachverhalte, Merkmale usw." (Duden online, Stichwort "Kontingenz")</p>
+                <p type="detail">
+                        In der Statistik bedeutet "Kontingenz": "Häufigkeit bzw. Grad der Wahrscheinlichkeit des gemeinsamen Auftretens zweier Sachverhalte, Merkmale usw." (Duden online, Stichwort "Kontingenz")
+                    </p>
             </page>
-            <page><p>Für die beobachtete Frequenz <quantity>(O)</quantity>, wäre diese folgendermaßen aufzubauen:</p>
+            <page>
+                <p>Für die beobachtete Frequenz <quantity>(O)</quantity>, wäre diese folgendermaßen aufzubauen:</p>
 <!-- HIER KONTINGENZTABELLE 1 EINFÜGEN-->
 </page>
 <page>
@@ -322,25 +326,29 @@
 <page>
     <p>Gemäß der beispielhaften Tabelle kommt die Kollokation "heute Abend" also 20-mal im Korpus vor. "Heute" in Verbindung mit anderen Wörtern erscheint 500-mal, "Abend" findet sich 200-mal im Umfeld anderer Wörter. 
         Zudem lassen sich 2000 Wörter zählen, in deren Kontext man weder auf "heute" noch auf "Abend" trifft.</p>
-    <p type="details">Es gilt stets zu beachten, dass sich die Werte auf ein vorher definiertes Textfenster beziehen. </p>
+    <p type="detail">Es gilt stets zu beachten, dass sich die Werte auf ein vorher definiertes Textfenster beziehen. </p>
     <p>Um eine zufällige Verteilung der Wörter ausschließen zu können, spielen neben den tatsächlichen Vorkommen auch die erwarteten Frequenzen eine wichtige Rolle:</p>
 </page>
 <page>
     <h2>Erwartete Frequenz</h2>
     <p>Um zu ermitteln, ob die Wörter gleichmäßig bzw. zufällig im Korpus verteilt sind, betrachtet man die sogenannte erwartete Frequenz <quantity>(E)</quantity>.</p>
-    <p type="details"><quantity>"E</quantity> is important as a reference point for the interpretation of <quantity>O</quantity>, since two frequent words might cooccur quite often purely by chance." 
-        (<bib id="Evert2009:1228"><person name="Evert, Stefan">Evert</person>2009: 1228</bib></p>
+    <p type="detail">
+            <quantity>"E</quantity> is important as a reference point for the interpretation of <quantity>O</quantity>, since two frequent words might cooccur quite often purely by chance." 
+            (<bib id="Evert2009:1228"><person name="Evert, Stefan">Evert</person>2009: 1228</bib>
+        </p>
     <p>Für die Berechnung der <emph>erwarteten Frequenz einer Wortverbindung</emph>, setzt man die <emph>Einzelfrequenzen der Kollokatoren in Relation zur Gesamtgröße des Korpus</emph>. 
         Man zählt also zunächst das Vorkommen (<quantity>f&#8321;</quantity>) von Wort <kursiv>a</kursiv> sowie das Vorkommen (<quantity>f&#8322;</quantity>) von Wort <kursiv>b</kursiv>. 
         In Bezug zur Gesamtzahl (<quantity>N</quantity>) an Worttoken im Korpus berechnet man die sogenannte <emph>Expected Frequency</emph> (<quantity>E</quantity>) dann wie folgt: </p>
     <p><quantity>E</quantity> = <quantity>f&#8321;</quantity> &#8729; <quantity>f&#8322;</quantity> &#8725; <quantity>N</quantity></p>
-    <p type="details"><person name="Evert, Stefan">Evert</person>führt das Ganze etwas detaillierter an dem Beispiel der Kollokation <kursiv>is to</kursiv> aus, welche 260-mal im Brown Korpus vorkommt. 
+    <p type="detail"><person name="Evert, Stefan">Evert</person>führt das Ganze etwas detaillierter an dem Beispiel der Kollokation <kursiv>is to</kursiv> aus, welche 260-mal im Brown Korpus vorkommt. 
         Der Kollokator <kursiv>is</kursiv> weist dabei eine Frequenz von etwa 10000 und <kursiv>to</kursiv> von 26000 pro 1 Million Worttoken auf. Bei einer zufälligen Verteilung der Wörter, würde man die Kollokation etwa 260-mal erwarten. 
         Da dies dem tatsächlichen Vorkommen entspricht, ist <kursiv>is to</kursiv> nicht als signifikant anzusehen. </p>
-    <p type="details">Das erwartete Vorkommen einer zufälligen Wortverbindung berechnet sich dabei folgendermaßen: "<kursiv>to</kursiv> occurs 26 times every 1,000 words on average. 
-        If there is no association between <kursiv>is</kursiv> and <kursiv>to</kursiv>, then each of the 10,000 instances of <kursiv>is</kursiv> in the Brown corpus has a chance of 26/1,000 to be followed by <kursiv>to</kursiv>. 
-        Therefore, we expect around 10,000 X (26/1,000) = 260 occurrences of the bigram <kursiv>is to</kursiv>, provided that there is indeed no association between the words." (<bib id="Evert2009:1225">
-            <person name="Evert, Stefan">Evert</person>2009: 1225</bib>)</p>
+    <p type="detail">
+            Das erwartete Vorkommen einer zufälligen Wortverbindung berechnet sich dabei folgendermaßen: "<kursiv>to</kursiv> occurs 26 times every 1,000 words on average. 
+            If there is no association between <kursiv>is</kursiv> and <kursiv>to</kursiv>, then each of the 10,000 instances of <kursiv>is</kursiv> in the Brown corpus has a chance of 26/1,000 to be followed by <kursiv>to</kursiv>. 
+            Therefore, we expect around 10,000 X (26/1,000) = 260 occurrences of the bigram <kursiv>is to</kursiv>, provided that there is indeed no association between the words." (<bib id="Evert2009:1225">
+                <person name="Evert, Stefan">Evert</person>2009: 1225</bib>)
+        </p>
     <p>Im Grunde gilt eine Kollokation dann als signifikant, wenn die beobachtete Frequenz <quantity>(O)</quantity> die erwartete Frequenz <quantity>(E)</quantity> deutlich übersteigt, 
         wobei stets auch ein gewisser Toleranzbereich einbezogen wird.</p>
     <p>Die meisten Signifikanz- bzw. Assoziationsmaße berücksichtigen dabei jedoch nicht nur <quantity>(O)</quantity> und <quantity>(E)</quantity> der Kollokation, sondern beziehen die beobachtete und erwartete Frequenz 
@@ -351,7 +359,9 @@
     <p>Angelehnt an die Formel <quantity>f&#8321;</quantity> &#8729; <quantity>f&#8322;</quantity> &#8725; <quantity>N</quantity> zur Berechnung der erwarteten Frequenz einer Kollokation 
         berechnen sich die anderen Felder wie folgt:</p>
 <!-- HIER KONTINGENZTABELLE 3 EINFÜGEN-->
-<p type="details">Im Grunde rechnet man für jede Zelle "Reihensumme" &#8725; "Spaltensumme" &#8725; "Gesamtsumme aller Frequenzen".</p>
+<p type="detail">
+        Im Grunde rechnet man für jede Zelle "Reihensumme" &#8725; "Spaltensumme" &#8725; "Gesamtsumme aller Frequenzen".
+</p>
 </page>
 <page>
     <p>Verwendet man das gleiche Beispiel wie bei den beobachteten Frequenzen, ergeben sich diese Werte:</p>
@@ -366,9 +376,11 @@
         kann mithilfe von Signifikanzmaßen ermittelt werden. </p>
     <p>Wie der Name bereits andeutet, geben Signifikanzmaße Aufschluss über die<emph> Signifikanz von Kollokationen</emph> und <emph>bewerten diese</emph> somit <emph>statistisch hinsichtlich ihrer Auffälligkeit</emph>. 
         Dadurch wird man auch auf Wortverbindungen aufmerksam, die vielleicht nicht sehr häufig sind, deren Kombination aber auffällig häufig vorkommt.</p>
-    <p type="details">Von einer bloßen Rekkurrenz eines Wortpaares, also einer hohen Frequenz einer Kollokation, kann man noch nicht auf eine starke Anziehung zwischen zwei Wörtern schließen. 
-        Mithilfe statistischer Signifikanzmaße kann man hingegen den Kohäsionsgrad messen und so ggf. ausschließen, dass zwei Wörter zufällig immer wieder zusammen vorkommen. Im Grunde wird also die Frage beleuchtet, 
-        wie unwahrscheinlich es ist, dass die beiden Wörter rein zufällig zusammen vorkommen und keinerlei Attraktion zwischen ihnen besteht.</p>
+    <p type="detail">
+            Von einer bloßen Rekkurrenz eines Wortpaares, also einer hohen Frequenz einer Kollokation, kann man noch nicht auf eine starke Anziehung zwischen zwei Wörtern schließen. 
+            Mithilfe statistischer Signifikanzmaße kann man hingegen den Kohäsionsgrad messen und so ggf. ausschließen, dass zwei Wörter zufällig immer wieder zusammen vorkommen. Im Grunde wird also die Frage beleuchtet, 
+            wie unwahrscheinlich es ist, dass die beiden Wörter rein zufällig zusammen vorkommen und keinerlei Attraktion zwischen ihnen besteht.
+        </p>
     <p>An dieser Stelle sollen zwei Signifikanzmaße kurz vorgestellt werden.</p>
 </page>
 <page>
@@ -412,7 +424,7 @@
         einer Wortform in Beziehung gesetzt: </p>
     <p><quantity>f</quantity> &#8729; <quantity>r</quantity> &#8776; <quantity>k</quantity></p>
     <p>Diese Formel drückt aus, dass der Rang (<quantity>r</quantity>) einer Wortform, multipliziert mit deren Häufigkeit (<quantity>f</quantity>) in etwa konstant ist.</p>
-    <p type="details">Das bedeutet, dass zum Beispiel die Wortform auf Rang 50 dreimal so häufig im Korpus vorkommen sollte, wie die Wortform auf dem 150ten Listenplatz.</p>
+    <p type="detail">Das bedeutet, dass zum Beispiel die Wortform auf Rang 50 dreimal so häufig im Korpus vorkommen sollte, wie die Wortform auf dem 150ten Listenplatz.</p>
     <p>Mit anderen Worten: </p>
     <p><quantity>f</quantity> &#8764; <!-- HIER BRUCH EINFÜGEN--></p>
     <p>Die Frequenz (<quantity>f</quantity>) einer Wortform in einem Korpus ist annähernd umgekehrt proportional zu ihrer Listenposition (<quantity>r</quantity>).</p>
@@ -421,17 +433,17 @@
 </page>
 <page>
     <p>Man kann dies folgendermaßen visualisieren:</p>
-    <img>Zipfsche Kurve</img>
+    <img src="">Zipfsche Kurve</img>
 </page>
 <page>
     <p>"[...] [T]he main upshot of Zipf’s law is the practical problem that for most words our data about their use will be exceedingly sparse. Only for a few words will we have lots of examples." (<bib id="Manning/Schütze2003:25">
             <person name="Manning, Christopher D.">Manning</person>/<person name="Schütze, Hinrich">Schütze</person>Manning/Schütze 2003: 25</bib>).</p>
-    <p type="details">Zipfs Gesetz vermittelt also ganz allgemein die Erkenntnis: "[...] [W]hat makes frequency-based approaches to language hard is that almost all words are rare." (<bib id="Manning/Schütze2003:29">
+    <p type="detail">Zipfs Gesetz vermittelt also ganz allgemein die Erkenntnis: "[...] [W]hat makes frequency-based approaches to language hard is that almost all words are rare." (<bib id="Manning/Schütze2003:29">
             <person name="Manning, Christopher D.">Manning</person>/<person name="Schütze, Hinrich">Schütze</person>Manning/Schütze 2003: 29</bib>).</p>
 </page>
 <page>
     <p>Referenzliteratur:</p>
-    <ul>
+    <list>
         <li>vgl. Bubenhofer 2009: 137-139</li>
         <li>vgl. Evert 2009: 1224-1228, 1235</li>
         <li>vgl. Heyer/Quasthoff/Wittig 2008: 87-89</li>
@@ -439,13 +451,13 @@
         <li>vgl. Manning/Schütze 2003: 23-29, 171, 174</li>
         <li>vgl. Perkuhn/Keibel/Kupietz 2012: 100-102, 114, 118f</li>
         <li>Onlinequelle: Bubenhofer, Noah (2006-2011)</li>
-    </ul> 
+    </list> 
     <p>Davon lohnenswerte/lesenswerte Vertiefungsliteratur:</p>
-    <ul>
+    <list>
         <li>vgl. Evert 2009: 1224-1239</li>
         <li>Manning/Schütze 2003: 23-29; 168-182</li>
         <li>Perkuhn/Keibel/Kupietz 2012: 100-102; 113-116</li>
-    </ul>
+    </list>
 </page>
 </chapter>
 <chapter id="6">
@@ -454,29 +466,29 @@
         <p>Kommen zwei Wörter immer wieder gemeinsam vor, so liegt es nahe, dass ein funktionaler oder inhaltlicher Zusammenhang zwischen ihnen besteht. Eine starke Anziehungskraft zwischen Bezugswort und Kollokator 
             kann verschiedene Ursachen haben, ist aber zumeist einer paradigmatischen oder statistisch-syntagmatischen Relation geschuldet. </p>
         <p>Mögliche Gründe für einen erhöhten Kohäsionsgrad sind:</p>
-        <ul>
-            <li>a)	Dependenzen (z.B. "Sonne scheint" oder "Hund bellt")</li>
-            <li>b)	b)	Es handelt sich um mehrgliedrige Eigennamen (z.B. New York).</li>
-            <li>c)	Der Kollokator ist ein Ober- oder Unterbegriff des Bezugswortes.</li>
-            <li>d)	Der Kollokator ist ein Synonym oder Antonym des Bezugswortes.</li>
-            <li>e)	Kollokator und Bezugswort sind Teil einer Aufzählung.</li>
-            <li>f)	Die Kollokation ist Teil von oder bildet ein Idiom oder eine Phrase.</li>
-            <li>g)	Kollokator und Bezugswort stehen in kausaler Beziehung (z.B. "Feuer" und "Kurzschluss").</li>
-            <li>h)	Der Kollokator oder das Bezugswort dient als Hilfsmittel oder Werkzeug (z.B. "Lupe" zu "Vergrößerung").</li>
-            <li>i)	Es liegt eine Teil-Ganzes-Beziehung vor (z.B. "Seiten" und "Buch").</li>
-            <li>j)	Der Kollokator oder das Bezugswort drückt einen Handlungsträger oder Objekte einer Handlung aus (z.B. "Amokläufer" und "tötet" oder "Bier" und "trinken").</li>
-            <li>k)	Der Kollokator oder das Bezugswort benennt typische Eigenschaften (z.B. "verschlossen" bei "Tür").</li>
-            <li>l)	Der Kollokator oder das Bezugswort ist eine Maßangabe zu einem Stoff (z.B. "Tonne" zu "Getreide").</li>
-        </ul>
+        <list type="ordered">
+            <li>Dependenzen (z.B. "Sonne scheint" oder "Hund bellt")</li>
+            <li>Es handelt sich um mehrgliedrige Eigennamen (z.B. New York).</li>
+            <li>Der Kollokator ist ein Ober- oder Unterbegriff des Bezugswortes.</li>
+            <li>Der Kollokator ist ein Synonym oder Antonym des Bezugswortes.</li>
+            <li>Kollokator und Bezugswort sind Teil einer Aufzählung.</li>
+            <li>Die Kollokation ist Teil von oder bildet ein Idiom oder eine Phrase.</li>
+            <li>Kollokator und Bezugswort stehen in kausaler Beziehung (z.B. "Feuer" und "Kurzschluss").</li>
+            <li>Der Kollokator oder das Bezugswort dient als Hilfsmittel oder Werkzeug (z.B. "Lupe" zu "Vergrößerung").</li>
+            <li>Es liegt eine Teil-Ganzes-Beziehung vor (z.B. "Seiten" und "Buch").</li>
+            <li>Der Kollokator oder das Bezugswort drückt einen Handlungsträger oder Objekte einer Handlung aus (z.B. "Amokläufer" und "tötet" oder "Bier" und "trinken").</li>
+            <li>Der Kollokator oder das Bezugswort benennt typische Eigenschaften (z.B. "verschlossen" bei "Tür").</li>
+            <li>Der Kollokator oder das Bezugswort ist eine Maßangabe zu einem Stoff (z.B. "Tonne" zu "Getreide").</li>
+        </list>
         <p>Zudem können Kollokationen semantische Kompatibilität, kulturelle Stereotypen oder institutionalisierte Phrasen reflektieren oder einfach als Beschreibung einer realen Situation dienen.</p>
         <p>Die aufgeführten Gründe können zugleich als Interpretationsgrundlage/-hilfe dienen.</p>
     </page>
     <page>
         <p>Referenzliteratur:</p>
-        <ul>
+        <list>
             <li>vgl. Evert 2009: 1218f.</li>
             <li>vgl. Heyer/Quasthoff/Wittig 2008: 24-38, 148f.</li>
-        </ul>
+        </list>
     </page>
 </chapter>
 <chapter id="7">
@@ -484,7 +496,7 @@
         <h1>Parameter</h1>
         <p>Die einer Kollokationsanalyse zugrundeliegenden Parameter <emph>können</emph> je nach Fragestellung bzw. Hypothese <emph>variiert werden</emph> und bieten zugleich die Möglichkeit, <emph>verschiedene Sichtweisen</emph> auf den Untersuchungsgegenstand einzunehmen. 
             Man sollte sich stets bewusst sein, dass die Wahl der Parameter auch den Fokus des Forschers lenkt und <emph>maßgeblich die Ergebnisse der Analyse beeinflusst</emph>.</p>
-        <p type="details"><person name="Evert, Stefan">Evert</person> fasst dies wie folgt zusammen: "The resulting set or ranking of collocations depends on many parameters, including the size and composition of the corpus, 
+        <p type="detail"><person name="Evert, Stefan">Evert</person> fasst dies wie folgt zusammen: "The resulting set or ranking of collocations depends on many parameters, including the size and composition of the corpus, 
             [...], application of frequency thresholds, the definition of cooccurrence used, and the choice of association measure. It is up to the researcher to find a suitable and meaningful combination of parameters, 
             or to draw on results from multiple parameter settings in order to highlight different aspects of collocativity." (<bib id="Evert2009:1243"><person name="Evert, Stefan">Evert</person>2009: 1243</bib>)</p>
         <p>Es ist eine gewisse Herausforderung, dass bei der Entscheidung für die jeweiligen Parameter Annahmen über die Natur des Phänomens vorweggenommen werden müssen. </p>
@@ -498,7 +510,7 @@
         <h2>Die Fenstergröße</h2>
         <p><emph>Kollokationen</emph> müssen nicht zwangsläufig aus zwei Wörtern bestehen, die unmittelbar aufeinander folgen, sondern <emph>können auch diskontinuierlich sein</emph>. Bei einer Kollokationsanalyse <emph>definiert</emph> man daher üblicherweise im Vorfeld den <emph>Ko- bzw. Kontext</emph>, der einbezogen werden soll. "Häufig wird eine Spanne von jeweils fünf Wörtern zur Linken und zur Rechten als der aussagekräftigste Kontext betrachtet [...]." (<bib id="Perkuhn/Keibel/Kupietz2012:111"><person name="Perkuhn, Rainer">Perkuhn</person>/<person name="Keibel, Holger">Keibel</person>/<person name="Kupietz, Marc">Kupietz </person>2012: 111</bib>) 
             Auch hier ist wieder die Fragestellung ausschlaggebend, denn asymmetrische oder sehr eng gefasste <emph>Textfenster</emph> können sich genauso für die Analyse anbieten.</p>
-        <p type="details">Untersucht man beispielsweise die Frage, welche Adjektive eine signifikante Verbindung mit einem bestimmten Substantiv eingehen, so liegt es aufgrund der Wortstellung im Deutschen nahe, 
+        <p type="detail">Untersucht man beispielsweise die Frage, welche Adjektive eine signifikante Verbindung mit einem bestimmten Substantiv eingehen, so liegt es aufgrund der Wortstellung im Deutschen nahe, 
             ein linksseitiges Fenster zu wählen.</p>
         <p>Die Analyseergebnisse werden folgendermaßen dargestellt: Erscheint ein Kollokator als linker Nachbar des Bezugswortes, so wird die Position mit einem "-" gekennzeichnet. 
             -3 würde also bedeuten, dass der Kollokator (z.B. "heiß") die dritte Stelle vor dem Bezugswort (z.B. "Wasser") besetzt.</p>
@@ -507,7 +519,7 @@
         <p>Je nachdem, welche Software man verwendet, kann man sich anzeigen lassen, welche Positionen ein Kollokator wie oft besetzt.</p>
         <p>Bei der Frage der Fenstergröße ist weiterhin die Interpunktion zu berücksichtigen: Handelt es sich noch um eine Kollokation, wenn die beiden Wörter nicht im gleichen Satz stehen? In der Regel werden <emph>Satzgrenzen</emph> innerhalb des definierten Textfensters missachtet, das heißt, dass Kollokationen über Satzgrenzen hinweg berechnet werden. Je nach verwendeter Software kann man dies jedoch ggf. ändern. </p>
         <p>Laut <person name="Evert, Stefan">Evert</person> handelt es sich bei der <emph>Wahl der Fenstergröße</emph> um die <emph>wichtigste Entscheidung</emph>, die der Forscher zu treffen hat. Diese <emph>Willkür</emph> gilt jedoch auch als Kritikpunkt.</p>
-        <p type="details">For a span size of 3, <kursiv>throw a birthday party</kursiv> would be accepted as a coocurrence of (<kursiv>throw</kursiv>, <kursiv>party</kursiv>), but <kursiv>throw a huge birthday party</kursiv> would not.</p>
+        <p type="detail">For a span size of 3, <kursiv>throw a birthday party</kursiv> would be accepted as a coocurrence of (<kursiv>throw</kursiv>, <kursiv>party</kursiv>), but <kursiv>throw a huge birthday party</kursiv> would not.</p>
         <p>Problematisch ist dabei, dass man vorher nicht weiß, welche Positionen der Kollokator bevorzugt. Man sollte die Ergebnisse daher kritisch betrachten und die Parameter <emph>ggf. nachjustieren</emph>. </p>
     </page>
     <page>
@@ -524,10 +536,10 @@
         <p>"Different measures highlight different aspects of collocativity and will hence be more or less appropriate for different tasks [...]" (<bib id="Evert2009:1236"><person name="Evert, Stefan">Evert</person> 2009: 1236</bib>)</p>
         <p>Trotz dieser Auswahl ist es für gewöhnlich ratsam, sich für die Log-likelihood Ratio als Signifikanzmaß zu entscheiden.</p>
         <p>Vertiefungsliteratur zum Thema "Signifikanzmaße":</p>
-        <ul>
+        <list>
             <li>vgl. Evert 2009: 1224-1239</li>
             <li>Manning/Schütze 2003: 163-182</li>
-        </ul>
+        </list>
     </page>
     <page>
         <h2>Lemma, Wortform oder POS</h2>
@@ -539,38 +551,40 @@
         <h3>POS</h3>
         <p>Als eine dritte Möglichkeit kann man einer Kollokationsanalyse die POS, also die Wortarten zugrundelegen. Für die Berechnungen werden die <emph>Kollokatoren</emph> eines Bezugswortes dann <emph>gemäß ihrer Wortart zusammengefasst</emph> und im Kollokationsprofil erscheinen Kürzel, die sich üblicherweise am STTS (<emph>Stuttgart-Tübingen-TagSet</emph>) orientieren. Demzufolge liest man in der Darstellung der Ergebnisse beispielsweise ADV (Adverb) oder VAFIN (finites Hilfsverb) und erfährt so, dass das Bezugswort signifikante Kollokationen mit Adverbien bzw. finiten Hilfsverben bildet.</p>
         <p>Zudem ist es <emph>möglich</emph>, die berechneten Kollokationen <emph>nach Wortarten zu filtern</emph>. In einigen Programmen steht hierfür ein Drop-Down Menü zur Verfügung, aus welchem man mittels der erwähnten Kürzel aus den annotierten Wortarten wählen kann. Auf diese Weise kann man sich, absteigend sortiert nach Signifikanz oder Frequenz, beispielsweise eine Liste der Eigennamen (NE) oder Interjektionen (ITJ) ausgeben lassen, welche als Kollokatoren des Bezugswortes auftreten. Dies ermöglicht eine andere Perspektive und eine gezieltere Suche.</p>
-        <p>Siehe dazu: <a href="http://www.ims.uni-stuttgart.de/forschung/ressourcen/lexika/TagSets/stts-table.html">STTS-Table</a></p>
+        <p>Siehe dazu: <url href="http://www.ims.uni-stuttgart.de/forschung/ressourcen/lexika/TagSets/stts-table.html">STTS-Table</url></p>
     </page>
     <page>
         <h2>Funktionswörter</h2>
         <p>Je nachdem, welche Software zur Berechnung und Analyse von Kollokationen verwendet wird, können möglicherweise Funktionswörter ein- oder ausgeschlossen werden. Es handelt sich dabei um <emph>Wortarten, die eine grammatische Funktion erfüllen, jedoch keine eigene Bedeutung haben</emph>, wie z.B. Artikel oder Konjunktionen. Schließt man Funktionswörter bzw. Synsemantika aus der Kollokationsanalyse aus, werden also nur bedeutungstragende Wörter wie Substantive und Verben in den Ergebnissen angezeigt. 
-            Wie üblich hängt die Wahl der Parameter von der Fragestellung ab. Will man beispielsweise syntaktische Aspekte beleuchten <!-- nachfolgende Klammer gehört auf DETAIL-Ebene-->(, interessiert man sich z.B. für präpositionale Anschlüsse oder Genitivobjekte), spielen Funktionswörter sicherlich eher eine Rolle, als bei thematischen oder inhaltlichen Fragestellungen <!-- nachfolgende Klammer gehört auf DETAIL-Ebene-->(wie z.B. der Frage nach typischen Verwendungskontexten eines Bezugswortes).</p>
+            Wie üblich hängt die Wahl der Parameter von der Fragestellung ab. Will man beispielsweise syntaktische Aspekte beleuchten <detail>(, interessiert man sich z.B. für präpositionale Anschlüsse oder Genitivobjekte)</detail>, spielen Funktionswörter sicherlich eher eine Rolle, als bei thematischen oder inhaltlichen Fragestellungen <detail>(wie z.B. der Frage nach typischen Verwendungskontexten eines Bezugswortes)</detail>.</p>
     </page>
     <page>
         <p>Referenzliteratur:</p>
-        <ul>
+        <list>
             <li>vgl. Evert 2009: 1215-1217, 1220f., 1243-1245</li>
             <li>vgl. Perkuhn 119, 124</li>
             <li>vgl. Steyer 113</li>
-        </ul>
+        </list>
     </page>
 </chapter>
 <chapter id="8">
     <page>
         <h1>Training</h1>
         <h2>Freies Experimentieren </h2>
-        <ul> <!-- entweder als Liste oder als einzelne Absätze, auf jeden Fall sollten die Aufgaben nummeriert und irgendwie optisch abgesetzt werden-->
+        <list type="ordered"> <!-- irgendwie optisch abgesetzt werden-->
             <li type="exercise">Ändern Sie den Parameter <term>Fenstergröße</term> für ein beliebiges Suchwort von -3/+3 zu -5/+5 und anschließend zu -1/-1 und +1/+1. Wie verändern sich die Ergebnisse?</li>
             <li type="exercise">Wechseln Sie bei einem Suchwort Ihrer Wahl zwischen den Parametern <term>Wortform</term>, <term>Lemma</term> und <term>POS</term>. Wie verändern sich die Ergebnisse?</li>
             <li type="exercise">Probieren Sie aus, was Sie mithilfe einer Kollokationsanalyse über ein willkürlich bestimmtes Wort in Erfahrung bringen können.</li>
-        </ul>
-        <h2>Angeleitetes Experimentieren</h2><!-- entweder als Liste oder als einzelne Absätze, auf jeden Fall sollten die Aufgaben nummeriert und irgendwie optisch abgesetzt werden-->
-        <p type="exercise">Vergleichen Sie den Wörterbucheintrag eines Lexems Ihrer Wahl mit dessen Kollokationsprofil. Welche Unterschiede und Gemeinsamkeiten können Sie (hinsichtlich Anordnung der Lesarten, Beispiele für Verwendungsweisen, Vollständigkeit...) feststellen?</p>
-        <p type="exercise">Prüfen Sie, ob die Kollokation X + Y frequenter und/oder signifikanter ist, als X2 + Y2. Beschreiben Sie Ihr Vorgehen und überlegen Sie, was die Gründe für Ihr Ergebnis sein könnten.</p>
-        <p type="exercise">Vergleichen Sie die Kollokationsprofile der beiden Verben X und Y und entscheiden Sie, ob es sich um bedeutungsgleiche Wörter handelt. Dokumentieren Sie Ihr Vorgehen und begründen Sie Ihre Meinung.</p>
-        <p type="exercise">Unteraufgabe: Welchen Themen/Bereichen lassen sich die jeweiligen Kollokatoren zuordnen?</p>
-        <p type="exercise">Führen Sie Kollokationsanalysen zu politischen Schlagwörtern, z.B. zu "Freiheit" durch. Finden Sie Differenzen zwischen den Parteien? Erklären und deuten Sie die Unterschiede.</p>
-        <p type="exercise">Laut Duden ist sowohl "der" als auch "das" Bonbon/Joghurt richtig. Doch welcher Artikel ist der gebräuchlichere? Skizzieren Sie, welche Vorgehensweisen bzw. Suchanfragen möglich sind, um diese Frage zu beantworten.  </p>
+        </list>
+        <h2>Angeleitetes Experimentieren</h2><!-- irgendwie optisch abgesetzt werden-->
+        <list type="ordered"> 
+            <li type="exercise">Vergleichen Sie den Wörterbucheintrag eines Lexems Ihrer Wahl mit dessen Kollokationsprofil. Welche Unterschiede und Gemeinsamkeiten können Sie (hinsichtlich Anordnung der Lesarten, Beispiele für Verwendungsweisen, Vollständigkeit...) feststellen?</li>
+            <li type="exercise">Prüfen Sie, ob die Kollokation X + Y frequenter und/oder signifikanter ist, als X2 + Y2. Beschreiben Sie Ihr Vorgehen und überlegen Sie, was die Gründe für Ihr Ergebnis sein könnten.</li>
+            <li type="exercise">Vergleichen Sie die Kollokationsprofile der beiden Verben X und Y und entscheiden Sie, ob es sich um bedeutungsgleiche Wörter handelt. Dokumentieren Sie Ihr Vorgehen und begründen Sie Ihre Meinung.</li>
+            <li type="exercise">Unteraufgabe: Welchen Themen/Bereichen lassen sich die jeweiligen Kollokatoren zuordnen?</li>
+            <li type="exercise">Führen Sie Kollokationsanalysen zu politischen Schlagwörtern, z.B. zu "Freiheit" durch. Finden Sie Differenzen zwischen den Parteien? Erklären und deuten Sie die Unterschiede.</li>
+            <li type="exercise">Laut Duden ist sowohl "der" als auch "das" Bonbon/Joghurt richtig. Doch welcher Artikel ist der gebräuchlichere? Skizzieren Sie, welche Vorgehensweisen bzw. Suchanfragen möglich sind, um diese Frage zu beantworten.  </li>
+        </list>
     </page>
 </chapter>
 <chapter id="9">
@@ -592,7 +606,7 @@
                 <option>
                     <text>Nein</text>
                     <action>
-                        <text>J.R. Firth brachte den Begriff <term>Kollokation</term> auf und wird in diesem Zusammenhang daher vielfach erwähnt. Bekannt ist sein Ausspruch "You shall know a word by the company it keeps", denn seiner Meinung nach lassen die Kollokatoren auf die Bedeutung und Verwendungsweise des Bezugswortes schließen. Im Hinblick auf Kollokationen spricht Firth von <term>häufig wiederkehrenden Wortkombinationen</term>, von <term>Rekkurrenz</term> und <term>gegenseitiger Erwartbarkeit</term> (<foreign>mutual expectancy</foreign>). </text>
+                        <text>J.R. Firth brachte den Begriff <term>Kollokation</term> auf und wird in diesem Zusammenhang daher vielfach erwähnt. Bekannt ist sein Ausspruch "You shall know a word by the company it keeps", denn seiner Meinung nach lassen die Kollokatoren auf die Bedeutung und Verwendungsweise des Bezugswortes schließen. Im Hinblick auf Kollokationen spricht Firth von <term>häufig wiederkehrenden Wortkombinationen</term>, von <term>Rekkurrenz</term> und <term>gegenseitiger Erwartbarkeit</term> (<term><foreign>mutual expectancy</foreign></term>). </text>
                         <url href="" >LINK zu Was ist eine Kollokation?</url>
                     </action>
                 </option>
@@ -743,12 +757,13 @@
                 <option>
                     <text>Nein</text>
                     <action>
-                        <text><ul>
-                                <li> wie oft Wort&#8321; und Wort&#8322; (in einem vorher definierten Textfenster) gemeinsam vorkommen</li>, 
-                                <li> wie oft nur Wort&#8321; vorkommt</li>, 
+                        <text>
+                            <list>
+                                <li> wie oft Wort&#8321; und Wort&#8322; (in einem vorher definierten Textfenster) gemeinsam vorkommen,</li>
+                                <li> wie oft nur Wort&#8321; vorkommt,</li>
                                 <li>wie oft Wort&#8322;  alleine vorkommt</li>
                                 <li>wie viele Wörter nicht Wort&#8321; oder Wort&#8322; sind. </li>
-                            </ul>
+                            </list>
                             <p>Für alle vier Werte sind die beobachtete sowie die erwartete Frequenz anzugeben.</p>
                         </text>
                         <url href="" >LINK zu Beobachtete Frequenz</url>
@@ -789,13 +804,13 @@
                     <text>Nein</text>
                     <action>
                         <text><p>Mögliche Gründe für einen erhöhten Kohäsionsgrad sind:</p>
-                            <ul>
+                            <list type="ordered" >
                                 <li>a)	Es handelt sich um Eigennamen.</li>
                                 <li>b)	Kollokator und Bezugswort sind Teil einer Aufzählung.</li>
                                 <li>c)	Die Kollokation ist Teil von oder bildet ein Idiom oder eine Phrase.</li>
                                 <li>d)	Es liegt eine Teil-Ganzes-Beziehung vor (z.B. <kursiv>Seiten</kursiv> und <kursiv>Buch</kursiv>).</li>
                                 <li>e)	Der Kollokator oder das Bezugswort benennt typische Eigenschaften.</li>
-                            </ul>
+                            </list>
                         </text>
                         <url href="" >LINK zu Mögliche Gründe für die Kohäsion von Wörtern</url>
                     </action>
@@ -868,27 +883,27 @@
         <h1>Spiel</h1>
         <p>Auf welches Wort beziehen sich wohl die Kollokatoren des folgenden Graphen?</p>
         <p>Tragen Sie Ihre Lösung direkt in das leere Feld im Zentrum ein.</p>
-        <img>Graph1</img>
+        <img src="" >Graph1</img>
     </page>
     <page>
         <p>Auf welches Wort beziehen sich wohl die Kollokatoren des folgenden Graphen?</p>
         <p>Tragen Sie Ihre Lösung direkt in das leere Feld im Zentrum ein.</p>
-        <img>Graph2</img>
+        <img src="">Graph2</img>
     </page>
     <page>
         <p>Auf welches Wort beziehen sich wohl die Kollokatoren des folgenden Graphen?</p>
         <p>Tragen Sie Ihre Lösung direkt in das leere Feld im Zentrum ein.</p>
-        <img>Graph3</img>
+        <img src="">Graph3</img>
     </page>
     <page>
         <p>Auf welches Wort beziehen sich wohl die Kollokatoren des folgenden Graphen?</p>
         <p>Tragen Sie Ihre Lösung direkt in das leere Feld im Zentrum ein.</p>
-        <img>Graph4</img>
+        <img src="">Graph4</img>
     </page>
     <page>
         <p>Auf welches Wort beziehen sich wohl die Kollokatoren des folgenden Graphen?</p>
         <p>Tragen Sie Ihre Lösung direkt in das leere Feld im Zentrum ein.</p>
-        <img>Graph5</img>
+        <img src="">Graph5</img>
     </page>
 </chapter>
 </module>
