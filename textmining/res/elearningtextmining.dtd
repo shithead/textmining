@@ -1,5 +1,7 @@
-<!ELEMENT a ( #PCDATA ) >
-<!ATTLIST a href CDATA #REQUIRED >
+<!ELEMENT action ( text | url )+ >
+
+<!ELEMENT answer ( option )+ >
+<!ATTLIST answer type ( single | multi )  #IMPLIED >
 
 <!ELEMENT author ( #PCDATA ) >
 
@@ -10,19 +12,18 @@
 <!ATTLIST bib page CDATA #IMPLIED>
 
 <!ELEMENT chapter ( page+ ) >
-<!ATTLIST chapter id NMTOKEN #REQUIRED >
+<!ATTLIST chapter id CDATA #REQUIRED >
 <!ATTLIST chapter type NMTOKEN #IMPLIED >
+
+<!ELEMENT check ( question, answer )+ >
 
 <!ELEMENT course ( meta, module ) >
 
 <!ELEMENT date ( #PCDATA ) >
 
-<!ELEMENT details ( #PCDATA | p | ul )* >
-<!ATTLIST details id ID #REQUIRED >
+<!ELEMENT detail ( #PCDATA ) >
 
 <!ELEMENT emph ( #PCDATA ) >
-
-<!ELEMENT example ( p | ul | details )* >
 
 <!ELEMENT foreign ( #PCDATA ) >
 
@@ -32,31 +33,44 @@
 
 <!ELEMENT h3 ( #PCDATA | term )* >
 
-<!ELEMENT img >
+<!ELEMENT img ( #PCDATA ) >
 <!ATTLIST img src CDATA #REQUIRED >
 
 <!ELEMENT kursiv ( #PCDATA ) >
 
-<!ELEMENT li ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
+<!ELEMENT li ( #PCDATA | bib | emph | foreign | img | kursiv | person | url | term )* >
+<!ATTLIST li type ( detail | exercise ) #IMPLIED >
+
+<!ELEMENT list ( li )+ >
+<!ATTLIST list type ( ordered ) #IMPLIED >
 
 <!ELEMENT meta ( title, version, date, authors ) >
 
-<!ELEMENT module ( chapter | meta )* >
+<!ELEMENT module ( meta, chapter+ ) >
 <!ATTLIST module id NMTOKEN #REQUIRED >
 
-<!ELEMENT p ( #PCDATA | a | bib | details | emph | foreign | img | kursiv | person | term )* >
-<!-- NMTOKEN: quota -->
-<!ATTLIST p type NMTOKEN #IMPLIED >
+<!ELEMENT option ( text, action ) >
 
-<!ELEMENT page ( h1 | h2 | h3 | img | p | ul | details | example )* >
+<!ELEMENT p ( #PCDATA | bib | detail | emph | foreign | img | kursiv | person | quantity | url | term )* >
+<!ATTLIST p type ( detail | example | quote ) #IMPLIED >
+
+<!ELEMENT page ( check | h1 | h2 | h3 | img | list | p )* >
 
 <!ELEMENT person ( #PCDATA | person )* >
 <!ATTLIST person name CDATA #REQUIRED >
 
 <!ELEMENT term ( #PCDATA | emph | foreign | kursiv )* >
 
+<!ELEMENT text ( #PCDATA | list | p | term )* >
+
 <!ELEMENT title ( #PCDATA ) >
 
-<!ELEMENT ul ( li+ ) >
+<!ELEMENT quantity ( #PCDATA ) >
+
+<!ELEMENT question ( text ) >
+
+<!ELEMENT url ( #PCDATA ) >
+<!ATTLIST url href CDATA #REQUIRED >
 
 <!ELEMENT version ( #PCDATA ) >
+

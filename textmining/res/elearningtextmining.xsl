@@ -6,20 +6,6 @@
                 <title> <xsl:value-of select="course/meta/title"/> </title>
                 <link href="layouts/elearningtextmining.css" rel="stylesheet" type="text/css" />
                 <script type="text/javascript">
-                    function showElementByDisplay(obj,prop) {
-                    var Liste = document.getElementsByClassName(obj);
-                    if(prop == "block") {
-
-                    for (var i = 0; Liste.length > i; i++) {
-                    Liste[i].style.display = "block";
-                    }
-                    }
-                    else if(prop == "none") {
-                    for (var i = 0; Liste.length > i; i++) {
-                    Liste[i].style.display = "none";
-                    }
-                    }
-                    }
                 </script> 
             </head>
             <body>
@@ -36,29 +22,23 @@
                         <div id="navi-sidebar_wrapper" class="navi-sidebar-wrap">
                             <div id="navi-sidebar" class="navi-sidebar-menu">
                                 <!-- OPEN NAVI LISTE  get all headlines and build hierach list elements -->
-                                <ul class="navi-sidebar-ul" id="navi-sidebar-menu__list">
+                                <ol class="navi-sidebar-ol" id="navi-sidebar-menu__list">
                                     <xsl:for-each select="course/module/chapter/page">
                                         <xsl:if test="h1">
                                             <li> <xsl:value-of select="h1"/> </li>
                                         </xsl:if>
-                                        <ul>
+                                        <ol>
                                             <xsl:if test="h2">
                                                 <li> <xsl:value-of select="h2"/> </li>
                                             </xsl:if>
                                             <xsl:if test="h3">
-                                                <ul>
+                                                <ol>
                                                     <li> <xsl:value-of select="h3"/> </li>
-                                                </ul>
+                                                </ol>
                                             </xsl:if>
-                                        </ul>
+                                        </ol>
                                     </xsl:for-each>
-                                </ul>
-                                <p>
-                                    <a href="javascript:showElementByDisplay('detail','none');">Details aus</a>
-                                </p>
-                                <p>
-                                    <a href="javascript:showElementByDisplay('detail','block');">Details ein</a>
-                                </p>
+                                </ol>
                             </div>
                         </div>
                         <!-- BUILD PAGES -->
@@ -67,7 +47,7 @@
                         </xsl:for-each>
                     </div>
                     <!-- FOOTER -->
-                    <div id="footer_wrapper" class="footer-wrap">
+                    <footer id="footer_wrapper" class="footer-wrap">
                         <span>Author:
                             <xsl:for-each select="course/module/meta">
                                 <xsl:apply-templates select="authors"/>
@@ -76,28 +56,31 @@
                         <span>Erstellt:
                             <xsl:value-of select="course/module/meta/date"/>
                         </span>
-                    </div>
+                    </footer>
                 </div>
             </body>
         </html>
+    </xsl:template>
 
+    <xsl:template match="action">
+        <xsl:apply-templates select="text | url"/>
     </xsl:template>
-    <!--
-    <!ELEMENT a ( #PCDATA ) >
-    <!ATTLIST a href CDATA #REQUIRED >
-    -->
-    <xsl:template match="a">
-        <a href="{@href}"><xsl:value-of select="text()"/></a>
+
+    <xsl:template match="answer">
+        <xsl:choose>
+            <xsl:when test="@type='multi'">
+                <xsl:apply-templates select="option"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="option"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <!--
-    <!ELEMENT author ( #PCDATA ) >
-    -->
+
     <xsl:template match="author">
         <xsl:value-of select="text()"/>
     </xsl:template>
-    <!--
-    <!ELEMENT authors ( author+ ) >
-    -->
+
     <xsl:template match="authors">
         <xsl:apply-templates select="author"/>
         <!-- wenn noch mehr als 2 AuthorInnen folgen ein ", " setzen -->
@@ -113,11 +96,7 @@
             <xsl:text> </xsl:text>
         </xsl:if>
     </xsl:template>
-    <!--
-    <!ELEMENT bib ( #PCDATA | person )* >
-    <!ATTLIST bib id CDATA #REQUIRED >
-    <!ATTLIST bib page CDATA #IMPLIED>
-    -->
+
     <xsl:template match="bib">
         <bib class="message" id="{@id}" page="{@page}">
             <span>
@@ -127,140 +106,122 @@
             </span>
         </bib>
     </xsl:template>
-    <!--
-    <!ELEMENT chapter ( page+ ) >
-    <!ATTLIST chapter id NMTOKEN #REQUIRED >
-    <!ATTLIST chapter type NMTOKEN #IMPLIED >
-    -->
+
     <xsl:template match="chapter">
         <div id="chapter_wrapper_{@id}" class="chapter-wrap" type="{@type}">
             <xsl:apply-templates select="page"/>
         </div>
     </xsl:template>
-    <!--
-    <!ELEMENT course ( meta, module ) >
-    -->
+
+    <xsl:template match="check">
+        <xsl:apply-templates select="question | answer"/>
+    </xsl:template>
+
     <xsl:template match="course">
         <xsl:apply-templates select="meta | module"/>
     </xsl:template>
-    <!--
-    <!ELEMENT date ( #PCDATA ) >
-    -->
+
     <xsl:template match="date">
         <xsl:value-of select="text()"/>
     </xsl:template>
-    <!--
-    <!ELEMENT details ( #PCDATA | p | ul )* >
-    <!ATTLIST details id ID #REQUIRED >
-    -->
-    <xsl:template match="details">
-        <span class="detail">
-                <xsl:apply-templates select="text() | p | ul"/>
+
+    <!-- TODO wird im html nicht erstellt -->
+    <xsl:template match="detail">
+        <span class="hidden">
+            <xsl:apply-templates select="text()"/>
         </span>
     </xsl:template>
-    <!--
-    <!ELEMENT emph ( #PCDATA ) >
-    -->
+
     <xsl:template match="emph">
         <b>
             <xsl:value-of select="text()"/>
         </b>
     </xsl:template>
-    <!--
-    <!ELEMENT example ( p | ul | details )* >
-    -->
-    <xsl:template match="example">
-        <div id="div_example">
-            <xsl:apply-templates select="p | ul | details"/>
-        </div>
-    </xsl:template>
-    <!--
-    <!ELEMENT foreign ( #PCDATA ) >
-    -->
+
     <xsl:template match="foreign">
         <xsl:value-of select="text()"/>
     </xsl:template>
-    <!--
-    <!ELEMENT h1 ( #PCDATA | term )* >
-    -->
+
     <xsl:template match="h1">
         <h1>
             <xsl:apply-templates select="text() | term"/>
         </h1>
     </xsl:template>
-    <!--
-    <!ELEMENT h2 ( #PCDATA | term )* >
-    -->
+
     <xsl:template match="h2">
         <h2>
             <xsl:apply-templates select="text() | term"/>
         </h2>
     </xsl:template>
-    <!--
-    <!ELEMENT h3 ( #PCDATA | term )* >
-    -->
+
     <xsl:template match="h3">
         <h3>
             <xsl:apply-templates select="text() | term"/>
         </h3>
     </xsl:template>
-    <!--
-    <!ELEMENT img EMPTY >
-    <!ATTLIST img src CDATA #REQUIRED >
-    -->
+
     <xsl:template match="img">
         <img src="{@src}"></img>
     </xsl:template>
-    <!--
-    <!ELEMENT kursiv ( #PCDATA ) >
-    -->
+
     <xsl:template match="kursiv">
         <i>
             <xsl:value-of select="text()"/>
         </i>
     </xsl:template>
-    <!--
-    <!ELEMENT li ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
-    -->
+
     <xsl:template match="li">
-        <li>
-            <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
-        </li>
+        <xsl:choose>
+            <xsl:when test="@type='detail'">
+                <li class="hidden">
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                </li>
+            </xsl:when>
+            <xsl:otherwise>
+                <li>
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                </li>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <!--
-    <!ELEMENT meta ( title, version, date, authors ) >
-    -->
+
     <xsl:template match="meta">
         <xsl:apply-templates select="title | version | date | authors"/>
     </xsl:template>
-    <!--
-    <!ELEMENT module ( chapter | meta )* >
-    <!ATTLIST module id NMTOKEN #REQUIRED >
-    -->
-     <xsl:template match="module">
-         <xsl:apply-templates select="chapter | meta"/>
-     </xsl:template>
-     <!--
-    <!ELEMENT p ( #PCDATA | a | bib | emph | foreign | img | kursiv | person | term )* >
-    <!ATTLIST p type NMTOKEN #IMPLIED >
-    -->
+
+    <xsl:template match="module">
+        <xsl:apply-templates select="chapter | meta"/>
+    </xsl:template>
+
+    <xsl:template match="option">
+        <xsl:apply-templates select="text | action"/>
+    </xsl:template>
+
     <xsl:template match="p">
         <xsl:choose>
-            <xsl:when test="@type='quota'">
+            <xsl:when test="@type='quote'">
                 <p align="justify">
-                    <xsl:apply-templates select="text() | a | bib | details | emph | foreign | img | kursiv | person | term"/>
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                </p>
+            </xsl:when>
+            <xsl:when test="@type='detail'">
+                <p class="hidden">
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                </p>
+            </xsl:when>
+            <xsl:when test="@type='example'">
+                <p class="example">
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
                 </p>
             </xsl:when>
             <xsl:otherwise>
                 <p>
-                    <xsl:apply-templates select="text() | a | bib | details | emph | foreign | img | kursiv | person | term"/>
+                    <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
                 </p>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!--
-    <!ELEMENT page ( h1 | h2 | h3 | p | ul | details | example)* >
-    -->
+
     <xsl:template match="page">
         <div id="page_header" class="page-header">
             <xsl:if test="h1">
@@ -274,43 +235,57 @@
             </xsl:if>
         </div>
         <div id="page_body" class="page-body">
-            <xsl:apply-templates select="p | ul | details | example"/>
+            <xsl:apply-templates select="p | list"/>
         </div>
     </xsl:template>
-    <!--
-    <!ELEMENT person ( #PCDATA )* >
-    <!ATTLIST person name CDATA #REQUIRED >
-    -->
+
     <xsl:template match="person">
         <person name="{@name}">
             <xsl:value-of select="text()"/>
         </person>
     </xsl:template>
-    <!--
-    <!ELEMENT term ( #PCDATA | emph | foreign | kursiv ) >
-    -->
+
     <xsl:template match="term">
         <xsl:apply-templates select="text() | emph | foreign | kursiv"/>
     </xsl:template>
-    <!--
-    <!ELEMENT title ( #PCDATA ) >
-    -->
+
+    <xsl:template match="text">
+        <xsl:apply-templates select="text() | list | p | term"/>
+    </xsl:template>
+
     <xsl:template match="title">
         <title>
             <xsl:value-of select="text()"/>
         </title>
     </xsl:template>
-    <!--
-    <!ELEMENT ul ( li+ ) >
-    -->
-    <xsl:template match="ul">
-        <ul>
-            <xsl:apply-templates select="li"/>
-        </ul>
+
+    <xsl:template match="list">
+        <xsl:choose>
+            <xsl:when test="@type='ordered'">
+                <ol>
+                    <xsl:apply-templates select="li"/>
+                </ol>
+            </xsl:when>
+            <xsl:otherwise>
+                <ul>
+                    <xsl:apply-templates select="li"/>
+                </ul>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <!--
-    <!ELEMENT version ( #PCDATA ) >
-    -->
+
+    <xsl:template match="quantity">
+        <xsl:value-of select="text()"/>
+    </xsl:template>
+
+    <xsl:template match="question">
+        <xsl:apply-templates select="text"/>
+    </xsl:template>
+
+    <xsl:template match="url">
+        <a href="{@href}"><xsl:value-of select="text()"/></a>
+    </xsl:template>
+
     <xsl:template match="version">
         <xsl:value-of select="text()"/>
     </xsl:template>
