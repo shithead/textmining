@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="elearningtextmining.xsl" ?>
-<!DOCTYPE course SYSTEM "../../res/elearningtextmining.dtd">
+<?xml-stylesheet type="text/xsl" href="course.xsl" ?>
+<!DOCTYPE course SYSTEM "../../res/course.dtd">
 <course>
     <meta>
         <title>e-Learning-Kurs Text Mining</title>

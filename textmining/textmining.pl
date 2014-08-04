@@ -36,7 +36,7 @@ any '/admin/' => sub {
 
 get '/data/' => sub {
     my $self = shift;
-    my $xslfilename = './res/elearningtextmining.xsl';
+    my $xslfilename = './res/course.xsl';
     my $xmlfilename = './data/e-Learning-Kurs_Text_Mining/kollokationen.xml';
     my $htmlfilename = 'testhtml.html';
 
