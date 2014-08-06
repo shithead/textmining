@@ -12,7 +12,7 @@
 <!ATTLIST bib page CDATA #IMPLIED>
 
 <!ELEMENT chapter ( page+ ) >
-<!ATTLIST chapter id CDATA #REQUIRED >
+<!ATTLIST chapter id ID #REQUIRED >
 <!ATTLIST chapter type NMTOKEN #IMPLIED >
 
 <!ELEMENT check ( question, answer )+ >
@@ -47,7 +47,7 @@
 <!ELEMENT meta ( title, version, date, authors ) >
 
 <!ELEMENT module ( meta, chapter+ ) >
-<!ATTLIST module id NMTOKEN #REQUIRED >
+<!ATTLIST module id ID #REQUIRED >
 
 <!ELEMENT option ( text, action ) >
 
