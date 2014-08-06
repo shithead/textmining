@@ -1,5 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head><title><%= title %></title></head>
-  <body><%= content %></body>
+<html lang="de">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+  </head>
+  <body>
+      <!-- Navbar
+      ================================================== -->
+  <div class="bs-component">
+      <div class="navbar navbar-default">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Text<strong>Mining</strong></a>
+          </div>
+          <div class="navbar-collapse collapse navbar-inverse-collapse">
+              <form class="navbar-form navbar-right">
+                  <input class="form-control col-lg-8" placeholder="Search" type="text">
+              </form>
+          </div>
+      </div>
+  </div>
+  </div>
+  <div class="container-fluid">
+  <%= content %>
+  </div>
+
+  <script src="js/jquery-1.js"></script>
+  <script src="js/bootstrap.js"></script>
+  </body>
 </html>
