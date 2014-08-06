@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="course.xsl" ?>
-<!DOCTYPE course SYSTEM "../../res/course.dtd">
+<!DOCTYPE course SYSTEM "../../templates/res/course.dtd">
 <course>
     <meta>
         <title>e-Learning-Kurs Text Mining</title>
@@ -11,7 +11,7 @@
             <author>N. N.</author>
         </authors>
     </meta>
-    <module id="1">
+    <module id="kollokation">
         <meta>
             <title>Kollokationen</title>
             <version>2.0</version>
@@ -20,7 +20,7 @@
                 <author>Yvonne Krämer</author>
             </authors>
         </meta>
-        <chapter id="0" type="learningObjective">
+        <chapter id='lernziele' type="learningObjective">
             <page>
                 <h1>Lernziele des Moduls "Kollokationen"</h1>
                 <p>Nach Bearbeitung des Moduls</p>
@@ -33,7 +33,7 @@
                 </list>
             </page>
         </chapter>
-        <chapter id="1">	
+        <chapter id="einfuehrung">	
             <page>
                 <h1>Einführung</h1>
                 <h2>Was ist eine Kollokation?</h2>
@@ -144,7 +144,7 @@
                 <img src="">Animation/Bild oder ähnliches</img>
             </page>
         </chapter>
-        <chapter id="2">
+        <chapter id="termologie">
             <page>
                 <h1>Terminlogische Festlegung</h1>
                 <p>Durch die vorhergehenden Ausführungen sollte klar geworden sein, dass es sowohl in Bezug auf den Begriff <term>Kollokation</term>, wie auch auf den Begriff <term>Kookkurrenz</term> eine gewisse Problematik gibt, 
@@ -161,7 +161,7 @@
                     egal ob die beiden Wörter eine grammatikalisch korrekte oder inhaltlich sinnvolle Einheit bilden oder nicht.</p>
             </page>
         </chapter>
-        <chapter id="3">
+        <chapter id="begriffe">
             <page>
                 <h1>Wissenswerte Begriffe</h1>
                 <h2>Kollokationsanalyse</h2>
@@ -187,12 +187,12 @@
                 <img src="" >animiertes Kollokationsnetz/Cluster/Graph</img>
             </page>
         </chapter>
-        <chapter id="4">
+        <chapter id="wozu">
             <page>
                 <img src="">Wozu?</img>
             </page>
         </chapter>
-        <chapter id="4">
+        <chapter id="anwendungen">
             <page>
                 <h1>Anwendungsmöglichkeiten</h1>
                 <h2>Wozu kann die Berechnung von Kollokationen dienen?</h2>
@@ -269,7 +269,7 @@
                 <p>Es lässt sich also festhalten, dass Kookkurrenzanalysen ein produktives wie nützliches Verfahren für die Diskurslinguistik darstellen und auch dem Gebiet der Linguistischen Imageanalyse dienlich sein können.</p>
             </page>
         </chapter>
-        <chapter id="5">
+        <chapter id="statistik">
             <page>
                 <h1>Ein bisschen Statistik</h1>
                 <img src="" >Auch das noch!</img>
@@ -305,10 +305,10 @@
                 <p>Diese Frequenz sowie das tatsächliche Vorkommen von Bezugswort, Kollokator und der anderen Wörter im Korpus sind erforderlich, um die Signifikanz einer Kollokation berechnen zu können. Man erhält die benötigten Werte, 
                     indem ausgezählt wird: </p>
                 <list type="ordered" >
-                    <li>a) wie oft Wort&#8321; und Wort&#8322; (in einem vorher definierten Textfenster) gemeinsam vorkommen, </li>
-                    <li>b) wie oft nur Wort&#8321; vorkommt, </li>
-                    <li>c) wie oft Wort&#8322; alleine vorkommt und </li>
-                    <li>d) wie oft weder Wort&#8321; noch Wort&#8322; vorkommen, also wie viele Wörter nicht Wort&#8321; oder Wort&#8322; sind.</li>
+                    <li>wie oft Wort&#8321; und Wort&#8322; (in einem vorher definierten Textfenster) gemeinsam vorkommen, </li>
+                    <li>wie oft nur Wort&#8321; vorkommt, </li>
+                    <li>wie oft Wort&#8322; alleine vorkommt und </li>
+                    <li>wie oft weder Wort&#8321; noch Wort&#8322; vorkommen, also wie viele Wörter nicht Wort&#8321; oder Wort&#8322; sind.</li>
                 </list>
                 <p>Es kann hilfreich sein, die beschriebenen Angaben in einer sogenannten Kontingenztabelle zu erfassen. </p>
                 <p type="detail">
@@ -460,7 +460,7 @@
     </list>
 </page>
 </chapter>
-<chapter id="6">
+<chapter id="kohaesion">
     <page>
         <h1>Mögliche Gründe für die Kohäsion von Wörtern</h1>
         <p>Kommen zwei Wörter immer wieder gemeinsam vor, so liegt es nahe, dass ein funktionaler oder inhaltlicher Zusammenhang zwischen ihnen besteht. Eine starke Anziehungskraft zwischen Bezugswort und Kollokator 
@@ -491,7 +491,7 @@
         </list>
     </page>
 </chapter>
-<chapter id="7">
+<chapter id="parameter">
     <page>
         <h1>Parameter</h1>
         <p>Die einer Kollokationsanalyse zugrundeliegenden Parameter <emph>können</emph> je nach Fragestellung bzw. Hypothese <emph>variiert werden</emph> und bieten zugleich die Möglichkeit, <emph>verschiedene Sichtweisen</emph> auf den Untersuchungsgegenstand einzunehmen. 
@@ -567,7 +567,7 @@
         </list>
     </page>
 </chapter>
-<chapter id="8">
+<chapter id="training">
     <page>
         <h1>Training</h1>
         <h2>Freies Experimentieren </h2>
@@ -587,7 +587,7 @@
         </list>
     </page>
 </chapter>
-<chapter id="9">
+<chapter id="checkliste">
     <page>
         <h1>Checkliste</h1>
         <p>Eine Checkliste dient der Selbstkontrolle sowie der Reflexion über vorangegangene Inhalte.</p>
@@ -805,11 +805,11 @@
                     <action>
                         <text><p>Mögliche Gründe für einen erhöhten Kohäsionsgrad sind:</p>
                             <list type="ordered" >
-                                <li>a)	Es handelt sich um Eigennamen.</li>
-                                <li>b)	Kollokator und Bezugswort sind Teil einer Aufzählung.</li>
-                                <li>c)	Die Kollokation ist Teil von oder bildet ein Idiom oder eine Phrase.</li>
-                                <li>d)	Es liegt eine Teil-Ganzes-Beziehung vor (z.B. <kursiv>Seiten</kursiv> und <kursiv>Buch</kursiv>).</li>
-                                <li>e)	Der Kollokator oder das Bezugswort benennt typische Eigenschaften.</li>
+                                <li>Es handelt sich um Eigennamen.</li>
+                                <li>Kollokator und Bezugswort sind Teil einer Aufzählung.</li>
+                                <li>Die Kollokation ist Teil von oder bildet ein Idiom oder eine Phrase.</li>
+                                <li>Es liegt eine Teil-Ganzes-Beziehung vor (z.B. <kursiv>Seiten</kursiv> und <kursiv>Buch</kursiv>).</li>
+                                <li>Der Kollokator oder das Bezugswort benennt typische Eigenschaften.</li>
                             </list>
                         </text>
                         <url href="" >LINK zu Mögliche Gründe für die Kohäsion von Wörtern</url>
@@ -878,7 +878,7 @@
         </check>
     </page>
 </chapter>
-<chapter id="10">
+<chapter id="spiel">
     <page>
         <h1>Spiel</h1>
         <p>Auf welches Wort beziehen sich wohl die Kollokatoren des folgenden Graphen?</p>
