@@ -13,6 +13,13 @@ sub startup {
 
   # Normal route to controller
   $r->get('/')->to('example#welcome');
+
+  # Admin route to controller
+  $r->get('/admin')->to('admin#overview');
+  $r->post('/admin')->to('admin#overview');
+
+  # Course route to controller
+  $r->get('/course')->to('course#overview');
 }
 
 1;
