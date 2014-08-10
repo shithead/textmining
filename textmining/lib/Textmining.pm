@@ -1,18 +1,28 @@
 package Textmining;
 use Mojo::Base 'Mojolicious';
 
+#use Textmining::Plugin::StructureHelper;
+
+# TODO Fehlerbehandlung implementieren
 # This method will run once at server start
 sub startup {
-  my $self = shift;
+    my $self = shift;
 
-  # Documentation browser under "/perldoc"
-  $self->plugin('PODRenderer');
 
-  # Router
-  my $r = $self->routes;
+    # Documentation browser under "/perldoc"
+    $self->plugin('PODRenderer');
+    # Add namspace for new plugins
+    #  StructureHelper
+    #  TransformHelper
+    push @{$self->plugins->namespaces}, 'Textmining::Plugin';
+    $self->plugin('StructureHelper');
 
-  # Normal route to controller
-  $r->get('/')->to('example#welcome');
+    # Router
+    my $r = $self->routes;
+
+    # Normal route to controller
+    $r->get('/')->to('example#welcome');
+
 
   # Admin route to controller
   $r->get('/admin')->to('admin#overview');
