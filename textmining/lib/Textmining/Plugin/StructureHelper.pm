@@ -7,10 +7,6 @@ package Textmining::Plugin::StructureHelper;
 
 ...
 
-=method _new()
-
-This method
-
 =method get_data_struct()
 
 This method
@@ -18,12 +14,12 @@ This method
 =head1 SEE ALSO
 
 =for :list
-* L<Your::Module>
-* L<Your::Package>
+* L<Textmining::Plugin::StructureHelper::Transform>
+* L<Textmining::Plugin::StructureHelper>
 
 =cut
 
-use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::Base qw(Mojolicious::Plugin);
 use Mojolicious::Command;
 
 use File::Path qw(remove_tree make_path);
@@ -35,8 +31,10 @@ sub register {
     $self->{_data_struct} = {};
     $self->{_public_struct} = {};
     # XXX config sinvoll
-    $self->{_path_data} = 'data';
-    $self->{_path_pub_course} = 'public/course';
+    $self->{_path} = {
+        data => 'data',
+        course => 'public/course'
+    };
     $app->helper(struct => sub {
             state $struct = $self
         });
@@ -56,8 +54,8 @@ sub get_public_struct {
 
 # TODO Test
 sub _exists_check {
-    my $self = shift;
-    my $object = shift;
+    my $self    = shift;
+    my $object  = shift;
     if (-e $object) {
         return 0;
     }
@@ -90,7 +88,7 @@ sub rm_course_tree {
 # TODO Test
 sub update_data_struct {
     my $self = shift;
-    my $data = $self->{_path_data};
+    my $data = $self->{_path}->{data};
     my @coursestruct = qw(modul library);
 
     # content of data directory
@@ -123,18 +121,14 @@ sub update_data_struct {
             }
         }
     }
-    use Data::Printer;
-    p $hash;
     $self->{_data_struct} = $hash;
-    p $self;
-    p $self->{_data_struct};
 }
 
 # TODO Test
 sub update_public_struct {
     my $self = shift;
     # XXX config sinvoll
-    my $course_dir = $self->{_path_pub_course};
+    my $course_dir = $self->{_path}->{course};
 
     # content of public/course directory
     opendir(DIR, $course_dir);
@@ -196,8 +190,8 @@ sub get_modules_data {
     my $course = shift;
     use Data::Printer;
     my $modules = {
-        path    =>''. 
-        files   => @{$self->{_data_struct}->{$course}->{modul} }
+        path    => join('/', $self->{_path}->{data}, $course, 'modul'),
+        files   => \@{$self->{_data_struct}->{$course}->{modul}}
     };
     return $modules;
 }
