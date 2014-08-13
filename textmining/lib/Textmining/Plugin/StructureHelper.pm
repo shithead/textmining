@@ -183,25 +183,53 @@ sub get_courses_data {
     foreach (keys $self->{_data_struct}) {
         push @course_list, $_;
     }
+
     return @course_list;
 }
 
 sub get_modules_data {
     my $self = shift;
     my $course = shift;
-    use Data::Printer;
+
+    unless (keys $self->{_data_struct}) {
+        $self->update_data_struct();
+        # TODO test of $course exist in _data_struct
+    }
+
+    my @courses_keys = (keys $self->{_data_struct});
+    unless (  $course ~~ @courses_keys ) {
+        #TODO Errorlog
+        return undef;
+    }
+
     my $modules = {
         path    => join('/', $self->{_path}->{data}, $course, 'modul'),
         files   => \@{$self->{_data_struct}->{$course}->{modul}}
     };
+
     return $modules;
 }
 
 sub get_libraries_data {
     my $self = shift;
     my $course = shift;
-    use Data::Printer;
-    my $libraries = { files => @{$self->{_data_struct}->{$course}->{libary} } };
+
+    unless (keys $self->{_data_struct}) {
+        $self->update_data_struct();
+        # TODO test of $course exist in _data_struct
+    }
+
+    my @courses_keys = (keys $self->{_data_struct});
+    unless (  $course ~~ @courses_keys ) {
+        #TODO Errorlog
+        return undef;
+    }
+
+    my $libraries = {
+        path    => join('/', $self->{_path}->{data}, $course, 'library'),
+        files   => \@{$self->{_data_struct}->{$course}->{library} }
+    };
+
     return $libraries;
 }
 
@@ -213,6 +241,7 @@ sub get_courses_modules_public {
     foreach (keys $self->{_public_struct}) {
         @{$hash_list->{$_}} = @{$self->{_public_struct}->{$_}};
     }
+
     return $hash_list;
 }
 
