@@ -99,7 +99,7 @@ sub update_data_struct {
     my $hash = {} ;
     for my $course (values @file) {
         # ignore . and ..
-        unless ($course =~ m/^(\.|\.\.)/)  {
+        unless ($course =~ m/(^\.+)/) {
             # build course tree
             $hash->{$course} = {};
             for (values @coursestruct) {
@@ -114,8 +114,8 @@ sub update_data_struct {
             my @file = readdir(DIR);
             closedir(DIR);
             for my $xml (values @file) {
-                # ignore . and ..
-                unless ($xml =~ m/^\./)  {
+            # ignore .+ and non xml-Suffix
+                unless ($xml =~ m/(^\.+|[^xml]$)/)  {
                     unshift @{$hash->{$course}->{$_}}, $xml;
                 }
             }
@@ -137,9 +137,10 @@ sub update_public_struct {
 
     my $hash = {} ;
 
+    # content of public/course directory
     for my $name (values @course) {
         # ignore . and ..
-        unless ($name =~ m/^(\.|\.\.)/)  {
+        unless ($name =~ m/(^\.+)/)  {
             # build course tree
             $hash->{$name} = {};
         };
@@ -149,8 +150,8 @@ sub update_public_struct {
         closedir(DIR);
 
         for my $modul (values @moduls) {
-            # ignore . and ..
-            unless ($modul =~ m/^(\.|\.\.)/)  {
+            # ignore .+ and non xml-Suffix
+            unless ($modul =~ m/(^\.+||[^xml]$)/)  {
                 # build modul tree
                 $hash->{$name}->{$modul} = {};
             };
@@ -161,7 +162,7 @@ sub update_public_struct {
 
             for my $chapter (values @chapters) {
                 # ignore . and ..
-                unless ($chapter =~ m/^(\.|\.\.)/)  {
+                unless ($chapter =~ m/(^\.+)/)  {
                     opendir(DIR, join ('/', $course_dir, $name, $modul, $chapter));
                     # content of public/course/name/modul/chapter directory
                     @{$hash->{$name}->{$modul}->{$chapter}} = readdir(DIR);
