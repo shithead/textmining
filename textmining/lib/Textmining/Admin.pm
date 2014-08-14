@@ -5,7 +5,7 @@ use Mojo::Base 'Mojolicious::Controller';
 sub overview {
     my $self = shift;
     # Render template "admin/overview.html.ep" with available courses
-    my @courses = $self->struct->get_courses_data();
+    my @courses = $self->struct->get_data_course();
     $self->render(courses => \@courses);
 }
 
@@ -13,8 +13,7 @@ sub open {
     my $self = shift;
 
     my $course = $self->param('course');
-    use Data::Printer;
-    p $self->struct->get_modules_data($course);
+    $self->struct->get_data_modul($course);
     $self->redirect_to('/admin');
 }
 sub course {

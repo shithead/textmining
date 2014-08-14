@@ -41,19 +41,7 @@ sub register {
 }
 
 # TODO Test
-sub get_data_struct {
-    my $self = shift;
-    return $self->{_data_struct};
-}
-
-# TODO Test
-sub get_public_struct {
-    my $self = shift;
-    return $self->{_public_struct};
-}
-
-# TODO Test
-sub _exists_check {
+sub _exists_check ($$) {
     my $self    = shift;
     my $object  = shift;
     if (-e $object) {
@@ -62,31 +50,15 @@ sub _exists_check {
     return 1;
 }
 
+# {{{ data directory
 # TODO Test
-sub init_course_dir {
-    my ($self, $course) = @_;
-
-#    mkdir($course) or return 1 if (&_exists_check($course));
-#
-#    my $moduldir = join('/',$course, $modul);
-#    mkdir($moduldir) or return 1 if (&_exists_check($moduldir));
-
-    #foreach my $chapt (values @chapter) {
-    #    my $chaptdir = join('/',$moduldir, $chapt);
-    #    mkdir($chaptdir) or return 1 if (&_exists_check($chaptdir));
-    #}
-    return 0;
-}
-
-# TODO Test
-sub rm_course_tree {
+sub get_data_struct ($) {
     my $self = shift;
-    my $course = shift;
-    remove_tree($course, {error => \my $err})
+    return $self->{_data_struct};
 }
 
 # TODO Test
-sub update_data_struct {
+sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
     my @coursestruct = qw(modul library);
@@ -125,7 +97,120 @@ sub update_data_struct {
 }
 
 # TODO Test
-sub update_public_struct {
+sub get_data_course ($) {
+    my $self = shift;
+
+    my @course_list;
+    foreach (keys $self->{_data_struct}) {
+        push @course_list, $_;
+    }
+
+    return @course_list;
+}
+
+sub get_data_modul ($$) {
+    my $self = shift;
+    my $course = shift;
+
+    unless (keys $self->{_data_struct}) {
+        $self->update_data_struct();
+        # TODO test of $course exist in _data_struct
+    }
+
+    my @courses_keys = (keys $self->{_data_struct});
+    unless (  $course ~~ @courses_keys ) {
+        #TODO Errorlog
+        return undef;
+    }
+
+    my $modules = {
+        path    => join('/', $self->{_path}->{data}, $course, 'modul'),
+        files   => \@{$self->{_data_struct}->{$course}->{modul}}
+    };
+
+    return $modules;
+}
+
+sub get_data_library ($$) {
+    my $self = shift;
+    my $course = shift;
+
+    unless (keys $self->{_data_struct}) {
+        $self->update_data_struct();
+        # TODO test of $course exist in _data_struct
+    }
+
+    my @courses_keys = (keys $self->{_data_struct});
+    unless (  $course ~~ @courses_keys ) {
+        #TODO Errorlog
+        return undef;
+    }
+
+    my $libraries = {
+        path    => join('/', $self->{_path}->{data}, $course, 'library'),
+        files   => \@{$self->{_data_struct}->{$course}->{library} }
+    };
+
+    return $libraries;
+}
+
+# }}}
+
+# {{{ public directory
+
+# TODO Test
+sub get_public_struct ($) {
+    my $self = shift;
+    return $self->{_public_struct};
+}
+
+# TODO Test
+sub init_course_dir ($$) {
+    my ($self, $course) = @_;
+
+    # sub get_meta_struct {
+    #   $self = shift;
+    my $path = {
+        src     => join('/', $self->{_path}->{data}  , $course),
+        dest    => join('/', $self->{_path}->{course}  , $course),
+        modul   => $self->get_data_modul($course),
+        library => $self->get_data_library($course)
+    };
+
+    for (values $path->{modul}->{files}) {
+        my $modul_path  = join('/', $path->{modul}->{path}, $_);
+        my $modul_struct = $self->{transform}->get_course_struct(
+            $path->{modul}->{path},
+            $path->{modul}->{files}
+        );
+        # my $meta_struct = $self->{transform}->get_course_struct($modul_path);
+    };
+
+    # for (values $path->{library}->{files}) {
+    #     my $modul_path  = join('/', $path->{library}->{path}, $_);
+    #     my $modul_struct = $self->{transform}->get_modul_struct($modul_path);
+    # };
+    #
+    #   return $meta_struct;
+    # }
+
+    #my $MANI_path   = join('/', $path->{dest}, "MANIFEST.json" );
+
+    #Mojolicious::Command->write_rel_file(
+    #    $MANI_path,
+    #    Mojo::JSON->encode(
+    #        modul   => \@{$path->{modul}->{files}},
+    #        library => $path->{library}-
+    #    )
+    #);
+    #if (&_exists_check($MANI_path)) {
+    #    # TODO Errorlog
+    #}
+    #return $path;
+}
+
+# TODO Test
+sub update_public_struct ($) {
     my $self = shift;
     # XXX config sinvoll
     my $course_dir = $self->{_path}->{course};
@@ -176,65 +261,7 @@ sub update_public_struct {
 }
 
 # TODO Test
-sub get_courses_data {
-    my $self = shift;
-
-    my @course_list;
-    foreach (keys $self->{_data_struct}) {
-        push @course_list, $_;
-    }
-
-    return @course_list;
-}
-
-sub get_modules_data {
-    my $self = shift;
-    my $course = shift;
-
-    unless (keys $self->{_data_struct}) {
-        $self->update_data_struct();
-        # TODO test of $course exist in _data_struct
-    }
-
-    my @courses_keys = (keys $self->{_data_struct});
-    unless (  $course ~~ @courses_keys ) {
-        #TODO Errorlog
-        return undef;
-    }
-
-    my $modules = {
-        path    => join('/', $self->{_path}->{data}, $course, 'modul'),
-        files   => \@{$self->{_data_struct}->{$course}->{modul}}
-    };
-
-    return $modules;
-}
-
-sub get_libraries_data {
-    my $self = shift;
-    my $course = shift;
-
-    unless (keys $self->{_data_struct}) {
-        $self->update_data_struct();
-        # TODO test of $course exist in _data_struct
-    }
-
-    my @courses_keys = (keys $self->{_data_struct});
-    unless (  $course ~~ @courses_keys ) {
-        #TODO Errorlog
-        return undef;
-    }
-
-    my $libraries = {
-        path    => join('/', $self->{_path}->{data}, $course, 'library'),
-        files   => \@{$self->{_data_struct}->{$course}->{library} }
-    };
-
-    return $libraries;
-}
-
-# TODO Test
-sub get_courses_modules_public {
+sub get_public_module ($) {
     my $self = shift;
 
     my $hash_list;
@@ -245,4 +272,16 @@ sub get_courses_modules_public {
     return $hash_list;
 }
 
+# TODO Test
+sub rm_public_course ($$) {
+    my ($self, $course) = @_;
+
+    my $course_dir  = join('/', $self->{_path}->{course}, $course);
+    remove_tree($course_dir, {error => \my $err});
+
+    if (defined $err) {
+        # TODO Errorlog
+    }
+}
+# }}}
 1;

@@ -133,7 +133,7 @@ sub get_node_metastruct {
     return $hash;
 }
 
-sub xml_struct {
+sub get_course_struct {
     my $self    = shift;
     my $modul_path = shift;
 
