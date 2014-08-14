@@ -35,14 +35,11 @@ use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::JSON qw(decode_json encode_json);
 use XML::LibXML;
 use XML::LibXSLT;
-use XML::Hash::LX ':inject';
-use XML::Parser;
 
 use Data::Printer;
 
 $XML::LibXML::skipXMLDeclaration = 1;
 
-sub Callback { print "$_\n"};
 sub new {
     my $class = shift;
 
@@ -108,7 +105,7 @@ sub nodestohtml {
     return @results;
 }
 
-sub get_meta_struct {
+sub get_node_metastruct {
     my $self = shift;
     my $node = shift;
     my $meta_xpath = shift;
@@ -116,6 +113,7 @@ sub get_meta_struct {
     $meta_xpath = join "/", $meta_xpath , "meta";
     my $hash = {
         sub     => [],
+        type    => '',
         meta    => {
             authors => [],
             date    => "",
@@ -140,12 +138,14 @@ sub xml_struct {
     my $modul_path = shift;
 
     my $xml     = $self->get_xml($modul_path);
-    my $course  = $self->get_meta_struct($xml, '/course');
+    my $course  = $self->get_node_metastruct($xml, '/course');
+    $course->{type} = 'course';
 
     # modul nodes
     #
     for my $module ($xml->findnodes('/course/module')) {
-        my $modul =  $self->get_meta_struct($xml, '/course/module');
+        my $modul =  $self->get_node_metastruct($xml, '/course/module');
+        $modul->{type} = 'modul';
 
         # chapter nodes
         for my $chapter ($module->findnodes('chapter')) {
