@@ -136,24 +136,50 @@ sub get_node_metastruct {
     return $hash;
 }
 
-sub get_course_struct {
-    my $self    = shift;
-    my $modul_path = shift;
+sub get_meta_struct ($$@) {
+    my $self            = shift;
+    my $modul_dir       = shift;
+    my @modul_files     = @_;
+   
+    my $modul_path  = join '/', $modul_dir, $modul_files[0];
 
-    my $xml     = $self->get_xml($modul_path);
-    my $course  = $self->get_node_metastruct($xml, '/course');
-    $course->{type} = 'course';
+    my $xml             = $self->get_xml($modul_path);
+    my $course_struct   = $self->get_course_struct($xml);
+
+    undef $modul_path;
+    # modul nodes
+    for (values @modul_files) {
+        my $modul_path      = join '/', $modul_dir, $_;
+        my $modul_struct    = $self->get_modul_struct($xml);
+        push @{$course_struct->{sub}}, $modul_struct;
+    }
+    return $course_struct;
+}
+
+sub get_course_struct ($$) {
+    my $self    = shift;
+    my $xml     = shift;
+
+    my $course_struct  = $self->get_node_metastruct($xml, '/course');
+    $course_struct->{type} = 'course';
+
+    return $course_struct;
+}
+
+sub get_modul_struct ($$) {
+    my $self    = shift;
+    my $xml     = shift;
 
     # modul nodes
-    #
-    for my $module ($xml->findnodes('/course/module')) {
-        my $modul =  $self->get_node_metastruct($xml, '/course/module');
-        $modul->{type} = 'modul';
+    my $modul_struct;
+    for my $modul ($xml->findnodes('/course/module')) {
+        $modul_struct =  $self->get_node_metastruct($xml, '/course/module');
+        $modul_struct->{type} = 'modul';
 
         # chapter nodes
-        for my $chapter ($module->findnodes('chapter')) {
+        for my $chapter ($modul->findnodes('chapter')) {
             my $attr = $chapter->getAttributeHash;
-            my $chapts = {
+            my $chapter_struct = {
                 id          => $attr->{id},
                 head        => "",
                 type        => "",
@@ -164,31 +190,14 @@ sub get_course_struct {
             # page nodes
             my $pagesnr = 0;
             for my $page ($chapter->findnodes('page')) {
-                $chapts->{head} = $page->findvalue('h1') if ($page->exists('h1')) ;
+                $chapter_struct->{head} = $page->findvalue('h1') if ($page->exists('h1')) ;
                 $pagesnr++;
             }
-            $chapts->{pagescnt} = $pagesnr;
-            push @{$modul->{sub}}, $chapts;
+            $chapter_struct->{pagescnt} = $pagesnr;
+            push @{$modul_struct->{sub}}, $chapter_struct;
         }
-        push @{$course->{sub}}, $modul;
     }
-    return $course;
-}
-
-sub xml_pages {
-    my $self    = shift;
-    my $modul_path = shift;
-
-    my $xml     = $self->get_xml($modul_path);
-
-    my @pages;
-    # page nodes
-    #
-    for my $page ($xml->findnodes('/course/module/capter/page')) {
-        push @pages, $page;
-    }
-    @pages = $self->nodestohtml(@pages);
-    return @pages;
+    return $modul_struct;
 }
 
 
