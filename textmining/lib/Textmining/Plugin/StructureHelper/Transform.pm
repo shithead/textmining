@@ -129,6 +129,9 @@ sub get_node_metastruct {
         for ($meta->findnodes('authors/author')) {
             push @{$hash->{meta}->{authors}}, $_->textContent;
         }
+        for ($meta->findnodes('libraries/library')) {
+            push @{$hash->{meta}->{libraries}}, $_->textContent;
+        }
     }
     return $hash;
 }
