@@ -20,8 +20,10 @@ This method
 =cut
 
 use Mojo::Base qw(Mojolicious::Plugin);
-use Mojolicious::Command;
+use Mojo::Asset::File;
+use Mojo::JSON;
 
+use Textmining::Plugin::StructureHelper::Transform;
 use File::Path qw(remove_tree make_path);
 
 use feature 'say';
@@ -31,6 +33,7 @@ sub register {
   my ($self, $app) = @_;
     $self->{_data_struct} = {};
     $self->{_public_struct} = {};
+    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
     # XXX config sinvoll
     $self->{_path} = {
         data => 'data',
@@ -162,54 +165,62 @@ sub get_data_library ($$) {
 # {{{ public directory
 
 # TODO Test
-sub get_public_struct ($) {
-    my $self = shift;
-    return $self->{_public_struct};
-}
-
-# TODO Test
-sub init_course_dir ($$) {
+sub init_pubilc_course ($$) {
     my ($self, $course) = @_;
 
-    # sub get_meta_struct {
-    #   $self = shift;
     my $path = {
         src     => join('/', $self->{_path}->{data}  , $course),
         dest    => join('/', $self->{_path}->{course}  , $course),
         modul   => $self->get_data_modul($course),
         library => $self->get_data_library($course)
     };
+    my $course_meta_struct;
+    $course_meta_struct = $self->{transform}->get_meta_struct(
+        $path->{modul}->{path},
+        @{$path->{modul}->{files}}
+    );
 
-    for (values $path->{modul}->{files}) {
-        my $modul_path  = join('/', $path->{modul}->{path}, $_);
-        my $modul_struct = $self->{transform}->get_course_struct(
-            $path->{modul}->{path},
-            $path->{modul}->{files}
-        );
-        # my $meta_struct = $self->{transform}->get_course_struct($modul_path);
-    };
 
-    # for (values $path->{library}->{files}) {
-    #     my $modul_path  = join('/', $path->{library}->{path}, $_);
-    #     my $modul_struct = $self->{transform}->get_modul_struct($modul_path);
-    # };
-    #
-    #   return $meta_struct;
-    # }
+    my $err;
+    if (&_exists_check($path->{dest})) {
+        make_path($path->{dest}, {error => \$err});
+        # TODO Errorlog
+    }
+    say $err ? "Error: make_path $err" : "make_path Succesed";
+    $err = undef;
 
-    #my $MANI_path   = join('/', $path->{dest}, "MANIFEST.json" );
+    my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
+    my $json                = Mojo::JSON->new;
+    my $json_bytes          = $json->encode($course_meta_struct);
+    # XXX perheps backuping $course_meta_struct
+    undef $course_meta_struct;
+    $err = $json->error;
+    say $err ?  "Error: $err" : 
+            "encode course_meta_struct for meta.json Succesed";
+    # TODO Errorlog
 
-    #Mojolicious::Command->write_rel_file(
-    #    $MANI_path,
-    #    Mojo::JSON->encode(
-    #        modul   => \@{$path->{modul}->{files}},
-    #        library => $path->{library}-
-    #    )
-    #);
-    #if (&_exists_check($MANI_path)) {
-    #    # TODO Errorlog
-    #}
-    #return $path;
+    my $file                = Mojo::Asset::File->new;
+    # TODO errorlog default maxsize 128KB for a chunk
+    $file->add_chunk($json_bytes);
+    undef $json_bytes;
+    $file->move_to($course_meta_path);
+
+    $file                   = $file->path($course_meta_path);
+    $course_meta_struct     = $json->decode($file->get_chunk(0));
+    $err = $json->error;
+    say $err ?  "Error: $err" : "decode meta.json Succesed";
+}
+
+# TODO Test
+sub rm_public_course ($$) {
+    my ($self, $course) = @_;
+
+    my $course_dir  = join('/', $self->{_path}->{course}, $course);
+    remove_tree($course_dir, {error => \my $err});
+
+    if (defined $err) {
+        # TODO Errorlog
+    }
 }
 
 # TODO Test
@@ -264,6 +275,12 @@ sub update_public_struct ($) {
 }
 
 # TODO Test
+sub get_public_struct ($) {
+    my $self = shift;
+    return $self->{_public_struct};
+}
+
+# TODO Test
 sub get_public_module ($) {
     my $self = shift;
 
@@ -275,16 +292,6 @@ sub get_public_module ($) {
     return $hash_list;
 }
 
-# TODO Test
-sub rm_public_course ($$) {
-    my ($self, $course) = @_;
-
-    my $course_dir  = join('/', $self->{_path}->{course}, $course);
-    remove_tree($course_dir, {error => \my $err});
-
-    if (defined $err) {
-        # TODO Errorlog
-    }
-}
 # }}}
+
 1;

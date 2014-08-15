@@ -13,7 +13,7 @@ sub open {
     my $self = shift;
 
     my $course = $self->param('course');
-    $self->struct->get_data_modul($course);
+    $self->struct->init_pubilc_course($course);
     $self->redirect_to('/admin');
 }
 sub course {
