@@ -41,10 +41,14 @@
 <!ELEMENT li ( #PCDATA | bib | emph | foreign | img | kursiv | person | url | term )* >
 <!ATTLIST li type ( detail | exercise ) #IMPLIED >
 
+<!ELEMENT libraries ( library+ ) >
+
+<!ELEMENT library (#PCDATA) >
+
 <!ELEMENT list ( li )+ >
 <!ATTLIST list type ( ordered ) #IMPLIED >
 
-<!ELEMENT meta ( title, version, date, authors ) >
+<!ELEMENT meta ( title, version, date, authors, libraries* ) >
 
 <!ELEMENT module ( meta, chapter+ ) >
 <!ATTLIST module id ID #REQUIRED >
