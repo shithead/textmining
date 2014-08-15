@@ -24,6 +24,7 @@ use Mojolicious::Command;
 
 use File::Path qw(remove_tree make_path);
 
+use feature 'say';
 use Data::Printer;
 
 sub register {
@@ -52,12 +53,6 @@ sub _exists_check ($$) {
 
 # {{{ data directory
 # TODO Test
-sub get_data_struct ($) {
-    my $self = shift;
-    return $self->{_data_struct};
-}
-
-# TODO Test
 sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
@@ -83,17 +78,23 @@ sub update_data_struct ($) {
     for my $course (keys $hash) {
         for (values @coursestruct) {
             opendir(DIR, join('/', $data, $course, $_));
-            my @file = readdir(DIR);
+            my @files = readdir(DIR);
             closedir(DIR);
-            for my $xml (values @file) {
-            # ignore .+ and non xml-Suffix
-                unless ($xml =~ m/(^\.+|[^xml]$)/)  {
-                    unshift @{$hash->{$course}->{$_}}, $xml;
+            for my $file (values @files) {
+            # ignore .+ and grep files with xml-Suffix
+                if ($file =~ m/(^[^\.]+|xml$)/)  {
+                    unshift @{$hash->{$course}->{$_}}, $file;
                 }
             }
         }
     }
     $self->{_data_struct} = $hash;
+}
+
+# TODO Test
+sub get_data_struct ($) {
+    my $self = shift;
+    return $self->{_data_struct};
 }
 
 # TODO Test
@@ -120,6 +121,7 @@ sub get_data_modul ($$) {
     my @courses_keys = (keys $self->{_data_struct});
     unless (  $course ~~ @courses_keys ) {
         #TODO Errorlog
+        say "course $course not in \'@courses_keys\'";
         return undef;
     }
 
@@ -143,6 +145,7 @@ sub get_data_library ($$) {
     my @courses_keys = (keys $self->{_data_struct});
     unless (  $course ~~ @courses_keys ) {
         #TODO Errorlog
+        say "course $course not in \'@courses_keys\'";
         return undef;
     }
 
@@ -215,28 +218,28 @@ sub update_public_struct ($) {
     # XXX config sinvoll
     my $course_dir = $self->{_path}->{course};
 
-    # content of public/course directory
+    # get content of public/course directory
     opendir(DIR, $course_dir);
     my @course = readdir(DIR);
     closedir(DIR);
 
     my $hash = {} ;
 
-    # content of public/course directory
+    # work with content of public/course directory
     for my $name (values @course) {
         # ignore . and ..
         unless ($name =~ m/(^\.+)/)  {
             # build course tree
             $hash->{$name} = {};
         };
-        # content of public/course/name directory
+        # get content of public/course/name directory
         opendir(DIR, join ('/', $course_dir, $name));
         my @moduls = readdir(DIR);
         closedir(DIR);
 
         for my $modul (values @moduls) {
-            # ignore .+ and non xml-Suffix
-            unless ($modul =~ m/(^\.+||[^xml]$)/)  {
+            # ignore .+ and grep files with xml-Suffix
+            if ($modul =~ m/(^[^\.]+|xml$)/)  {
                 # build modul tree
                 $hash->{$name}->{$modul} = {};
             };
