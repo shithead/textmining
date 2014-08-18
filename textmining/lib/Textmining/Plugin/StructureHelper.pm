@@ -243,25 +243,25 @@ sub init_pubilc_course ($$) {
     }
     # return @chapter_dirs;
 
-#    my @pages;
-#    
-#    # TODO filter right library file for modul
-#    for my $filename (@{$path->{modul}->{files}}) {
-#        push (@pages, $self->{transform}->xml_pages(
-#            join('/', $path->{modul}->{path}, $filename),
-#            join('/', $path->{library}->{path}, $path->{library}->{files}->[0])
-#
-#        ));
-#    }
-#    for my $chapter (@chapter_dirs){
-#        for my $pagenr (1..$chapter->{pagecnt}) {
-#            my $page    = join('/', $self->{_path}->{course}, $chapter->{dir}, 
-#                    "$pagenr.html");
-#            open my $FD, ">:encoding(UTF-8)", $page;
-#            print $FD shift @pages;
-#            close $FD;
-#        }
-#    }
+    my @pages;
+
+    # TODO filter right library file for modul
+    for my $filename (@{$path->{modul}->{files}}) {
+        push (@pages, $self->{transform}->xml_pages(
+            join('/', $path->{modul}->{path}, $filename),
+            join('/', $path->{library}->{path}, $path->{library}->{files}->[0])
+
+        ));
+    }
+    for my $chapter (@chapter_dirs){
+        for my $pagenr (1..$chapter->{pagecnt}) {
+            my $page    = join('/', $self->{_path}->{course}, $chapter->{dir},
+                    "$pagenr.html");
+            open my $FD, ">:encoding(UTF-8)", $page;
+            print $FD shift @pages;
+            close $FD;
+        }
+    }
 }
 
 # TODO Test
