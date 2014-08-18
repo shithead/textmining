@@ -141,7 +141,7 @@ sub get_meta_struct ($$@) {
     my $modul_dir       = shift;
     my @modul_files     = @_;
    
-    my $modul_path  = join '/', $modul_dir, $modul_files[0];
+    my $modul_path      = join '/', $modul_dir, $modul_files[0];
 
     my $xml             = $self->get_xml($modul_path);
     my $course_struct   = $self->get_course_struct($xml);
@@ -183,17 +183,17 @@ sub get_modul_struct ($$) {
                 id          => $attr->{id},
                 head        => "",
                 type        => "",
-                pagescnt    => 0,
+                pagecnt    => 0,
                 type        => $attr->{type}
             };
 
             # page nodes
-            my $pagesnr = 0;
+            my $pagecnt = 0;
             for my $page ($chapter->findnodes('page')) {
                 $chapter_struct->{head} = $page->findvalue('h1') if ($page->exists('h1')) ;
-                $pagesnr++;
+                $pagecnt++;
             }
-            $chapter_struct->{pagescnt} = $pagesnr;
+            $chapter_struct->{pagecnt} = $pagecnt;
             push @{$modul_struct->{sub}}, $chapter_struct;
         }
     }
