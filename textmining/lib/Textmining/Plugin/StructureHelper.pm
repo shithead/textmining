@@ -218,31 +218,31 @@ sub init_pubilc_course ($$) {
     say $err ?  "Error: $err" : "decode meta.json Successed";
     # return $course_meta_struct
 
-#    # XXX create_public_chapter ($course, $course_meta_struct)
-#    # directory is clear change *_dir so that $course variable no more required
-#    my @chapter_dirs;
-#    for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
-#        my $modul_dir = join('/',
-#            $course,
-#            $course_meta_struct->{sub}->[$modulcnt]->{meta}->{title}
-#        );
-#        for my $chaptcnt (0 .. $#{$course_meta_struct->{sub}->[$modulcnt]->{sub}}) {
-#            my $chapter_dir = join('/',
-#                $modul_dir,
-#                $chaptcnt . "_" . 
-#                $course_meta_struct->{sub}->[$modulcnt]->{sub}->[$chaptcnt]->{id}
-#            );
-#            $self->create_public_path($chapter_dir);
-#            my $tmp = {
-#                dir     => $chapter_dir,
-#                pagecnt => $course_meta_struct->{sub}->[$modulcnt]->{sub}
-#                    ->[$chaptcnt]->{pagecnt}
-#                };
-#            push @chapter_dirs, $tmp;
-#        }
-#    }
-#    # return @chapter_dirs;
-#
+    # XXX create_public_chapter ($course, $course_meta_struct)
+    # directory is clear change *_dir so that $course variable no more required
+    my @chapter_dirs;
+    for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
+        my $modul_dir = join('/',
+            $course,
+            $course_meta_struct->{sub}->[$modulcnt]->{meta}->{title}
+        );
+        for my $chaptcnt (0 .. $#{$course_meta_struct->{sub}->[$modulcnt]->{sub}}) {
+            my $chapter_dir = join('/',
+                $modul_dir,
+                $chaptcnt . "_" .
+                $course_meta_struct->{sub}->[$modulcnt]->{sub}->[$chaptcnt]->{id}
+            );
+            $self->create_public_path($chapter_dir);
+            my $tmp = {
+                dir     => $chapter_dir,
+                pagecnt => $course_meta_struct->{sub}->[$modulcnt]->{sub}
+                    ->[$chaptcnt]->{pagecnt}
+                };
+            push @chapter_dirs, $tmp;
+        }
+    }
+    # return @chapter_dirs;
+
 #    my @pages;
 #    
 #    # TODO filter right library file for modul
