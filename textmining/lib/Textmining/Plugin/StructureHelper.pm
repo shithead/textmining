@@ -85,7 +85,7 @@ sub update_data_struct ($) {
             closedir(DIR);
             for my $file (values @files) {
             # ignore .+ and grep files with xml-Suffix
-                if ($file =~ m/(^[^\.]+|xml$)/)  {
+                if ($file =~ qr/(^[^\.]+.*\.xml$)/)  {
                     unshift @{$hash->{$course}->{$_}}, $file;
                 }
             }
@@ -250,7 +250,7 @@ sub update_public_struct ($) {
 
         for my $modul (values @moduls) {
             # ignore .+ and grep files with xml-Suffix
-            if ($modul =~ m/(^[^\.]+|xml$)/)  {
+            if ($modul =~ qr/(^[^\.]+.*\.xml$)/)  {
                 # build modul tree
                 $hash->{$name}->{$modul} = {};
             };
