@@ -83,6 +83,7 @@ sub update_data_struct ($) {
             opendir(DIR, join('/', $data, $course, $_));
             my @files = readdir(DIR);
             closedir(DIR);
+
             for my $file (values @files) {
             # ignore .+ and grep files with xml-Suffix
                 if ($file =~ qr/(^[^\.]+.*\.xml$)/)  {
@@ -169,7 +170,7 @@ sub init_pubilc_course ($$) {
     my ($self, $course) = @_;
 
     my $path = {
-        src     => join('/', $self->{_path}->{data}  , $course),
+        src     => join('/', $self->{_path}->{data}    , $course),
         dest    => join('/', $self->{_path}->{course}  , $course),
         modul   => $self->get_data_modul($course),
         library => $self->get_data_library($course)
@@ -181,22 +182,22 @@ sub init_pubilc_course ($$) {
     );
 
 
-    my $err;
-    if (&_exists_check($path->{dest})) {
-        make_path($path->{dest}, {error => \$err});
-        # TODO Errorlog
+    unless (&_exists_check($path->{dest})) {
+        $self->rm_public_path($course);
     }
-    say $err ? "Error: make_path $err" : "make_path Succesed";
-    $err = undef;
+    if (&_exists_check($path->{dest})) {
+        $self->create_public_path($course);
+    }
 
     my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
     my $json                = Mojo::JSON->new;
     my $json_bytes          = $json->encode($course_meta_struct);
     # XXX perheps backuping $course_meta_struct
     undef $course_meta_struct;
-    $err = $json->error;
+    my $err;
+    $err                    = $json->error;
     say $err ?  "Error: $err" : 
-            "encode course_meta_struct for meta.json Succesed";
+            "encode course_meta_struct for meta.json Successed";
     # TODO Errorlog
 
     my $file                = Mojo::Asset::File->new;
@@ -212,15 +213,25 @@ sub init_pubilc_course ($$) {
 }
 
 # TODO Test
-sub rm_public_course ($$) {
-    my ($self, $course) = @_;
+sub rm_public_path ($$) {
+    my ($self, $suffix) = @_;
 
-    my $course_dir  = join('/', $self->{_path}->{course}, $course);
-    remove_tree($course_dir, {error => \my $err});
+    my $dir          = join('/', $self->{_path}->{course}, $suffix);
+    remove_tree($dir, {error => \my $err});
 
-    if (defined $err) {
-        # TODO Errorlog
-    }
+    # TODO Errorlog
+    say $err ? "Error: remove_tree $err" : "remove_tree Successed";
+}
+
+# TODO Test
+sub create_public_path ($$) {
+    my ($self, $suffix) = @_;
+
+    my $dir          = join('/', $self->{_path}->{course}, $suffix);
+    make_path($dir, {error => \my $err});
+
+    # TODO Errorlog
+    say $err ? "Error: make_path $err" : "make_path Successed";
 }
 
 # TODO Test
