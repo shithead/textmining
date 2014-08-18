@@ -189,7 +189,7 @@ sub init_pubilc_course ($$) {
         $self->create_public_path($course);
     }
 
-    my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
+    # XXX hash_to_json ($course_meta_struct)
     my $json                = Mojo::JSON->new;
     my $json_bytes          = $json->encode($course_meta_struct);
     # XXX perheps backuping $course_meta_struct
@@ -199,6 +199,8 @@ sub init_pubilc_course ($$) {
     say $err ?  "Error: $err" : 
             "encode course_meta_struct for meta.json Successed";
     # TODO Errorlog
+    # return $json_bytes
+
 
     my $file                = Mojo::Asset::File->new;
     # TODO errorlog default maxsize 128KB for a chunk
