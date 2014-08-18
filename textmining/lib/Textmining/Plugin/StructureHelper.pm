@@ -202,6 +202,8 @@ sub init_pubilc_course ($$) {
     # return $json_bytes
 
 
+    my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
+    # XXX save_public_meta_struct ($course, $course_meta_struct)
     my $file                = Mojo::Asset::File->new;
     # TODO errorlog default maxsize 128KB for a chunk
     $file->add_chunk($json_bytes);
