@@ -105,7 +105,24 @@ sub nodestohtml {
     return @results;
 }
 
-sub get_node_metastruct {
+sub xml_pages ($$$) {
+    my $self    = shift;
+    my $modul_path = shift;
+    my $library_path  = shift;
+
+    my $xml     = $self->get_xml($modul_path);
+
+    my @pages;
+    # page nodes
+    #
+    for my $page ($xml->findnodes('/course/module/chapter/page')) {
+        push @pages, $page;
+    }
+    @pages = $self->nodestohtml(@pages);
+    return @pages;
+}
+
+sub get_node_metastruct ($$$) {
     my $self = shift;
     my $node = shift;
     my $meta_xpath = shift;
