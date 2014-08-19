@@ -6,8 +6,8 @@ sub overview {
   my $self = shift;
 
   # Render template "course/overview.html.ep" with table
-  my $hash->{Textming} = "Kollokation";
-  $hash->{foo} = "bar";
+  #$self->struct->update_public_struct;
+  my $hash = $self->struct->get_public_struct;
   $self->render(table => $hash);
 }
 

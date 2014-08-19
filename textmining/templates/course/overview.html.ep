@@ -15,16 +15,18 @@
         </thead>
         <tbody>
         % my $nr = 1;
-        % foreach my $key (keys $table) {
+        % for my $course (keys $table) {
+        %   for my $modul (values @{$table->{$course}}) {
         <tr>
          <td><%= $nr %></td>
-         <td><%= $key %></td>
-         <td><%= $table->{$key} %></td>
-         <td><a href="?course=<%= $key %>&modul=<%= $table->{$key} %>">
+         <td><%= $course %></td>
+         <td><%= $modul %></td>
+         <td><a href="?course=<%= $course %>&modul=<%= $modul %>">
              <button type="button" class="btn btn-default btn-xs">Start</button>
          </a></td>
         </tr>
-        % $nr++;
+        %   $nr++;
+        %   }
         % }
         </tbody>
     </table> 
