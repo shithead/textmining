@@ -54,6 +54,30 @@ sub _exists_check ($$) {
     return 1;
 }
 
+sub hash_to_json ($$) {
+    my $self                = shift;
+    my $meta_struct         = shift;
+    my $json                = Mojo::JSON->new;
+    my $json_bytes          = $json->encode($meta_struct);
+    my $err                 = $json->error;
+    say $err ?  "Error: $err" : 
+            "encode meta_struct for meta.json Successed";
+    # TODO Errorlog
+    return $json_bytes;
+}
+
+sub json_to_hash ($$) {
+    my $self                = shift;
+    my $json_bytes          = shift;
+    my $json                = Mojo::JSON->new;
+    my $meta_struct         = $json->decode($json_bytes);
+    my $err                 = $json->error;
+    say $err ?  "Error: $err" : 
+            "decode meta.json Successed";
+    # TODO Errorlog
+    return $meta_struct;
+}
+
 # {{{ data directory
 # TODO Test
 sub update_data_struct ($) {
@@ -189,36 +213,38 @@ sub init_pubilc_course ($$) {
         $self->create_public_path($course);
     }
 
-    # XXX hash_to_json ($course_meta_struct)
-    my $json                = Mojo::JSON->new;
-    my $json_bytes          = $json->encode($course_meta_struct);
-    # XXX perheps backuping $course_meta_struct
-    undef $course_meta_struct;
-    my $err;
-    $err                    = $json->error;
-    say $err ?  "Error: $err" : 
-            "encode course_meta_struct for meta.json Successed";
-    # TODO Errorlog
-    # return $json_bytes
-
-
     my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
-    # XXX save_public_meta_struct ($course, $course_meta_struct)
-    my $file                = Mojo::Asset::File->new;
-    # TODO errorlog default maxsize 128KB for a chunk
-    $file->add_chunk($json_bytes);
-    undef $json_bytes;
-    $file->move_to($course_meta_path);
+    $self->save_public_struct ($course_meta_path, $course_meta_struct);
 
-    # XXX load_public_meta_struct ($course)
-    $file                   = $file->path($course_meta_path);
-    # TODO Charset problem
-    $course_meta_struct     = $json->decode($file->get_chunk(0));
-    $err                    = $json->error;
-    say $err ?  "Error: $err" : "decode meta.json Successed";
-    # return $course_meta_struct
+    $course_meta_struct     = $self->load_public_struct ($course_meta_path);
 
-    # XXX create_public_chapter ($course, $course_meta_struct)
+    my @chapter_dirs = $self->create_public_chapter ($course, $course_meta_struct);
+
+    my @pages;
+
+    # TODO filter right library file for modul
+    for my $filename (@{$path->{modul}->{files}}) {
+        push (@pages, $self->{transform}->xml_pages(
+            join('/', $path->{modul}->{path}, $filename),
+            join('/', $path->{library}->{path}, $path->{library}->{files}->[0])
+
+        ));
+    }
+    # create_public_pages ($path, @pages, @chapter_dirs)
+    for my $chapter (@chapter_dirs){
+        for my $pagenr (1..$chapter->{pagecnt}) {
+            my $page    = join('/', $self->{_path}->{course}, $chapter->{dir},
+                    "$pagenr.html");
+            open my $FD, ">:encoding(UTF-8)", $page;
+            print $FD shift @pages;
+            close $FD;
+        }
+    }
+}
+
+sub create_public_chapter ($$$) {
+    my $self    = shift;
+    my ($course, $course_meta_struct) = @_;
     # directory is clear change *_dir so that $course variable no more required
     my @chapter_dirs;
     for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
@@ -241,27 +267,7 @@ sub init_pubilc_course ($$) {
             push @chapter_dirs, $tmp;
         }
     }
-    # return @chapter_dirs;
-
-    my @pages;
-
-    # TODO filter right library file for modul
-    for my $filename (@{$path->{modul}->{files}}) {
-        push (@pages, $self->{transform}->xml_pages(
-            join('/', $path->{modul}->{path}, $filename),
-            join('/', $path->{library}->{path}, $path->{library}->{files}->[0])
-
-        ));
-    }
-    for my $chapter (@chapter_dirs){
-        for my $pagenr (1..$chapter->{pagecnt}) {
-            my $page    = join('/', $self->{_path}->{course}, $chapter->{dir},
-                    "$pagenr.html");
-            open my $FD, ">:encoding(UTF-8)", $page;
-            print $FD shift @pages;
-            close $FD;
-        }
-    }
+    return @chapter_dirs;
 }
 
 # TODO Test
@@ -353,6 +359,25 @@ sub get_public_module ($) {
     }
 
     return $hash_list;
+}
+
+sub save_public_struct ($$$) {
+    my $self = shift;
+    my ($location, $meta_struct) = @_;
+    my $file                = Mojo::Asset::File->new;
+    my $json_bytes          = $self->hash_to_json($meta_struct);
+    # TODO errorlog default maxsize 128KB for a chunk
+    $file->add_chunk($json_bytes);
+    $file->move_to($location);
+}
+
+sub load_public_struct ($$) {
+    my $self        = shift;
+    my $location    = shift;
+    my $file        = Mojo::Asset::File->new( path => $location);
+    # TODO Charset problem
+    my $meta_struct = $self->json_to_hash($file->get_chunk(0));
+    return $meta_struct;
 }
 
 # }}}
