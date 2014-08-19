@@ -27,7 +27,7 @@ This method transform xml to html (for static html).
 
 =for :list
 * L<Your::Module>
-* L<Your::Package>
+* L<Textmining::Plugin::StructureHelper::Transform>
 
 =cut
 
@@ -36,10 +36,9 @@ use Mojo::JSON qw(decode_json encode_json);
 use XML::LibXML;
 use XML::LibXSLT;
 
-use Data::Printer;
-
 $XML::LibXML::skipXMLDeclaration = 1;
 
+# TODO test
 sub new {
     my $class = shift;
 
@@ -53,7 +52,8 @@ sub new {
     return $self;
 }
 
-sub get_xml {
+# TODO test
+sub get_xml ($$) {
     my $self    = shift;
     my $xmlfile = shift;
 
@@ -61,7 +61,8 @@ sub get_xml {
     return $source;
 }
 
-sub get_xsl {
+# TODO test
+sub get_xsl ($$) {
     my $self    = shift;
     my $xslfile = shift;
 
@@ -70,7 +71,9 @@ sub get_xsl {
     return $style;
 
 }
-sub xmltohash {
+
+# TODO test
+sub xmltohash ($$) {
     my $self    = shift;
     my $xml     = shift;
 
@@ -81,7 +84,8 @@ sub xmltohash {
     return $hash;
 }
 
-sub xmltohtml {
+# TODO test
+sub xmltohtml ($$) {
     my $self    = shift;
     my $xml     = shift;
 
@@ -94,7 +98,8 @@ sub xmltohtml {
     return $results;
 }
 
-sub nodestohtml {
+# TODO test
+sub nodestohtml ($@) {
     my $self = shift;
     my @nodes = @_;
 
@@ -105,6 +110,8 @@ sub nodestohtml {
     return @results;
 }
 
+# TODO test
+#   library support
 sub xml_pages ($$$) {
     my $self    = shift;
     my $modul_path = shift;

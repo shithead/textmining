@@ -216,9 +216,12 @@ sub init_pubilc_course ($$) {
     my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
     $self->save_public_struct ($course_meta_path, $course_meta_struct);
 
-    $course_meta_struct     = $self->load_public_struct ($course_meta_path);
+    $course_meta_struct = $self->load_public_struct($course_meta_path);
 
-    my @chapter_dirs = $self->create_public_chapter ($course, $course_meta_struct);
+    my @chapter_dirs    = $self->create_public_chapter(
+                $course,
+                $course_meta_struct
+            );
 
     my @pages;
 
@@ -308,39 +311,27 @@ sub update_public_struct ($) {
     # work with content of public/course directory
     for my $name (values @course) {
         # ignore . and ..
-        unless ($name =~ m/(^\.+)/)  {
+        unless ($name =~ m/(^\.+)|(.*\.json$)/)  {
             # build course tree
-            $hash->{$name} = {};
-        };
-        # get content of public/course/name directory
-        opendir(DIR, join ('/', $course_dir, $name));
-        my @moduls = readdir(DIR);
-        closedir(DIR);
-
-        for my $modul (values @moduls) {
-            # ignore .+ and grep files with xml-Suffix
-            if ($modul =~ qr/(^[^\.]+.*\.xml$)/)  {
-                # build modul tree
-                $hash->{$name}->{$modul} = {};
-            };
-            # content of public/course/name/modul directory
-            opendir(DIR, join ('/', $course_dir, $name, $modul));
-            my @chapters = readdir(DIR);
+            $hash->{$name} = [];
+            # get content of public/course/name directory
+            opendir(DIR, join ('/', $course_dir, $name));
+            my @moduls = readdir(DIR);
             closedir(DIR);
 
-            for my $chapter (values @chapters) {
-                # ignore . and ..
-                unless ($chapter =~ m/(^\.+)/)  {
-                    opendir(DIR, join ('/', $course_dir, $name, $modul, $chapter));
-                    # content of public/course/name/modul/chapter directory
-                    @{$hash->{$name}->{$modul}->{$chapter}} = readdir(DIR);
-                    closedir(DIR);
+            for my $modul (values @moduls) {
+                # ignore .+
+                unless ($modul =~ m/(^\.+)|(.*\.json$)/)  {
+                    # build modul tree
+                    push @{$hash->{$name}}, $modul;
                 };
             };
         };
     };
 
     $self->{_public_struct} = $hash;
+    my $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
+    $self->save_public_struct($meta_path, $hash);
 }
 
 # TODO Test
