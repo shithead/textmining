@@ -44,6 +44,7 @@ sub register {
         });
 }
 
+#{{{ utils
 # TODO Test
 sub _exists_check ($$) {
     my $self    = shift;
@@ -72,11 +73,13 @@ sub json_to_hash ($$) {
     my $json                = Mojo::JSON->new;
     my $meta_struct         = $json->decode($json_bytes);
     my $err                 = $json->error;
-    say $err ?  "Error: $err" : 
+    say $err ?  "Error json decode: $err" : 
             "decode meta.json Successed";
     # TODO Errorlog
     return $meta_struct;
 }
+
+#}}}
 
 # {{{ data directory
 # TODO Test
@@ -243,6 +246,8 @@ sub init_pubilc_course ($$) {
             close $FD;
         }
     }
+
+    $self->update_public_struct;
 }
 
 sub create_public_chapter ($$$) {
@@ -337,7 +342,9 @@ sub update_public_struct ($) {
 # TODO Test
 sub get_public_struct ($) {
     my $self = shift;
-    return $self->{_public_struct};
+    my $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
+    my $meta_struct  = $self->load_public_struct($meta_path);
+    return $meta_struct ? $meta_struct : $self->{_public_struct};
 }
 
 # TODO Test
