@@ -216,11 +216,11 @@ sub init_pubilc_course ($$) {
         $self->create_public_path($course);
     }
 
-    my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
-    $self->save_public_struct ($course_meta_path, $course_meta_struct);
-
-    $course_meta_struct = $self->load_public_struct($course_meta_path);
-
+    # {{ TODO build a stack of 
+    # create_public_modul 
+    # -> create_chapter_modul 
+    # -> create_public_pages
+    # update every sub modul with $page_meta_list see bootom of fnct
     my @chapter_dirs    = $self->create_public_chapter(
                 $course,
                 $course_meta_struct
@@ -237,6 +237,8 @@ sub init_pubilc_course ($$) {
         ));
     }
     # create_public_pages ($path, @pages, @chapter_dirs)
+    my $prev_page = undef;
+    my @page_meta_list;
     for my $chapter (@chapter_dirs){
         for my $pagenr (1..$chapter->{pagecnt}) {
             my $page    = join('/', $self->{_path}->{course}, $chapter->{dir},
@@ -244,9 +246,16 @@ sub init_pubilc_course ($$) {
             open my $FD, ">:encoding(UTF-8)", $page;
             print $FD shift @pages;
             close $FD;
+            push @page_meta_list, $page;
         }
     }
+    #p @page_meta_list;
+    $course_meta_struct->{sub}->[0]->{sub} = \@page_meta_list;
 
+    my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
+    $self->save_public_struct ($course_meta_path, $course_meta_struct);
+
+    # }}
     $self->update_public_struct;
 }
 
