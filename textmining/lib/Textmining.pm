@@ -43,6 +43,10 @@ sub startup {
 
     # Course route to controller
     $r->get('/course')->to('course#overview');
+
+    # Modul route to controller
+    # GET /course/modul?course="foo"&modul="bar"
+    $r->get('/course/modul')->to('modul#modul');
 }
 
 1;

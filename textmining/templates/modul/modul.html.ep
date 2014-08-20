@@ -1,0 +1,12 @@
+<!-- vim:ft=html -->
+% layout 'modul-navbar';
+% title $title;
+<ul class="pager">
+    <li class="previous disabled">
+    <a href="http://bootswatch.com/simplex/#">← Vorhergehende</a>
+    </li>
+    <li class="next">
+    <a href="http://bootswatch.com/simplex/#">Nächste →</a>
+    </li>
+</ul>
+<%= $modul_page %>

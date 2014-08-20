@@ -1,3 +1,4 @@
+<!-- vim:ft=html -->
 % layout 'default';
 % title 'Kurse';
 <div class="page-header">
@@ -21,7 +22,7 @@
          <td><%= $nr %></td>
          <td><%= $course %></td>
          <td><%= $modul %></td>
-         <td><a href="?course=<%= $course %>&modul=<%= $modul %>">
+         <td><a href="course/modul?course=<%= $course %>&modul=<%= $modul %>">
              <button type="button" class="btn btn-default btn-xs">Start</button>
          </a></td>
         </tr>
