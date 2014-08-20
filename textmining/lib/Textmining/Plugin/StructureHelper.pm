@@ -349,9 +349,20 @@ sub update_public_struct ($) {
 }
 
 # TODO Test
-sub get_public_struct ($) {
+# TODO $dir should be undefbut not.
+sub get_public_struct ($$) {
     my $self = shift;
-    my $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
+    my $dir = shift | undef;
+    p $dir;
+
+    my $meta_path;
+    if (defined $dir) {
+        $meta_path    = join('/', $self->{_path}->{course}, $dir,"meta.json" );
+    } else {
+        $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
+    }
+
+    p $meta_path;
     my $meta_struct  = $self->load_public_struct($meta_path);
     return $meta_struct ? $meta_struct : $self->{_public_struct};
 }
