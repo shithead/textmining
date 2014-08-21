@@ -295,7 +295,9 @@ sub rm_public_path ($$) {
     remove_tree($dir, {error => \my $err});
 
     # TODO Errorlog
-    say $err ? "Error: remove_tree $err" : "remove_tree Successed";
+    if (@{$err}) {
+        say "Error: remove_tree $err->[0]";
+    }
 }
 
 # TODO Test
@@ -306,7 +308,9 @@ sub create_public_path ($$) {
     make_path($dir, {error => \my $err});
 
     # TODO Errorlog
-    say $err ? "Error: make_path $err" : "make_path Successed";
+    if (@{$err}) {
+        say "Error: make_path $err->[0]";
+    }
 }
 
 # TODO Test
