@@ -351,9 +351,8 @@ sub update_public_struct ($) {
 # TODO Test
 # TODO $dir should be undefbut not.
 sub get_public_struct ($$) {
-    my $self = shift;
-    my $dir = shift | undef;
-    p $dir;
+    my $self    = shift;
+    my $dir     = shift or undef;
 
     my $meta_path;
     if (defined $dir) {
