@@ -24,6 +24,7 @@ sub _get_public_page_path ($$$) {
     my $meta_struct = shift;
     my $modul = shift;
 
+    return undef unless defined $meta_struct->{sub};
     for my $m (values $meta_struct->{sub}) {
         return @{$m->{sub}} if $m->{meta}->{title} eq $modul;
     }
