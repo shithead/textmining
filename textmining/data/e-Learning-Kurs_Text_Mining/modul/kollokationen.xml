@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="course.xsl" ?>
-<!DOCTYPE course SYSTEM "../../templates/res/course.dtd">
+<!DOCTYPE course SYSTEM "../../../templates/res/course.dtd">
 <course>
     <meta>
         <title>e-Learning-Kurs Text Mining</title>
@@ -19,6 +19,9 @@
             <authors>
                 <author>Yvonne Krämer</author>
             </authors>
+            <libraries>
+                <library>library.xml</library>
+            </libraries>
         </meta>
         <chapter id='lernziele' type="learningObjective">
             <page>
