@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
-    <!--    <xsl:template match="/">
-            <div id="bs-container">
-                <xsl:apply-templates select="current()"/>
-            </div>
-     </xsl:template>
-     -->
+
      <xsl:template match="action">
          <xsl:apply-templates select="text | url"/>
      </xsl:template>
@@ -168,15 +163,13 @@
      </xsl:template>
 
      <xsl:template match="page">
-         <div class="bs-container">
-             <xsl:if test="h2">
-                 <h2> <xsl:value-of select="h2"/> </h2>
-             </xsl:if>
-             <xsl:if test="h3">
-                 <h3> <xsl:value-of select="h3"/> </h3>
-             </xsl:if>
-             <xsl:apply-templates select="check | img | list | p"/>
-         </div>
+         <xsl:if test="h2">
+             <h2> <xsl:value-of select="h2"/> </h2>
+         </xsl:if>
+         <xsl:if test="h3">
+             <h3> <xsl:value-of select="h3"/> </h3>
+         </xsl:if>
+         <xsl:apply-templates select="check | img | list | p"/>
      </xsl:template>
 
      <xsl:template match="person">
