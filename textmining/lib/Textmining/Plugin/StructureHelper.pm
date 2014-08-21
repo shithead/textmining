@@ -22,6 +22,7 @@ This method
 use Mojo::Base qw(Mojolicious::Plugin);
 use Mojo::Asset::File;
 use Mojo::JSON;
+use Mojo::Util qw(encode decode);
 
 use Textmining::Plugin::StructureHelper::Transform;
 use File::Path qw(remove_tree make_path);
@@ -59,7 +60,7 @@ sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
     my $json                = Mojo::JSON->new;
-    my $json_bytes          = $json->encode($meta_struct);
+    my $json_bytes          = encode( 'UTF-8', $json->encode($meta_struct));
     my $err                 = $json->error;
     say $err ?  "Error: $err" : 
             "encode meta_struct for meta.json Successed";
@@ -71,7 +72,7 @@ sub json_to_hash ($$) {
     my $self                = shift;
     my $json_bytes          = shift;
     my $json                = Mojo::JSON->new;
-    my $meta_struct         = $json->decode($json_bytes);
+    my $meta_struct         = $json->decode(encode( 'UTF-8', $json_bytes));
     my $err                 = $json->error;
     say $err ?  "Error json decode: $err" : 
             "decode meta.json Successed";
@@ -397,7 +398,7 @@ sub load_public_struct ($$) {
     my $location    = shift;
     my $file        = Mojo::Asset::File->new( path => $location);
     # TODO Charset problem
-    my $meta_struct = $self->json_to_hash($file->get_chunk(0));
+    my $meta_struct = $self->json_to_hash(decode( 'UTF-8', $file->get_chunk(0)));
     return $meta_struct;
 }
 
