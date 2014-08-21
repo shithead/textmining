@@ -19,16 +19,14 @@ This method
 
 =cut
 
-use Mojo::Base qw(Mojolicious::Plugin);
+use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Asset::File;
 use Mojo::JSON;
 use Mojo::Util qw(encode decode);
 
 use Textmining::Plugin::StructureHelper::Transform;
 use File::Path qw(remove_tree make_path);
-
 use feature 'say';
-use Data::Printer;
 
 sub register {
   my ($self, $app) = @_;
@@ -250,7 +248,6 @@ sub init_public_course ($$) {
             push @page_meta_list, $page;
         }
     }
-    #p @page_meta_list;
     $course_meta_struct->{sub}->[0]->{sub} = \@page_meta_list;
 
     my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
@@ -367,7 +364,6 @@ sub get_public_struct ($$) {
     }
 
     my $meta_struct  = $self->load_public_struct($meta_path);
-    p $meta_struct;
     return $meta_struct ? $meta_struct : $self->{_public_struct};
 }
 
