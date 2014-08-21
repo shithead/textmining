@@ -47,7 +47,7 @@ sub register {
 #{{{ utils
 # TODO Test
 sub _exists_check ($$) {
-    my $self    = shift;
+    #my $self    = shift if __PACKAGE__ eq "Textmining::Plugin::StructureHelper" ;
     my $object  = shift;
     if (-e $object) {
         return 0;
@@ -193,7 +193,7 @@ sub get_data_library ($$) {
 # {{{ public directory
 
 # TODO Test
-sub init_pubilc_course ($$) {
+sub init_public_course ($$) {
     my ($self, $course) = @_;
 
     my $path = {
@@ -362,13 +362,13 @@ sub get_public_struct ($$) {
         $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
     }
 
-    p $meta_path;
     my $meta_struct  = $self->load_public_struct($meta_path);
+    p $meta_struct;
     return $meta_struct ? $meta_struct : $self->{_public_struct};
 }
 
 # TODO Test
-sub get_public_module ($) {
+sub get_public_modul ($) {
     my $self = shift;
 
     my $hash_list;

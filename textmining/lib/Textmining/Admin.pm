@@ -13,9 +13,10 @@ sub open {
     my $self = shift;
 
     my $course = $self->param('course');
-    $self->struct->init_pubilc_course($course);
+    $self->struct->init_public_course($course);
     $self->redirect_to('/admin');
 }
+
 sub course {
     my $self = shift;
 
