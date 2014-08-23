@@ -23,6 +23,35 @@ This method transform xml to perlhash (for dynamic html).
 
 This method transform xml to html (for static html).
 
+=method nodestohtml()
+
+This method transform nodes to html.
+Is using L<"xmltohtml">.
+
+=method xml_pages()
+
+This method transform pages to html.
+Is using L<"get_xml"> and L<"nodestohtml">.
+
+=method get_node_metastruct()
+
+This method return metastructure from specified node meta-tag.
+
+=method get_meta_struct()
+
+This method return metastructure from xml-file.
+Is using L<"get_xml">, L<"get_course_struct">, L<"get_modul_struct">
+
+=method get_course_struct()
+
+This method return metastructure from course-tag.
+Is using L<"get_node_metastruct">.
+
+=method get_modul_struct()
+
+This method return metastructure from module-tag.
+Is using L<"get_node_metastruct">.
+
 =head1 SEE ALSO
 
 =for :list

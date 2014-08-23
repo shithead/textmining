@@ -5,11 +5,87 @@ package Textmining::Plugin::StructureHelper;
 
 =head1 SYNOPSIS
 
-...
+=method _exists_check()
+
+This method check the exist of a file.
+Returned 1 if a file is not exists.
+
+=method hash_to_json()
+
+This method return C<Mojo::JSON> from a perl hash.
+
+=method json_to_hash()
+
+This method return a perl hash from a C<Mojo::JSON>.
+
+=method update_data_struct()
+
+This method update the structure of the 'data' directory.
 
 =method get_data_struct()
 
-This method
+This method return the structure of the 'data' directory.
+
+=method get_data_course()
+
+This method return the structure of the specified course.
+
+=method get_data_modul()
+
+This method return the moduls files and directory
+in a structure of the specified course.
+Is using L<"update_data_struct">.
+
+=method get_data_library()
+
+This method returned the libraries files and directory
+in a structure of the specified course.
+Is using L<"update_data_struct">.
+
+=method init_public_course()
+
+This method initialing the public directory of the specified course
+with the informations from the modul by 
+L<Textmining::StructureHelper::Transform/"get_meta_struct">.
+Is using L<"rm_public_path">, L<"create_public_path">,
+L<"create_public_chapter">, L<"save_public_struct"> , L<"update_public_struct">.
+
+=method create_public_chapter()
+
+This method initialing the public chapter directories of the specified course.
+Is using L<"create_public_path">.
+
+=method rm_public_path()
+
+This method remove the public directory of the specified course.
+
+=method create_public_path()
+
+This method create path of the specified directory in 'public/course' directory.
+
+=method get_public_modul()
+
+This method return all module informaitions from a course hash.
+
+=method get_public_struct()
+
+This method return a meta struct in the specified 'public/course' directory.
+Is using L<"load_public_struct">.
+
+=method update_public_struct()
+
+This method return the structure of the specified 'public/course' directory.
+Is using L<"save_public_struct">.
+
+=method save_public_struct()
+
+This method save the specified meta struct in path.
+Is using L<"hash_to_json">.
+
+=method load_public_struct()
+
+This method load the specified meta struct in path.
+Is using L<"json_to_hash">.
 
 =head1 SEE ALSO
 
@@ -139,6 +215,7 @@ sub get_data_course ($) {
     return @course_list;
 }
 
+# TODO Test
 sub get_data_modul ($$) {
     my $self = shift;
     my $course = shift;
@@ -201,6 +278,7 @@ sub init_public_course ($$) {
         modul   => $self->get_data_modul($course),
         library => $self->get_data_library($course)
     };
+
     my $course_meta_struct;
     $course_meta_struct = $self->{transform}->get_meta_struct(
         $path->{modul}->{path},
@@ -351,7 +429,7 @@ sub update_public_struct ($) {
 }
 
 # TODO Test
-# TODO $dir should be undefbut not.
+# TODO $dir should be undef but not.
 sub get_public_struct ($$) {
     my $self    = shift;
     my $dir     = shift or undef;
@@ -379,6 +457,7 @@ sub get_public_modul ($) {
     return $hash_list;
 }
 
+# TODO Test
 sub save_public_struct ($$$) {
     my $self = shift;
     my ($location, $meta_struct) = @_;
@@ -389,11 +468,11 @@ sub save_public_struct ($$$) {
     $file->move_to($location);
 }
 
+# TODO Test
 sub load_public_struct ($$) {
     my $self        = shift;
     my $location    = shift;
     my $file        = Mojo::Asset::File->new( path => $location);
-    # TODO Charset problem
     my $meta_struct = $self->json_to_hash(decode( 'UTF-8', $file->get_chunk(0)));
     return $meta_struct;
 }
