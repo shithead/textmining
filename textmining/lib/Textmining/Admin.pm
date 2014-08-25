@@ -24,8 +24,7 @@ sub course {
     my $type = $self->param('type');
 
     if ($type =~ m/free/) {
-        use Data::Printer;
-        p $self->struct->get_modules_data($course);
+        $self->struct->get_modules_data($course);
     }
     $self->redirect_to('/admin');
 }

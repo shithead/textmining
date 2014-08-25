@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="bs-component">
-<%= content %>
+    <%= content %>
 </div>
 
 <script src="../js/jquery-1.js"></script>

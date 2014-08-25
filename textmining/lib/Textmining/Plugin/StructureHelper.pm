@@ -273,8 +273,8 @@ sub init_public_course ($$) {
     my ($self, $course) = @_;
 
     my $path = {
-        src     => join('/', $self->{_path}->{data}    , $course),
-        dest    => join('/', $self->{_path}->{course}  , $course),
+        src     => join('/', $self->{_path}->{data}  , $course),
+        dest    => join('/', $self->{_path}->{course}, $course),
         modul   => $self->get_data_modul($course),
         library => $self->get_data_library($course)
     };
@@ -326,7 +326,7 @@ sub init_public_course ($$) {
             push @page_meta_list, $page;
         }
     }
-    $course_meta_struct->{sub}->[0]->{sub} = \@page_meta_list;
+    $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
 
     my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
     $self->save_public_struct ($course_meta_path, $course_meta_struct);

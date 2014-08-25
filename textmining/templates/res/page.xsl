@@ -7,14 +7,43 @@
      </xsl:template>
 
      <xsl:template match="answer">
-         <xsl:choose>
-             <xsl:when test="@type='multi'">
-                 <xsl:apply-templates select="option"/>
-             </xsl:when>
-             <xsl:otherwise>
-                 <xsl:apply-templates select="option"/>
-             </xsl:otherwise>
-         </xsl:choose>
+         <div class="well bs-component">
+             <form class="form-horizontal">
+                 <xsl:choose>
+                     <xsl:when test="@type='multi'">
+                         <fieldset>
+                             <div class="form-group">
+                                 <label class="col-lg-2 control-label" for="select">Selects</label>
+                                 <div class="col-lg-10">
+                                     <select id="select" class="form-control">
+                                         <option><xsl:apply-templates select="option"/></option>
+                                     </select>
+
+                                 </div>
+                             </div>
+                             <div class="col-lg-10 col-lg-offset-2">
+                                 <button class="btn btn-primary" type="submit">Submit</button>
+                             </div>
+                         </fieldset>
+                     </xsl:when>
+                     <xsl:otherwise>
+                         <xsl:for-each select="option">
+                         <div>
+                             <div class="radio">
+                                 <label>
+                                     <input id="optionsRadios1" type="radio" value="option1" name="optionsRadios"/>
+                                     <xsl:apply-templates select="text"/>
+                                 </label>
+                             </div>
+                         </div>
+                         <div>
+                             <xsl:apply-templates select="action"/>
+                         </div>
+                     </xsl:for-each>
+                     </xsl:otherwise>
+                 </xsl:choose>
+             </form>
+         </div>
      </xsl:template>
 
      <xsl:template match="author">

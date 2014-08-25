@@ -2,22 +2,30 @@
 % layout 'modul-navbar';
 % title $modul;
 <div class="col-sm-2">
+    <div class="progress progress-striped">
+        <div class="progress-bar progress-bar-info" style="width: <%= $progress %>%"></div>
+    </div>
     <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-        <li class="active">
-            <a href="http://bootswatch.com/simplex/#">Home</a>
-        </li>
+        % for my $nav (values $navbar) {
+        % my ($text) = keys $nav;
+        % my ($nr) = values $nav;
+        % unless ($nr > $pagenr ) {
         <li>
-            <a href="http://bootswatch.com/simplex/#">Profile</a>
+        % } else {
+        <li class="active">
+        % }
+        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $nr %>"><%= $text %></a>
         </li>
+        % }
     </ul>
 </div>
 <div class="bs-component col-lg-9">
     <ul class="pager">
         <li class="previous">
-            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
+        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
         </li>
         <li class="next">
-            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr + 1 %>">Nächste →</a>
+        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr + 1 %>">Nächste →</a>
         </li>
     </ul>
     <%= $page %>
