@@ -36,7 +36,7 @@
                 </list>
             </page>
         </chapter>
-        <chapter id="einfuehrung">	
+        <chapter id="einführung">	
             <page>
                 <h1>Einführung</h1>
                 <h2>Was ist eine Kollokation?</h2>
@@ -147,7 +147,7 @@
                 <img src="">Animation/Bild oder ähnliches</img>
             </page>
         </chapter>
-        <chapter id="termologie">
+        <chapter id="terminologie">
             <page>
                 <h1>Terminlogische Festlegung</h1>
                 <p>Durch die vorhergehenden Ausführungen sollte klar geworden sein, dass es sowohl in Bezug auf den Begriff <term>Kollokation</term>, wie auch auf den Begriff <term>Kookkurrenz</term> eine gewisse Problematik gibt, 
@@ -463,7 +463,7 @@
     </list>
 </page>
 </chapter>
-<chapter id="kohaesion">
+<chapter id="kohäsion">
     <page>
         <h1>Mögliche Gründe für die Kohäsion von Wörtern</h1>
         <p>Kommen zwei Wörter immer wieder gemeinsam vor, so liegt es nahe, dass ein funktionaler oder inhaltlicher Zusammenhang zwischen ihnen besteht. Eine starke Anziehungskraft zwischen Bezugswort und Kollokator 
@@ -574,20 +574,101 @@
     <page>
         <h1>Training</h1>
         <h2>Freies Experimentieren </h2>
-        <list type="ordered"> <!-- irgendwie optisch abgesetzt werden-->
-            <li type="exercise">Ändern Sie den Parameter <term>Fenstergröße</term> für ein beliebiges Suchwort von -3/+3 zu -5/+5 und anschließend zu -1/-1 und +1/+1. Wie verändern sich die Ergebnisse?</li>
-            <li type="exercise">Wechseln Sie bei einem Suchwort Ihrer Wahl zwischen den Parametern <term>Wortform</term>, <term>Lemma</term> und <term>POS</term>. Wie verändern sich die Ergebnisse?</li>
-            <li type="exercise">Probieren Sie aus, was Sie mithilfe einer Kollokationsanalyse über ein willkürlich bestimmtes Wort in Erfahrung bringen können.</li>
-        </list>
+        <exercise>
+            <ctext>
+                <list type="ordered"> <!-- irgendwie optisch abgesetzt werden-->
+                    <li type="exercise">Ändern Sie den Parameter <term>Fenstergröße</term> für ein beliebiges Suchwort von -3/+3 zu -5/+5 und anschließend zu -1/-1 und +1/+1. Wie verändern sich die Ergebnisse?</li>
+                    <li type="exercise">Wechseln Sie bei einem Suchwort Ihrer Wahl zwischen den Parametern <term>Wortform</term>, <term>Lemma</term> und <term>POS</term>. Wie verändern sich die Ergebnisse?</li>
+                    <li type="exercise">Probieren Sie aus, was Sie mithilfe einer Kollokationsanalyse über ein willkürlich bestimmtes Wort in Erfahrung bringen können.</li>
+                </list>
+            </ctext>
+            <answer type="form">
+                <option>
+                    <ctext>
+                        Fenstergröße
+                    </ctext>
+                    <action>
+                        <ctext>
+                            -5
+                        </ctext>
+                        <ctext>
+                            -4
+                        </ctext>
+                    <ctext>
+                        -3
+                    </ctext>
+                    <ctext>
+                        -2
+                    </ctext>
+                    <ctext>
+                        -1
+                    </ctext>
+                </action>
+                <action>
+                        <ctext>
+                            +1
+                        </ctext>
+                        <ctext>
+                            +2
+                        </ctext>
+                        <ctext>
+                            +3
+                        </ctext>
+                        <ctext>
+                            +4
+                        </ctext>
+                        <ctext>
+                            +5
+                        </ctext>
+                    </action>
+                </option>
+                <option>
+                    <ctext>
+                        Wortsuche
+                    </ctext>
+                    <action>
+                        <ctext>
+                            Wortform
+                        </ctext>
+                        <ctext>
+                            Lemma
+                        </ctext>
+                        <ctext>
+                            POS
+                        </ctext>
+                    </action>
+                    <action>
+                        <ctext>
+                        </ctext>
+                    </action>
+                </option>
+            </answer>
+        </exercise>
+        </page><page><!-- </page><page> einfügen -->
         <h2>Angeleitetes Experimentieren</h2><!-- irgendwie optisch abgesetzt werden-->
-        <list type="ordered"> 
-            <li type="exercise">Vergleichen Sie den Wörterbucheintrag eines Lexems Ihrer Wahl mit dessen Kollokationsprofil. Welche Unterschiede und Gemeinsamkeiten können Sie (hinsichtlich Anordnung der Lesarten, Beispiele für Verwendungsweisen, Vollständigkeit...) feststellen?</li>
-            <li type="exercise">Prüfen Sie, ob die Kollokation X + Y frequenter und/oder signifikanter ist, als X2 + Y2. Beschreiben Sie Ihr Vorgehen und überlegen Sie, was die Gründe für Ihr Ergebnis sein könnten.</li>
-            <li type="exercise">Vergleichen Sie die Kollokationsprofile der beiden Verben X und Y und entscheiden Sie, ob es sich um bedeutungsgleiche Wörter handelt. Dokumentieren Sie Ihr Vorgehen und begründen Sie Ihre Meinung.</li>
-            <li type="exercise">Unteraufgabe: Welchen Themen/Bereichen lassen sich die jeweiligen Kollokatoren zuordnen?</li>
-            <li type="exercise">Führen Sie Kollokationsanalysen zu politischen Schlagwörtern, z.B. zu "Freiheit" durch. Finden Sie Differenzen zwischen den Parteien? Erklären und deuten Sie die Unterschiede.</li>
-            <li type="exercise">Laut Duden ist sowohl "der" als auch "das" Bonbon/Joghurt richtig. Doch welcher Artikel ist der gebräuchlichere? Skizzieren Sie, welche Vorgehensweisen bzw. Suchanfragen möglich sind, um diese Frage zu beantworten.  </li>
-        </list>
+        <exercise>
+            <ctext>
+                <list type="ordered"> 
+                    <li type="exercise">Vergleichen Sie den Wörterbucheintrag eines Lexems Ihrer Wahl mit dessen Kollokationsprofil. Welche Unterschiede und Gemeinsamkeiten können Sie (hinsichtlich Anordnung der Lesarten, Beispiele für Verwendungsweisen, Vollständigkeit...) feststellen?</li>
+                    <li type="exercise">Prüfen Sie, ob die Kollokation X + Y frequenter und/oder signifikanter ist, als X2 + Y2. Beschreiben Sie Ihr Vorgehen und überlegen Sie, was die Gründe für Ihr Ergebnis sein könnten.</li>
+                    <li type="exercise">Vergleichen Sie die Kollokationsprofile der beiden Verben X und Y und entscheiden Sie, ob es sich um bedeutungsgleiche Wörter handelt. Dokumentieren Sie Ihr Vorgehen und begründen Sie Ihre Meinung.</li>
+                    <li type="exercise">Unteraufgabe: Welchen Themen/Bereichen lassen sich die jeweiligen Kollokatoren zuordnen?</li>
+                    <li type="exercise">Führen Sie Kollokationsanalysen zu politischen Schlagwörtern, z.B. zu "Freiheit" durch. Finden Sie Differenzen zwischen den Parteien? Erklären und deuten Sie die Unterschiede.</li>
+                    <li type="exercise">Laut Duden ist sowohl "der" als auch "das" Bonbon/Joghurt richtig. Doch welcher Artikel ist der gebräuchlichere? Skizzieren Sie, welche Vorgehensweisen bzw. Suchanfragen möglich sind, um diese Frage zu beantworten.  </li>
+                </list>
+            </ctext>
+            <answer type="form">
+                <option>
+                    <ctext>
+
+                    </ctext>
+                    <action>
+                        <ctext>
+                        </ctext>
+                    </action>
+                </option>
+            </answer>
+        </exercise>
     </page>
 </chapter>
 <chapter id="checkliste">
@@ -597,170 +678,170 @@
         <p>Mit Hilfe der nachfolgenden Fragen sollen Sie einschätzen, ob Sie die wesentlichen Aspekte und die größeren Zusammenhänge dieses Moduls verstanden haben und wiedergeben bzw. anwenden können. Wenn Sie feststellen, dass Sie auf eine der Fragen mit "Nein" antworten müssen, so werden zusammengefasste Informationen und ein Link zum entsprechenden Thema angezeigt.</p>
         <check>
             <question>
-                <text>1.	Ich kann eine Verbindung zwischen dem Terminus "Kollokation" und dem Namen J.R. Firth herstellen und diesbezüglich einige Schlagwörter nennen.</text>
+                <ctext>1.	Ich kann eine Verbindung zwischen dem Terminus "Kollokation" und dem Namen J.R. Firth herstellen und diesbezüglich einige Schlagwörter nennen.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Wunderbar!</text>
+                        <ctext>Wunderbar!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text>J.R. Firth brachte den Begriff <term>Kollokation</term> auf und wird in diesem Zusammenhang daher vielfach erwähnt. Bekannt ist sein Ausspruch "You shall know a word by the company it keeps", denn seiner Meinung nach lassen die Kollokatoren auf die Bedeutung und Verwendungsweise des Bezugswortes schließen. Im Hinblick auf Kollokationen spricht Firth von <term>häufig wiederkehrenden Wortkombinationen</term>, von <term>Rekkurrenz</term> und <term>gegenseitiger Erwartbarkeit</term> (<term><foreign>mutual expectancy</foreign></term>). </text>
-                        <url href="" >LINK zu Was ist eine Kollokation?</url>
+                        <ctext>J.R. Firth brachte den Begriff <term>Kollokation</term> auf und wird in diesem Zusammenhang daher vielfach erwähnt. Bekannt ist sein Ausspruch "You shall know a word by the company it keeps", denn seiner Meinung nach lassen die Kollokatoren auf die Bedeutung und Verwendungsweise des Bezugswortes schließen. Im Hinblick auf Kollokationen spricht Firth von <term>häufig wiederkehrenden Wortkombinationen</term>, von <term>Rekkurrenz</term> und <term>gegenseitiger Erwartbarkeit</term> (<term><foreign>mutual expectancy</foreign></term>). </ctext>
+                        <url href="#einführung" >LINK zu Was ist eine Kollokation?</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>2.	Ich bin in der Lage, die Lesarten von <term>Kollokation</term> in der Phraseologie, der Computerlinguistik und der Korpuslinguistik grob darzulegen.</text>
+                <ctext>2.	Ich bin in der Lage, die Lesarten von <term>Kollokation</term> in der Phraseologie, der Computerlinguistik und der Korpuslinguistik grob darzulegen.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Sehr gut!</text>
+                        <ctext>Sehr gut!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>In der Phraseologie folgt man der Definition Hausmanns, nach welcher Kollokationen aus Basis und Kollokator bestehen. Es handelt sich um die Kombination zweier, voneinander abhängiger Wörter, zwischen denen eine Rangordnung besteht. </p>
+                        <ctext><p>In der Phraseologie folgt man der Definition Hausmanns, nach welcher Kollokationen aus Basis und Kollokator bestehen. Es handelt sich um die Kombination zweier, voneinander abhängiger Wörter, zwischen denen eine Rangordnung besteht. </p>
                             <p>In der Computerlinguistik versteht man unter Kollokationen festgelegte Wortverbindungen mit semantischen oder syntaktischen Besonderheiten, weshalb sie für die maschinelle Sprachverarbeitung eine Herausforderung darstellen. Statt von Kollokationen spricht man jedoch immer öfter von <term>multiword expressions</term>.</p>
                             <p>In der Korpuslinguistik meint man mit (empirischen/statistischen) Kollokationen das überzufällig häufig gemeinsame Vorkommen zweier Wörter.</p>
-                        </text>
-                        <url href="" >LINK zu Lesarten des Begriffs "Kollokation"</url>
+                        </ctext>
+                        <url href="#begriffe" >LINK zu Lesarten des Begriffs "Kollokation"</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>3.	Mir ist die terminologische Problematik hinsichtlich der Bezeichnungen "Kollokation" und "Kookkurrenz" bewusst.</text>
+                <ctext>3.	Mir ist die terminologische Problematik hinsichtlich der Bezeichnungen "Kollokation" und "Kookkurrenz" bewusst.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Tolle Leistung!</text>
+                        <ctext>Tolle Leistung!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text>Unter einer Kookkurrenz kann man sowohl das bloße Kovorkommen zweier Wörter, wie auch ein Synonym oder eine Vorstufe zu einer Kollokation verstehen. Kollokationen wiederum können als Sammelbegriff für sprachliche Herausforderungen in der Computerlinguistik aufgefasst werden. Weiterhin werden sie von Hausmann phraseologisch definiert und zum anderen auf statistischer Grundlage als überzufällig häufig benachbarte Wörter ausgelegt. Die beiden Begriffe sind nicht klar voneinander abgegrenzt.</text>
-                        <url href="" >LINK zu Lesarten des Begriffs "Kollokation" und zu "Was ist denn eine Kookkurrenz?"</url>
+                        <ctext>Unter einer Kookkurrenz kann man sowohl das bloße Kovorkommen zweier Wörter, wie auch ein Synonym oder eine Vorstufe zu einer Kollokation verstehen. Kollokationen wiederum können als Sammelbegriff für sprachliche Herausforderungen in der Computerlinguistik aufgefasst werden. Weiterhin werden sie von Hausmann phraseologisch definiert und zum anderen auf statistischer Grundlage als überzufällig häufig benachbarte Wörter ausgelegt. Die beiden Begriffe sind nicht klar voneinander abgegrenzt.</ctext>
+                        <url href="#begriffe" >LINK zu Lesarten des Begriffs "Kollokation" und zu "Was ist denn eine Kookkurrenz?"</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>4.	Ich habe verstanden, welche Terminologie diesem Modul zugrundeliegt.</text>
+                <ctext>4.	Ich habe verstanden, welche Terminologie diesem Modul zugrundeliegt.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Ausgezeichnet!</text>
+                        <ctext>Ausgezeichnet!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text>In diesem Modul wird dem Terminus <term>Kollokation</term> der Vorzug gegeben. Damit sind überzufällig häufige und signifikante Wortverbindungen gemeint, welche mittels mathematisch-statistischer Berechnungen ermittelt werden. Die bei Hausmann wichtigen Aspekte der Wohlgeformtheit und der hierarchischen Determiniertheit spielen dabei keine Rolle.</text>
-                        <url href="" >LINK zu Terminologische Festlegung</url>
+                        <ctext>In diesem Modul wird dem Terminus <term>Kollokation</term> der Vorzug gegeben. Damit sind überzufällig häufige und signifikante Wortverbindungen gemeint, welche mittels mathematisch-statistischer Berechnungen ermittelt werden. Die bei Hausmann wichtigen Aspekte der Wohlgeformtheit und der hierarchischen Determiniertheit spielen dabei keine Rolle.</ctext>
+                        <url href="#terminologie" >LINK zu Terminologische Festlegung</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>5.	Ich bin fähig zu erläutern, was man unter einer Kollokationsanalyse und einem Kollokationsprofil versteht.</text>
+                <ctext>5.	Ich bin fähig zu erläutern, was man unter einer Kollokationsanalyse und einem Kollokationsprofil versteht.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Das ist spitze!</text>
+                        <ctext>Das ist spitze!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Bei einer Kollokationsanalyse werden auf der Grundlage der eingestellten Parameter und des gewählten Signifikanzmaßes mittels statistischer Verfahren die auffälligsten Kollokatoren eines Bezugswortes berechnet.</p>
-                            <p>Das Kollokationsprofil eines Wortes ist die Gesamtheit seiner relevanten Kollokationen und spiegelt somit die Verwendungsweise des Wortes wider.</p></text>
-                        <url href="" >LINK zu LINK zu Wissenswerte Begriffe</url>
+                        <ctext><p>Bei einer Kollokationsanalyse werden auf der Grundlage der eingestellten Parameter und des gewählten Signifikanzmaßes mittels statistischer Verfahren die auffälligsten Kollokatoren eines Bezugswortes berechnet.</p>
+                            <p>Das Kollokationsprofil eines Wortes ist die Gesamtheit seiner relevanten Kollokationen und spiegelt somit die Verwendungsweise des Wortes wider.</p></ctext>
+                        <url href="#begriffe" >LINK zu LINK zu Wissenswerte Begriffe</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>6.	Ich kann zwei Bereiche nennen, in denen Kollokationsanalysen zur Anwendung kommen und Beispiele für deren Nutzen anführen.</text>
+                <ctext>6.	Ich kann zwei Bereiche nennen, in denen Kollokationsanalysen zur Anwendung kommen und Beispiele für deren Nutzen anführen.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Großartig!</text>
+                        <ctext>Großartig!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Kollokationsanalysen kommen unter anderem in der Lexikographie und Lexikologie, der Fremdsprachendidaktik, der Übersetzungswissenschaft und der Diskurslinguistik zum Einsatz.</p> 
-                            <p>Durch dieses Verfahren können beispielsweise Gebrauchskonventionen, Bedeutungsfelder und grammatische Strukturen sichtbar gemacht werden. Bei der Erstellung von Wörterbuchartikeln gibt es Aufschluss über die Anordnung von Lesarten und liefert gängige Verwendungsbeispiele.</p> </text>
+                        <ctext><p>Kollokationsanalysen kommen unter anderem in der Lexikographie und Lexikologie, der Fremdsprachendidaktik, der Übersetzungswissenschaft und der Diskurslinguistik zum Einsatz.</p> 
+                            <p>Durch dieses Verfahren können beispielsweise Gebrauchskonventionen, Bedeutungsfelder und grammatische Strukturen sichtbar gemacht werden. Bei der Erstellung von Wörterbuchartikeln gibt es Aufschluss über die Anordnung von Lesarten und liefert gängige Verwendungsbeispiele.</p> </ctext>
                         <url href="" >LINK zu Anwendungsmöglichkeiten</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>7.	Ich bin in der Lage, die Begriffe <term>signifikant</term> und <term>frequent</term> zu unterscheiden.</text>
+                <ctext>7.	Ich bin in der Lage, die Begriffe <term>signifikant</term> und <term>frequent</term> zu unterscheiden.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Prima!</text>
+                        <ctext>Prima!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Eine frequente Kollokation ist eine Wortverbindung, die häufig im Korpus erscheint. Dabei wird das Vorkommen im Vergleich zu anderen Kollokationen ausgezählt. </p> 
-                            <p>Um die Signifikanz der Kollokation beurteilen zu können, wird zusätzlich die Gesamtgröße des Korpus berücksichtigt und es wird berechnet, wie oft man die Wortverbindung bei einer gleichmäßigen Verteilung erwarten würde.</p> </text>
+                        <ctext><p>Eine frequente Kollokation ist eine Wortverbindung, die häufig im Korpus erscheint. Dabei wird das Vorkommen im Vergleich zu anderen Kollokationen ausgezählt. </p> 
+                            <p>Um die Signifikanz der Kollokation beurteilen zu können, wird zusätzlich die Gesamtgröße des Korpus berücksichtigt und es wird berechnet, wie oft man die Wortverbindung bei einer gleichmäßigen Verteilung erwarten würde.</p> </ctext>
                         <url href="" >LINK zu Überzufällig häufig und Signifikant</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>8.	Ich bin imstande, die beobachtete und die erwartete Frequenz zu beschreiben.</text>
+                <ctext>8.	Ich bin imstande, die beobachtete und die erwartete Frequenz zu beschreiben.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Gute Arbeit!</text>
+                        <ctext>Gute Arbeit!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Die beobachtete Frequenz meint das tatsächliche Vorkommen einer Kollokation. </p> 
-                            <p> Die erwartete Frequenz berechnet sich durch Multiplikation der Einzelfrequenz des Kollokators und des Bezugswortes, geteilt durch die Gesamtgröße des Korpus. Auf diese Weise ermittelt man die Werte einer zufälligen Verteilung. Werden diese deutlich überschritten, so ist die Wortverbindung signifikant. </p> </text>
+                        <ctext><p>Die beobachtete Frequenz meint das tatsächliche Vorkommen einer Kollokation. </p> 
+                            <p> Die erwartete Frequenz berechnet sich durch Multiplikation der Einzelfrequenz des Kollokators und des Bezugswortes, geteilt durch die Gesamtgröße des Korpus. Auf diese Weise ermittelt man die Werte einer zufälligen Verteilung. Werden diese deutlich überschritten, so ist die Wortverbindung signifikant. </p> </ctext>
                         <url href="">LINK zu Beobachtete Frequenz und zu Erwartete Frequenz</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>9.	Ich kann die vier Werte angeben, die für Signifikanztests benötigt werden.</text>
+                <ctext>9.	Ich kann die vier Werte angeben, die für Signifikanztests benötigt werden.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Klasse!</text>
+                        <ctext>Klasse!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text>
+                        <ctext>
                             <list>
                                 <li> wie oft Wort&#8321; und Wort&#8322; (in einem vorher definierten Textfenster) gemeinsam vorkommen,</li>
                                 <li> wie oft nur Wort&#8321; vorkommt,</li>
@@ -768,45 +849,45 @@
                                 <li>wie viele Wörter nicht Wort&#8321; oder Wort&#8322; sind. </li>
                             </list>
                             <p>Für alle vier Werte sind die beobachtete sowie die erwartete Frequenz anzugeben.</p>
-                        </text>
+                        </ctext>
                         <url href="" >LINK zu Beobachtete Frequenz</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>10.	Ich habe verstanden, wozu Signifikanzmaße dienen und kann zwei benennen.</text>
+                <ctext>10.	Ich habe verstanden, wozu Signifikanzmaße dienen und kann zwei benennen.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Hervorragend!</text>
+                        <ctext>Hervorragend!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Signifikanzmaße bewerten Kollokationen statistisch hinsichtlich ihrer Auffälligkeit und ermöglichen es, die Attraktionsstärke bzw. den Kohäsionsgrad zweier Wörter darzustellen. Mithilfe von Signifikanztests kann man ein zufälliges Kovorkommen ausschließen und zugleich wird man auf Wortverbindungen aufmerksam, die vielleicht nicht sehr häufig, deren Kombination aber auffällig ist. Dabei sollte man berücksichtigen, dass einzelne Werte nicht unbedingt aussagekräftig sind. Üblicherweise wird durch Vergleich ein Ranking der Kollokatoren erstellt. </p>
+                        <ctext><p>Signifikanzmaße bewerten Kollokationen statistisch hinsichtlich ihrer Auffälligkeit und ermöglichen es, die Attraktionsstärke bzw. den Kohäsionsgrad zweier Wörter darzustellen. Mithilfe von Signifikanztests kann man ein zufälliges Kovorkommen ausschließen und zugleich wird man auf Wortverbindungen aufmerksam, die vielleicht nicht sehr häufig, deren Kombination aber auffällig ist. Dabei sollte man berücksichtigen, dass einzelne Werte nicht unbedingt aussagekräftig sind. Üblicherweise wird durch Vergleich ein Ranking der Kollokatoren erstellt. </p>
                             <p>Das gängigste Signifikanzmaß in der Korpuslinguistik ist die <term>Log-Likelihood-Ratio</term>, zudem finden <term>Chi-Quadrat</term>, <term>MI</term> oder <term>T-Score</term> Anwendung.</p> 
-                        </text>
+                        </ctext>
                         <url href="" >LINK zu Signifikanzmaße und Das Signifikanzmaß</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>11.	Ich bin fähig, zwei Gründe für die Attraktion zwischen Wörtern anzugeben.</text>
+                <ctext>11.	Ich bin fähig, zwei Gründe für die Attraktion zwischen Wörtern anzugeben.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Fabelhaft!</text>
+                        <ctext>Fabelhaft!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Mögliche Gründe für einen erhöhten Kohäsionsgrad sind:</p>
+                        <ctext><p>Mögliche Gründe für einen erhöhten Kohäsionsgrad sind:</p>
                             <list type="ordered" >
                                 <li>Es handelt sich um Eigennamen.</li>
                                 <li>Kollokator und Bezugswort sind Teil einer Aufzählung.</li>
@@ -814,66 +895,66 @@
                                 <li>Es liegt eine Teil-Ganzes-Beziehung vor (z.B. <kursiv>Seiten</kursiv> und <kursiv>Buch</kursiv>).</li>
                                 <li>Der Kollokator oder das Bezugswort benennt typische Eigenschaften.</li>
                             </list>
-                        </text>
+                        </ctext>
                         <url href="" >LINK zu Mögliche Gründe für die Kohäsion von Wörtern</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>12.	Mir ist die Bedeutung der Parameter einer Kollokationsanalyse klar und ich bin imstande, drei davon aufzählen.</text>
+                <ctext>12.	Mir ist die Bedeutung der Parameter einer Kollokationsanalyse klar und ich bin imstande, drei davon aufzählen.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Das ist richtig gut!</text>
+                        <ctext>Das ist richtig gut!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Die Parameter sollten abhängig von der Fragestellung bzw. Hypothese gewählt werden. Sie bieten die Möglichkeit, verschiedene Sichtweisen auf den Untersuchungsgegenstand einzunehmen und lenken daher den Fokus des Forschers. Es ist eine gewisse Herausforderung, dass bei der Entscheidung für die jeweiligen Parameter Annahmen über die Natur des Phänomens vorweggenommen werden müssen. Sie beeinflussen maßgeblich die Ergebnisse der Analyse, weshalb man bedenken sollte, sie ggfs. nachzujustieren.</p>
+                        <ctext><p>Die Parameter sollten abhängig von der Fragestellung bzw. Hypothese gewählt werden. Sie bieten die Möglichkeit, verschiedene Sichtweisen auf den Untersuchungsgegenstand einzunehmen und lenken daher den Fokus des Forschers. Es ist eine gewisse Herausforderung, dass bei der Entscheidung für die jeweiligen Parameter Annahmen über die Natur des Phänomens vorweggenommen werden müssen. Sie beeinflussen maßgeblich die Ergebnisse der Analyse, weshalb man bedenken sollte, sie ggfs. nachzujustieren.</p>
                             <p>Veränderliche Parameter einer Kollokationsanalyse sind beispielsweise das Signifikanzmaß, die Fenstergröße und das Mindestvorkommen bzw. der Schwellenwert.</p>
-                        </text>
+                        </ctext>
                         <url href="">LINK zu Parameter</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>13.	Ich bin in der Lage, die Parameter Lemma/Wortform/POS zu erklären.</text>
+                <ctext>13.	Ich bin in der Lage, die Parameter Lemma/Wortform/POS zu erklären.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Sensationell!</text>
+                        <ctext>Sensationell!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text><p>Wählt man den Parameter Lemma, so werden die Grundform eines Wortes und dessen flektierte Formen für die Berechnungen sozusagen als Paket behandelt und im Kollokationsprofil unter der Grundform aufgeführt. </p>
+                        <ctext><p>Wählt man den Parameter Lemma, so werden die Grundform eines Wortes und dessen flektierte Formen für die Berechnungen sozusagen als Paket behandelt und im Kollokationsprofil unter der Grundform aufgeführt. </p>
                             <p>Soll die Wortform die Basis der Kollokationsanalyse bilden, so werden die flektierten Formen eines Wortes quasi als eigenständige Kollokatoren behandelt und separat gelistet.</p>
                             <p>Bei dem Parameter POS werden die Kollokatoren eines Bezugswortes letztlich gemäß ihrer Wortart zusammengefasst. Im Kollokationsprofil erscheinen dann Kürzel, die sich am jeweiligen Tagset, z.B. fürs Deutsche am STTS (Stuttgart-Tübingen-TagSet) orientieren. </p>
-                        </text>
+                        </ctext>
                         <url href="" >LINK zu Lemma, Wortform oder POS</url>
                     </action>
                 </option>
             </answer>
             <question>
-                <text>14.	Mir ist bewusst, was es mit dem Parameter Fenstergröße auf sich hat.</text>
+                <ctext>14.	Mir ist bewusst, was es mit dem Parameter Fenstergröße auf sich hat.</ctext>
             </question>
-            <answer type="single">
+            <answer type="radio">
                 <option>
-                    <text>Ja</text>
+                    <ctext>Ja</ctext>
                     <action>
-                        <text>Genial!</text>
+                        <ctext>Genial!</ctext>
                     </action>
                 </option>
                 <option>
-                    <text>Nein</text>
+                    <ctext>Nein</ctext>
                     <action>
-                        <text>Kollokationen können auch diskontinuierlich sein. Bei einer Kollokationsanalyse definiert man daher üblicherweise im Vorfeld den Ko- bzw. Kontext (zumeist +/-5), der einbezogen werden soll. In der Regel werden Satzgrenzen dabei missachtet, das heißt, dass Kollokationen über Satzgrenzen hinweg berechnet werden. Die Wahl der Fenstergröße ist eine sehr wichtige, aber eben willkürliche Entscheidung. Auch hier ist wieder die Fragestellung ausschlaggebend, wobei man die Ergebnisse stets kritisch betrachten und die Fenstergröße ggf. nachjustieren sollte.</text>
+                        <ctext>Kollokationen können auch diskontinuierlich sein. Bei einer Kollokationsanalyse definiert man daher üblicherweise im Vorfeld den Ko- bzw. Kontext (zumeist +/-5), der einbezogen werden soll. In der Regel werden Satzgrenzen dabei missachtet, das heißt, dass Kollokationen über Satzgrenzen hinweg berechnet werden. Die Wahl der Fenstergröße ist eine sehr wichtige, aber eben willkürliche Entscheidung. Auch hier ist wieder die Fragestellung ausschlaggebend, wobei man die Ergebnisse stets kritisch betrachten und die Fenstergröße ggf. nachjustieren sollte.</ctext>
                         <url href="" >LINK zu Die Fenstergröße</url>
                     </action>
                 </option>
