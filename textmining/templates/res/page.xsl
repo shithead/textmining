@@ -197,11 +197,23 @@
      <xsl:template match="p">
          <xsl:choose>
              <xsl:when test="@type='quote'">
-                 <p><cite>
-                         <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
-                 </cite></p>
-             </xsl:when>
-             <xsl:when test="@type='detail'">
+                 <div class="row">
+                     <div class="col-lg-6">
+                         <div class="bs-component">
+                             <blockquote>
+                                 <p>
+                                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                                 </p>
+                                 <small>
+                                     Someone famous in
+                                     <cite title="Source Title">Source Title</cite>
+                                 </small>
+                             </blockquote>
+                         </div>
+                     </div>
+                 </div>
+                 </xsl:when>
+                 <xsl:when test="@type='detail'">
                  <details><p>
                          <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
                  </p></details>
