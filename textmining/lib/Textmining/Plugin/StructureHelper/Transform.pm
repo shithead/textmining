@@ -15,10 +15,6 @@ This method open xmlfile and return xml-structure.
 
 This method open xslfile and return xsl-style.
 
-=method xmltohash()
-
-This method transform xml to perlhash (for dynamic html).
-
 =method xmltohtml()
 
 This method transform xml to html (for static html).
@@ -97,18 +93,6 @@ sub get_xsl ($$) {
     eval{ $style = XML::LibXML->load_xml(location => $xslfile, , no_cdata => 1); };
     return $style;
 
-}
-
-# TODO test
-sub xmltohash ($$) {
-    my $self    = shift;
-    my $xml     = shift;
-
-    my $doc;
-    eval{ $doc = XML::LibXML->new->parse_string($xml); };
-    my $hash    = $doc->toHash(order => 1);
-
-    return $hash;
 }
 
 # TODO test
