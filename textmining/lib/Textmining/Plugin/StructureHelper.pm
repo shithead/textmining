@@ -134,7 +134,7 @@ sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
     my $json                = Mojo::JSON->new;
-    my $json_bytes          = encode( 'UTF-8', $json->encode($meta_struct));
+    my $json_bytes          = decode('UTF-8', $json->encode($meta_struct));
     my $err                 = $json->error;
     say $err ?  "Error: $err" : 
             "encode meta_struct for meta.json Successed";
@@ -146,7 +146,7 @@ sub json_to_hash ($$) {
     my $self                = shift;
     my $json_bytes          = shift;
     my $json                = Mojo::JSON->new;
-    my $meta_struct         = $json->decode(encode( 'UTF-8', $json_bytes));
+    my $meta_struct         = $json->decode($json_bytes);
     my $err                 = $json->error;
     say $err ?  "Error json decode: $err" : 
             "decode meta.json Successed";
@@ -461,11 +461,12 @@ sub get_public_modul ($) {
 sub save_public_struct ($$$) {
     my $self = shift;
     my ($location, $meta_struct) = @_;
-    my $file                = Mojo::Asset::File->new;
+
     my $json_bytes          = $self->hash_to_json($meta_struct);
-    # TODO errorlog default maxsize 128KB for a chunk
-    $file->add_chunk($json_bytes);
-    $file->move_to($location);
+    
+    open  my $FH , ">:encoding(UTF-8)", $location;
+    print $FH $json_bytes;
+    close $FH;
 }
 
 # TODO Test
@@ -473,7 +474,7 @@ sub load_public_struct ($$) {
     my $self        = shift;
     my $location    = shift;
     my $file        = Mojo::Asset::File->new( path => $location);
-    my $meta_struct = $self->json_to_hash(decode( 'UTF-8', $file->get_chunk(0)));
+    my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
 }
 
