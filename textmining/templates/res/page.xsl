@@ -2,8 +2,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
 
+
      <xsl:template match="action">
-         <xsl:apply-templates select="text | url"/>
+         <xsl:apply-templates select="ctext | url"/>
      </xsl:template>
 
      <xsl:template match="answer">
@@ -211,7 +212,7 @@
          <dfn><xsl:apply-templates select="text() | emph | foreign | kursiv"/></dfn>
      </xsl:template>
 
-     <xsl:template match="text">
+     <xsl:template match="ctext">
          <xsl:apply-templates select="text() | list | p | term"/>
      </xsl:template>
 
@@ -241,7 +242,7 @@
      </xsl:template>
 
      <xsl:template match="question">
-         <xsl:apply-templates select="text"/>
+         <xsl:apply-templates select="ctext"/>
      </xsl:template>
 
      <xsl:template match="url">
