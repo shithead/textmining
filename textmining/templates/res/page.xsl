@@ -144,12 +144,12 @@
          <xsl:choose>
              <xsl:when test="@type='detail'">
                  <li class="hidden">
-                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                     <xsl:apply-templates select="text() | bib | emph | foreign | img | kursiv | person | term | url"/>
                  </li>
              </xsl:when>
              <xsl:otherwise>
                  <li>
-                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | term"/>
+                     <xsl:apply-templates select="text() | bib | emph | foreign | img | kursiv | person | term | url"/>
                  </li>
              </xsl:otherwise>
          </xsl:choose>
