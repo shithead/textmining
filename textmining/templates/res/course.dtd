@@ -23,7 +23,7 @@
 
 <!ELEMENT date ( #PCDATA ) >
 
-<!ELEMENT detail ( #PCDATA ) >
+<!ELEMENT details ( #PCDATA ) >
 
 <!ELEMENT emph ( #PCDATA ) >
 
@@ -43,7 +43,7 @@
 <!ELEMENT kursiv ( #PCDATA ) >
 
 <!ELEMENT li ( #PCDATA | bib | emph | foreign | img | kursiv | person | url | term )* >
-<!ATTLIST li type ( detail | exercise ) #IMPLIED >
+<!ATTLIST li type ( details | exercise ) #IMPLIED >
 
 <!ELEMENT libraries ( library+ ) >
 
@@ -59,8 +59,8 @@
 
 <!ELEMENT option ( ctext, action+ ) >
 
-<!ELEMENT p ( #PCDATA | bib | detail | emph | foreign | img | kursiv | person | quantity | url | term )* >
-<!ATTLIST p type ( detail | example | quote ) #IMPLIED >
+<!ELEMENT p ( #PCDATA | bib | details | emph | foreign | img | kursiv | person | quantity | url | term )* >
+<!ATTLIST p type ( details | example | quote ) #IMPLIED >
 
 <!ELEMENT page ( check | exercise | h1 | h2 | h3 | img | list | p )* >
 
