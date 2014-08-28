@@ -108,6 +108,14 @@
          </b>
      </xsl:template>
 
+     <xsl:template match="exercise">
+             <xsl:apply-templates select="ctext | answer"/>
+         <!-- <xsl:if test="ctest=current()">
+         <xsl:call-template name="ctext"/>
+     </xsl:if>
+         <xsl:call-template name="answer"/> -->
+     </xsl:template>
+
      <xsl:template match="foreign">
          <xsl:value-of select="text()"/>
      </xsl:template>
@@ -193,13 +201,7 @@
      </xsl:template>
 
      <xsl:template match="page">
-         <xsl:if test="h2">
-             <h2> <xsl:value-of select="h2"/> </h2>
-         </xsl:if>
-         <xsl:if test="h3">
-             <h3> <xsl:value-of select="h3"/> </h3>
-         </xsl:if>
-         <xsl:apply-templates select="check | img | list | p"/>
+         <xsl:apply-templates select="h1 | h2 | h3 | check | exercise | img | list | p"/>
      </xsl:template>
 
      <xsl:template match="person">
