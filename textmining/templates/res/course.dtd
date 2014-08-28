@@ -1,7 +1,7 @@
-<!ELEMENT action ( text | url )+ >
+<!ELEMENT action ( ctext | url )+ >
 
 <!ELEMENT answer ( option )+ >
-<!ATTLIST answer type ( single | multi )  #IMPLIED >
+<!ATTLIST answer type ( form | radio )  #IMPLIED >
 
 <!ELEMENT author ( #PCDATA ) >
 
@@ -19,11 +19,15 @@
 
 <!ELEMENT course ( meta, module ) >
 
+<!ELEMENT ctext ( #PCDATA | list | p | term )* >
+
 <!ELEMENT date ( #PCDATA ) >
 
 <!ELEMENT detail ( #PCDATA ) >
 
 <!ELEMENT emph ( #PCDATA ) >
+
+<!ELEMENT exercise ( ctext, answer ) >
 
 <!ELEMENT foreign ( #PCDATA ) >
 
@@ -53,25 +57,23 @@
 <!ELEMENT module ( meta, chapter+ ) >
 <!ATTLIST module id ID #REQUIRED >
 
-<!ELEMENT option ( text, action ) >
+<!ELEMENT option ( ctext, action+ ) >
 
 <!ELEMENT p ( #PCDATA | bib | detail | emph | foreign | img | kursiv | person | quantity | url | term )* >
 <!ATTLIST p type ( detail | example | quote ) #IMPLIED >
 
-<!ELEMENT page ( check | h1 | h2 | h3 | img | list | p )* >
+<!ELEMENT page ( check | exercise | h1 | h2 | h3 | img | list | p )* >
 
 <!ELEMENT person ( #PCDATA | person )* >
 <!ATTLIST person name CDATA #REQUIRED >
 
 <!ELEMENT term ( #PCDATA | emph | foreign | kursiv )* >
 
-<!ELEMENT text ( #PCDATA | list | p | term )* >
-
 <!ELEMENT title ( #PCDATA ) >
 
 <!ELEMENT quantity ( #PCDATA ) >
 
-<!ELEMENT question ( text ) >
+<!ELEMENT question ( ctext ) >
 
 <!ELEMENT url ( #PCDATA ) >
 <!ATTLIST url href CDATA #REQUIRED >
