@@ -171,6 +171,7 @@ sub get_node_metastruct ($$$) {
     return $hash;
 }
 
+# TODO test
 sub get_meta_struct ($$@) {
     my $self            = shift;
     my $modul_dir       = shift;
@@ -191,6 +192,7 @@ sub get_meta_struct ($$@) {
     return $course_struct;
 }
 
+# TODO test
 sub get_course_struct ($$) {
     my $self    = shift;
     my $xml     = shift;
@@ -201,6 +203,7 @@ sub get_course_struct ($$) {
     return $course_struct;
 }
 
+# TODO test
 sub get_modul_struct ($$) {
     my $self    = shift;
     my $xml     = shift;
