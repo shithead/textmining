@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 package Textmining::Admin;
 use Mojo::Base 'Mojolicious::Controller';
 

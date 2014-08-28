@@ -54,7 +54,6 @@ sub _get_public_navbar ($$$) {
     my $meta_struct = shift;
     my $modul = shift;
 
-    p $meta_struct;
     return undef unless defined $meta_struct->{sub};
     for my $m (values $meta_struct->{sub}) {
         if ($m->{meta}->{title} eq $modul) {

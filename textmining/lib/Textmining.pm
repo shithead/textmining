@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 package Textmining;
 use Mojo::Base 'Mojolicious';
 

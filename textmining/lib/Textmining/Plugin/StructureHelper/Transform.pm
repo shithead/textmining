@@ -55,13 +55,11 @@ Is using L<"get_node_metastruct">.
 =head1 SEE ALSO
 
 =for :list
-* L<Your::Module>
 * L<Textmining::Plugin::StructureHelper::Transform>
 
 =cut
 
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::JSON qw(decode_json encode_json);
 use XML::LibXML;
 use XML::LibXSLT;
 
@@ -236,7 +234,7 @@ sub get_modul_struct ($$) {
                 id          => $attr->{id},
                 head        => "",
                 type        => "",
-                pagecnt    => 0,
+                pagecnt     => 0,
                 type        => $attr->{type}
             };
 
