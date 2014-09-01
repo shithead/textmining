@@ -84,7 +84,7 @@
             <body>
                 <header class="navbar navbar-default navbar-fixed-top">
                     <div class="navbar-inner">
-                        <button class="navbar-toggle collapsed"  data-target=".nav-collapse" data-toggle="collapse" type="button">
+                        <button class="navbar-toggle collapsed"  data-target="nav-collapse" data-toggle="collapse" type="button">
                             <i class="icon-reorder"></i>
                         </button>
                         <a class="navbar-brand" href="#"><xsl:value-of select="course/module/meta/title"/></a>
