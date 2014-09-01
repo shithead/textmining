@@ -202,7 +202,7 @@
      </xsl:template>
 
      <xsl:template match="option">
-         <xsl:apply-templates select="text | action"/>
+         <xsl:apply-templates select="ctext | action"/>
      </xsl:template>
 
      <xsl:template match="p">
@@ -216,8 +216,9 @@
                                      <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
                                  </p>
                                  <small>
-                                     Someone famous in
-                                     <cite title="Source Title">Source Title</cite>
+                                     <cite title="bib[@id]">
+                                         <xsl:apply-templates select="bib" />
+                                     </cite>
                                  </small>
                              </blockquote>
                          </div>
