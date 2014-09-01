@@ -140,9 +140,11 @@
      </xsl:template>
 
      <xsl:template match="h1">
-         <h1>
-             <xsl:apply-templates select="text() | term"/>
-         </h1>
+         <div class="page-header">
+             <h1>
+                 <xsl:apply-templates select="text() | term"/>
+             </h1>
+         </div>
      </xsl:template>
 
      <xsl:template match="h2">
@@ -232,7 +234,18 @@
      </xsl:template>
 
      <xsl:template match="page">
-         <xsl:apply-templates select="h1 | h2 | h3 | check | exercise | img | list | p"/>
+         <xsl:choose>
+             <xsl:when test="count(p)=1 and not(check or exercise or img or list)">
+                 <div class="bs-component">
+                     <div class="jumbotron">
+                         <xsl:apply-templates select="h1 | h2 | h3 | p"/>
+                     </div>
+                 </div>
+             </xsl:when>
+             <xsl:otherwise>
+                 <xsl:apply-templates select="h1 | h2 | h3 | check | exercise | img | list | p"/>
+             </xsl:otherwise>
+         </xsl:choose>
      </xsl:template>
 
      <xsl:template match="person">
