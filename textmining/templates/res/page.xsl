@@ -13,29 +13,9 @@
                  <xsl:choose>
                      <xsl:when test="@type='form'">
                          <fieldset>
-                             <div class="form-group">
-                                 <xsl:for-each select="option">
-                                     <label class="col-lg-2 control-label" for="select">
-                                         <xsl:apply-templates select="ctext"/>
-                                     </label>
-                                     <xsl:variable name="csize" select='10 div last()'/>
-                                     <xsl:for-each select="action">
-                                         <div class="col-lg-{$csize}">
-                                             <xsl:choose>
-                                                 <xsl:when test="normalize-space(.) != ''">
-                                                     <select id="select" class="form-control">
-                                                         <xsl:for-each select="ctext">
-                                                             <option><xsl:apply-templates select="current()"/></option>
-                                                         </xsl:for-each>
-                                                     </select>           
-                                                 </xsl:when>
-                                                 <xsl:otherwise>  <input type="text" id="inputDefault" class="form-control"/>
-                                                 </xsl:otherwise>
-                                             </xsl:choose>
-                                         </div>
-                                     </xsl:for-each>
-                                 </xsl:for-each>
-                             </div>
+                             <xsl:for-each select="option">
+                                 <xsl:call-template name="option-form-group"/>
+                             </xsl:for-each>
                              <div class="col-lg-10 col-lg-offset-2">
                                  <button class="btn btn-primary" type="submit">Submit</button>
                              </div>
@@ -45,20 +25,9 @@
                          <!-- <xsl:when test="@type='radio'"> -->
                          <!-- ugly hack -->
                          <div class="tab-content">
-                         <xsl:for-each select="option">
-                             <xsl:variable name="it" select='generate-id(current())'/>
-
-                             <div class="radio">
-                                 <label>
-                                     <input id="optionsRadios{$it}" type="radio" value="option{$it}" name="optionsRadios"  data-toggle="tab" data-target="#{$it}"/>
-                                     <xsl:apply-templates select="ctext"/>
-                                 </label>
-                             </div>
-                             <br />
-                             <div class="tab-pane" id="{$it}">
-                                 <xsl:apply-templates select="action"/>
-                             </div>
-                     </xsl:for-each>
+                             <xsl:for-each select="option">
+                                 <xsl:call-template name="option-radio"/>
+                             </xsl:for-each>
                          </div>
                      </xsl:otherwise>
                  </xsl:choose>
@@ -203,6 +172,44 @@
 
      <xsl:template match="option">
          <xsl:apply-templates select="ctext | action"/>
+     </xsl:template>
+
+     <xsl:template match="option" name="option-form-group">
+         <div class="form-group">
+             <label class="col-lg-2 control-label" for="select">
+                 <xsl:apply-templates select="ctext"/>
+             </label>
+             <xsl:variable name="csize" select='round(10 div last())'/>
+             <xsl:for-each select="action">
+                 <div class="col-lg-{$csize}">
+                     <xsl:choose>
+                         <xsl:when test="normalize-space(.) != ''">
+                             <select id="select" class="form-control">
+                                 <xsl:for-each select="ctext">
+                                     <option><xsl:apply-templates select="current()"/></option>
+                                 </xsl:for-each>
+                             </select>           
+                         </xsl:when>
+                         <xsl:otherwise>  <input type="text" id="inputDefault" class="form-control"/>
+                         </xsl:otherwise>
+                     </xsl:choose>
+                 </div>
+             </xsl:for-each>
+         </div>
+     </xsl:template>
+
+     <xsl:template match="option" name="option-radio">
+         <xsl:variable name="it" select='generate-id(current())'/>
+         <div class="radio">
+             <label>
+                 <input id="optionsRadios{$it}" type="radio" value="option{$it}" name="optionsRadios"  data-toggle="tab" data-target="#{$it}"/>
+                 <xsl:apply-templates select="ctext"/>
+             </label>
+         </div>
+         <br />
+         <div class="tab-pane" id="{$it}">
+             <xsl:apply-templates select="action"/>
+         </div>
      </xsl:template>
 
      <xsl:template match="p">
