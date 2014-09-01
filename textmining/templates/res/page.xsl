@@ -115,10 +115,19 @@
      </xsl:template>
 
      <!-- XXX wird im html nicht erstellt -->
-     <xsl:template match="detail">
-         <details>
-             <xsl:apply-templates select="text()"/>
-         </details>
+     <xsl:template match="details">
+         <xsl:variable name="it" select='generate-id(current())'/>
+         <div class="tab-content">
+             <div class="tab-pane active" id="{$it}2">
+                 <span class="glyphicon glyphicon-plus" data-toggle="tab" data-target="#{$it}"></span>
+             </div>
+             <div class="tab-pane" id="{$it}">
+                 <span class="glyphicon glyphicon-minus" data-toggle="tab" data-target="#{$it}2"></span>
+                 <p>
+                     <xsl:apply-templates select="text() | list | p"/>
+                 </p>
+             </div>
+         </div>
      </xsl:template>
 
      <xsl:template match="emph">
@@ -171,7 +180,7 @@
 
      <xsl:template match="li">
          <xsl:choose>
-             <xsl:when test="@type='detail'">
+             <xsl:when test="@type='details'">
                  <li class="hidden">
                      <xsl:apply-templates select="text() | bib | emph | foreign | img | kursiv | person | term | url"/>
                  </li>
@@ -214,11 +223,20 @@
                          </div>
                      </div>
                  </div>
-                 </xsl:when>
-                 <xsl:when test="@type='detail'">
-                 <details><p>
-                         <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
-                 </p></details>
+             </xsl:when>
+             <xsl:when test="@type='details'">
+                 <xsl:variable name="it" select='generate-id(current())'/>
+                 <div class="tab-content">
+                     <div class="tab-pane active" id="{$it}2">
+                        <span class="glyphicon glyphicon-plus" data-toggle="tab" data-target="#{$it}"></span>
+                     </div>
+                     <div class="tab-pane" id="{$it}">
+                         <span class="glyphicon glyphicon-minus" data-toggle="tab" data-target="#{$it}2"></span>
+                         <p>
+                            <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                         </p>
+                     </div>
+                </div>
              </xsl:when>
              <xsl:when test="@type='example'">
                  <p class="example">
