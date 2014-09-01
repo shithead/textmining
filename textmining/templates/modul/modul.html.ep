@@ -3,19 +3,27 @@
 % title $modul;
 <div class="col-sm-2">
     <div class="progress progress-striped">
+        % my $progress = ($pagenr / @{$page_path}) * 100;
         <div class="progress-bar progress-bar-info" style="width: <%= $progress %>%"></div>
     </div>
     <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
+        % my $it=0;
         % for my $nav (values $navbar) {
-        % my ($text) = keys $nav;
-        % my ($nr) = values $nav;
-        % unless ($nr > $pagenr ) {
-        <li>
-        % } else {
+        %   my ($curtext) = keys $nav;
+        %   my ($curnr) = values $nav;
+        %   my $nextnr = $curnr;
+        %   if ( defined $navbar->[$it+1]) {
+        %       ($nextnr) = values $navbar->[$it+1];
+        %   }
+        %   if ( $pagenr >= $curnr and $pagenr < $nextnr) {
         <li class="active">
-        % }
-        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $nr %>"><%= $text %></a>
+        <a  href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
+        %   } else {
+        <li>
+        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
+        %   }
         </li>
+        %   $it++;
         % }
     </ul>
 </div>

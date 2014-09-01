@@ -28,14 +28,13 @@ sub modul {
   my $file      = Mojo::Asset::File->new( path => $page_path[$pagenr]);
   my $stream    = Mojo::ByteStream->new($file->slurp)->decode('UTF-8');
 
-  my $progress = ($pagenr / @page_path) * 100;
   $self->render(
       course        =>  $course,
       modul         =>  $modul,
       navbar        =>  \@navbar,
       page          =>  $stream,
       pagenr        =>  $pagenr,
-      progress      =>  $progress
+      page_path     =>  \@page_path
   );
 }
 
