@@ -346,7 +346,7 @@
                     und seine Zielgruppe bilden insbesondere Fremdsprachenlerner und -lehrer sowie Entwickler von Lehr- und Lernmaterialien.</p>
                 <p type="quote">"Wortverbindungen verkörpern [...] 'geronnene kulturelle Erfahrungen‘ einer Sprachgemeinschaft (z.B. Sprichwörter), und es ist deshalb wichtig, sie zu sammeln, zu archivieren 
                     und in ihrem gegenwärtigen Gebrauch auch für die Nachwelt zu dokumentieren. Wenn wir die 'Logik der Wortverbindungen‘ verstehen, können wir sehr viel über die Strukturen der Sprache und des Denkens erfahren. 
-                    Deshalb kann die Erforschung von Wortverbindungen auch zur Theorienbildung in der Linguistik selbst wertvolle Beiträge leisten" (<bib id="N.N">IDS/Steyer"</bib>).</p>
+                    Deshalb kann die Erforschung von Wortverbindungen auch zur Theorienbildung in der Linguistik selbst wertvolle Beiträge leisten" (<bib id="N.N">IDS/Steyer</bib>).</p>
                 <p>Für gewöhnlich greifen Lexikographen bei dem Versuch, übliche Wortverbindungen und Verwendungsbeispiele aufzulisten, auf ihre Erfahrung, Intuition und Sprachkompetenz zurück. 
                     Zudem werden Versuchspersonen befragt oder psychologische Assoziationstests durchgeführt. </p>
                 <p>Am Institut für Deutsche Sprache wollte man sich hingegen die Computertechnologie und den Bestand an Korpora zunutze machen. Mit statistischen Methoden wurden authentische Sprachdaten analysiert und linguistisch interpretiert.</p>
@@ -354,14 +354,27 @@
                     Die 300 Wörterbuchartikel beinhalten eine Validierung des Sprichwortstatus, die Bedeutung, in der das Sprichwort verwendet wird, seine typischen Formvarianten und lexikalischen Ersetzungen, 
                     Beispiele für die textuelle Einbettung des Sprichwortes sowie seine typischen Gebrauchsbesonderheiten. Zudem sind Sprichwort-Äquivalente für andere Sprachen verlinkt. 
                     Das Sprichwörterbuch ist zum einen über die SprichWort-Plattform verfügbar und wurde zum anderen in das Online-Wortschatz-Informationssystem Deutsch (OWID) des Instituts für Deutsche Sprache integriert.</p>
-                <p><url href="http://www.owid.de/index.jsp"/></p>
-                <p><url href="http://www.sprichwort-plattform.org/"/></p>
+                <p>
+                    <url href="http://www.owid.de/index.jsp">
+                        http://www.owid.de/index.jsp"
+                    </url>
+                </p>
+                <p>
+                    <url href="http://www.sprichwort-plattform.org/">
+                        http://www.sprichwort-plattform.org
+                    </url>
+                </p>
             </page>
             <page>
                 <p>Referenzliteratur</p>
                 <list>
-                    <li><url href="http://www1.ids-mannheim.de/lexik/uwv.html"/></li>
-                    <li><url href="http://www1.ids-mannheim.de/lexik/uwv/uwv.html"/></li>
+                    <li>
+                        <url href="http://www1.ids-mannheim.de/lexik/uwv.html">
+                            http://www1.ids-mannheim.de/lexik/uwv.html
+                        </url>
+                    </li>
+                    <li>
+                        <url href="http://www1.ids-mannheim.de/lexik/uwv/uwv.html"/></li>
                     <li><url href="http://www.owid.de/wb/sprw/start.html"/></li>
                     <li><url href="http://www1.ids-mannheim.de/lexik/sprichwort/projekt.html"/></li>
                 </list>
@@ -900,7 +913,7 @@
                 <p>Führen Sie Kollokationsanalysen zu politischen Schlagwörtern, z.B. zu "Freiheit" durch. Finden Sie Differenzen zwischen den Parteien? Erklären und deuten Sie die Unterschiede.</p>
                 <p>Laut Duden ist sowohl "der" als auch "das" Bonbon/Joghurt richtig. Doch welcher Artikel ist der gebräuchlichere? Skizzieren Sie, welche Vorgehensweisen bzw. Suchanfragen möglich sind, um diese Frage zu beantworten.  </p>
             </ctext>
-            <answer>
+            <answer type="form">
                 <option>
                     <ctext>
                     </ctext>
