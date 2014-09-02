@@ -20,7 +20,7 @@
                 <author>Yvonne Krämer</author>
             </authors>
             <libraries>
-                <library>library.xml</library>
+                <library>kollokatioen-bibliothek.xml</library>
             </libraries>
         </meta>
         <chapter id='lernziele' type="learningObjective">
