@@ -533,27 +533,27 @@
 </page>
 <page>
     <h3>Chi-Quadrat-Test</h3>
-    <p>Der Chi-Quadrat-Test, oder auch <quantity>&#967;&#8306;</quantity>-Test misst im Grunde die Differenz zwischen den beobachteten und den erwarteten Frequenzen und bezieht dabei 
+    <p>Der Chi-Quadrat-Test, oder auch <quantity>&#967;&#178;</quantity>-Test misst im Grunde die Differenz zwischen den beobachteten und den erwarteten Frequenzen und bezieht dabei 
         alle Werte der zuvor erstellten Kontingenztabellen ein. Für jede Zelle wird also <!-- HIER BRUCH EINFÜGEN--> ermittelt und die jeweiligen Ergebnisse werden dann addiert.</p>
-    <p>Daraus ergibt sich die Formel <quantity>&#967;&#8306;</quantity> = &#8721;<!-- HIER BRUCH EINFÜGEN--></p>
+    <p>Daraus ergibt sich die Formel <quantity>&#967;&#178;</quantity> = &#8721;<!-- HIER BRUCH EINFÜGEN--></p>
     <p>"The essence of the test is to compare the observed frequencies in the table with the frequencies expected for independence. If the difference between observed and expected frequencies is large, 
         then we can reject the null hypothesis of independence." (<bib id="Manning/Schütze2003:168"><person name="Manning, Christopher D.">Manning</person>/<person name="Schütze, Hinrich">Schütze</person>
             Manning/Schütze 2003: 168</bib>)</p>
-    <p>Um herauszufinden, ob der so berechnete Wert signifikant ist, muss man eine Tabelle der kritischen Werte für <quantity>&#967;&#8306;</quantity> zu Rate ziehen. Diese besagt für eine Vierfelder-Kontingenztabelle, 
-        dass <quantity>&#967;&#8306;</quantity> größer als 3,84 sein müsste, damit die Wahrscheinlichkeit für die Nullhypothese bei lediglich 5% liegt (<quantity>p</quantity> = 0,05). Ist <quantity>&#967;&#8306;</quantity> 
-        größer als 6,64, so kann die Nullhypothese mit einer Wahrscheinlichkeit von 99% abgelehnt werden (<quantity>p</quantity> = 0,01) und wenn <quantity>&#967;&#8306;</quantity>den Wert von 10,83 überschreitet, 
+    <p>Um herauszufinden, ob der so berechnete Wert signifikant ist, muss man eine Tabelle der kritischen Werte für <quantity>&#967;&#178;</quantity> zu Rate ziehen. Diese besagt für eine Vierfelder-Kontingenztabelle, 
+        dass <quantity>&#967;&#178;</quantity> größer als 3,84 sein müsste, damit die Wahrscheinlichkeit für die Nullhypothese bei lediglich 5% liegt (<quantity>p</quantity> = 0,05). Ist <quantity>&#967;&#178;</quantity> 
+        größer als 6,64, so kann die Nullhypothese mit einer Wahrscheinlichkeit von 99% abgelehnt werden (<quantity>p</quantity> = 0,01) und wenn <quantity>&#967;&#178;</quantity>den Wert von 10,83 überschreitet, 
         so ist es zu 99,9% sicher (<quantity>p</quantity> = 0,001), ), dass die Kollokation nicht zufällig und das gemeinsame Vorkommen signifikant ist.</p>
     <p>Problematisch ist der Chi-Quadrat-Test, wenn die Zahlen in der Kontingenztabelle sehr klein sind. Bei Werten unter <quantity>E</quantity> = 5 sind die Ergebnisse nicht mehr zuverlässig.</p>
 </page>
 <page>
     <h3>Log-Likelihood-Test</h3>
-    <p>Im Gegensatz zu <quantity>&#967;&#8306;</quantity> ist der Log-Likelihood-Test auch gegenüber kleinen Werten von <quantity>E</quantity> robust und daher ebenso auf spärliche Datenmengen anwendbar. 
+    <p>Im Gegensatz zu <quantity>&#967;&#178;</quantity> ist der Log-Likelihood-Test auch gegenüber kleinen Werten von <quantity>E</quantity> robust und daher ebenso auf spärliche Datenmengen anwendbar. 
         Die Log-Likelihood-Ratio eignet sich am besten für die Berechnung von Kollokationen und ist das gängigste Signifikanzmaß in der Korpuslinguistik. Insofern es zur Wahl steht, sollte man diesem Maß also stets den Vorzug geben. </p>
-    <p>Die Formel zur Berechnung der LLR lautet wie folgt: G&#8306; = 2[A log A + Blog B + C log C + D log D</p>
+    <p>Die Formel zur Berechnung der LLR lautet wie folgt: G&#178; = 2[A log A + Blog B + C log C + D log D</p>
     <p>- (A+B) log(A+B) - (A+C) log(A+C)</p>
     <p>- (B+D) log(B+D) - (C+D) log(C+D)</p>
     <p>+ (A+B+C+D) log(A+B+C+D)]</p>
-    <p>Will man die Signifikanz des ermittelten Wertes feststellen, so kann man erneut auf die kritischen Werte für <quantity>&#967;&#8306;</quantity> zurückgreifen.</p>
+    <p>Will man die Signifikanz des ermittelten Wertes feststellen, so kann man erneut auf die kritischen Werte für <quantity>&#967;&#178;</quantity> zurückgreifen.</p>
 </page>
 <page>
     <p>Allgemein sollte man in Bezug auf Signifikanzmaße berücksichtigen, dass einzelne Werte nicht unbedingt aussagekräftig sind. Ergibt sich beispielsweise für die Kollokation "heute abend" eine LLR von 2035.949, 
