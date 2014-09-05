@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" 
+    xmlns:tei="http://www.tei-c.org/ns/1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    exclude-result-prefixes="tei">
     <xsl:output indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
 
+    <xsl:template match="action">
+        <xsl:apply-templates select="ctext | url"/>
+    </xsl:template>
 
-     <xsl:template match="action">
-         <xsl:apply-templates select="ctext | url"/>
-     </xsl:template>
-
-     <xsl:template match="answer">
-         <div class="well bs-component">
-             <form class="form-horizontal">
-                 <xsl:choose>
-                     <xsl:when test="@type='form'">
-                         <fieldset>
-                             <xsl:for-each select="option">
-                                 <xsl:call-template name="option-form-group"/>
-                             </xsl:for-each>
-                             <div class="col-lg-10 col-lg-offset-2">
-                                 <button class="btn btn-primary" type="submit">Submit</button>
-                             </div>
-                         </fieldset>
-                     </xsl:when>
-                     <xsl:otherwise>
-                         <!-- <xsl:when test="@type='radio'"> -->
-                         <!-- ugly hack -->
-                         <div class="tab-content">
-                             <xsl:for-each select="option">
-                                 <xsl:call-template name="option-radio"/>
-                             </xsl:for-each>
-                         </div>
-                     </xsl:otherwise>
-                 </xsl:choose>
-             </form>
-         </div>
+    <xsl:template match="answer">
+        <div class="well bs-component">
+            <form class="form-horizontal">
+                <xsl:choose>
+                    <xsl:when test="@type='form'">
+                        <fieldset>
+                            <xsl:for-each select="option">
+                                <xsl:call-template name="option-form-group"/>
+                            </xsl:for-each>
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </fieldset>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- <xsl:when test="@type='radio'"> -->
+                        <!-- ugly hack -->
+                        <div class="tab-content">
+                            <xsl:for-each select="option">
+                                <xsl:call-template name="option-radio"/>
+                            </xsl:for-each>
+                        </div>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </form>
+        </div>
      </xsl:template>
 
      <xsl:template match="author">
@@ -56,10 +58,43 @@
      </xsl:template>
 
      <xsl:template match="bib">
-         <bib class="message" id="{@id}" page="{@page}">
+         <xsl:variable name="id" select="@id"/>
+         <xsl:variable name="bibo">
+             <xsl:apply-templates select="text() | person"/>
+         </xsl:variable>
+         <xsl:variable name="library_content">
+             <xsl:choose>
+                 <xsl:when test="/page/libraries">
+                     <xsl:for-each select="/page/libraries/library">
+                             <!-- concationation hack -->
+                             <xsl:variable name="path">
+                                 <xsl:text>../../</xsl:text>
+                                 <xsl:value-of select="text()"/>
+                             </xsl:variable>
+                             <xsl:if test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
+                                 <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
+                             </xsl:if>
+                     </xsl:for-each>
+                 </xsl:when>
+                 <xsl:otherwise>
+                     <xsl:for-each select="/course/module/meta/libraries/library">
+                             <!-- concationation hack -->
+                             <xsl:variable name="path">
+                                 <xsl:text>../../</xsl:text>
+                                 <xsl:value-of select="text()"/>
+                             </xsl:variable>
+                             <xsl:if test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
+                                 <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
+                             </xsl:if>
+                     </xsl:for-each>
+                 </xsl:otherwise>
+             </xsl:choose>
+         </xsl:variable>
+         <bib class="message" id="{$id}" page="{@page}">
              <span>
-                 <a class="css-truncate css-truncate-target" title="Hier steht der Bibliotheksinhalt">
-                     <xsl:apply-templates select="text() | person"/>
+
+                 <a class="css-truncate css-truncate-target" title="{$library_content}">
+                     <xsl:value-of select="$bibo"/>
                  </a>
              </span>
          </bib>
@@ -106,7 +141,7 @@
      </xsl:template>
 
      <xsl:template match="exercise">
-             <xsl:apply-templates select="ctext | answer"/>
+         <xsl:apply-templates select="ctext | answer"/>
          <!-- <xsl:if test="ctest=current()">
          <xsl:call-template name="ctext"/>
      </xsl:if>
@@ -325,8 +360,4 @@
          <xsl:value-of select="text()"/>
      </xsl:template>
  </xsl:stylesheet>
-
-<!-- XXX <xsl:value-of select="document('celsius.xml')/celsius/result[@value=$value]"/>
-     fuer die Library
--->
 

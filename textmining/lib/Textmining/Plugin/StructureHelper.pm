@@ -47,7 +47,9 @@ Is using L<"update_data_struct">.
 This method initialing the public directory of the specified course
 with the informations from the modul by 
 L<Textmining::StructureHelper::Transform/"get_meta_struct">.
-Is using L<"rm_public_path">, L<"create_public_path">,
+
+Is using L<Textmining::StructureHelper::Transform/"xml_doc_pages">,
+L<"rm_public_path">, L<"create_public_path">,
 L<"create_public_chapter">, L<"save_public_struct"> , L<"update_public_struct">.
 
 =method create_public_chapter()
@@ -240,6 +242,7 @@ sub get_data_modul ($$) {
     return $modules;
 }
 
+# TODO Test
 sub get_data_library ($$) {
     my $self = shift;
     my $course = shift;
@@ -295,25 +298,24 @@ sub init_public_course ($$) {
 
     # {{ TODO build a stack of 
     # create_public_modul 
-    # -> create_chapter_modul 
-    # -> create_public_pages
-    # update every sub modul with $page_meta_list see bootom of fnct
+    # -> create_modul_chapter
+    # -> create_chapter_pages
+    # update every sub modul with $page_meta_list see bottom of fnct
     my @chapter_dirs    = $self->create_public_chapter(
                 $course,
                 $course_meta_struct
             );
 
     my @pages;
-
-    # TODO filter right library file for modul
     for my $filename (@{$path->{modul}->{files}}) {
-        push (@pages, $self->{transform}->xml_pages(
-            join('/', $path->{modul}->{path}, $filename),
-            join('/', $path->{library}->{path}, $path->{library}->{files}->[0])
-
-        ));
+        push (@pages, $self->{transform}->xml_doc_pages(
+                join('/', $path->{modul}->{path}, $filename),
+                $path->{library}->{path}, @{$path->{library}->{files}}
+                ));
     }
-    # create_public_pages ($path, @pages, @chapter_dirs)
+
+    # sub create_chapter_pages ($path, @pages, @chapter_dirs)
+    # {
     my $prev_page = undef;
     my @page_meta_list;
     for my $chapter (@chapter_dirs){
@@ -326,10 +328,12 @@ sub init_public_course ($$) {
             push @page_meta_list, $page;
         }
     }
+    # return wantarray ? @page_meta_list : \@page_meta_list;
+    # }
     $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
 
     my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
-    $self->save_public_struct ($course_meta_path, $course_meta_struct);
+    $self->save_public_struct($course_meta_path, $course_meta_struct);
 
     # }}
     $self->update_public_struct;
@@ -338,7 +342,7 @@ sub init_public_course ($$) {
 sub create_public_chapter ($$$) {
     my $self    = shift;
     my ($course, $course_meta_struct) = @_;
-    # directory is clear change *_dir so that $course variable no more required
+    # TODO directory is clear change *_dir so that $course variable no more required
     my @chapter_dirs;
     for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
         my $modul_dir = join('/',
@@ -355,12 +359,12 @@ sub create_public_chapter ($$$) {
             my $tmp = {
                 dir     => $chapter_dir,
                 pagecnt => $course_meta_struct->{sub}->[$modulcnt]->{sub}
-                    ->[$chaptcnt]->{pagecnt}
+                            ->[$chaptcnt]->{pagecnt}
                 };
             push @chapter_dirs, $tmp;
         }
     }
-    return @chapter_dirs;
+    return wantarray ? @chapter_dirs : \@chapter_dirs;
 }
 
 # TODO Test

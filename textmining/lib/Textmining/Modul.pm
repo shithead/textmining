@@ -48,6 +48,7 @@ sub _get_public_page_path ($$$) {
         return @{$m->{pages}} if $m->{meta}->{title} eq $modul;
     }
 }
+
 sub _get_public_navbar ($$$) {
     #my $self = shift;
     my $meta_struct = shift;

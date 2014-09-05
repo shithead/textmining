@@ -7,27 +7,27 @@ package Textmining::Plugin::StructureHelper::Transform;
 
 ...
 
-=method get_xml()
+=method get_doc()
 
-This method open xmlfile and return xml-structure.
+This method open xmlfile and return xml DOM-structure.
 
 =method get_xsl()
 
 This method open xslfile and return xsl-style.
 
-=method xmltohtml()
+=method doctohtml()
 
-This method transform xml to html (for static html).
+This method transform xml document to html (for static html).
 
 =method nodestohtml()
 
 This method transform nodes to html.
-Is using L<"xmltohtml">.
+Is using L<"doctohtml">.
 
-=method xml_pages()
+=method xml_doc_pages()
 
 This method transform pages to html.
-Is using L<"get_xml"> and L<"nodestohtml">.
+Is using L<"get_doc"> and L<"nodestohtml">.
 
 =method get_node_metastruct()
 
@@ -36,7 +36,7 @@ This method return metastructure from specified node meta-tag.
 =method get_meta_struct()
 
 This method return metastructure from xml-file.
-Is using L<"get_xml">, L<"get_course_struct">, L<"get_modul_struct">
+Is using L<"get_doc">, L<"get_course_struct">, L<"get_modul_struct">
 
 =method get_course_struct()
 
@@ -76,7 +76,7 @@ sub new {
 }
 
 # TODO test
-sub get_xml ($$) {
+sub get_doc ($$) {
     my $self    = shift;
     my $xmlfile = shift;
 
@@ -96,15 +96,15 @@ sub get_xsl ($$) {
 }
 
 # TODO test
-sub xmltohtml ($$) {
+sub doctohtml ($$) {
     my $self    = shift;
-    my $xml     = shift;
+    my $doc     = shift;
 
-    $xml = XML::LibXML->load_xml(string => $xml)
-            unless ref $xml eq 'XML::LibXML::Document';
+    $doc = XML::LibXML->load_xml(string => $doc)
+            unless ref $doc eq 'XML::LibXML::Document';
 
     my $results;
-    eval { $results = $self->{xslt}->transform($xml) };
+    eval { $results = $self->{xslt}->transform($doc) };
 
     return $results;
 }
@@ -116,30 +116,42 @@ sub nodestohtml ($@) {
 
     my @results;
     for my $node (@nodes) {
-        eval { push @results, $self->xmltohtml($node->toString)->toString};
+        my $result_html = $self->doctohtml($node->toString)->toString;
+        push @results, $result_html;
     }
-    return @results;
+    return  wantarray ? @results : \@results;
 }
 
 # TODO test
-#   library support
-sub xml_pages ($$$) {
-    my $self    = shift;
-    my $modul_path = shift;
-    my $library_path  = shift;
+sub xml_doc_pages ($$$@) {
+    my $self            = shift;
+    my $modul_path      = shift;
+    my $library_path    = shift;
+    my @library_files   = @_;
+    my $modul_doc       = $self->get_doc($modul_path);
 
-    my $xml     = $self->get_xml($modul_path);
+    # sub get_library_node ($self, $modul_doc, $library_path, @library_files)
+    my @library_content;
+    push (@library_content, $_->textContent)
+           foreach ($modul_doc->findnodes('/course/module/meta/libraries/library'));
+
+    my $new_libraries = XML::LibXML::Element->new( "libraries" );
+
+    for (@library_files) {
+        $new_libraries->appendTextChild('library', join('/', $library_path, $_) ) 
+                if ($_ ~~ @library_content);
+    }
+    # return $new_libraries;
 
     my @pages;
-    # page nodes
-    #
-    for my $page ($xml->findnodes('/course/module/chapter/page')) {
-        push @pages, $page;
+    for my $page ($modul_doc->findnodes('/course/module/chapter/page')){
+       $page->appendChild($new_libraries) if ($page->exists('//bib'));
+        push @pages, $self->nodestohtml($page);
     }
-    @pages = $self->nodestohtml(@pages);
-    return @pages;
+    return wantarray ? @pages : \@pages;
 }
 
+# TODO test
 sub get_node_metastruct ($$$) {
     my $self = shift;
     my $node = shift;
@@ -179,14 +191,14 @@ sub get_meta_struct ($$@) {
    
     my $modul_path      = join '/', $modul_dir, $modul_files[0];
 
-    my $xml             = $self->get_xml($modul_path);
-    my $course_struct   = $self->get_course_struct($xml);
+    my $modul_doc             = $self->get_doc($modul_path);
+    my $course_struct   = $self->get_course_struct($modul_doc);
 
     undef $modul_path;
     # modul nodes
     for (values @modul_files) {
         my $modul_path      = join '/', $modul_dir, $_;
-        my $modul_struct    = $self->get_modul_struct($xml);
+        my $modul_struct    = $self->get_modul_struct($modul_doc);
         push @{$course_struct->{sub}}, $modul_struct;
     }
     return $course_struct;
@@ -195,9 +207,9 @@ sub get_meta_struct ($$@) {
 # TODO test
 sub get_course_struct ($$) {
     my $self    = shift;
-    my $xml     = shift;
+    my $doc     = shift;
 
-    my $course_struct  = $self->get_node_metastruct($xml, '/course');
+    my $course_struct  = $self->get_node_metastruct($doc, '/course');
     $course_struct->{type} = 'course';
 
     return $course_struct;
@@ -206,12 +218,12 @@ sub get_course_struct ($$) {
 # TODO test
 sub get_modul_struct ($$) {
     my $self    = shift;
-    my $xml     = shift;
+    my $doc     = shift;
 
     # modul nodes
     my $modul_struct;
-    for my $modul ($xml->findnodes('/course/module')) {
-        $modul_struct =  $self->get_node_metastruct($xml, '/course/module');
+    for my $modul ($doc->findnodes('/course/module')) {
+        $modul_struct =  $self->get_node_metastruct($doc, '/course/module');
         $modul_struct->{type} = 'modul';
 
         # chapter nodes
