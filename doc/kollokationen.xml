@@ -20,7 +20,7 @@
                 <author>Yvonne Krämer</author>
             </authors>
             <libraries>
-                <library>library.xml</library>
+                <library>kollokationen-bibliothek.xml</library>
             </libraries>
         </meta>
         <chapter id='lernziele' type="learningObjective">
@@ -223,7 +223,7 @@
                     Üblicherweise werden <emph>Textfenster</emph> von fünf Wörtern rechts und links vom Bezugswort als Analysegrundlage herangezogen. </p>
                 <p type="details">Darüber hinaus gibt es aber auch Ansätze, die das signifikant gemeinsame Vorkommen zweier Wörter in einem Textausschnitt (z.B. innerhalb eines Satzteils oder Satzes) untersuchen, 
                     was sich vor allem bei Sprachen mit vergleichsweise freier Wortstellung anbietet. Bei einer anderen Herangehensweise werden nur die Wörter als Kookkurrenzen  aufgefasst, 
-                    die in direkter oder zum Teil auch indirekter syntaktischer Beziehung stehen. Es werden also nur Kolligationen analysiert. (<bib id="Evert2009:1222f."><person name="Evert, Stefan">vgl. Evert </person>2009: 1222f.</bib> )</p>
+                    die in direkter oder zum Teil auch indirekter syntaktischer Beziehung stehen. Es werden also nur Kolligationen analysiert. (<bib id="Evert2009"><person name="Evert, Stefan">vgl. Evert </person>2009: 1222f.</bib> )</p>
                 <p>Dieser statistische Mehrwert gegenüber einer Kookkurrenz soll in der Tradition <person name="Firth, John Rupert">Firths </person>nachfolgend als <emph>Kollokation</emph> bezeichnet werden. 
                     Zwar besteht somit eine Ambiguität zur Begrifflichkeit <person name="Hausmann, Franz Josef">Hausmanns</person>, die Aspekte der hierarchischen Determiniertheit etc. bleiben jedoch unberücksichtigt. </p>
                 <p type="details">Zusammengefasst heißt das: Wenn zwei Begriffe mittels mathematisch-statistischer Verfahren als auffällig dargestellt werden, so nennen wir dies eine Kollokation, 
@@ -354,14 +354,27 @@
                     Die 300 Wörterbuchartikel beinhalten eine Validierung des Sprichwortstatus, die Bedeutung, in der das Sprichwort verwendet wird, seine typischen Formvarianten und lexikalischen Ersetzungen, 
                     Beispiele für die textuelle Einbettung des Sprichwortes sowie seine typischen Gebrauchsbesonderheiten. Zudem sind Sprichwort-Äquivalente für andere Sprachen verlinkt. 
                     Das Sprichwörterbuch ist zum einen über die SprichWort-Plattform verfügbar und wurde zum anderen in das Online-Wortschatz-Informationssystem Deutsch (OWID) des Instituts für Deutsche Sprache integriert.</p>
-                <p><url href="http://www.owid.de/index.jsp"/></p>
-                <p><url href="http://www.sprichwort-plattform.org/"/></p>
+                <p>
+                    <url href="http://www.owid.de/index.jsp">
+                        http://www.owid.de/index.jsp"
+                    </url>
+                </p>
+                <p>
+                    <url href="http://www.sprichwort-plattform.org/">
+                        http://www.sprichwort-plattform.org
+                    </url>
+                </p>
             </page>
             <page>
                 <p>Referenzliteratur</p>
                 <list>
-                    <li><url href="http://www1.ids-mannheim.de/lexik/uwv.html"/></li>
-                    <li><url href="http://www1.ids-mannheim.de/lexik/uwv/uwv.html"/></li>
+                    <li>
+                        <url href="http://www1.ids-mannheim.de/lexik/uwv.html">
+                            http://www1.ids-mannheim.de/lexik/uwv.html
+                        </url>
+                    </li>
+                    <li>
+                        <url href="http://www1.ids-mannheim.de/lexik/uwv/uwv.html"/></li>
                     <li><url href="http://www.owid.de/wb/sprw/start.html"/></li>
                     <li><url href="http://www1.ids-mannheim.de/lexik/sprichwort/projekt.html"/></li>
                 </list>
@@ -474,7 +487,7 @@
     <h2>Erwartete Frequenz</h2>
     <p>Um zu ermitteln, ob die Wörter gleichmäßig bzw. zufällig im Korpus verteilt sind, betrachtet man die sogenannte erwartete Frequenz <quantity>(E)</quantity>.</p>
     <p type="details"><quantity>"E</quantity> is important as a reference point for the interpretation of <quantity>O</quantity>, since two frequent words might cooccur quite often purely by chance." 
-        (<bib id="Evert2009:1228"><person name="Evert, Stefan">Evert</person>2009: 1228</bib></p>
+        (<bib id="Evert2009"><person name="Evert, Stefan">Evert</person>2009: 1228</bib></p>
     <p>Für die Berechnung der <emph>erwarteten Frequenz einer Wortverbindung</emph>, setzt man die <emph>Einzelfrequenzen der Kollokatoren in Relation zur Gesamtgröße des Korpus</emph>. 
         Man zählt also zunächst das Vorkommen (<quantity>f&#8321;</quantity>) von Wort <kursiv>a</kursiv> sowie das Vorkommen (<quantity>f&#8322;</quantity>) von Wort <kursiv>b</kursiv>. 
         In Bezug zur Gesamtzahl (<quantity>N</quantity>) an Worttoken im Korpus berechnet man die sogenannte <emph>Expected Frequency</emph> (<quantity>E</quantity>) dann wie folgt: </p>
@@ -520,27 +533,27 @@
 </page>
 <page>
     <h3>Chi-Quadrat-Test</h3>
-    <p>Der Chi-Quadrat-Test, oder auch <quantity>&#967;&#8306;</quantity>-Test misst im Grunde die Differenz zwischen den beobachteten und den erwarteten Frequenzen und bezieht dabei 
+    <p>Der Chi-Quadrat-Test, oder auch <quantity>&#967;&#178;</quantity>-Test misst im Grunde die Differenz zwischen den beobachteten und den erwarteten Frequenzen und bezieht dabei 
         alle Werte der zuvor erstellten Kontingenztabellen ein. Für jede Zelle wird also <!-- HIER BRUCH EINFÜGEN--> ermittelt und die jeweiligen Ergebnisse werden dann addiert.</p>
-    <p>Daraus ergibt sich die Formel <quantity>&#967;&#8306;</quantity> = &#8721;<!-- HIER BRUCH EINFÜGEN--></p>
+    <p>Daraus ergibt sich die Formel <quantity>&#967;&#178;</quantity> = &#8721;<!-- HIER BRUCH EINFÜGEN--></p>
     <p>"The essence of the test is to compare the observed frequencies in the table with the frequencies expected for independence. If the difference between observed and expected frequencies is large, 
         then we can reject the null hypothesis of independence." (<bib id="Manning2003"><person name="Manning, Christopher D.">Manning</person>/<person name="Schütze, Hinrich">Schütze</person>
             Manning/Schütze 2003: 168</bib>)</p>
-    <p>Um herauszufinden, ob der so berechnete Wert signifikant ist, muss man eine Tabelle der kritischen Werte für <quantity>&#967;&#8306;</quantity> zu Rate ziehen. Diese besagt für eine Vierfelder-Kontingenztabelle, 
-        dass <quantity>&#967;&#8306;</quantity> größer als 3,84 sein müsste, damit die Wahrscheinlichkeit für die Nullhypothese bei lediglich 5% liegt (<quantity>p</quantity> = 0,05). Ist <quantity>&#967;&#8306;</quantity> 
-        größer als 6,64, so kann die Nullhypothese mit einer Wahrscheinlichkeit von 99% abgelehnt werden (<quantity>p</quantity> = 0,01) und wenn <quantity>&#967;&#8306;</quantity>den Wert von 10,83 überschreitet, 
+    <p>Um herauszufinden, ob der so berechnete Wert signifikant ist, muss man eine Tabelle der kritischen Werte für <quantity>&#967;&#178;</quantity> zu Rate ziehen. Diese besagt für eine Vierfelder-Kontingenztabelle, 
+        dass <quantity>&#967;&#178;</quantity> größer als 3,84 sein müsste, damit die Wahrscheinlichkeit für die Nullhypothese bei lediglich 5% liegt (<quantity>p</quantity> = 0,05). Ist <quantity>&#967;&#178;</quantity> 
+        größer als 6,64, so kann die Nullhypothese mit einer Wahrscheinlichkeit von 99% abgelehnt werden (<quantity>p</quantity> = 0,01) und wenn <quantity>&#967;&#178;</quantity>den Wert von 10,83 überschreitet, 
         so ist es zu 99,9% sicher (<quantity>p</quantity> = 0,001), ), dass die Kollokation nicht zufällig und das gemeinsame Vorkommen signifikant ist.</p>
     <p>Problematisch ist der Chi-Quadrat-Test, wenn die Zahlen in der Kontingenztabelle sehr klein sind. Bei Werten unter <quantity>E</quantity> = 5 sind die Ergebnisse nicht mehr zuverlässig.</p>
 </page>
 <page>
     <h3>Log-Likelihood-Test</h3>
-    <p>Im Gegensatz zu <quantity>&#967;&#8306;</quantity> ist der Log-Likelihood-Test auch gegenüber kleinen Werten von <quantity>E</quantity> robust und daher ebenso auf spärliche Datenmengen anwendbar. 
+    <p>Im Gegensatz zu <quantity>&#967;&#178;</quantity> ist der Log-Likelihood-Test auch gegenüber kleinen Werten von <quantity>E</quantity> robust und daher ebenso auf spärliche Datenmengen anwendbar. 
         Die Log-Likelihood-Ratio eignet sich am besten für die Berechnung von Kollokationen und ist das gängigste Signifikanzmaß in der Korpuslinguistik. Insofern es zur Wahl steht, sollte man diesem Maß also stets den Vorzug geben. </p>
-    <p>Die Formel zur Berechnung der LLR lautet wie folgt: G&#8306; = 2[A log A + Blog B + C log C + D log D</p>
+    <p>Die Formel zur Berechnung der LLR lautet wie folgt: G&#178; = 2[A log A + Blog B + C log C + D log D</p>
     <p>- (A+B) log(A+B) - (A+C) log(A+C)</p>
     <p>- (B+D) log(B+D) - (C+D) log(C+D)</p>
     <p>+ (A+B+C+D) log(A+B+C+D)]</p>
-    <p>Will man die Signifikanz des ermittelten Wertes feststellen, so kann man erneut auf die kritischen Werte für <quantity>&#967;&#8306;</quantity> zurückgreifen.</p>
+    <p>Will man die Signifikanz des ermittelten Wertes feststellen, so kann man erneut auf die kritischen Werte für <quantity>&#967;&#178;</quantity> zurückgreifen.</p>
 </page>
 <page>
     <p>Allgemein sollte man in Bezug auf Signifikanzmaße berücksichtigen, dass einzelne Werte nicht unbedingt aussagekräftig sind. Ergibt sich beispielsweise für die Kollokation "heute abend" eine LLR von 2035.949, 
