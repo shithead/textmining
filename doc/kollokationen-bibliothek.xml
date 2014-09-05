@@ -1,2 +1,570 @@
 <?xml version="1.0"?>
-<listBibl xmlns="http://www.tei-c.org/ns/1.0"><biblStruct type="webpage" xml:id="Center_for_History_and_New_Media"><monogr><title level="m">Schnelleinstieg</title><author><name>Center for History and New Media</name></author><imprint><!--  no publisher, publication date or place given  --><note type="url">http://zotero.org/support/quick_start_guide</note></imprint></monogr></biblStruct><biblStruct type="webpage" xml:id="Bubenhofer"><monogr><title level="m">Einführung in die Korpuslinguistik: Praktische Grundlagen und Werkzeuge</title><author><forename>Noah</forename><surname>Bubenhofer</surname></author><imprint><!--  no publisher, publication date or place given  --><note type="accessed">2014-08-28 14:12:27</note><note type="url">http://bubenhofer.com/korpuslinguistik/kurs/</note></imprint></monogr></biblStruct><biblStruct type="book" xml:id="Scherer2006"><monogr><title level="m">Korpuslinguistik</title><author><forename>Carmen</forename><surname>Scherer</surname></author><imprint><pubPlace>Heidelberg</pubPlace><publisher>Universitätsverlag Winter</publisher><date>2006</date></imprint></monogr><series><title level="s">Kurze Einführungen in die Germanistische Linguistik 2</title></series></biblStruct><biblStruct type="conferencePaper" xml:id="Steyer2004a"><analytic><title level="a">Kookkurrenz. Korpusmethodik, linguistisches Modell, lexikografische Perspektiven</title><author><forename>Kathrin</forename><surname>Steyer</surname></author></analytic><monogr><title level="m">Wortverbindungen – mehr oder weniger fest</title><editor><forename>Kathrin</forename><surname>Steyer</surname></editor><imprint><pubPlace>Berlin, New York</pubPlace><biblScope type="pp">87–116</biblScope><publisher>de Gruyter</publisher><date>2004</date></imprint></monogr><series><title level="s">Institut für Deutsche Sprache. Jahrbuch 2003</title></series></biblStruct><biblStruct type="bookSection" xml:id="Belica_Cyril_im_Druck"><analytic><title level="a">Semantische Nähe als Ähnlichkeit von Kookkurrenzprofilen</title><author><name>Belica, Cyril (im Druck)</name></author></analytic><monogr><title level="m">Erscheint in: Korpusinstrumente in Lehre und Forschung / Corpora: strumenti per la didattica e la ricerca / Corpus Tools in Teaching and Research</title><imprint><pubPlace>Bozen</pubPlace><publisher>alpha beta piccadilly Verlag</publisher><note type="url">http://corpora.ids-mannheim.de/SemProx.pdf</note></imprint></monogr></biblStruct><biblStruct type="book" xml:id="Perkuhn2012"><monogr><title level="m">Korpuslinguistik</title><author><forename>Rainer</forename><surname>Perkuhn</surname></author><author><forename>Holger</forename><surname>Keibel</surname></author><author><forename>Marc</forename><surname>Kupietz</surname></author><imprint><publisher>UTB GmbH</publisher><date>2012</date></imprint></monogr><idno type="ISBN">9783825234331</idno></biblStruct><biblStruct type="bookSection" xml:id="Evert2009"><analytic><title level="a">Corpora and Collocations.</title><author><forename>Stefan</forename><surname>Evert</surname></author></analytic><monogr><title level="m">Corpus Linguistics: An International Handbook.</title><editor><forename>Anke</forename><surname>Lüdeling</surname></editor><editor><forename>Merja</forename><surname>Kytö</surname></editor><imprint><biblScope type="vol">2</biblScope><biblScope type="pp">1212-1248</biblScope><date>2009</date></imprint></monogr><series><title level="s">Handbooks of linguistics and communication science</title><biblScope type="vol">29.2</biblScope></series></biblStruct><biblStruct type="book" xml:id="Steiner2004"><monogr><title level="m">Wortarten und Korpus / automatische Wortartenklassifikation durch distributionelle und quantitative Verfahren</title><author><forename>Petra C.</forename><surname>Steiner</surname></author><imprint><publisher>Shaker</publisher><date>2004</date></imprint></monogr><idno type="ISBN">3832223800</idno></biblStruct><biblStruct type="book" xml:id="Heyer2008"><monogr><title level="m">Text Mining: Wissensrohstoff Text. Konzepte, Algorithmen, Ergebnisse</title><author><forename>Gerhard</forename><surname>Heyer</surname></author><author><forename>Uwe</forename><surname>Quasthoff</surname></author><author><forename>Thomas</forename><surname>Wittig</surname></author><edition>1. korrigierter Nachdruck</edition><imprint><pubPlace>Bochum</pubPlace><publisher>W3L Verlag</publisher><date>2008</date></imprint></monogr></biblStruct><biblStruct type="presentation" xml:id="Biemann_Chris2003"><monogr><title level="m">Lernen paradigmatischer Relationen auf iterierten Kollokationen</title><respStmt><resp>presenter</resp><persName><name>Biemann, Chris</name></persName></respStmt><respStmt><resp>presenter</resp><persName><name>Bordag, Stefan</name></persName></respStmt><respStmt><resp>presenter</resp><persName><name>Quasthoff, Uwe</name></persName></respStmt><imprint><pubPlace>Tübingen</pubPlace><date>2003</date><note type="url">http://www.slidefinder.net/l/lernen_paradigmatischer_relationen_iterierten_kollokationen/germavortrag_03/6291662</note></imprint></monogr></biblStruct><biblStruct type="book" xml:id="Steyer2004b"><monogr><title level="m">Wortverbindungen – mehr oder weniger fest</title><editor><forename>Kathrin</forename><surname>Steyer</surname></editor><imprint><pubPlace>Berlin/New York</pubPlace><publisher>de Gruyter</publisher><date>2004</date></imprint></monogr></biblStruct><biblStruct type="book" xml:id="Manning2003"><monogr><title level="m">Foundations of statistical natural language processing</title><author><forename>Christopher D.</forename><surname>Manning</surname></author><author><forename>Hinrich</forename><surname>Schütze</surname></author><edition>6. print. with corr.</edition><imprint><publisher>MIT Press</publisher><date>2003</date></imprint></monogr><idno type="ISBN">0262133601</idno></biblStruct><biblStruct type="book" xml:id="Lemnitzer2010"><monogr><title level="m">Korpuslinguistik / eine Einführung</title><author><forename>Lothar</forename><surname>Lemnitzer</surname></author><author><forename>Heike</forename><surname>Zinsmeister</surname></author><edition>2., durchges. und aktualisierte Aufl.</edition><imprint><publisher>Narr</publisher><date>2010</date></imprint></monogr><idno type="ISBN">9783823365556</idno></biblStruct><biblStruct type="conferencePaper" xml:id="Hausmann_Franz_Josef2004"><analytic><title level="a">Was sind eigentlich Kollokationen?</title><author><name>Hausmann, Franz Josef</name></author></analytic><monogr><title level="m">Wortverbindungen – mehr oder weniger fest</title><editor><forename>Kathrin</forename><surname>Steyer</surname></editor><imprint><pubPlace>Berlin/New York</pubPlace><biblScope type="pp">309-334</biblScope><publisher>de Gruyter</publisher><date>2004</date></imprint></monogr><series><title level="s">Institut für Deutsche Sprache. Jahrbuch 2003</title></series></biblStruct><biblStruct type="journalArticle" xml:id="Vogel_Friedemann2010"><analytic><title level="a">Linguistische Imageanalyse (LIma). Grundlegende Überlegungen und exemplifizierende Studie zum Öffentlichen Image von "Türken" und "Türkei" in deutschsprachigen Medien.</title><author><name>Vogel, Friedemann</name></author></analytic><monogr><title level="j">Deutsche Sprache (DS). Zeitschrift für Theorie, Praxis, Dokumentation</title><imprint><biblScope type="issue">4</biblScope><biblScope type="pp">345-377</biblScope><date>2010</date></imprint></monogr></biblStruct><biblStruct type="book" xml:id="Bubenhofer_Noah2009"><monogr><title level="m">Sprachgebrauchsmuster. Korpuslinguistik als Methode der Diskurs- und Kulturanalyse</title><author><name>Bubenhofer, Noah</name></author><imprint><pubPlace>Berlin/New York</pubPlace><publisher>Walter de Gruyter</publisher><date>2009</date></imprint></monogr><series><title level="s">Sprache und Wissen</title><biblScope type="vol">4</biblScope></series></biblStruct></listBibl>
+<listBibl xmlns="http://www.tei-c.org/ns/1.0">
+    <biblStruct type="webpage" xml:id="Center_for_History_and_New_Media">
+        <monogr>
+            <title level="m">
+                Schnelleinstieg
+            </title>
+            <author>
+                <name>
+                    Center for History and New Media
+                </name>
+            </author>
+            <imprint>
+<!--  no publisher, publication date or place given  -->
+<note type="url">
+    http://zotero.org/support/quick_start_guide
+</note>
+</imprint>
+</monogr>
+</biblStruct>
+<biblStruct type="webpage" xml:id="Bubenhofer">
+    <monogr>
+        <title level="m">
+            Einführung in die Korpuslinguistik: Praktische Grundlagen und Werkzeuge
+        </title>
+        <author>
+            <forename>
+                Noah
+            </forename>
+            <surname>
+                Bubenhofer
+            </surname>
+        </author>
+        <imprint>
+<!--  no publisher, publication date or place given  -->
+<note type="accessed">
+    2014-08-28 14:12:27
+</note>
+<note type="url">
+    http://bubenhofer.com/korpuslinguistik/kurs/
+</note>
+</imprint>
+</monogr>
+</biblStruct>
+<biblStruct type="book" xml:id="Scherer2006">
+    <monogr>
+        <title level="m">
+            Korpuslinguistik
+        </title>
+        <author>
+            <forename>
+                Carmen
+            </forename>
+            <surname>
+                Scherer
+            </surname>
+        </author>
+        <imprint>
+            <pubPlace>
+                Heidelberg
+            </pubPlace>
+            <publisher>
+                Universitätsverlag Winter
+            </publisher>
+            <date>
+                2006
+            </date>
+        </imprint>
+    </monogr>
+    <series>
+        <title level="s">
+            Kurze Einführungen in die Germanistische Linguistik 2
+        </title>
+    </series>
+</biblStruct>
+<biblStruct type="conferencePaper" xml:id="Steyer2004a">
+    <analytic>
+        <title level="a">
+            Kookkurrenz. Korpusmethodik, linguistisches Modell, lexikografische Perspektiven
+        </title>
+        <author>
+            <forename>
+                Kathrin
+            </forename>
+            <surname>
+                Steyer
+            </surname>
+        </author>
+    </analytic>
+    <monogr>
+        <title level="m">
+            Wortverbindungen – mehr oder weniger fest
+        </title>
+        <editor>
+            <forename>
+                Kathrin
+            </forename>
+            <surname>
+                Steyer
+            </surname>
+        </editor>
+        <imprint>
+            <pubPlace>
+                Berlin, New York
+            </pubPlace>
+            <biblScope type="pp">
+                87–116
+            </biblScope>
+            <publisher>
+                de Gruyter
+            </publisher>
+            <date>
+                2004
+            </date>
+        </imprint>
+    </monogr>
+    <series>
+        <title level="s">
+            Institut für Deutsche Sprache. Jahrbuch 2003
+        </title>
+    </series>
+</biblStruct>
+<biblStruct type="bookSection" xml:id="Belica_Cyril_im_Druck">
+    <analytic>
+        <title level="a">
+            Semantische Nähe als Ähnlichkeit von Kookkurrenzprofilen
+        </title>
+        <author>
+            <name>
+                Belica, Cyril (im Druck)
+            </name>
+        </author>
+    </analytic>
+    <monogr>
+        <title level="m">
+            Erscheint in: Korpusinstrumente in Lehre und Forschung / Corpora: strumenti per la didattica e la ricerca / Corpus Tools in Teaching and Research
+        </title>
+        <imprint>
+            <pubPlace>
+                Bozen
+            </pubPlace>
+            <publisher>
+                alpha beta piccadilly Verlag
+            </publisher>
+            <note type="url">
+                http://corpora.ids-mannheim.de/SemProx.pdf
+            </note>
+        </imprint>
+    </monogr>
+</biblStruct>
+<biblStruct type="book" xml:id="Perkuhn2012">
+    <monogr>
+        <title level="m">
+            Korpuslinguistik
+        </title>
+        <author>
+            <forename>
+                Rainer
+            </forename>
+            <surname>
+                Perkuhn
+            </surname>
+        </author>
+        <author>
+            <forename>
+                Holger
+            </forename>
+            <surname>
+                Keibel
+            </surname>
+        </author>
+        <author>
+            <forename>
+                Marc
+            </forename>
+            <surname>
+                Kupietz
+            </surname>
+        </author>
+        <imprint>
+            <publisher>
+                UTB GmbH
+            </publisher>
+            <date>
+                2012
+            </date>
+        </imprint>
+    </monogr>
+    <idno type="ISBN">
+        9783825234331
+    </idno>
+</biblStruct>
+<biblStruct type="bookSection" xml:id="Evert2009">
+    <analytic>
+        <title level="a">
+            Corpora and Collocations.
+        </title>
+        <author>
+            <forename>
+                Stefan
+            </forename>
+            <surname>
+                Evert
+            </surname>
+        </author>
+    </analytic>
+    <monogr>
+        <title level="m">
+            Corpus Linguistics: An International Handbook.
+        </title>
+        <editor>
+            <forename>
+                Anke
+            </forename>
+            <surname>
+                Lüdeling
+            </surname>
+        </editor>
+        <editor>
+            <forename>
+                Merja
+            </forename>
+            <surname>
+                Kytö
+            </surname>
+        </editor>
+        <imprint>
+            <biblScope type="vol">
+                2
+            </biblScope>
+            <biblScope type="pp">
+                1212-1248
+            </biblScope>
+            <date>
+                2009
+            </date>
+        </imprint>
+    </monogr>
+    <series>
+        <title level="s">
+            Handbooks of linguistics and communication science
+        </title>
+        <biblScope type="vol">
+            29.2
+        </biblScope>
+    </series>
+</biblStruct>
+<biblStruct type="book" xml:id="Steiner2004">
+    <monogr>
+        <title level="m">
+            Wortarten und Korpus / automatische Wortartenklassifikation durch distributionelle und quantitative Verfahren
+        </title>
+        <author>
+            <forename>
+                Petra C.
+            </forename>
+            <surname>
+                Steiner
+            </surname>
+        </author>
+        <imprint>
+            <publisher>
+                Shaker
+            </publisher>
+            <date>
+                2004
+            </date>
+        </imprint>
+    </monogr>
+    <idno type="ISBN">
+        3832223800
+    </idno>
+</biblStruct>
+<biblStruct type="book" xml:id="Heyer2008">
+    <monogr>
+        <title level="m">
+            Text Mining: Wissensrohstoff Text. Konzepte, Algorithmen, Ergebnisse
+        </title>
+        <author>
+            <forename>
+                Gerhard
+            </forename>
+            <surname>
+                Heyer
+            </surname>
+        </author>
+        <author>
+            <forename>
+                Uwe
+            </forename>
+            <surname>
+                Quasthoff
+            </surname>
+        </author>
+        <author>
+            <forename>
+                Thomas
+            </forename>
+            <surname>
+                Wittig
+            </surname>
+        </author>
+        <edition>
+            1. korrigierter Nachdruck
+        </edition>
+        <imprint>
+            <pubPlace>
+                Bochum
+            </pubPlace>
+            <publisher>
+                W3L Verlag
+            </publisher>
+            <date>
+                2008
+            </date>
+        </imprint>
+    </monogr>
+</biblStruct>
+<biblStruct type="presentation" xml:id="Biemann_Chris2003">
+    <monogr>
+        <title level="m">
+            Lernen paradigmatischer Relationen auf iterierten Kollokationen
+        </title>
+        <respStmt>
+            <resp>
+                presenter
+            </resp>
+            <persName>
+                <name>
+                    Biemann, Chris
+                </name>
+            </persName>
+        </respStmt>
+        <respStmt>
+            <resp>
+                presenter
+            </resp>
+            <persName>
+                <name>
+                    Bordag, Stefan
+                </name>
+            </persName>
+        </respStmt>
+        <respStmt>
+            <resp>
+                presenter
+            </resp>
+            <persName>
+                <name>
+                    Quasthoff, Uwe
+                </name>
+            </persName>
+        </respStmt>
+        <imprint>
+            <pubPlace>
+                Tübingen
+            </pubPlace>
+            <date>
+                2003
+            </date>
+            <note type="url">
+                http://www.slidefinder.net/l/lernen_paradigmatischer_relationen_iterierten_kollokationen/germavortrag_03/6291662
+            </note>
+        </imprint>
+    </monogr>
+</biblStruct>
+<biblStruct type="book" xml:id="Steyer2004b">
+    <monogr>
+        <title level="m">
+            Wortverbindungen – mehr oder weniger fest
+        </title>
+        <editor>
+            <forename>
+                Kathrin
+            </forename>
+            <surname>
+                Steyer
+            </surname>
+        </editor>
+        <imprint>
+            <pubPlace>
+                Berlin/New York
+            </pubPlace>
+            <publisher>
+                de Gruyter
+            </publisher>
+            <date>
+                2004
+            </date>
+        </imprint>
+    </monogr>
+</biblStruct>
+<biblStruct type="book" xml:id="Manning2003">
+    <monogr>
+        <title level="m">
+            Foundations of statistical natural language processing
+        </title>
+        <author>
+            <forename>
+                Christopher D.
+            </forename>
+            <surname>
+                Manning
+            </surname>
+        </author>
+        <author>
+            <forename>
+                Hinrich
+            </forename>
+            <surname>
+                Schütze
+            </surname>
+        </author>
+        <edition>
+            6. print. with corr.
+        </edition>
+        <imprint>
+            <publisher>
+                MIT Press
+            </publisher>
+            <date>
+                2003
+            </date>
+        </imprint>
+    </monogr>
+    <idno type="ISBN">
+        0262133601
+    </idno>
+</biblStruct>
+<biblStruct type="book" xml:id="Lemnitzer2010">
+    <monogr>
+        <title level="m">
+            Korpuslinguistik / eine Einführung
+        </title>
+        <author>
+            <forename>
+                Lothar
+            </forename>
+            <surname>
+                Lemnitzer
+            </surname>
+        </author>
+        <author>
+            <forename>
+                Heike
+            </forename>
+            <surname>
+                Zinsmeister
+            </surname>
+        </author>
+        <edition>
+            2., durchges. und aktualisierte Aufl.
+        </edition>
+        <imprint>
+            <publisher>
+                Narr
+            </publisher>
+            <date>
+                2010
+            </date>
+        </imprint>
+    </monogr>
+    <idno type="ISBN">
+        9783823365556
+    </idno>
+</biblStruct>
+<biblStruct type="conferencePaper" xml:id="Hausmann_Franz_Josef2004">
+    <analytic>
+        <title level="a">
+            Was sind eigentlich Kollokationen?
+        </title>
+        <author>
+            <name>
+                Hausmann, Franz Josef
+            </name>
+        </author>
+    </analytic>
+    <monogr>
+        <title level="m">
+            Wortverbindungen – mehr oder weniger fest
+        </title>
+        <editor>
+            <forename>
+                Kathrin
+            </forename>
+            <surname>
+                Steyer
+            </surname>
+        </editor>
+        <imprint>
+            <pubPlace>
+                Berlin/New York
+            </pubPlace>
+            <biblScope type="pp">
+                309-334
+            </biblScope>
+            <publisher>
+                de Gruyter
+            </publisher>
+            <date>
+                2004
+            </date>
+        </imprint>
+    </monogr>
+    <series>
+        <title level="s">
+            Institut für Deutsche Sprache. Jahrbuch 2003
+        </title>
+    </series>
+</biblStruct>
+<biblStruct type="journalArticle" xml:id="Vogel_Friedemann2010">
+    <analytic>
+        <title level="a">
+            Linguistische Imageanalyse (LIma). Grundlegende Überlegungen und exemplifizierende Studie zum Öffentlichen Image von "Türken" und "Türkei" in deutschsprachigen Medien.
+        </title>
+        <author>
+            <name>
+                Vogel, Friedemann
+            </name>
+        </author>
+    </analytic>
+    <monogr>
+        <title level="j">
+            Deutsche Sprache (DS). Zeitschrift für Theorie, Praxis, Dokumentation
+        </title>
+        <imprint>
+            <biblScope type="issue">
+                4
+            </biblScope>
+            <biblScope type="pp">
+                345-377
+            </biblScope>
+            <date>
+                2010
+            </date>
+        </imprint>
+    </monogr>
+</biblStruct>
+<biblStruct type="book" xml:id="Bubenhofer_Noah2009">
+    <monogr>
+        <title level="m">
+            Sprachgebrauchsmuster. Korpuslinguistik als Methode der Diskurs- und Kulturanalyse
+        </title>
+        <author>
+            <name>
+                Bubenhofer, Noah
+            </name>
+        </author>
+        <imprint>
+            <pubPlace>
+                Berlin/New York
+            </pubPlace>
+            <publisher>
+                Walter de Gruyter
+            </publisher>
+            <date>
+                2009
+            </date>
+        </imprint>
+    </monogr>
+    <series>
+        <title level="s">
+            Sprache und Wissen
+        </title>
+        <biblScope type="vol">
+            4
+        </biblScope>
+    </series>
+</biblStruct>
+</listBibl>
