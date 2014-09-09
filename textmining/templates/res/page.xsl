@@ -110,6 +110,131 @@
          <xsl:apply-templates select="question | answer"/>
      </xsl:template>
 
+     <xsl:template match="corpus">
+         <div class="well bs-component">
+             <form class="form-horizontal">
+                 <fieldset>
+                     <div class="form-group">
+                         <label class="col-lg-2 control-label" for="select">
+                             <xsl:text> Fenstergröße </xsl:text>
+                         </label>
+                         <div class="col-lg-2">
+                             <select id="select" class="form-control">
+                                 <xsl:apply-templates select="range">
+                                     <xsl:with-param name="end" select="0"/>
+                                 </xsl:apply-templates>
+                                 <xsl:apply-templates select="range">
+                                     <xsl:with-param name="it" select="1"/>
+                                 </xsl:apply-templates>
+                             </select>
+                         </div>
+                         <!-- seconde -->
+                         <div class="col-lg-2">
+                             <select id="select" class="form-control">
+                                 <xsl:apply-templates select="range">
+                                     <xsl:with-param name="end" select="0"/>
+                                 </xsl:apply-templates>
+                                 <xsl:apply-templates select="range">
+                                     <xsl:with-param name="it" select="1"/>
+                                 </xsl:apply-templates>
+                             </select>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="col-lg-2 control-label" for="select">
+                             <xsl:text> Wortsuche basierend auf </xsl:text>
+                         </label>
+                         <div class="col-lg-2">
+                             <select id="select" class="form-control">
+                                 <option value="wortforms" ><xsl:text>Wortform</xsl:text></option>
+                                 <option value="lemma" ><xsl:text>Lemma</xsl:text></option>
+                                 <option value="pos"   ><xsl:text>POS</xsl:text></option>
+                             </select>
+                         </div>
+                     </div>
+                     <xsl:if test="frequence[@node='enable']">
+                         <div class="form-group">
+                             <label class="col-lg-2 control-label" for="select">
+                                 <xsl:text> mind. Frequenz des Suchwortes </xsl:text>
+                             </label>
+                             <div class="col-lg-2">
+                                 <input type="text" id="inputDefault" class="form-control"/>
+                             </div>
+                         </div>
+                     </xsl:if>
+                     <xsl:if test="frequence[@collocate='enable']">
+                         <div class="form-group">
+                             <label class="col-lg-2 control-label" for="select">
+                                 <xsl:text> mind. Frequenz des Suchwortes </xsl:text>
+                             </label>
+                             <div class="col-lg-2">
+                                 <input type="text" id="inputDefault" class="form-control"/>
+                             </div>
+                         </div>
+                     </xsl:if>
+                     <div class="form-group">
+                         <label class="col-lg-2 control-label" for="select">
+                             <xsl:text> Signifikanzmaß </xsl:text>
+                         </label>
+                         <div class="col-lg-2">
+                             <select id="select" class="form-control">
+                                 <xsl:if test="statistic/@chi">
+                                     <option value="chi" ><xsl:text>Chi-Quadrat</xsl:text></option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@dice">
+                                     <option value="dice">
+                                         <xsl:text>Dice-Koeffizient (not supported) </xsl:text>
+                                     </option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@frequence">
+                                     <option value="frequence" >
+                                         <xsl:text>sortiert nach Frequenz</xsl:text>
+                                     </option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@llr">
+                                     <option value="llr" >
+                                         <xsl:text>Log-Likelihood-Ratio (LLR)</xsl:text>
+                                     </option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@mi">
+                                     <option value="mi" >
+                                         <xsl:text>Mutual information (not supported) </xsl:text>
+                                     </option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@mi3">
+                                     <option value="mi3" >
+                                         <xsl:text>MI3 (not supported) </xsl:text>
+                                     </option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@tscore">
+                                     <option value="tscore" >
+                                         <xsl:text>T-Score (not supported) </xsl:text>
+                                     </option>
+                                 </xsl:if>
+                                 <xsl:if test="statistic/@zscore">
+                                     <option value="zscore" >
+                                         <xsl:text>Z-Score (not supported) </xsl:text>
+                                     </option>
+                                 </xsl:if>
+                             </select>           
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="col-lg-2 control-label" for="select">
+                             <xsl:text> Ein Suchwort </xsl:text>
+                         </label>
+                         <div class="col-lg-2">
+                             <input type="text" id="inputDefault" class="form-control"/>
+                         </div>
+                     </div>
+                     <div class="col-lg-10 col-lg-offset-2">
+                         <button class="btn btn-primary" type="submit">Submit</button>
+                     </div>
+                 </fieldset>
+             </form>
+         </div>
+     </xsl:template>
+
      <xsl:template match="course">
          <xsl:apply-templates select="meta | module"/>
      </xsl:template>
@@ -118,7 +243,7 @@
          <time><xsl:value-of select="text()"/></time>
      </xsl:template>
 
-     <!-- XXX wird im html nicht erstellt -->
+     <!-- XXX  -->
      <xsl:template match="details">
          <xsl:variable name="it" select='generate-id(current())'/>
          <div class="tab-content">
@@ -141,7 +266,7 @@
      </xsl:template>
 
      <xsl:template match="exercise">
-         <xsl:apply-templates select="ctext | answer"/>
+         <xsl:apply-templates select="ctext | corpus"/>
          <!-- <xsl:if test="ctest=current()">
          <xsl:call-template name="ctext"/>
      </xsl:if>
@@ -352,6 +477,28 @@
 
      <xsl:template match="question">
          <xsl:apply-templates select="ctext"/>
+     </xsl:template>
+
+     <xsl:template match="range">
+         <xsl:param name="it" select="@from"/>
+         <xsl:param name="end" select="@to + 1"/>
+         <xsl:param name="id" select="generate-id(.)"/>
+         <xsl:copy-of select="."/>
+         <xsl:if test="$it &lt; $end">
+             <xsl:choose>
+                 <xsl:when test="$it=@standard">
+                     <option selected="" value="range{$id}={$it}" ><xsl:value-of select="$it"/></option>
+                 </xsl:when>
+                 <xsl:otherwise>
+                     <option value="range{$id}={$it}" ><xsl:value-of select="$it"/></option>
+                 </xsl:otherwise>
+             </xsl:choose>
+             <xsl:apply-templates select=".">
+                 <xsl:with-param name="it" select="$it + 1"/>
+                 <xsl:with-param name="end" select="$end"/>
+                 <xsl:with-param name="id" select="$id"/>
+             </xsl:apply-templates>
+         </xsl:if>
      </xsl:template>
 
      <xsl:template match="url">
