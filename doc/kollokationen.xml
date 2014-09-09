@@ -1249,16 +1249,11 @@
                                 bringen können.</li>
                         </list>
                     </ctext>
-                    <answer type="form">
-                        <option>
-                            <ctext>
-                            </ctext>
-                            <action>
-                                <ctext>
-                                </ctext>
-                            </action>
-                        </option>
-                    </answer>
+                    <corpus src="kollokation-corpus.xml">
+                        <range from="-5" to="5" standard="1" />
+                        <frequence collocate="enable" node="enable" />
+                        <statistic chi="" frequence="" llr="" />
+                    </corpus>
                 </exercise>
                 <h2>Angeleitetes Experimentieren</h2>
                 <exercise>
@@ -1294,137 +1289,11 @@
                                 um diese Frage zu beantworten.  </li>
                         </list> 
                     </ctext>
-                    <answer type="form">
-                        <option>
-                            <ctext>
-                                Fenstergröße
-                            </ctext>
-                            <action>
-                                <!-- von, bis überschrift, +5 zu -5 auf beiden seiten -->
-                                <ctext>
-                                    -5
-                                </ctext>
-                                <ctext>
-                                    -4
-                                </ctext>
-                                <ctext>
-                                    -3
-                                </ctext>
-                                <ctext>
-                                    -2
-                                </ctext>
-                                <ctext>
-                                    -1
-                                </ctext>
-                                <ctext>
-                                    +1
-                                </ctext>
-                                <ctext>
-                                    +2
-                                </ctext>
-                                <ctext>
-                                    +3
-                                </ctext>
-                                <ctext>
-                                    +4
-                                </ctext>
-                                <ctext>
-                                    +5
-                                </ctext>
-                            </action>
-                            <action>
-                                <ctext>
-                                    -5
-                                </ctext>
-                                <ctext>
-                                    -4
-                                </ctext>
-                                <ctext>
-                                    -3
-                                </ctext>
-                                <ctext>
-                                    -2
-                                </ctext>
-                                <ctext>
-                                    -1
-                                </ctext>
-                                <ctext>
-                                    +1
-                                </ctext>
-                                <ctext>
-                                    +2
-                                </ctext>
-                                <ctext>
-                                    +3
-                                </ctext>
-                                <ctext>
-                                    +4
-                                </ctext>
-                                <ctext>
-                                    +5
-                                </ctext>
-                            </action>
-                        </option>
-                        <option>
-                            <ctext>
-                                Wortsuche basierend auf
-                            </ctext>
-                            <action>
-                                <ctext>
-                                    Wortform
-                                </ctext>
-                                <ctext>
-                                    Lemma
-                                </ctext>
-                                <ctext>
-                                    POS
-                                </ctext>
-                            </action>
-                        </option>
-                        <!-- mindeste frequenz des kollokators und des suchwortes -->
-                        <option>
-                            <ctext>
-                                mind. Frequenz des Kollokators
-                            </ctext>
-                            <action>
-                                <ctext>
-                                </ctext>
-                            </action>
-                        </option>
-                        <option>
-                            <ctext>
-                                mind. Frequenz des Suchwortes
-                            </ctext>
-                            <action>
-                                <ctext>
-                                </ctext>
-                            </action>
-                        </option>
-                        <!-- signifikanzmaß, chi-quadrat, llr auswählbar -->
-                        <option>
-                            <ctext>
-                                Signifikanzmaß
-                            </ctext>
-                            <action>
-                                <ctext>
-                                    Chi-Quadrat
-                                </ctext>
-                                <ctext>
-                                    Log-Likelihood-Ratio (LLR)
-                                </ctext>
-                            </action>
-                        </option>
-                        <option>
-                            <ctext>
-                                Ein Suchwort
-                            </ctext>
-                            <!-- nur ein suchwort -->
-                            <action>
-                                <ctext>
-                                </ctext>
-                            </action>
-                        </option>
-                    </answer>
+                    <corpus src="kollokation-corpus.xml">
+                        <range from="-5" to="5" standard="1" />
+                        <frequence collocate="enable" node="enable" />
+                        <statistic chi="" frequence="" llr="" />
+                    </corpus>
                 </exercise>
             </page>
         </chapter>
