@@ -122,9 +122,11 @@
                              <select id="select" class="form-control">
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="end" select="0"/>
+                                     <xsl:with-param name="id" select="'one'"/>
                                  </xsl:apply-templates>
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="it" select="1"/>
+                                     <xsl:with-param name="id" select="'one'"/>
                                  </xsl:apply-templates>
                              </select>
                          </div>
@@ -133,9 +135,11 @@
                              <select id="select" class="form-control">
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="end" select="0"/>
+                                     <xsl:with-param name="id" select="'two'"/>
                                  </xsl:apply-templates>
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="it" select="1"/>
+                                     <xsl:with-param name="id" select="'two'"/>
                                  </xsl:apply-templates>
                              </select>
                          </div>
@@ -158,17 +162,17 @@
                                  <xsl:text> mind. Frequenz des Suchwortes </xsl:text>
                              </label>
                              <div class="col-lg-2">
-                                 <input type="text" id="inputDefault" class="form-control"/>
+                                 <input type="text" id="inputminnode" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
                      <xsl:if test="frequence[@collocate='enable']">
                          <div class="form-group">
                              <label class="col-lg-2 control-label" for="select">
-                                 <xsl:text> mind. Frequenz des Suchwortes </xsl:text>
+                                 <xsl:text> mind. Frequenz des Kollokators </xsl:text>
                              </label>
                              <div class="col-lg-2">
-                                 <input type="text" id="inputDefault" class="form-control"/>
+                                 <input type="text" id="inputmincollocator" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
@@ -482,7 +486,7 @@
      <xsl:template match="range">
          <xsl:param name="it" select="@from"/>
          <xsl:param name="end" select="@to + 1"/>
-         <xsl:param name="id" select="generate-id(.)"/>
+         <xsl:param name="id"/>
          <xsl:copy-of select="."/>
          <xsl:if test="$it &lt; $end">
              <xsl:choose>
