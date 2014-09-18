@@ -55,10 +55,13 @@ Is using L<"get_node_metastruct">.
 
 =cut
 
+# TODO extract Course,modul and library functions to Textmining::Plugin::StructureHelper::Course
+
 use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use XML::LibXSLT;
 
+use Textmining::Plugin::StructureHelper::Corpus;
 $XML::LibXML::skipXMLDeclaration = 1;
 
 # TODO test
@@ -68,10 +71,13 @@ sub new {
     my $self  = {};
     bless $self, $class;
     my $xslt        = XML::LibXSLT->new();
-    $xslt->debug_callback( \&Callback );
-    my $xsl     = $self->get_xsl('templates/res/page.xsl');
+    # $xslt->debug_callback( \&Callback );
+    my $xsl         = $self->get_xsl('templates/res/page.xsl');
     my $stylesheet  = $xslt->parse_stylesheet($xsl);
-    $self->{xslt}=$stylesheet;
+    $self->{xslt}   = $stylesheet;
+    # $self->{course} = Textmining::Plugin::StructureHelper::Course->new();
+    # $self->{course}->{xslt}   = $stylesheet;
+    # $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new();
     return $self;
 }
 
@@ -116,7 +122,8 @@ sub nodestohtml ($@) {
 
     my @results;
     for my $node (@nodes) {
-        my $result_html = $self->doctohtml($node->toString)->toString;
+        my $result_html;
+        eval { $result_html = $self->doctohtml($node->toString)->toString };
         push @results, $result_html;
     }
     return  wantarray ? @results : \@results;
@@ -191,7 +198,7 @@ sub get_meta_struct ($$@) {
    
     my $modul_path      = join '/', $modul_dir, $modul_files[0];
 
-    my $modul_doc             = $self->get_doc($modul_path);
+    my $modul_doc       = $self->get_doc($modul_path);
     my $course_struct   = $self->get_course_struct($modul_doc);
 
     undef $modul_path;
@@ -249,6 +256,5 @@ sub get_modul_struct ($$) {
     }
     return $modul_struct;
 }
-
 
 1;
