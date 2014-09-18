@@ -341,7 +341,7 @@ sub init_public_course ($$) {
 
     my $path = {
         src     => join('/', $self->{_path}->{data}  , $course),
-        dest    => join('/', $self->{_path}->{course}, $course),
+        dest    => join('/', $self->{_path}->{public}, $course),
         modul   => $self->get_data_modul($course),
         library => $self->get_data_library($course)
     };
