@@ -247,7 +247,6 @@ sub get_data_struct ($) {
     return $self->{_data_struct};
 }
 
-# TODO Test for get_data_struct($self)
 sub get_data_course ($) {
     my $self = shift;
 

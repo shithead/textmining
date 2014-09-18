@@ -109,6 +109,10 @@ is_deeply($test_structhelper->{_data_struct}, $test_hash, 'update_data_struct');
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_data_struct, $test_hash, 'get_data_struct');
 
+# Test for get_data_course($self)
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_data_course, @{['test_course']}, 'get_data_course');
+
 # }}} data directory
 
 
