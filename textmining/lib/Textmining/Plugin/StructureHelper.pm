@@ -177,9 +177,10 @@ sub hash_to_json ($$) {
     my $json                = Mojo::JSON->new;
     my $json_bytes          = decode('UTF-8', $json->encode($meta_struct));
     my $err                 = $json->error;
-    say $err ?  "Error: $err" : 
-            "encode meta_struct for meta.json Successed";
-    # TODO Errorlog
+    if (defined $err) {
+        say "Error json encode: $err";
+        # TODO Errorlog
+    }
     return $json_bytes;
 }
 
@@ -189,9 +190,10 @@ sub json_to_hash ($$) {
     my $json                = Mojo::JSON->new;
     my $meta_struct         = $json->decode($json_bytes);
     my $err                 = $json->error;
-    say $err ?  "Error json decode: $err" : 
-            "decode meta.json Successed";
-    # TODO Errorlog
+    if (defined $err) {
+        say "Error json decode: $err";
+        # TODO Errorlog
+    }
     return $meta_struct;
 }
 
