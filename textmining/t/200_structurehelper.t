@@ -113,6 +113,14 @@ is_deeply($test_structhelper->get_data_struct, $test_hash, 'get_data_struct');
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_data_course, @{['test_course']}, 'get_data_course');
 
+# Test for get_data_modul($self, $course)
+$test_hash = {
+        path    => join('/', $test_structhelper->{_path}->{data}, 'test_course', 'modul'),
+        files   => \@{$test_structhelper->{_data_struct}->{test_course}->{modul}}
+};
+
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_data_modul('test_course'), $test_hash, 'get_data_modul');
 # }}} data directory
 
 

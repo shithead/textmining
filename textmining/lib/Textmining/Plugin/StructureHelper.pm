@@ -258,7 +258,6 @@ sub get_data_course ($) {
     return wantarray ? @course_list : \@course_list;
 }
 
-# TODO Test for get_data_modul($self, $course)
 sub get_data_modul ($$) {
     my $self = shift;
     my $course = shift;
