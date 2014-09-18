@@ -130,6 +130,15 @@ $test_hash = {
 
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_data_library('test_course'), $test_hash, 'get_data_library');
+
+# Test for get_data_corpus($self, $course)
+$test_hash = {
+        path    => join('/', $test_structhelper->{_path}->{data}, 'test_course', 'corpus'),
+        files   => $test_structhelper->{_data_struct}->{test_course}->{corpus}
+};
+
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_data_corpus('test_course'), $test_hash, 'get_data_corpus');
 # }}} data directory
 
 

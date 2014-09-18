@@ -306,6 +306,29 @@ sub get_data_library ($$) {
     return $libraries;
 }
 
+sub get_data_corpus ($$) {
+    my $self = shift;
+    my $course = shift;
+
+    unless (keys $self->{_data_struct}) {
+        $self->update_data_struct();
+        # TODO test of $course exist in _data_struct
+    }
+
+    my @courses_keys = (keys $self->{_data_struct});
+    unless (  $course ~~ @courses_keys ) {
+        #TODO Errorlog
+        say "course $course not in \'@courses_keys\'";
+        return undef;
+    }
+
+    my $corpora = {
+        path    => join('/', $self->{_path}->{data}, $course, 'corpus'),
+        files   => $self->{_data_struct}->{$course}->{corpus}
+    };
+
+    return $corpora;
+}
 # }}}
 
 # {{{ public directory
