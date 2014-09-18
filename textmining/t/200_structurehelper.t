@@ -92,16 +92,22 @@ for (values @publicstruct) {
         push @{$test_hash->{test_course}->{$_}}, "$_.xml";
     } 
 }
+
+
 my $test_structhelper = Textmining::Plugin::StructureHelper->new();
 
 $test_structhelper->{_path}->{data} = $test_data_dir;
 $test_structhelper->{_path}->{public} = $test_public_dir;
 
+# for update_data_struct($self)
+$number_of_tests_run++;
 $test_structhelper->update_data_struct;
 
-$number_of_tests_run++;
 is_deeply($test_structhelper->{_data_struct}, $test_hash, 'update_data_struct');
-#p $test_structhelper;
+
+# Test for get_data_struct($self)
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_data_struct, $test_hash, 'get_data_struct');
 
 # }}} data directory
 

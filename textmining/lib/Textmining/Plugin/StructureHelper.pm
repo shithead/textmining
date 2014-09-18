@@ -198,7 +198,6 @@ sub json_to_hash ($$) {
 #}}}
 
 # {{{ data directory
-# TODO Test for update_data_struct($self)
 sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
@@ -243,7 +242,6 @@ sub update_data_struct ($) {
     $self->{_data_struct} = $hash;
 }
 
-# TODO Test for get_data_struct($self)
 sub get_data_struct ($) {
     my $self = shift;
     return $self->{_data_struct};
