@@ -121,7 +121,7 @@ sub register {
     # XXX config sinvoll
     $self->{_path} = {
         data => 'data',
-        course => 'public/course'
+        public => 'public/course'
     };
     $app->helper(struct => sub {
             state $struct = $self
@@ -129,7 +129,7 @@ sub register {
 }
 
 #{{{ utils
-# TODO Test
+
 sub _exists_check ($$) {
     #my $self    = shift if __PACKAGE__ eq "Textmining::Plugin::StructureHelper" ;
     my $object  = shift;
@@ -353,7 +353,7 @@ sub init_public_course ($$) {
     my @page_meta_list;
     for my $chapter (@chapter_dirs){
         for my $pagenr (1..$chapter->{pagecnt}) {
-            my $page    = join('/', $self->{_path}->{course}, $chapter->{dir},
+            my $page    = join('/', $self->{_path}->{public}, $chapter->{dir},
                     "$pagenr.html");
             open my $FD, ">:encoding(UTF-8)", $page;
             print $FD shift @pages;
@@ -407,7 +407,7 @@ sub create_public_chapter ($$$) {
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 
-    my $dir          = join('/', $self->{_path}->{course}, $suffix);
+    my $dir          = join('/', $self->{_path}->{public}, $suffix);
     remove_tree($dir, {error => \my $err});
 
     # TODO Errorlog
@@ -420,7 +420,7 @@ sub rm_public_path ($$) {
 sub create_public_path ($$) {
     my ($self, $suffix) = @_;
 
-    my $dir          = join('/', $self->{_path}->{course}, $suffix);
+    my $dir          = join('/', $self->{_path}->{public}, $suffix);
     make_path($dir, {error => \my $err});
 
     # TODO Errorlog
@@ -432,10 +432,10 @@ sub create_public_path ($$) {
 # TODO Test for update_public_struct($self)
 sub update_public_struct ($) {
     my $self = shift;
-    my $course_dir = $self->{_path}->{course};
+    my $public_dir = $self->{_path}->{public};
 
     # get content of public/course directory
-    opendir(DIR, $course_dir);
+    opendir(DIR, $public_dir);
     my @course = readdir(DIR);
     closedir(DIR);
 
@@ -448,7 +448,7 @@ sub update_public_struct ($) {
             # build course tree
             $hash->{$name} = [];
             # get content of public/course/name directory
-            opendir(DIR, join ('/', $course_dir, $name));
+            opendir(DIR, join ('/', $public_dir, $name));
             my @moduls = readdir(DIR);
             closedir(DIR);
 
@@ -463,20 +463,20 @@ sub update_public_struct ($) {
     };
 
     $self->{_public_struct} = $hash;
-    my $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
+    my $meta_path    = join('/', $self->{_path}->{public}, "meta.json" );
     $self->save_public_struct($meta_path, $hash);
 }
 
 # TODO Test for get_public_struct($self, $dir)
 sub get_public_struct ($$) {
     my $self    = shift;
-    my $dir     = shift or undef;
+    my $dir     = shift || undef;
 
     my $meta_path;
     if (defined $dir) {
-        $meta_path    = join('/', $self->{_path}->{course}, $dir,"meta.json" );
+        $meta_path    = join('/', $self->{_path}->{public}, $dir,"meta.json" );
     } else {
-        $meta_path    = join('/', $self->{_path}->{course}, "meta.json" );
+        $meta_path    = join('/', $self->{_path}->{public}, "meta.json" );
     }
 
     my $meta_struct  = $self->load_public_struct($meta_path);
