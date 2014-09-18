@@ -121,6 +121,15 @@ $test_hash = {
 
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_data_modul('test_course'), $test_hash, 'get_data_modul');
+
+# Test for get_data_library($self, $course)
+$test_hash = {
+        path    => join('/', $test_structhelper->{_path}->{data}, 'test_course', 'library'),
+        files   => \@{$test_structhelper->{_data_struct}->{test_course}->{library}}
+};
+
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_data_library('test_course'), $test_hash, 'get_data_library');
 # }}} data directory
 
 

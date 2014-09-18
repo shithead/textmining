@@ -282,7 +282,6 @@ sub get_data_modul ($$) {
     return $modules;
 }
 
-# TODO Test for get_data_library($self, $course)
 sub get_data_library ($$) {
     my $self = shift;
     my $course = shift;
