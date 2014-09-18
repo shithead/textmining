@@ -10,6 +10,11 @@ package Textmining::Plugin::StructureHelper;
 This method check the exist of a file.
 Returned 1 if a file is not exists.
 
+=method _tree()
+
+This method build a directory tree in a hash.
+A leaf value end with undef.
+
 =method hash_to_json()
 
 This method return C<Mojo::JSON> from a perl hash.
@@ -104,6 +109,8 @@ use Mojo::Util qw(encode decode camelize);
 
 use Textmining::Plugin::StructureHelper::Transform;
 use File::Path qw(remove_tree make_path);
+use File::Basename;
+
 use feature 'say';
 
 sub register {
@@ -130,6 +137,31 @@ sub _exists_check ($$) {
         return 0;
     }
     return 1;
+}
+
+sub _tree ($$) {
+    my $path = shift;
+    my $max_deep = shift || scalar 5;
+
+    return undef if ($max_deep <= 0 || not defined $path);
+    my $hash = {};
+    unless ( -d $path ) {
+        $hash = undef;
+    } else {
+        opendir(DIR, $path);
+        my @files = readdir(DIR);
+        closedir(DIR);
+
+        for my $file (values @files) {
+            # ignore . and ..
+            unless ($file =~ m/(^\.+)/) {
+                # build course tree
+                my $nxt_path = join '/', $path, $file;
+                $hash->{$file} = &_tree($nxt_path, $max_deep--);
+            }
+        }
+    }
+    return $hash;
 }
 
 sub hash_to_json ($$) {
@@ -159,7 +191,7 @@ sub json_to_hash ($$) {
 #}}}
 
 # {{{ data directory
-# TODO Test
+# TODO Test for update_data_struct($self)
 sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
@@ -231,7 +263,7 @@ sub get_data_modul ($$) {
     my @courses_keys = (keys $self->{_data_struct});
     unless (  $course ~~ @courses_keys ) {
         #TODO Errorlog
-        say "course $course not in \'@courses_keys\'";
+        say "course $course not in \'" . join(',', @courses_keys) . "\'";
         return undef;
     }
 
