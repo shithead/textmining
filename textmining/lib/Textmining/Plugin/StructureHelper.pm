@@ -116,15 +116,12 @@ use feature 'say';
 sub register {
   my ($self, $app) = @_;
     $app->helper(struct => sub {
-            state $struct = $self->new;
+            state $struct = $self->_constructor;
         });
 }
 
-sub new {
-    my $class = shift;
-
-    my $self  = {};
-    bless $self, $class;
+sub _constructor {
+    my $self = shift;
     $self->{_data_struct} = {};
     $self->{_public_struct} = {};
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
@@ -133,8 +130,18 @@ sub new {
         data => 'data',
         public => 'public/course'
     };
+    return $self
+}
+
+sub new {
+    my $class = shift;
+
+    my $self  = {};
+    bless $self, $class;
+    $self->_constructor;
     return $self;
 }
+
 #{{{ utils
 
 sub _exists_check ($$) {
