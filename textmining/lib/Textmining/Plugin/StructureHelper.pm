@@ -115,6 +115,16 @@ use feature 'say';
 
 sub register {
   my ($self, $app) = @_;
+    $app->helper(struct => sub {
+            state $struct = $self->new;
+        });
+}
+
+sub new {
+    my $class = shift;
+
+    my $self  = {};
+    bless $self, $class;
     $self->{_data_struct} = {};
     $self->{_public_struct} = {};
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
@@ -123,11 +133,8 @@ sub register {
         data => 'data',
         public => 'public/course'
     };
-    $app->helper(struct => sub {
-            state $struct = $self
-        });
+    return $self;
 }
-
 #{{{ utils
 
 sub _exists_check ($$) {
@@ -140,15 +147,15 @@ sub _exists_check ($$) {
 }
 
 sub _tree ($$) {
-    my $path = shift;
+    my $cwd = shift || '.';
     my $max_deep = shift || scalar 5;
 
-    return undef if ($max_deep <= 0 || not defined $path);
+    return undef if ($max_deep <= 0 || not defined $cwd);
     my $hash = {};
-    unless ( -d $path ) {
+    unless ( -d $cwd ) {
         $hash = undef;
     } else {
-        opendir(DIR, $path);
+        opendir(DIR, $cwd);
         my @files = readdir(DIR);
         closedir(DIR);
 
@@ -156,8 +163,8 @@ sub _tree ($$) {
             # ignore . and ..
             unless ($file =~ m/(^\.+)/) {
                 # build course tree
-                my $nxt_path = join '/', $path, $file;
-                $hash->{$file} = &_tree($nxt_path, $max_deep--);
+                my $nxt_wd = join '/', $cwd, $file;
+                $hash->{$file} = &_tree($nxt_wd, $max_deep--);
             }
         }
     }
@@ -195,7 +202,7 @@ sub json_to_hash ($$) {
 sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
-    my @coursestruct = qw(modul library);
+    my @coursestruct = qw(modul library corpus);
 
     # content of data directory
     opendir(DIR, $data);
@@ -216,16 +223,20 @@ sub update_data_struct ($) {
 
     for my $course (keys $hash) {
         for (values @coursestruct) {
-            opendir(DIR, join('/', $data, $course, $_));
-            my @files = readdir(DIR);
-            closedir(DIR);
+            my $cwd = join('/', $data, $course, $_);
+            if ( $_ =~ 'corpus') {
+                $hash->{$course}->{$_} = &_tree($cwd, 10);
+            } else {
+                opendir(DIR, $cwd);
+                my @files = readdir(DIR);
+                closedir(DIR);
 
-            for my $file (values @files) {
-            # ignore .+ and grep files with xml-Suffix
-                if ($file =~ qr/(^[^\.]+.*\.xml$)/)  {
-                    unshift @{$hash->{$course}->{$_}}, $file;
+                for my $file (values @files) {
+                    # ignore .+ and grep files with xml-Suffix
+                    if ($file =~ qr/(^[^\.]+.*\.xml$)/ ) {
+                        unshift @{$hash->{$course}->{$_}}, $file;
+                    }
                 }
-               $hash->{$course}->{$_} = &_tree($file, 10) if ($_ =~ "corpus");
             }
         }
     }

@@ -22,15 +22,20 @@ BEGIN {
 my $dir = tempdir( CLEANUP => 1 );
 #my $dir = tempdir();
 #($fh, $filename) = tempfile( DIR => $dir );
+my $test_public = 'test-public';
+my $test_data = 'test-data';
+my $test_public_dir = join('/', $dir, $test_public );
+my $test_data_dir = join('/', $dir, $test_data );
 
-my @coursestruct = qw(modul library corpus);
-my $tmp_hash = {};
-for (values @coursestruct) {
-    my $path = join('/', $dir, $_ ); 
+my @publicstruct = qw(modul library corpus);
+my $test_hash = {};
+for (values @publicstruct) {
+    my $path = join('/', $test_data_dir, 'test_course', $_ ); 
     make_path( $path );
     copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
-    $tmp_hash->{$_} = { "$_.xml" => undef};
+    $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
 }
+make_path( $test_public_dir );
 
 ## {{{ utils
 ## Test for _exists_check($object)
@@ -40,14 +45,14 @@ cmp_ok(&Textmining::Plugin::StructureHelper::_exists_check($dir), '==' , 0, '_ex
 ## Test for _tree($path, $max_deep = 5)
 $number_of_tests_run++;
 my $tree_hash = {};
-$tree_hash = &Textmining::Plugin::StructureHelper::_tree($dir);
-is_deeply($tree_hash, $tmp_hash, '_tree');
+$tree_hash = &Textmining::Plugin::StructureHelper::_tree($test_data_dir, 10);
+is_deeply($tree_hash, $test_hash, '_tree');
 
 my $json = Mojo::JSON->new;
 
 ## Test for hash_to_json($self, $meta_struct)
-my $json_bytes = Textmining::Plugin::StructureHelper->hash_to_json($tmp_hash);
-my $tmp_json_bytes = decode('UTF-8', $json->encode($tmp_hash));
+my $json_bytes = Textmining::Plugin::StructureHelper->hash_to_json($test_hash);
+my $test_json_bytes = decode('UTF-8', $json->encode($test_hash));
 my $err = $json->error;
 
 $number_of_tests_run++;
@@ -58,11 +63,11 @@ if (defined $err) {
 }
 
 $number_of_tests_run++;
-is($json_bytes, $tmp_json_bytes, 'json_bytes eq tmp_json_bytes');
+is($json_bytes, $test_json_bytes, 'json_bytes eq test_json_bytes');
 
 ## Test for json_to_hash($self, $json_bytes)
 my $json_hash = Textmining::Plugin::StructureHelper->json_to_hash($json_bytes);
-my $tmp_json_hash = $json->decode($json_bytes);
+my $test_json_hash = $json->decode($json_bytes);
 $err = $json->error;
 
 $number_of_tests_run++;
@@ -73,8 +78,32 @@ if (defined $err) {
 }
 
 $number_of_tests_run++;
-is_deeply($json_hash, $tmp_json_hash, 'json_hash eq tmp_json_hash');
+is_deeply($json_hash, $test_json_hash, 'json_hash eq test_json_hash');
 # }}} utils
+
+# {{{ data directory
+# XXX prepare test_hash '_data_struct'
+$test_hash = {};
+for (values @publicstruct) {
+    my $path = join('/', $test_data_dir, 'test_course', $_ ); 
+    if ( $_ =~ 'corpus') {
+        $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
+    } else {
+        push @{$test_hash->{test_course}->{$_}}, "$_.xml";
+    } 
+}
+my $test_structhelper = Textmining::Plugin::StructureHelper->new();
+
+$test_structhelper->{_path}->{data} = $test_data_dir;
+$test_structhelper->{_path}->{public} = $test_public_dir;
+
+$test_structhelper->update_data_struct;
+
+$number_of_tests_run++;
+is_deeply($test_structhelper->{_data_struct}, $test_hash, 'update_data_struct');
+#p $test_structhelper;
+
+# }}} data directory
 
 
 done_testing( $number_of_tests_run );
