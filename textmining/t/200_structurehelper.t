@@ -165,7 +165,7 @@ my @chapter_dirs    = $test_structhelper->create_public_chapter(
     'test_course',
     $test_course_meta_struct
 );
-my @test_chapter_dirs = (
+my @test_array = (
     {
         dir       => "test_course/Test Modul/0_testziel",
         pagecnt   => 2
@@ -187,7 +187,7 @@ my @test_chapter_dirs = (
         pagecnt   => 3
     }
 );
-is_deeply(\@chapter_dirs, \@test_chapter_dirs, 'create_public_chapter');
+is_deeply(\@chapter_dirs, \@test_array, 'create_public_chapter');
 
 #{{{ subtest
 $number_of_tests_run++;
@@ -198,15 +198,22 @@ my $chapter_dirs    = $test_structhelper->create_public_chapter(
 isa_ok( $chapter_dirs, 'ARRAY' );
 #}}}
 
+# Test for save_public_struct($self, $location, $meta_struct)
+$number_of_tests_run++;
+my $test_path = "$test_public_dir/test_course/meta.json";
+$test_structhelper->save_public_struct( $test_path, $test_hash );
+is(&Textmining::Plugin::StructureHelper::_exists_check($test_path),
+    '0', 'save_public_struct');
+
+# Test for load_public_struct($self, $location)
+$number_of_tests_run++;
+is_deeply($test_structhelper->load_public_struct( $test_path ), $test_hash, 'load_public_struct and compare deeply with the saved one');
+
 # TODO Test for update_public_struct($self)
 
 # TODO Test for get_public_struct($self, $dir)
 
-# TODO Test for save_public_struct($self, $location, $meta_struct)
-
 # TODO Test for init_public_course($self, $course)
-
-# TODO Test for load_public_struct($self, $location)
 
 # TODO Test for get_public_modul($self)
 

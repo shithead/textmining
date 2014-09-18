@@ -532,7 +532,7 @@ sub get_public_modul ($) {
     return $hash_list;
 }
 
-# TODO Test for save_public_struct($self, $location, $meta_struct)
+# TODO rewrite code to erase parameter $location.
 sub save_public_struct ($$$) {
     my $self = shift;
     my ($location, $meta_struct) = @_;
@@ -544,7 +544,6 @@ sub save_public_struct ($$$) {
     close $FH;
 }
 
-# TODO Test for load_public_struct($self, $location)
 sub load_public_struct ($$) {
     my $self        = shift;
     my $location    = shift;
