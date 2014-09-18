@@ -519,39 +519,6 @@ sub get_public_struct ($$) {
     return $meta_struct ? $meta_struct : $self->{_public_struct};
 }
 
-# TODO Test for get_public_page_path($self, $meta_struct, $modul)
-sub get_public_page_path ($$$) {
-    my $self = shift;
-    my $meta_struct = shift;
-    my $modul = shift;
-
-    return undef unless defined $meta_struct->{sub};
-    for my $m (values $meta_struct->{sub}) {
-        return wantarray ? @{$m->{pages}} : $m->{pages} if $m->{meta}->{title} eq $modul;
-    }
-}
-
-# TODO Test for get_public_navbar($self, $meta_struct, $modul)
-sub get_public_navbar ($$$) {
-    my $self = shift;
-    my $meta_struct = shift;
-    my $modul = shift;
-
-    return undef unless defined $meta_struct->{sub};
-    for my $m (values $meta_struct->{sub}) {
-        if ($m->{meta}->{title} eq $modul) {
-            return undef unless defined $m->{sub};
-            my @navbar;
-            my $pagecnt = 0;
-            for my $c (values $m->{sub}) {
-                push @navbar, { camelize($c->{id}) => $pagecnt} ;
-                $pagecnt = $pagecnt  + $c->{pagecnt};
-            }
-            return wantarray ? @navbar : \@navbar;
-        }
-    }
-}
-
 # TODO Test for get_public_modul($self)
 sub get_public_modul ($) {
     my $self = shift;
@@ -583,6 +550,39 @@ sub load_public_struct ($$) {
     my $file        = Mojo::Asset::File->new( path => $location);
     my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
+}
+
+# TODO Test for get_public_page_path($self, $meta_struct, $modul)
+sub get_public_page_path ($$$) {
+    my $self = shift;
+    my $meta_struct = shift;
+    my $modul = shift;
+
+    return undef unless defined $meta_struct->{sub};
+    for my $m (values $meta_struct->{sub}) {
+        return wantarray ? @{$m->{pages}} : $m->{pages} if $m->{meta}->{title} eq $modul;
+    }
+}
+
+# TODO Test for get_public_navbar($self, $meta_struct, $modul)
+sub get_public_navbar ($$$) {
+    my $self = shift;
+    my $meta_struct = shift;
+    my $modul = shift;
+
+    return undef unless defined $meta_struct->{sub};
+    for my $m (values $meta_struct->{sub}) {
+        if ($m->{meta}->{title} eq $modul) {
+            return undef unless defined $m->{sub};
+            my @navbar;
+            my $pagecnt = 0;
+            for my $c (values $m->{sub}) {
+                push @navbar, { camelize($c->{id}) => $pagecnt} ;
+                $pagecnt = $pagecnt  + $c->{pagecnt};
+            }
+            return wantarray ? @navbar : \@navbar;
+        }
+    }
 }
 
 # }}}
