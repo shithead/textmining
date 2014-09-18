@@ -154,8 +154,49 @@ $number_of_tests_run++;
 $test_structhelper->rm_public_path('test_public_path');
 is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_dir, 'test_public_path')), '1', 'rm_public_path');
 
+# Test for create_public_chapter($self, $course, $course_meta_struct)
+$number_of_tests_run++;
+my $test_modul = $test_structhelper->get_data_modul('test_course');
+my $test_course_meta_struct = $test_structhelper->{transform}->get_meta_struct(
+    $test_modul->{path},
+    @{$test_modul->{files}}
+);
+my @chapter_dirs    = $test_structhelper->create_public_chapter(
+    'test_course',
+    $test_course_meta_struct
+);
+my @test_chapter_dirs = (
+    {
+        dir       => "test_course/Test Modul/0_testziel",
+        pagecnt   => 2
+    },
+    {
+        dir       => "test_course/Test Modul/1_twotestid",
+        pagecnt   => 3
+    },
+    {
+        dir       => "test_course/Test Modul/2_threetetestid",
+        pagecnt   => 1
+    },
+    {
+        dir       => "test_course/Test Modul/3_fourtestid",
+        pagecnt   => 1
+    },
+    {
+        dir       => "test_course/Test Modul/4_fivetestid",
+        pagecnt   => 3
+    }
+);
+is_deeply(\@chapter_dirs, \@test_chapter_dirs, 'create_public_chapter');
 
-# TODO Test for create_public_chapter($self, $course, $course_meta_struct)
+#{{{ subtest
+$number_of_tests_run++;
+my $chapter_dirs    = $test_structhelper->create_public_chapter(
+    'test_course',
+    $test_course_meta_struct
+);
+isa_ok( $chapter_dirs, 'ARRAY' );
+#}}}
 
 # TODO Test for update_public_struct($self)
 

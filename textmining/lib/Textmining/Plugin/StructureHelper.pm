@@ -354,6 +354,8 @@ sub init_public_course ($$) {
     };
 
     my $course_meta_struct;
+    # TODO change parameter for the output of 
+    # $self->get_data_modul($course)
     $course_meta_struct = $self->{transform}->get_meta_struct(
         $path->{modul}->{path},
         @{$path->{modul}->{files}}
@@ -410,13 +412,12 @@ sub init_public_course ($$) {
     $self->update_public_struct;
 }
 
-# TODO Test for create_public_chapter($self, $course, $course_meta_struct)
 sub create_public_chapter ($$$) {
     my $self    = shift;
     my ($course, $course_meta_struct) = @_;
 
     # TODO directory is knowing, change *_dir so
-    # that $course variable no more required
+    # that $course variable is no more required
     my @chapter_dirs;
     for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
         my $modul_dir = join('/',
