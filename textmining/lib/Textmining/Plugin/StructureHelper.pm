@@ -100,7 +100,7 @@ Is using L<"json_to_hash">.
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Asset::File;
 use Mojo::JSON;
-use Mojo::Util qw(encode decode);
+use Mojo::Util qw(encode decode camelize);
 
 use Textmining::Plugin::StructureHelper::Transform;
 use File::Path qw(remove_tree make_path);
@@ -179,8 +179,8 @@ sub update_data_struct ($) {
             for (values @coursestruct) {
                 $hash->{$course}->{$_} = [];
             }
-        };
-    };
+        }
+    }
 
     for my $course (keys $hash) {
         for (values @coursestruct) {
@@ -193,19 +193,20 @@ sub update_data_struct ($) {
                 if ($file =~ qr/(^[^\.]+.*\.xml$)/)  {
                     unshift @{$hash->{$course}->{$_}}, $file;
                 }
+               $hash->{$course}->{$_} = &_tree($file, 10) if ($_ =~ "corpus");
             }
         }
     }
     $self->{_data_struct} = $hash;
 }
 
-# TODO Test
+# TODO Test for get_data_struct($self)
 sub get_data_struct ($) {
     my $self = shift;
     return $self->{_data_struct};
 }
 
-# TODO Test
+# TODO Test for get_data_struct($self)
 sub get_data_course ($) {
     my $self = shift;
 
@@ -214,10 +215,10 @@ sub get_data_course ($) {
         push @course_list, $_;
     }
 
-    return @course_list;
+    return wantarray ? @course_list : \@course_list;
 }
 
-# TODO Test
+# TODO Test for get_data_modul($self, $course)
 sub get_data_modul ($$) {
     my $self = shift;
     my $course = shift;
@@ -242,7 +243,7 @@ sub get_data_modul ($$) {
     return $modules;
 }
 
-# TODO Test
+# TODO Test for get_data_library($self, $course)
 sub get_data_library ($$) {
     my $self = shift;
     my $course = shift;
@@ -271,7 +272,7 @@ sub get_data_library ($$) {
 
 # {{{ public directory
 
-# TODO Test
+# TODO Test for init_public_course($self, $course)
 sub init_public_course ($$) {
     my ($self, $course) = @_;
 
@@ -339,10 +340,13 @@ sub init_public_course ($$) {
     $self->update_public_struct;
 }
 
+# TODO Test for create_public_chapter($self, $course, $course_meta_struct)
 sub create_public_chapter ($$$) {
     my $self    = shift;
     my ($course, $course_meta_struct) = @_;
-    # TODO directory is clear change *_dir so that $course variable no more required
+
+    # TODO directory is knowing, change *_dir so
+    # that $course variable no more required
     my @chapter_dirs;
     for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
         my $modul_dir = join('/',
@@ -367,7 +371,7 @@ sub create_public_chapter ($$$) {
     return wantarray ? @chapter_dirs : \@chapter_dirs;
 }
 
-# TODO Test
+# TODO Test for rm_public_path($self, $suffix)
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 
@@ -380,7 +384,7 @@ sub rm_public_path ($$) {
     }
 }
 
-# TODO Test
+# TODO Test for create_public_path($self, $suffix)
 sub create_public_path ($$) {
     my ($self, $suffix) = @_;
 
@@ -393,10 +397,9 @@ sub create_public_path ($$) {
     }
 }
 
-# TODO Test
+# TODO Test for update_public_struct($self)
 sub update_public_struct ($) {
     my $self = shift;
-    # XXX config sinvoll
     my $course_dir = $self->{_path}->{course};
 
     # get content of public/course directory
@@ -432,8 +435,7 @@ sub update_public_struct ($) {
     $self->save_public_struct($meta_path, $hash);
 }
 
-# TODO Test
-# TODO $dir should be undef but not.
+# TODO Test for get_public_struct($self, $dir)
 sub get_public_struct ($$) {
     my $self    = shift;
     my $dir     = shift or undef;
@@ -449,7 +451,40 @@ sub get_public_struct ($$) {
     return $meta_struct ? $meta_struct : $self->{_public_struct};
 }
 
-# TODO Test
+# TODO Test for get_public_page_path($self, $meta_struct, $modul)
+sub get_public_page_path ($$$) {
+    my $self = shift;
+    my $meta_struct = shift;
+    my $modul = shift;
+
+    return undef unless defined $meta_struct->{sub};
+    for my $m (values $meta_struct->{sub}) {
+        return wantarray ? @{$m->{pages}} : $m->{pages} if $m->{meta}->{title} eq $modul;
+    }
+}
+
+# TODO Test for get_public_navbar($self, $meta_struct, $modul)
+sub get_public_navbar ($$$) {
+    my $self = shift;
+    my $meta_struct = shift;
+    my $modul = shift;
+
+    return undef unless defined $meta_struct->{sub};
+    for my $m (values $meta_struct->{sub}) {
+        if ($m->{meta}->{title} eq $modul) {
+            return undef unless defined $m->{sub};
+            my @navbar;
+            my $pagecnt = 0;
+            for my $c (values $m->{sub}) {
+                push @navbar, { camelize($c->{id}) => $pagecnt} ;
+                $pagecnt = $pagecnt  + $c->{pagecnt};
+            }
+            return wantarray ? @navbar : \@navbar;
+        }
+    }
+}
+
+# TODO Test for get_public_modul($self)
 sub get_public_modul ($) {
     my $self = shift;
 
@@ -461,7 +496,7 @@ sub get_public_modul ($) {
     return $hash_list;
 }
 
-# TODO Test
+# TODO Test for save_public_struct($self, $location, $meta_struct)
 sub save_public_struct ($$$) {
     my $self = shift;
     my ($location, $meta_struct) = @_;
@@ -473,7 +508,7 @@ sub save_public_struct ($$$) {
     close $FH;
 }
 
-# TODO Test
+# TODO Test for load_public_struct($self, $location)
 sub load_public_struct ($$) {
     my $self        = shift;
     my $location    = shift;
