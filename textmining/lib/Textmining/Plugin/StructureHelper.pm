@@ -441,7 +441,6 @@ sub create_public_chapter ($$$) {
     return wantarray ? @chapter_dirs : \@chapter_dirs;
 }
 
-# TODO Test for rm_public_path($self, $suffix)
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 
@@ -454,7 +453,6 @@ sub rm_public_path ($$) {
     }
 }
 
-# TODO Test for create_public_path($self, $suffix)
 sub create_public_path ($$) {
     my ($self, $suffix) = @_;
 

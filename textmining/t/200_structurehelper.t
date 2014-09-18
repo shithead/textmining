@@ -139,7 +139,39 @@ $test_hash = {
 
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_data_corpus('test_course'), $test_hash, 'get_data_corpus');
+
 # }}} data directory
 
+# {{{ public directory
 
+# Test for create_public_path($self, $suffix)
+$number_of_tests_run++;
+$test_structhelper->create_public_path('test_public_path');
+is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_dir, 'test_public_path')), '0', 'create_public_path');
+
+# Test for rm_public_path($self, $suffix)
+$number_of_tests_run++;
+$test_structhelper->rm_public_path('test_public_path');
+is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_dir, 'test_public_path')), '1', 'rm_public_path');
+
+
+# TODO Test for create_public_chapter($self, $course, $course_meta_struct)
+
+# TODO Test for update_public_struct($self)
+
+# TODO Test for get_public_struct($self, $dir)
+
+# TODO Test for save_public_struct($self, $location, $meta_struct)
+
+# TODO Test for init_public_course($self, $course)
+
+# TODO Test for load_public_struct($self, $location)
+
+# TODO Test for get_public_modul($self)
+
+# TODO Test for get_public_page_path($self, $meta_struct, $modul)
+
+# TODO Test for get_public_navbar($self, $meta_struct, $modul)
+
+# }}} public directory
 done_testing( $number_of_tests_run );
