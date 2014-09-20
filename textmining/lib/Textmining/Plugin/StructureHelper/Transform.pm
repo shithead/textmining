@@ -130,11 +130,11 @@ sub nodestohtml ($@) {
 }
 
 # TODO test
-sub xml_doc_pages ($$$@) {
+sub xml_doc_pages ($$$$) {
     my $self            = shift;
     my $modul_path      = shift;
     my $library_path    = shift;
-    my @library_files   = @_;
+    my $library_files   = shift;
     my $modul_doc       = $self->get_doc($modul_path);
 
     # sub get_library_node ($self, $modul_doc, $library_path, @library_files)
@@ -144,7 +144,7 @@ sub xml_doc_pages ($$$@) {
 
     my $new_libraries = XML::LibXML::Element->new( "libraries" );
 
-    for (@library_files) {
+    foreach (@{$library_files}) {
         $new_libraries->appendTextChild('library', join('/', $library_path, $_) ) 
                 if ($_ ~~ @library_content);
     }

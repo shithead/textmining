@@ -371,34 +371,42 @@ sub init_public_course ($$) {
 
     # {{ TODO build a stack of 
     # create_public_modul 
-    # -> create_modul_chapter
-    # -> create_chapter_pages
+    # -> create_pages
     # update every sub modul with $page_meta_list see bottom of fnct
     my @chapter_dirs    = $self->create_public_chapter(
                 $course,
                 $course_meta_struct
             );
 
-    my @pages;
-    for my $filename (@{$path->{modul}->{files}}) {
-        push (@pages, $self->{transform}->xml_doc_pages(
-                join('/', $path->{modul}->{path}, $filename),
-                $path->{library}->{path}, @{$path->{library}->{files}}
-                ));
+    my $modul_pages;
+    foreach (@{$path->{modul}->{files}}) {
+        $modul_pages->{$_} = $self->{transform}->xml_doc_pages(
+            join('/', $path->{modul}->{path}, $_),
+            $path->{library}->{path},
+            $path->{library}->{files}
+        );
     }
 
-    # sub create_chapter_pages ($path, @pages, @chapter_dirs)
-    # {
-    my $prev_page = undef;
     my @page_meta_list;
-    for my $chapter (@chapter_dirs){
-        for my $pagenr (1..$chapter->{pagecnt}) {
-            my $page    = join('/', $self->{_path}->{public}, $chapter->{dir},
-                    "$pagenr.html");
-            open my $FD, ">:encoding(UTF-8)", $page;
-            print $FD shift @pages;
-            close $FD;
-            push @page_meta_list, $page;
+    # sub create_pages ($path, $modul_pages, @chapter_dirs)
+    # {
+    #my @page_meta_list;
+    my $prev_page = undef;
+    for my $modul_key (keys $modul_pages) {
+        for my $chapter (@chapter_dirs){
+            for my $pagenr (1..$chapter->{pagecnt}) {
+                my $page    = join(
+                            '/',
+                            $self->{_path}->{public},
+                            $chapter->{dir},
+                            "$pagenr.html");
+
+                open FH, "+>:encoding(UTF-8)",
+                        $page or say "open UTF-8 encode file failed";
+                print FH shift @{$modul_pages->{$modul_key}};
+                close FH;
+                push @page_meta_list, $page;
+            }
         }
     }
     # return wantarray ? @page_meta_list : \@page_meta_list;
