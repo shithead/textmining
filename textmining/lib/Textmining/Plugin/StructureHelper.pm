@@ -160,7 +160,7 @@ sub _tree ($$) {
     return undef if ($max_deep <= 0 || not defined $cwd);
     my $hash = {};
     unless ( -d $cwd ) {
-        $hash = undef;
+        return undef;
     } else {
         opendir(DIR, $cwd);
         my @files = readdir(DIR);
@@ -171,7 +171,7 @@ sub _tree ($$) {
             unless ($file =~ m/(^\.+)/) {
                 # build course tree
                 my $nxt_wd = join '/', $cwd, $file;
-                $hash->{$file} = &_tree($nxt_wd, $max_deep--);
+                $hash->{$file} = &_tree($nxt_wd, $max_deep - 1);
             }
         }
     }
@@ -413,7 +413,7 @@ sub init_public_course ($$) {
     # }
     $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
 
-    my $course_meta_path    = join('/', $path->{dest}, "meta.json" );
+    my $course_meta_path    = join('/', $path->{dest}, ".meta.json" );
     $self->save_public_struct($course_meta_path, $course_meta_struct);
 
     # }}
@@ -429,7 +429,7 @@ sub create_public_chapter ($$$) {
     my @chapter_dirs;
     for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
         my $modul_dir = join('/',
-            $course,
+            $course, 'modul',
             $course_meta_struct->{sub}->[$modulcnt]->{meta}->{title}
         );
         for my $chaptcnt (0 .. $#{$course_meta_struct->{sub}->[$modulcnt]->{sub}}) {
@@ -477,38 +477,13 @@ sub create_public_path ($$) {
 # TODO Test for update_public_struct($self)
 sub update_public_struct ($) {
     my $self = shift;
-    my $public_dir = $self->{_path}->{public};
-
-    # get content of public/course directory
-    opendir(DIR, $public_dir);
-    my @course = readdir(DIR);
-    closedir(DIR);
-
     my $hash = {} ;
 
-    # work with content of public/course directory
-    for my $name (values @course) {
-        # ignore . and ..
-        unless ($name =~ m/(^\.+)|(.*\.json$)/)  {
-            # build course tree
-            $hash->{$name} = [];
-            # get content of public/course/name directory
-            opendir(DIR, join ('/', $public_dir, $name));
-            my @moduls = readdir(DIR);
-            closedir(DIR);
+    $hash = &_tree($self->{_path}->{public});
 
-            for my $modul (values @moduls) {
-                # ignore .+
-                unless ($modul =~ m/(^\.+)|(.*\.json$)/)  {
-                    # build modul tree
-                    push @{$hash->{$name}}, $modul;
-                };
-            };
-        };
-    };
-
+    undef $self->{_public_struct};
     $self->{_public_struct} = $hash;
-    my $meta_path    = join('/', $self->{_path}->{public}, "meta.json" );
+    my $meta_path    = join('/', $self->{_path}->{public}, ".meta.json" );
     $self->save_public_struct($meta_path, $hash);
 }
 
@@ -554,7 +529,7 @@ sub save_public_struct ($$$) {
 
 sub load_public_struct ($$) {
     my $self        = shift;
-    my $location    = shift;
+    my $location    = shift || "$self->{_path}->{public}/.meta.json";
     my $file        = Mojo::Asset::File->new( path => $location);
     my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
