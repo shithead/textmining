@@ -167,23 +167,23 @@ my @chapter_dirs    = $test_structhelper->create_public_chapter(
 );
 my @test_array = (
     {
-        dir       => "test_course/Test Modul/0_testziel",
+        dir       => "test_course/modul/Test Modul/0_testziel",
         pagecnt   => 2
     },
     {
-        dir       => "test_course/Test Modul/1_twotestid",
+        dir       => "test_course/modul/Test Modul/1_twotestid",
         pagecnt   => 3
     },
     {
-        dir       => "test_course/Test Modul/2_threetetestid",
+        dir       => "test_course/modul/Test Modul/2_threetetestid",
         pagecnt   => 1
     },
     {
-        dir       => "test_course/Test Modul/3_fourtestid",
+        dir       => "test_course/modul/Test Modul/3_fourtestid",
         pagecnt   => 1
     },
     {
-        dir       => "test_course/Test Modul/4_fivetestid",
+        dir       => "test_course/modul/Test Modul/4_fivetestid",
         pagecnt   => 3
     }
 );
