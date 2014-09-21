@@ -502,13 +502,12 @@ sub get_public_modul_struct ($$) {
     return $self->{_public_struct}->{$course};
 }
 
-# TODO rewrite code to erase parameter $location.
 sub save_public_struct ($$$) {
     my $self = shift;
     my ($location, $meta_struct) = @_;
 
     my $json_bytes          = $self->hash_to_json($meta_struct);
-    
+
     open  my $FH , ">:encoding(UTF-8)", $location;
     print $FH $json_bytes;
     close $FH;
@@ -522,15 +521,19 @@ sub load_public_struct ($$) {
     return $meta_struct;
 }
 
-# TODO Test for get_public_page_path($self, $meta_struct, $modul)
-sub get_public_page_path ($$$) {
-    my $self = shift;
-    my $meta_struct = shift;
-    my $modul = shift;
+# }}}
+# {{{ Web foo
 
-    return undef unless defined $meta_struct->{sub};
-    for my $m (values $meta_struct->{sub}) {
-        return wantarray ? @{$m->{pages}} : $m->{pages} if $m->{meta}->{title} eq $modul;
+sub get_public_page_path ($$$) {
+    my $self    = shift;
+    my $course_meta_struct
+                = shift || return undef;
+    my $modul   = shift || return undef;
+
+    return undef unless defined $course_meta_struct->{sub};
+    for my $m (values $course_meta_struct->{sub}) {
+        return wantarray ? @{$m->{pages}} : $m->{pages}
+                if $m->{meta}->{title} eq $modul;
     }
 }
 
