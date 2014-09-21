@@ -91,7 +91,7 @@ Is using L<"hash_to_json">.
 
 =method load_public_struct()
 
-This method load the specified meta struct in path.
+This method load public or specified course meta struct.
 Is using L<"json_to_hash">.
 
 =head1 SEE ALSO
@@ -155,8 +155,8 @@ sub _exists_check ($$) {
 }
 
 sub _tree ($$) {
-    my $cwd = shift || scalar '.';
-    my $max_deep = shift || scalar 5;
+    my $cwd         = shift || scalar '.';
+    my $max_deep    = shift || scalar 5;
 
     return undef if ($max_deep <= 0 || not defined $cwd);
     my $hash = {};
@@ -363,10 +363,12 @@ sub init_public_course ($$) {
 
     unless (&_exists_check($path->{dest})) {
         $self->rm_public_path($course);
+        #say "rm public directory of $course";
     }
     if (&_exists_check($path->{dest})) {
         $self->create_public_path("$course/$_")
                 foreach (@coursestruct);
+                #say "create public directory of $course";
     }
 
     # {{ TODO build a stack of 
@@ -377,6 +379,7 @@ sub init_public_course ($$) {
                 $course,
                 $course_meta_struct
             );
+
 
     my $modul_pages;
     foreach (@{$path->{modul}->{files}}) {
@@ -401,7 +404,7 @@ sub init_public_course ($$) {
                             $chapter->{dir},
                             "$pagenr.html");
 
-                open FH, "+>:encoding(UTF-8)",
+                open FH, ">:encoding(UTF-8)",
                         $page or say "open UTF-8 encode file failed";
                 print FH shift @{$modul_pages->{$modul_key}};
                 close FH;
@@ -411,6 +414,7 @@ sub init_public_course ($$) {
     }
     # return wantarray ? @page_meta_list : \@page_meta_list;
     # }
+
     $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
 
     my $course_meta_path    = join('/', $path->{dest}, ".meta.json" );
@@ -486,9 +490,10 @@ sub update_public_struct ($) {
     $self->save_public_struct($meta_path, $hash);
 }
 
-sub get_public_struct ($$) {
+sub get_public_struct ($) {
     my $self    = shift;
 
+    $self->update_public_struct unless (keys $self->{_public_struct});
     return $self->{_public_struct};
 }
 
@@ -496,7 +501,7 @@ sub get_public_modul_struct ($$) {
     my $self    = shift;
     my $course  = shift || return undef;
 
-    return $self->{_public_struct}->{$course};
+    return $self->get_public_struct()->{$course};
 }
 
 sub save_public_struct ($$$) {
@@ -512,7 +517,8 @@ sub save_public_struct ($$$) {
 
 sub load_public_struct ($$) {
     my $self        = shift;
-    my $location    = shift || "$self->{_path}->{public}/.meta.json";
+    my $course      = shift || scalar "";
+    my $location    = join '/', $self->{_path}->{public}, $course, ".meta.json";
     my $file        = Mojo::Asset::File->new( path => $location);
     my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
@@ -536,10 +542,11 @@ sub get_public_page_path ($$$) {
 
 sub get_public_navbar ($$$) {
     my $self            = shift;
-    my $course_struct   = shift || return undef;
+    my $course_meta_struct
+                        = shift || return undef;
     my $modul           = shift || return undef;
-    return undef unless defined $course_struct->{sub};
-    for my $m (values $course_struct->{sub}) {
+    return undef unless defined $course_meta_struct->{sub};
+    for my $m (values $course_meta_struct->{sub}) {
         if ($m->{meta}->{title} eq $modul) {
             return undef unless defined $m->{sub};
             my @navbar;

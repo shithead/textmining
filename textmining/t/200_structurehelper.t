@@ -208,9 +208,9 @@ $test_structhelper->save_public_struct(
 is(&Textmining::Plugin::StructureHelper::_exists_check($test_path),
      '0', 'save_public_struct');
  
-# Test for load_public_struct($self, $location)
+# Test for load_public_struct($self, $course)
 $number_of_tests_run++;
-is_deeply($test_structhelper->load_public_struct( $test_path ),
+is_deeply($test_structhelper->load_public_struct( 'test_course' ),
         $test_course_meta_struct,
         'load_public_struct and compare deeply with the saved one');
 
