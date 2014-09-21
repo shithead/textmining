@@ -342,7 +342,6 @@ sub get_data_corpus ($$) {
 
 # {{{ public directory
 
-# TODO Test for init_public_course($self, $course)
 sub init_public_course ($$) {
     my ($self, $course) = @_;
 
@@ -488,7 +487,6 @@ sub update_public_struct ($) {
     $self->save_public_struct($meta_path, $hash);
 }
 
-# TODO Test for get_public_struct($self, $dir)
 sub get_public_struct ($$) {
     my $self    = shift;
 

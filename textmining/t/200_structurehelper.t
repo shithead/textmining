@@ -217,7 +217,83 @@ is_deeply($test_structhelper->load_public_struct( $test_path ),
 # remove old public/test_course
 remove_tree("$test_public_dir/test_course");
 
-# TODO Test for get_public_struct($self, $dir)
+# Test for update_public_struct($self)
+# create test struct
+$test_hash = {};
+for (values @publicstruct) {
+    my $path = join('/', $test_public_dir, 'test_course', $_ ); 
+    make_path( $path );
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
+    $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
+}
+
+$number_of_tests_run++;
+
+$test_structhelper->update_public_struct();
+is_deeply(
+    $test_structhelper->{_public_struct}, 
+    $test_hash,
+    'update_public_struct'
+);
+
+remove_tree("$test_public_dir/test_course");
+$test_structhelper->{_public_struct} = {};
+
+# Test for init_public_course($self, $course)
+# create test struct
+$test_hash = {
+    test_course   => {
+        corpus    => {
+        },
+        library   => {
+        },
+        modul     => {
+            'Test Modul'   => {
+                '0_testziel' =>       {
+                   "1.html"     =>  undef,
+                   "2.html"     =>  undef
+                },
+                "1_twotestid" =>      {
+                   "1.html"     =>  undef,
+                   "2.html"     =>  undef,
+                   "3.html"     =>  undef
+                },
+                "2_threetetestid"  =>  {
+                   "1.html"     =>  undef
+                },
+                "3_fourtestid"    =>  {
+                   "1.html"     =>  undef
+                },
+                "4_fivetestid"    =>  {
+                   "1.html"     =>  undef,
+                   "2.html"     =>  undef,
+                   "3.html"     =>  undef
+                }
+            }
+        }
+
+    }
+};
+
+$number_of_tests_run++;
+
+$test_structhelper->init_public_course('test_course');
+is_deeply($test_structhelper->{_public_struct}, 
+    $test_hash, 'init_public_course');
+
+# Test for get_public_struct($self)
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_public_struct(), 
+    $test_hash, 'get_public_struct');
+
+# Test for get_public_modul_struct($self,$course)
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_public_modul_struct('test_course'), 
+    $test_hash->{test_course}, 'get_public_modul_struct with defined $course');
+
+$number_of_tests_run++;
+is($test_structhelper->get_public_modul_struct(), 
+    undef, 'get_public_modul_struct with undefined $course');
 
 # TODO Test for init_public_course($self, $course)
 
