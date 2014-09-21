@@ -295,13 +295,71 @@ $number_of_tests_run++;
 is($test_structhelper->get_public_modul_struct(), 
     undef, 'get_public_modul_struct with undefined $course');
 
-# TODO Test for init_public_course($self, $course)
+# Test for get_public_page_path($self, $course_struct, $modul)
+$number_of_tests_run++;
+is_deeply($test_structhelper->get_public_page_path(
+            $test_course_meta_struct->{test_course}, 'modul'),
+        $test_course_meta_struct->{test_course}->{modul},
+        'get_public_page_path normal' );
 
-# TODO Test for get_public_modul($self)
+$number_of_tests_run++;
+is($test_structhelper->get_public_page_path( undef, 'modul'), 
+        undef,
+        'get_public_page_path with undefined $course_struct');
 
-# TODO Test for get_public_page_path($self, $meta_struct, $modul)
+$number_of_tests_run++;
+is($test_structhelper->get_public_page_path($test_hash, 'modul'),
+        undef,
+        'get_public_page_path with invalid $course_struct' );
 
-# TODO Test for get_public_navbar($self, $meta_struct, $modul)
+$number_of_tests_run++;
+is($test_structhelper->get_public_page_path( 
+            $test_hash->{test_course}, undef),
+        undef,
+        'get_public_page_path with undefined $modul');
+
+# Test for get_public_navbar($self, $meta_struct, $modul)
+# create test array
+@test_array = (
+    {
+        Testziel    =>  0
+    },
+    {
+        Twotestid   =>  2
+    },
+    {
+        Threetetestid   =>  5
+    },
+    {
+        Fourtestid  =>  6
+    },
+    {
+        Fivetestid  =>  7
+    }
+);
+
+$number_of_tests_run++;
+my @got_array = $test_structhelper->get_public_navbar(
+            $test_course_meta_struct, 'Test Modul');
+is_deeply(\@got_array,
+        \@test_array,
+        'get_public_navbar normal' );
+
+$number_of_tests_run++;
+is($test_structhelper->get_public_navbar( undef, 'Test Modul'), 
+        undef,
+        'get_public_navbar with undefined $course_struct');
+
+$number_of_tests_run++;
+is($test_structhelper->get_public_navbar($test_hash, 'Test Modul'),
+        undef,
+        'get_public_navbar with invalid $course_struct' );
+
+$number_of_tests_run++;
+is($test_structhelper->get_public_navbar( 
+            $test_course_meta_struct, undef),
+        undef,
+        'get_public_navbar with undefined $modul');
 
 # }}} public directory
 done_testing( $number_of_tests_run );

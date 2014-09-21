@@ -474,7 +474,6 @@ sub create_public_path ($$) {
     }
 }
 
-# TODO Test for update_public_struct($self)
 sub update_public_struct ($) {
     my $self = shift;
     my $hash = {} ;
@@ -535,7 +534,6 @@ sub get_public_page_path ($$$) {
     }
 }
 
-# TODO Test for get_public_navbar($self, $meta_struct, $modul)
 sub get_public_navbar ($$$) {
     my $self            = shift;
     my $course_struct   = shift || return undef;
