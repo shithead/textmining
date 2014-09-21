@@ -33,6 +33,7 @@ sub startup {
             #   return undef;
             return 1;
         });
+
     # GET /admin
     $admin->get()->to('admin#overview');
     # POST /admin/course?course="foo"&type="bar"
@@ -44,11 +45,22 @@ sub startup {
 
 
     # Course route to controller
-    $r->get('/course')->to('course#overview');
+    # Course section
+    my $course = $r->under( '/course' => sub {
+            #   my $c = shift;
+            #   return 1 if $c->req->headers->header('X-Awesome');
+            #   $c->render(text => "You're not awesome enough.");
+            #   return undef;
+            return 1;
+        });
+
+    # Course route to controller
+    $course->get()->to('course#overview');
 
     # Modul route to controller
-    # GET /course/modul?course="foo"&modul="bar"&page=#
-    $r->get('/course/modul')->to('modul#modul');
+    # GET /course/modul?course="foo"&modul="bar"&page=<nr>
+    $course->get('/modul')->to('modul#modul');
+    # TODO websocket
 }
 
 1;

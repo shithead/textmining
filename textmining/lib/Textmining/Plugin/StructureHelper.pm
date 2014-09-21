@@ -155,7 +155,7 @@ sub _exists_check ($$) {
 }
 
 sub _tree ($$) {
-    my $cwd = shift || '.';
+    my $cwd = shift || scalar '.';
     my $max_deep = shift || scalar 5;
 
     return undef if ($max_deep <= 0 || not defined $cwd);
