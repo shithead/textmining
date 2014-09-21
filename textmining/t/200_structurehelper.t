@@ -200,16 +200,22 @@ isa_ok( $chapter_dirs, 'ARRAY' );
 
 # Test for save_public_struct($self, $location, $meta_struct)
 $number_of_tests_run++;
-my $test_path = "$test_public_dir/test_course/meta.json";
-$test_structhelper->save_public_struct( $test_path, $test_hash );
+my $test_path = "$test_public_dir/test_course/.meta.json";
+$test_structhelper->save_public_struct(
+        $test_path,
+        $test_course_meta_struct
+    );
 is(&Textmining::Plugin::StructureHelper::_exists_check($test_path),
-    '0', 'save_public_struct');
-
+     '0', 'save_public_struct');
+ 
 # Test for load_public_struct($self, $location)
 $number_of_tests_run++;
-is_deeply($test_structhelper->load_public_struct( $test_path ), $test_hash, 'load_public_struct and compare deeply with the saved one');
+is_deeply($test_structhelper->load_public_struct( $test_path ),
+        $test_course_meta_struct,
+        'load_public_struct and compare deeply with the saved one');
 
-# TODO Test for update_public_struct($self)
+# remove old public/test_course
+remove_tree("$test_public_dir/test_course");
 
 # TODO Test for get_public_struct($self, $dir)
 
