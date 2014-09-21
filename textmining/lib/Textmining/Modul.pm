@@ -11,8 +11,6 @@ sub modul {
     my $modul  = $self->param('modul');
     my $pagenr = $self->param('page') or 0;
 
-    # TODO create in StrureHelper.pm : 
-    # * get_public_page_path($meta_struct, $modul)
     my $course_meta_struct  = $self->struct->get_public_struct($course);
     my @page_path   = $self->struct->get_public_page_path($course_meta_struct, $modul);
     my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $modul);
@@ -36,36 +34,5 @@ sub modul {
         pagenr        =>  $pagenr,
         page_path     =>  \@page_path
     );
-}
-
-sub _get_public_page_path ($$$) {
-    #my $self = shift;
-    my $meta_struct = shift;
-    my $modul = shift;
-
-    return undef unless defined $meta_struct->{sub};
-    for my $m (values $meta_struct->{sub}) {
-        return @{$m->{pages}} if $m->{meta}->{title} eq $modul;
-    }
-}
-
-sub _get_public_navbar ($$$) {
-    #my $self = shift;
-    my $meta_struct = shift;
-    my $modul = shift;
-
-    return undef unless defined $meta_struct->{sub};
-    for my $m (values $meta_struct->{sub}) {
-        if ($m->{meta}->{title} eq $modul) {
-            return undef unless defined $m->{sub};
-            my @navbar;
-            my $pagecnt = 0;
-            for my $c (values $m->{sub}) {
-                push @navbar, { camelize($c->{id}) => $pagecnt} ;
-                $pagecnt = $pagecnt  + $c->{pagecnt};
-            }
-            return @navbar;
-        }
-    }
 }
 1;
