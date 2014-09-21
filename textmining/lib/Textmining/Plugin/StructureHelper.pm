@@ -112,6 +112,7 @@ use File::Path qw(remove_tree make_path);
 use File::Basename;
 
 use feature 'say';
+our @coursestruct = qw(modul library corpus);
 
 sub register {
   my ($self, $app) = @_;
@@ -210,7 +211,6 @@ sub json_to_hash ($$) {
 sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
-    my @coursestruct = qw(modul library corpus);
 
     # content of data directory
     opendir(DIR, $data);
@@ -366,7 +366,8 @@ sub init_public_course ($$) {
         $self->rm_public_path($course);
     }
     if (&_exists_check($path->{dest})) {
-        $self->create_public_path($course);
+        $self->create_public_path("$course/$_")
+                foreach (@coursestruct);
     }
 
     # {{ TODO build a stack of 
