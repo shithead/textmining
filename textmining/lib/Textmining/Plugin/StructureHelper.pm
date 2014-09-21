@@ -539,25 +539,23 @@ sub get_public_page_path ($$$) {
 
 # TODO Test for get_public_navbar($self, $meta_struct, $modul)
 sub get_public_navbar ($$$) {
-    my $self = shift;
-    my $meta_struct = shift;
-    my $modul = shift;
-
-    return undef unless defined $meta_struct->{sub};
-    for my $m (values $meta_struct->{sub}) {
+    my $self            = shift;
+    my $course_struct   = shift || return undef;
+    my $modul           = shift || return undef;
+    return undef unless defined $course_struct->{sub};
+    for my $m (values $course_struct->{sub}) {
         if ($m->{meta}->{title} eq $modul) {
             return undef unless defined $m->{sub};
             my @navbar;
             my $pagecnt = 0;
             for my $c (values $m->{sub}) {
-                push @navbar, { camelize($c->{id}) => $pagecnt} ;
-                $pagecnt = $pagecnt  + $c->{pagecnt};
+                push @navbar, { camelize($c->{id}) => $pagecnt };
+                $pagecnt = $pagecnt + $c->{pagecnt};
             }
             return wantarray ? @navbar : \@navbar;
         }
     }
 }
-
 # }}}
 
 1;
