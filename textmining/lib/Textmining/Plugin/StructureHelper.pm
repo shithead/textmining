@@ -491,29 +491,15 @@ sub update_public_struct ($) {
 # TODO Test for get_public_struct($self, $dir)
 sub get_public_struct ($$) {
     my $self    = shift;
-    my $dir     = shift || undef;
 
-    my $meta_path;
-    if (defined $dir) {
-        $meta_path    = join('/', $self->{_path}->{public}, $dir,"meta.json" );
-    } else {
-        $meta_path    = join('/', $self->{_path}->{public}, "meta.json" );
-    }
-
-    my $meta_struct  = $self->load_public_struct($meta_path);
-    return $meta_struct ? $meta_struct : $self->{_public_struct};
+    return $self->{_public_struct};
 }
 
-# TODO Test for get_public_modul($self)
-sub get_public_modul ($) {
-    my $self = shift;
+sub get_public_modul_struct ($$) {
+    my $self    = shift;
+    my $course  = shift || return undef;
 
-    my $hash_list;
-    foreach (keys $self->{_public_struct}) {
-        @{$hash_list->{$_}} = @{$self->{_public_struct}->{$_}};
-    }
-
-    return $hash_list;
+    return $self->{_public_struct}->{$course};
 }
 
 # TODO rewrite code to erase parameter $location.
