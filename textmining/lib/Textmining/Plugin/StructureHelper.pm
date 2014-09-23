@@ -136,8 +136,8 @@ sub _constructor {
         data => 'data',
         public => 'public/course'
     };
-    $self->{_data_struct} = {};
-    $self->{_public_struct} = {};
+    $self->{_data_struct} = $self->load_struct($self->get_data_path) || {};
+    $self->{_public_struct} = $self->load_struct($self->get_public_path) || {};
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
     return $self
 }
@@ -285,6 +285,7 @@ sub update_data_struct ($) {
         }
     }
     $self->{_data_struct} = $hash;
+    $self->save_struct($self->get_data_path, $hash);
 }
 
 sub get_data_struct ($) {
@@ -523,12 +524,11 @@ sub update_public_struct ($) {
     my $self = shift;
     my $hash = {} ;
 
-    $hash = &_tree($self->{_path}->{public});
+    $hash = &_tree($self->get_public_path);
 
     undef $self->{_public_struct};
     $self->{_public_struct} = $hash;
-    my $meta_path    = join('/', $self->{_path}->{public});
-    $self->save_struct($meta_path, $hash);
+    $self->save_struct($self->get_public_path, $hash);
 }
 
 sub get_public_struct ($) {
