@@ -33,9 +33,9 @@ Is using L<"hash_to_json">.
 This method load public or specified course meta struct.
 Is using L<"json_to_hash">.
 
+=method get_data_path()
 
-
-
+This method return the relative path to 'data' directory.
 
 =method update_data_struct()
 
@@ -60,6 +60,10 @@ Is using L<"update_data_struct">.
 This method returned the libraries files and directory
 in a structure of the specified course.
 Is using L<"update_data_struct">.
+
+=method get_public_path()
+
+This method return the relative path to 'public' directory.
 
 =method init_public_course()
 
@@ -127,14 +131,14 @@ sub register {
 
 sub _constructor {
     my $self = shift;
-    $self->{_data_struct} = {};
-    $self->{_public_struct} = {};
-    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
     # XXX config sinvoll
     $self->{_path} = {
         data => 'data',
         public => 'public/course'
     };
+    $self->{_data_struct} = {};
+    $self->{_public_struct} = {};
+    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
     return $self
 }
 
@@ -234,6 +238,12 @@ sub load_struct ($$) {
 #}}}
 
 # {{{ data directory
+
+sub get_data_path ($) {
+    my $self = shift;
+    return $self->{_path}->{data};
+}
+
 sub update_data_struct ($) {
     my $self = shift;
     my $data = $self->{_path}->{data};
@@ -368,6 +378,11 @@ sub get_data_corpus ($$) {
 
 # {{{ public directory
 
+sub get_public_path ($) {
+    my $self = shift;
+    return $self->{_path}->{public};
+}
+
 sub init_public_course ($$) {
     my ($self, $course) = @_;
 
@@ -447,7 +462,7 @@ sub init_public_course ($$) {
     $self->save_struct($course_meta_path, $course_meta_struct);
 
     # }}
-    $self->update_public_struct;
+    $self->update_public_struct();
 }
 
 sub create_public_chapter ($$$) {

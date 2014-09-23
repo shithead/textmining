@@ -119,9 +119,9 @@ for (values @publicstruct) {
         push @{$test_hash->{test_course}->{$_}}, "$_.xml";
     } 
 }
-
-
-
+# Test for get_data_path($self)
+$number_of_tests_run++;
+is($test_structhelper->get_data_path(), $test_data_dir, 'get_data_path');
 
 # for update_data_struct($self)
 $number_of_tests_run++;
@@ -167,6 +167,9 @@ is_deeply($test_structhelper->get_data_corpus('test_course'), $test_hash, 'get_d
 # }}} data directory
 
 # {{{ public directory
+# Test for get_public_path($self)
+$number_of_tests_run++;
+is($test_structhelper->get_public_path(), $test_public_dir, 'get_public_path');
 
 # Test for create_public_path($self, $suffix)
 $number_of_tests_run++;
