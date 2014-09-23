@@ -11,7 +11,8 @@ sub modul {
     my $modul  = $self->param('modul');
     my $pagenr = $self->param('page') || scalar 0;
 
-    my $course_meta_struct  = $self->struct->load_public_struct($course);
+    my $course_meta_struct  = $self->struct->load_struct(
+        join('/', $self->struct->get_public_path, $course));
     my @page_path   = $self->struct->get_public_page_path($course_meta_struct, $modul);
     my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $modul);
 

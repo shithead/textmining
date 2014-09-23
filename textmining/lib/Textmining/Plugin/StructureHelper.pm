@@ -23,6 +23,20 @@ This method return C<Mojo::JSON> from a perl hash.
 
 This method return a perl hash from a C<Mojo::JSON>.
 
+=method save_struct()
+
+This method save the specified meta struct in path.
+Is using L<"hash_to_json">.
+
+=method load_struct()
+
+This method load public or specified course meta struct.
+Is using L<"json_to_hash">.
+
+
+
+
+
 =method update_data_struct()
 
 This method update the structure of the 'data' directory.
@@ -77,22 +91,12 @@ This method return all module informaitions from a course hash.
 =method get_public_struct()
 
 This method return a meta struct in the specified 'public/course' directory.
-Is using L<"load_public_struct">.
+Is using L<"load_struct">.
 
 =method update_public_struct()
 
 This method return the structure of the specified 'public/course' directory.
-Is using L<"save_public_struct">.
-
-=method save_public_struct()
-
-This method save the specified meta struct in path.
-Is using L<"hash_to_json">.
-
-=method load_public_struct()
-
-This method load public or specified course meta struct.
-Is using L<"json_to_hash">.
+Is using L<"save_struct">.
 
 =head1 SEE ALSO
 
@@ -202,6 +206,28 @@ sub json_to_hash ($$) {
         say "Error json decode: $err";
         # TODO Errorlog
     }
+    return $meta_struct;
+}
+
+sub save_struct ($$$) {
+    my $self = shift;
+    my ($location, $meta_struct) = @_;
+
+    $location = join('/', $location, ".meta.json");
+
+    my $json_bytes          = $self->hash_to_json($meta_struct);
+
+    open  my $FH , ">:encoding(UTF-8)", $location;
+    print $FH $json_bytes;
+    close $FH;
+}
+
+sub load_struct ($$) {
+    my $self        = shift;
+    my $location    = shift || scalar $self->{_path}->{public};
+    $location       = join('/', $location, ".meta.json");
+    my $file        = Mojo::Asset::File->new( path => $location);
+    my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
 }
 
@@ -417,8 +443,8 @@ sub init_public_course ($$) {
 
     $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
 
-    my $course_meta_path    = join('/', $path->{dest}, ".meta.json" );
-    $self->save_public_struct($course_meta_path, $course_meta_struct);
+    my $course_meta_path    = join('/', $path->{dest});
+    $self->save_struct($course_meta_path, $course_meta_struct);
 
     # }}
     $self->update_public_struct;
@@ -486,8 +512,8 @@ sub update_public_struct ($) {
 
     undef $self->{_public_struct};
     $self->{_public_struct} = $hash;
-    my $meta_path    = join('/', $self->{_path}->{public}, ".meta.json" );
-    $self->save_public_struct($meta_path, $hash);
+    my $meta_path    = join('/', $self->{_path}->{public});
+    $self->save_struct($meta_path, $hash);
 }
 
 sub get_public_struct ($) {
@@ -502,26 +528,6 @@ sub get_public_modul_struct ($$) {
     my $course  = shift || return undef;
 
     return $self->get_public_struct()->{$course};
-}
-
-sub save_public_struct ($$$) {
-    my $self = shift;
-    my ($location, $meta_struct) = @_;
-
-    my $json_bytes          = $self->hash_to_json($meta_struct);
-
-    open  my $FH , ">:encoding(UTF-8)", $location;
-    print $FH $json_bytes;
-    close $FH;
-}
-
-sub load_public_struct ($$) {
-    my $self        = shift;
-    my $course      = shift || scalar "";
-    my $location    = join '/', $self->{_path}->{public}, $course, ".meta.json";
-    my $file        = Mojo::Asset::File->new( path => $location);
-    my $meta_struct = $self->json_to_hash($file->get_chunk(0));
-    return $meta_struct;
 }
 
 # }}}

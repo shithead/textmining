@@ -37,6 +37,12 @@ for (values @publicstruct) {
 }
 make_path( $test_public_dir );
 
+
+my $test_structhelper = Textmining::Plugin::StructureHelper->new();
+
+$test_structhelper->{_path}->{data} = $test_data_dir;
+$test_structhelper->{_path}->{public} = $test_public_dir;
+
 ## {{{ utils
 ## Test for _exists_check($object)
 $number_of_tests_run++;
@@ -79,6 +85,27 @@ if (defined $err) {
 
 $number_of_tests_run++;
 is_deeply($json_hash, $test_json_hash, 'json_hash eq test_json_hash');
+
+# Test for save_struct($self, $location, $meta_struct)
+$number_of_tests_run++;
+my $test_path = "$test_public_dir/test_course";
+make_path($test_path);
+$test_structhelper->save_struct(
+        $test_path,
+        $test_json_hash
+    );
+is(&Textmining::Plugin::StructureHelper::_exists_check("$test_path/.meta.json"),
+     '0', 'save_struct');
+ 
+# Test for load_struct($self, $course)
+$number_of_tests_run++;
+is_deeply($test_structhelper->load_struct( $test_path ),
+        $test_json_hash,
+        'load_struct and compare deeply with the saved one');
+
+# remove old public/test_course
+remove_tree("$test_public_dir/test_course");
+
 # }}} utils
 
 # {{{ data directory
@@ -94,10 +121,7 @@ for (values @publicstruct) {
 }
 
 
-my $test_structhelper = Textmining::Plugin::StructureHelper->new();
 
-$test_structhelper->{_path}->{data} = $test_data_dir;
-$test_structhelper->{_path}->{public} = $test_public_dir;
 
 # for update_data_struct($self)
 $number_of_tests_run++;
@@ -198,32 +222,14 @@ my $chapter_dirs    = $test_structhelper->create_public_chapter(
 isa_ok( $chapter_dirs, 'ARRAY' );
 #}}}
 
-# Test for save_public_struct($self, $location, $meta_struct)
-$number_of_tests_run++;
-my $test_path = "$test_public_dir/test_course/.meta.json";
-$test_structhelper->save_public_struct(
-        $test_path,
-        $test_course_meta_struct
-    );
-is(&Textmining::Plugin::StructureHelper::_exists_check($test_path),
-     '0', 'save_public_struct');
- 
-# Test for load_public_struct($self, $course)
-$number_of_tests_run++;
-is_deeply($test_structhelper->load_public_struct( 'test_course' ),
-        $test_course_meta_struct,
-        'load_public_struct and compare deeply with the saved one');
-
-# remove old public/test_course
-remove_tree("$test_public_dir/test_course");
-
 # Test for update_public_struct($self)
+remove_tree("$test_public_dir/test_course");
 # create test struct
 $test_hash = {};
 for (values @publicstruct) {
-    my $path = join('/', $test_public_dir, 'test_course', $_ ); 
-    make_path( $path );
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
+    $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
+    make_path( $test_path );
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
     $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
 }
 
