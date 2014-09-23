@@ -4,7 +4,11 @@ use strict;
 use warnings;
 
 use FindBin;
-BEGIN { unshift @INC, "$FindBin::Bin/../lib" }
+BEGIN { 
+    unshift @INC, "$FindBin::Bin/../lib",
+    push @INC, "$FindBin::Bin/../ext_lib",
+    push @INC, "$FindBin::Bin/../ext_lib/mach" }
+
 # Start command line interface for application
 
 require Mojolicious::Commands;
