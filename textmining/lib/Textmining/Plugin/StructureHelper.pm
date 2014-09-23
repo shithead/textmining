@@ -231,8 +231,8 @@ sub load_struct ($$) {
     my $location    = shift || scalar $self->get_public_path;
 
     $location       = join('/', $location, ".meta.json");
-
     return {} if (&_exists_check($location));
+
     my $file        = Mojo::Asset::File->new( path => $location);
     my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
@@ -293,6 +293,9 @@ sub update_data_struct ($) {
 
 sub get_data_struct ($) {
     my $self = shift;
+
+
+    $self->update_data_struct() unless (keys $self->{_data_struct});
     return $self->{_data_struct};
 }
 
@@ -300,7 +303,7 @@ sub get_data_course ($) {
     my $self = shift;
 
     my @course_list;
-    foreach (keys $self->{_data_struct}) {
+    foreach (keys $self->get_data_struct()) {
         push @course_list, $_;
     }
 
@@ -311,12 +314,7 @@ sub get_data_modul ($$) {
     my $self = shift;
     my $course = shift;
 
-    unless (keys $self->{_data_struct}) {
-        $self->update_data_struct();
-        # TODO test of $course exist in _data_struct
-    }
-
-    my @courses_keys = (keys $self->{_data_struct});
+    my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
         #TODO Errorlog
         say "course $course not in \'" . join(',', @courses_keys) . "\'";
@@ -325,7 +323,7 @@ sub get_data_modul ($$) {
 
     my $modules = {
         path    => join('/', $self->get_data_path, $course, 'modul'),
-        files   => \@{$self->{_data_struct}->{$course}->{modul}}
+        files   => \@{$self->get_data_struct()->{$course}->{modul}}
     };
 
     return $modules;
@@ -335,12 +333,7 @@ sub get_data_library ($$) {
     my $self = shift;
     my $course = shift;
 
-    unless (keys $self->{_data_struct}) {
-        $self->update_data_struct();
-        # TODO test of $course exist in _data_struct
-    }
-
-    my @courses_keys = (keys $self->{_data_struct});
+    my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
         #TODO Errorlog
         say "course $course not in \'@courses_keys\'";
@@ -349,7 +342,7 @@ sub get_data_library ($$) {
 
     my $libraries = {
         path    => join('/', $self->get_data_path, $course, 'library'),
-        files   => \@{$self->{_data_struct}->{$course}->{library} }
+        files   => \@{$self->get_data_struct()->{$course}->{library} }
     };
 
     return $libraries;
@@ -359,12 +352,7 @@ sub get_data_corpus ($$) {
     my $self = shift;
     my $course = shift;
 
-    unless (keys $self->{_data_struct}) {
-        $self->update_data_struct();
-        # TODO test of $course exist in _data_struct
-    }
-
-    my @courses_keys = (keys $self->{_data_struct});
+    my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
         #TODO Errorlog
         say "course $course not in \'@courses_keys\'";
@@ -373,7 +361,7 @@ sub get_data_corpus ($$) {
 
     my $corpora = {
         path    => join('/', $self->get_data_path, $course, 'corpus'),
-        files   => $self->{_data_struct}->{$course}->{corpus}
+        files   => $self->get_data_struct()->{$course}->{corpus}
     };
 
     return $corpora;

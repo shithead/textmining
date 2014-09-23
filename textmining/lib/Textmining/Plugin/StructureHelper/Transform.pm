@@ -61,7 +61,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use XML::LibXSLT;
 
-use Textmining::Plugin::StructureHelper::Corpus;
+#use Textmining::Plugin::StructureHelper::Corpus;
 $XML::LibXML::skipXMLDeclaration = 1;
 
 # TODO test
