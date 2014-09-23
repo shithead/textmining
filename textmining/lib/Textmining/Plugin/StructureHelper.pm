@@ -219,7 +219,7 @@ sub save_struct ($$$) {
 
     $location = join('/', $location, ".meta.json");
 
-    my $json_bytes          = $self->hash_to_json($meta_struct);
+    my $json_bytes = $self->hash_to_json($meta_struct);
 
     open  my $FH , ">:encoding(UTF-8)", $location;
     print $FH $json_bytes;
@@ -228,8 +228,11 @@ sub save_struct ($$$) {
 
 sub load_struct ($$) {
     my $self        = shift;
-    my $location    = shift || scalar $self->{_path}->{public};
+    my $location    = shift || scalar $self->get_public_path;
+
     $location       = join('/', $location, ".meta.json");
+
+    return {} if (&_exists_check($location));
     my $file        = Mojo::Asset::File->new( path => $location);
     my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     return $meta_struct;
@@ -246,7 +249,7 @@ sub get_data_path ($) {
 
 sub update_data_struct ($) {
     my $self = shift;
-    my $data = $self->{_path}->{data};
+    my $data = $self->get_data_path;
 
     # content of data directory
     opendir(DIR, $data);
@@ -321,7 +324,7 @@ sub get_data_modul ($$) {
     }
 
     my $modules = {
-        path    => join('/', $self->{_path}->{data}, $course, 'modul'),
+        path    => join('/', $self->get_data_path, $course, 'modul'),
         files   => \@{$self->{_data_struct}->{$course}->{modul}}
     };
 
@@ -345,7 +348,7 @@ sub get_data_library ($$) {
     }
 
     my $libraries = {
-        path    => join('/', $self->{_path}->{data}, $course, 'library'),
+        path    => join('/', $self->get_data_path, $course, 'library'),
         files   => \@{$self->{_data_struct}->{$course}->{library} }
     };
 
@@ -369,7 +372,7 @@ sub get_data_corpus ($$) {
     }
 
     my $corpora = {
-        path    => join('/', $self->{_path}->{data}, $course, 'corpus'),
+        path    => join('/', $self->get_data_path, $course, 'corpus'),
         files   => $self->{_data_struct}->{$course}->{corpus}
     };
 
@@ -388,8 +391,8 @@ sub init_public_course ($$) {
     my ($self, $course) = @_;
 
     my $path = {
-        src     => join('/', $self->{_path}->{data}  , $course),
-        dest    => join('/', $self->{_path}->{public}, $course),
+        src     => join('/', $self->get_data_path  , $course),
+        dest    => join('/', $self->get_public_path, $course),
         modul   => $self->get_data_modul($course),
         library => $self->get_data_library($course)
     };
@@ -442,7 +445,7 @@ sub init_public_course ($$) {
             for my $pagenr (1..$chapter->{pagecnt}) {
                 my $page    = join(
                             '/',
-                            $self->{_path}->{public},
+                            $self->get_public_path,
                             $chapter->{dir},
                             "$pagenr.html");
 
@@ -499,7 +502,7 @@ sub create_public_chapter ($$$) {
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 
-    my $dir          = join('/', $self->{_path}->{public}, $suffix);
+    my $dir          = join('/', $self->get_public_path, $suffix);
     remove_tree($dir, {error => \my $err});
 
     # TODO Errorlog
@@ -511,7 +514,7 @@ sub rm_public_path ($$) {
 sub create_public_path ($$) {
     my ($self, $suffix) = @_;
 
-    my $dir          = join('/', $self->{_path}->{public}, $suffix);
+    my $dir          = join('/', $self->get_public_path, $suffix);
     make_path($dir, {error => \my $err});
 
     # TODO Errorlog
