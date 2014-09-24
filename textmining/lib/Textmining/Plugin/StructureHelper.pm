@@ -116,6 +116,7 @@ use Mojo::JSON;
 use Mojo::Util qw(encode decode camelize);
 
 use Textmining::Plugin::StructureHelper::Transform;
+use Textmining::Plugin::StructureHelper::Course;
 use File::Path qw(remove_tree make_path);
 use File::Basename;
 
@@ -139,6 +140,7 @@ sub _constructor {
     $self->{_data_struct} = $self->load_struct($self->get_data_path) || {};
     $self->{_public_struct} = $self->load_struct($self->get_public_path) || {};
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
+    $self->{course} = Textmining::Plugin::StructureHelper::Course->new(); 
     return $self
 }
 
@@ -388,9 +390,9 @@ sub init_public_course ($$) {
     my $course_meta_struct;
     # TODO change parameter for the output of 
     # $self->get_data_modul($course)
-    $course_meta_struct = $self->{transform}->get_meta_struct(
+    $course_meta_struct = $self->{course}->get_course_struct(
         $path->{modul}->{path},
-        @{$path->{modul}->{files}}
+        $path->{modul}->{files}
     );
 
 
