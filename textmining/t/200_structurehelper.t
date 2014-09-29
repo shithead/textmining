@@ -37,8 +37,10 @@ for (values @publicstruct) {
 }
 make_path( $test_public_dir );
 
-
+# Test for new
+$number_of_tests_run++;
 my $test_structhelper = Textmining::Plugin::StructureHelper->new();
+like($test_structhelper, qr/Textmining::Plugin::StructureHelper/, 'new Textmining::Plugin::StructureHelper');
 
 $test_structhelper->{_path}->{data} = $test_data_dir;
 $test_structhelper->{_path}->{public} = $test_public_dir;
@@ -184,9 +186,9 @@ is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_di
 # Test for create_public_chapter($self, $course, $course_meta_struct)
 $number_of_tests_run++;
 my $test_modul = $test_structhelper->get_data_modul('test_course');
-my $test_course_meta_struct = $test_structhelper->{transform}->get_meta_struct(
+my $test_course_meta_struct = $test_structhelper->{course}->get_course_struct(
     $test_modul->{path},
-    @{$test_modul->{files}}
+    $test_modul->{files}
 );
 my @chapter_dirs    = $test_structhelper->create_public_chapter(
     'test_course',
