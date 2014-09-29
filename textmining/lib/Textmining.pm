@@ -34,14 +34,12 @@ sub startup {
             return 1;
         });
 
-    # GET /admin
+    # GET /admin?update=1
     $admin->get()->to('admin#overview');
     # POST /admin/course?course="foo"&type="bar"
     $admin->post('/course')->to('admin#course');
     # POST /admin/open?course="foo"
     $admin->post('/open')->to('admin#open');
-    # POST /admin/update
-    $admin->post('/update')->to('admin#update');
 
 
     # Course route to controller

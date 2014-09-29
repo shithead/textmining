@@ -251,7 +251,8 @@ sub get_data_path ($) {
 
 sub update_data_struct ($) {
     my $self = shift;
-    my $data = $self->get_data_path;
+
+    my $data = $self->get_data_path();
 
     # content of data directory
     opendir(DIR, $data);
@@ -290,14 +291,16 @@ sub update_data_struct ($) {
         }
     }
     $self->{_data_struct} = $hash;
-    $self->save_struct($self->get_data_path, $hash);
+    $self->save_struct($data, $hash);
 }
 
 sub get_data_struct ($) {
     my $self = shift;
 
 
-    $self->update_data_struct() unless (keys $self->{_data_struct});
+    
+    $self->{_data_struct} = $self->load_struct($self->get_data_path)
+            unless (keys $self->{_data_struct});
     return $self->{_data_struct};
 }
 

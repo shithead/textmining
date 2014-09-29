@@ -7,6 +7,7 @@ use Mojo::Base 'Mojolicious::Controller';
 sub overview {
     my $self = shift;
     # Render template "admin/overview.html.ep" with available courses
+    $self->struct->update_data_struct() if ( $self->param('update') );
     my @courses = $self->struct->get_data_course();
     $self->render(courses => \@courses);
 }
@@ -31,10 +32,4 @@ sub course {
     $self->redirect_to('/admin');
 }
 
-sub update {
-    my $self = shift;
-
-    $self->struct->update_data_struct();
-    $self->redirect_to('/admin');
-}
 1;
