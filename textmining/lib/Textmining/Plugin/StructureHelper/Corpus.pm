@@ -1,8 +1,5 @@
 #!/usr/bin/env perl
 
-package Textmining::Plugin::StructureHelper::Corpus;
-# ABSTRACT: a really awesome library
-
 =head1 SYNOPSIS
 
 ...
@@ -19,52 +16,48 @@ This method
 
 This method
 
-=method split_vrt()
-
-This method
-
 =head1 SEE ALSO
 
 =for :list
 * L<Textmining::Plugin::StructureHelper::Corpus>
-* L<Textmining::Plugin::StructureHelper::Transform>
 
 =cut
 
 
 use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
-use Text::NSP;
-#use Textmining::Plugin::StructureHelper::Transform;
+use File::Basename;
 
-# TODO test
 sub new {
     my $class = shift;
 
     my $self  = {};
     bless $self, $class;
-    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
     return $self;
 }
 
-# TODO Test
 sub get_body ($$$) {
     my $self    = shift;
     my $corpus_doc = shift;
-    my $xpath   = shift or scalar "."; # set another node or the current one
+    my $xpath   = shift or scalar "/"; # set another node or the current one
 
+    my $last_node = fileparse($xpath);
     my $body = undef;
     if ($corpus_doc->exists($xpath)) {
-        $body = $corpus_doc->findnodes($xpath)->get_node(1)->to_String();
+        $body = $corpus_doc->findnodes($xpath)->get_node(1)->toString();
+        chomp $body;
+        $body =~ s/<$last_node>//;
+        $body =~ s/<\/$last_node>//;
+        $body =~ s/^\s*//;
+        $body =~ s/\s*$//;
     }
     return $body;
 }
 
-# TODO Test
 sub get_metastruct ($$$) {
     my $self    = shift;
     my $corpus_doc  = shift;
-    my $xpath   = shift or scalar "."; # set another node or the current one
+    my $xpath   = shift || scalar "/"; # set another node or the current one
 
     my $hash = {
         type    => 'corpus',
@@ -81,23 +74,6 @@ sub get_metastruct ($$$) {
         $hash->{year}       = $meta->getAttribute('year');
     }
     return $hash;
-}
-
-#TODO test
-sub split_vrt($$) {
-    my $self    = shift;
-    my $corpus  = shift;
-
-    my @corpus = split " ", $corpus;
-
-    my @content;
-    while (@corpus) {
-        my ($one, $two, $three) = shift @corpus;
-        $content[0] .= " $one"; 
-        $content[1] .= " $two"; 
-        $content[2] .= " $three"; 
-    } 
-    return wantarray ? @content : \@content;
 }
 
 ;1
