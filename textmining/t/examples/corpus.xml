@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <text id="foobarid" author="Blablub" party="undef" year="2014">
 <body>
-Fellow-Citizens	NNS	<unknown />
-of	IN	of
-the	DT	the
-Senate	NP	Senate
-and	CC	and
-of	IN	of
-the	DT	the
-House	NP	House
-of	IN	of
-Representatives	NPS	Representatives
-:	:	:
-success	NN	success
-of	IN	of
-this	DT	this
-Government	NN	government
-must	MD	must
-depend	VB	depend
-.	SENT	.
+this	FO	this
+is	BA	is
+a	RA	a
+test	NN	test
+written	GL	write
+for	IN	for
+Count	NNO	count
+.	IN	.
+pm	GL	pm
+their	NO	their
+them	NO	them
+together	FO	togehter
+wither	LO	wither
+tithe	LO	tithe
 </body>
 </text>
