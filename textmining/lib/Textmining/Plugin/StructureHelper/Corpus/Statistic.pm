@@ -1,0 +1,136 @@
+#!/usr/bin/env perl
+
+package Textmining::Plugin::StructureHelper::Corpus::Statistic;
+# ABSTRACT: Statistic library for Corpus measuring.
+
+=head1 SYNOPSIS
+
+=method register()
+
+This method is need to register this plugin in mojo.
+
+
+=head1 SEE ALSO
+
+=for :list
+* L<Textmining::Plugin::StructureHelper::Corpus::Statistic>
+* L<Textmining::Plugin::StructureHelper::Corpus::Count>
+* L<Textmining::Plugin::StructureHelper::Corpus::Statistic::CHI2>
+* L<Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR>
+
+=cut
+
+use Mojo::Base 'Mojolicious::Plugin';
+use Mojo::Log;
+use Textmining::Plugin::StructureHelper::Corpus::Count;
+use Textmining::Plugin::StructureHelper::Corpus::Statistic::CHI2;
+use Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR;
+
+use Data::Printer;
+
+#our $log = Mojo::Log->new(path=> '/var/log/textmining-error_log');
+our $log = Mojo::Log->new();
+
+
+sub new {
+    my $class = shift;
+    my $self  = {};
+    bless $self, $class;
+    return $self;
+}
+
+# TODO Test
+sub statistic ($$$) {
+    my $self        = shift;
+    my $stat_id     = shift;
+    my $ngrams_str  = shift || undef;
+
+    unless (defined $ngrams_str) {
+        $log->error("statistic: undefind source string.");
+        return undef;
+    }
+
+    my $stat;
+    if ($stat_id =~ qr/llr/) {
+        $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR->new();
+    } elsif ($stat_id =~ qr/chi2/) {
+        $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic::CHI2->new();
+    } else { 
+        $log->error("statistic: no valid statistic: $stat_id");
+        return undef;
+    }
+
+    my $result = {};
+    my @ngrams = split "\n", $ngrams_str;
+    my $total_ngram = shift @ngrams;
+
+    $result->{$stat_id} = {};
+    $stat->initialize();
+
+    my $total_ngram_counter = 0;
+
+    my @n = $self->get_freq_idx(2);
+
+    foreach (@ngrams) {
+        chomp;
+        last if ($_ eq "");
+
+        my $ngram       = $_;
+        my @tokens      = split /<>/, $ngram;
+        my @numbers     = split / /, pop @tokens;
+
+        my %values = (
+            n11 =>  $numbers[$n[1][1]],  
+            n1p =>  $numbers[$n[1][0]],  
+            np1 =>  $numbers[$n[0][1]],  
+            npp =>  $total_ngram
+        );
+
+        $total_ngram_counter += $numbers[$n[1][1]];
+
+        my $stat_value = $stat->calculate(%values);
+
+        # XXX Maybe the my fnct return 1 ???
+        if( ( my $error_code = $stat->getErrCode() ) ) {  
+            # error!
+            if ($error_code =~ /^1/) {  
+                my $error_mesg = $stat->getErrMesg();  
+                $log->error("statistic: Error code: $error_code\t$error_mesg");  
+                return undef;
+            }  
+            # warning!
+            if ($error_code =~ /^2/) {  
+                my $error_mesg = $stat->getErrMesg();  
+                $log->warn("statistic: Error code: $error_code\t$error_mesg");  
+                $log->warn("statistic: Skipping ngram $ngram");  
+                next; # if warning, dont save the statistic value just computed  
+            }  
+        }  
+        my $stat_score = sprintf '%.4f', $stat_value;  
+        # perl hashes sorted "automagisch" by default
+        $result->{$stat_id}->{$stat_score}
+                ->{join(' ', @numbers)}->{join('<>', @tokens)} = undef; 
+    }
+    return $result;
+}
+
+sub get_freq_idx ($$) {
+    my $self    =   shift;
+    my $ngram   =   shift;    # count of n
+
+    my $counter = Textmining::Plugin::StructureHelper::Corpus::Count->new();
+    my @freq_comb   =   $counter->calc_freq_combo($ngram);
+    
+    my @n;
+    # XXX Maybe need the combo_index too
+    foreach (0..$#freq_comb) {
+        my $str = join (" ", @{$freq_comb[$_]}[1..$freq_comb[$_][0]]);  
+        if ($str eq "0 1")  { $n[1][1] = $_; }  
+        elsif ($str eq "0") { $n[0][1] = $_; }  
+        elsif ($str eq "1") { $n[1][0] = $_; }  
+    }
+
+    return wantarray ? @n : \@n;
+}
+
+1;
