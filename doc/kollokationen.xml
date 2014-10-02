@@ -1249,7 +1249,7 @@
                                 bringen können.</li>
                         </list>
                     </ctext>
-                    <corpus src="kollokation-corpus.xml">
+                    <corpus src="kollokation-corpus.xml" type="kollokation">
                         <range from="-5" to="5" standard="1" />
                         <frequence collocate="enable" node="enable" />
                         <statistic chi="" frequence="" llr="" />
@@ -1289,7 +1289,7 @@
                                 um diese Frage zu beantworten.  </li>
                         </list> 
                     </ctext>
-                    <corpus src="kollokation-corpus.xml">
+                    <corpus src="kollokation-corpus.xml" type="kollokation" >
                         <range from="-5" to="5" standard="1" />
                         <frequence collocate="enable" node="enable" />
                         <statistic chi="" frequence="" llr="" />
