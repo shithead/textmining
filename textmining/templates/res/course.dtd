@@ -17,6 +17,10 @@
 
 <!ELEMENT check ( question, answer )+ >
 
+<!ELEMENT corpus ( range, frequence, statistic ) >
+<!ATTLIST corpus src CDATA #REQUIRED >
+<!ATTLIST corpus type ( keyword | kollokation ) #REQUIRED >
+
 <!ELEMENT course ( meta, module ) >
 
 <!ELEMENT ctext ( #PCDATA | list | p | term )* >
@@ -43,9 +47,6 @@
 
 <!ELEMENT img ( #PCDATA ) >
 <!ATTLIST img src CDATA #REQUIRED >
-
-<!ELEMENT corpus ( range, frequence, statistic ) >
-<!ATTLIST corpus src CDATA #REQUIRED >
 
 <!ELEMENT kursiv ( #PCDATA ) >
 
