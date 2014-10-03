@@ -6,10 +6,10 @@ use Mojo::ByteStream;
 
 # This action will render a template
 sub modul {
-    my $self = shift;
-    my $course = $self->param('course');
-    my $modul  = $self->param('modul');
-    my $pagenr = $self->param('page') || scalar 0;
+    my $self    = shift;
+    my $course  = $self->param('course');
+    my $modul   = $self->param('modul');
+    my $pagenr  = $self->param('page') || scalar 0;
 
     my $course_meta_struct  = $self->struct->load_struct(
         join('/', $self->struct->get_public_path, $course));
@@ -17,7 +17,9 @@ sub modul {
     my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $modul);
 
     # TODO error message
-    $self->redirect_to('/course') unless (@page_path);
+    unless (@page_path) {
+        $self->redirect_to('/course') ;
+    }
     # TODO
     # a job for Mojo::Content ? 
     $pagenr = 0 if ($pagenr >= (@page_path - 1));

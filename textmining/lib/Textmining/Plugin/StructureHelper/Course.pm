@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 package Textmining::Plugin::StructureHelper::Course;
-# ABSTRACT: a really awesome library
+# ABSTRACT: Course library
 
 =head1 SYNOPSIS
 
@@ -87,7 +87,7 @@ sub get_course_struct ($$$) {
     undef $modul_path;
     # modul nodes
     for (values @{$modul_files}) {
-        my $modul_path      = join '/', $modul_dir, $_;
+        $modul_path         = join '/', $modul_dir, $_;
         my $modul_struct    = $self->get_modul_struct($modul_doc);
         push @{$course_struct->{sub}}, $modul_struct;
     }
@@ -107,13 +107,12 @@ sub get_modul_struct ($$) {
 
         # chapter nodes
         for my $chapter ($modul->findnodes('chapter')) {
-            my $attr = $chapter->getAttributeHash;
             my $chapter_struct = {
-                id          => $attr->{id},
+                id          => $chapter->getAttribute('id'),
                 head        => "",
                 type        => "",
                 pagecnt     => 0,
-                type        => $attr->{type}
+                type        => $chapter->getAttribute('type')
             };
 
             # page nodes

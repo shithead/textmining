@@ -49,8 +49,6 @@ our %frequencies;
 our $window_idx = 0;
 our @window = ();
 
-
-
 sub new {
     my $class = shift;
 
