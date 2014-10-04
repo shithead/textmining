@@ -19,7 +19,7 @@
                 <author>Matthias Jakobi</author>
             </authors>
             <libraries>
-                <library>library.xml</library>
+                <library>t/examples/library.xml</library>
             </libraries>
         </meta>
         <chapter id='testziel' type="test-type">
@@ -42,6 +42,12 @@
                 <h1>Test Two</h1>
                 <h2>Header2 test two</h2>
                 <p> Dings da<term>foo</term> blub foo bar foobar cccc</p>
+                <p> hier ist ein bib
+                    <bib>
+                        dkdkdkdkdkdkdk
+                    </bib>
+                    jetzt kommt kein bib mehr
+                </p>
                 <img src="">Alternativer text</img>
             </page>
             <page>

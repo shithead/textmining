@@ -45,7 +45,6 @@ use XML::LibXSLT;
 #use Textmining::Plugin::StructureHelper::Corpus;
 $XML::LibXML::skipXMLDeclaration = 1;
 
-# TODO test
 sub new {
     my $class = shift;
 
@@ -60,16 +59,14 @@ sub new {
     return $self;
 }
 
-# TODO test
 sub get_doc ($$) {
     my $self    = shift;
     my $xmlfile = shift;
 
-    my $source  = XML::LibXML->load_xml(location => $xmlfile);
-    return $source;
+    my $doc  = XML::LibXML->load_xml(location => $xmlfile);
+    return $doc;
 }
 
-# TODO test
 sub get_xsl ($$) {
     my $self    = shift;
     my $xslfile = shift;
@@ -77,10 +74,8 @@ sub get_xsl ($$) {
     my $style;
     eval{ $style = XML::LibXML->load_xml(location => $xslfile, , no_cdata => 1); };
     return $style;
-
 }
 
-# TODO test
 sub doctohtml ($$) {
     my $self    = shift;
     my $doc     = shift;
@@ -94,7 +89,6 @@ sub doctohtml ($$) {
     return $results;
 }
 
-# TODO test
 sub nodestohtml ($@) {
     my $self = shift;
     my @nodes = @_;
@@ -124,7 +118,7 @@ sub xml_doc_pages ($$$$) {
     my $new_libraries = XML::LibXML::Element->new( "libraries" );
 
     foreach (@{$library_files}) {
-        $new_libraries->appendTextChild('library', join('/', $library_path, $_) ) 
+        $new_libraries->appendTextChild('library', join('/', $library_path, $_) )
                 if ($_ ~~ @library_content);
     }
     # return $new_libraries;
