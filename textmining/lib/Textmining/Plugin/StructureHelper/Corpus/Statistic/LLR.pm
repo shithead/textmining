@@ -21,13 +21,6 @@ This method is need to register this plugin in mojo.
 use Mojo::Base 'Mojolicious::Plugin';
 use Text::NSP::Measures::2D::MI::ll;
 
-sub new {
-    my $class = shift;
-    my $self  = {};
-    bless $self, $class;
-    return $self;
-}
-
 sub calculate ($%) {
     my $self    = shift;
     my %values  = @_;

@@ -9,6 +9,13 @@ sub startup {
     my $self = shift;
 
 
+    # Configuration file loadable
+    $self->plugin('Config');
+
+    use Data::Printer;
+    $self->home->parse($self->config->{home});
+    $self->log->path($self->config->{log}->{path});
+    $self->log->level($self->config->{log}->{level});
     # Documentation browser under "/perldoc"
     $self->plugin('PODRenderer');
     # Add namspace for new plugins

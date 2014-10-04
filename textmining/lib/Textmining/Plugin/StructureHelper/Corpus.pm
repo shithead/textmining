@@ -23,16 +23,12 @@ This method
 
 =cut
 
-
 use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use File::Basename;
 
-sub new {
-    my $class = shift;
-
-    my $self  = {};
-    bless $self, $class;
+sub init {
+    my ($self, $app) = (@_);
     return $self;
 }
 
@@ -76,4 +72,4 @@ sub get_metastruct ($$$) {
     return $hash;
 }
 
-;1
+1;

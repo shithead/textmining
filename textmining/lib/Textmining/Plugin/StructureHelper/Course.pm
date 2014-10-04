@@ -31,12 +31,10 @@ Is using L<"get_node_metastruct">.
 use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 
-sub new {
-    my $class = shift;
-
-    my $self  = {};
-    bless $self, $class;
-    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
+sub init {
+    my ($self, $app)  = @_;
+    $self->{log} = $app->log;
+    #$self->log->debug('call new Textmining::Plugin::StructureHelper::Course');
     return $self;
 }
 
@@ -80,7 +78,7 @@ sub get_course_struct ($$$) {
 
     my $modul_path      = join '/', $modul_dir, @{$modul_files}[0];
 
-    my $modul_doc       = $self->{transform}->get_doc($modul_path);
+    my $modul_doc       = Textmining::Plugin::StructureHelper::Transform->get_doc($modul_path);
     my $course_struct   = $self->get_node_metastruct($modul_doc, '/course');
     $course_struct->{type} = 'course';
 

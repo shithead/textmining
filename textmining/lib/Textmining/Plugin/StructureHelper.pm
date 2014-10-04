@@ -124,39 +124,28 @@ use feature 'say';
 our @coursestruct = qw(modul library corpus);
 
 sub register {
-  my ($self, $app) = @_;
+    my ($self, $app) = @_;
     $app->helper(struct => sub {
-            state $struct = $self->_constructor;
+            state $struct   = $self->new->init($app);
         });
 }
 
-sub _constructor {
-    my $self = shift;
-    # XXX config sinvoll
-    $self->{_path} = {
-        data => 'data',
-        public => 'public/course'
-    };
+sub init ($$) {
+    my ($self, $app) = @_;
+    $self->{log}    = $app->log;
+    $self->{_path}  = $app->config->{path};
     $self->{_data_struct} = $self->load_struct($self->get_data_path) || {};
     $self->{_public_struct} = $self->load_struct($self->get_public_path) || {};
-    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new();
-    $self->{course} = Textmining::Plugin::StructureHelper::Course->new(); 
-    return $self
-}
+    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new->init($app);
 
-sub new {
-    my $class = shift;
-
-    my $self  = {};
-    bless $self, $class;
-    $self->_constructor;
+    $self->{course} = Textmining::Plugin::StructureHelper::Course->new->init($app); 
     return $self;
 }
 
 #{{{ utils
 
 sub _exists_check ($$) {
-    #my $self    = shift if __PACKAGE__ eq "Textmining::Plugin::StructureHelper" ;
+    #my $self    = shift if __PACKAGE__ =~ qr/Textmining::Plugin::StructureHelper/ ;
     my $object  = shift;
     if (-e $object) {
         return 0;
@@ -196,8 +185,7 @@ sub hash_to_json ($$) {
     my $json_bytes          = decode('UTF-8', $json->encode($meta_struct));
     my $err                 = $json->error;
     if (defined $err) {
-        say "Error json encode: $err";
-        # TODO Errorlog
+        $self->{log}->error("json encode: $err");
     }
     return $json_bytes;
 }
@@ -209,8 +197,7 @@ sub json_to_hash ($$) {
     my $meta_struct         = $json->decode($json_bytes);
     my $err                 = $json->error;
     if (defined $err) {
-        say "Error json decode: $err";
-        # TODO Errorlog
+        $self->{log}->error("json decode: $err");
     }
     return $meta_struct;
 }
@@ -223,7 +210,8 @@ sub save_struct ($$$) {
 
     my $json_bytes = $self->hash_to_json($meta_struct);
 
-    open  my $FH , ">:encoding(UTF-8)", $location;
+    open  my $FH , ">:encoding(UTF-8)", $location
+            or $self->{log}->error("file $location not opened") and return undef;
     print $FH $json_bytes;
     close $FH;
 }
@@ -233,7 +221,10 @@ sub load_struct ($$) {
     my $location    = shift || scalar $self->get_public_path;
 
     $location       = join('/', $location, ".meta.json");
-    return {} if (&_exists_check($location));
+    if (&_exists_check($location)) {
+        $self->{log}->warn("file $location not exists");
+        return undef;
+    }
 
     my $file        = Mojo::Asset::File->new( path => $location);
     my $meta_struct = $self->json_to_hash($file->get_chunk(0));
@@ -321,8 +312,7 @@ sub get_data_modul ($$) {
 
     my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
-        #TODO Errorlog
-        say "course $course not in \'" . join(',', @courses_keys) . "\'";
+        $self->{log}->error("modul: course $course not in \'" . join(',', @courses_keys) . "\'");
         return undef;
     }
 
@@ -340,8 +330,7 @@ sub get_data_library ($$) {
 
     my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
-        #TODO Errorlog
-        say "course $course not in \'@courses_keys\'";
+        $self->{log}->error("library: course $course not in \'@courses_keys\'");
         return undef;
     }
 
@@ -359,8 +348,7 @@ sub get_data_corpus ($$) {
 
     my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
-        #TODO Errorlog
-        say "course $course not in \'@courses_keys\'";
+        $self->{log}->error("corpus: course $course not in \'@courses_keys\'");
         return undef;
     }
 
@@ -442,8 +430,9 @@ sub init_public_course ($$) {
                             $chapter->{dir},
                             "$pagenr.html");
 
-                open FH, ">:encoding(UTF-8)",
-                        $page or say "open UTF-8 encode file failed";
+                open FH, ">:encoding(UTF-8)", $page
+                        or $self->{log}->error("init_public_course: open UTF-8 encode file failed")
+                                and return undef;
                 print FH shift @{$modul_pages->{$modul_key}};
                 close FH;
                 push @page_meta_list, $page;
@@ -498,9 +487,8 @@ sub rm_public_path ($$) {
     my $dir          = join('/', $self->get_public_path, $suffix);
     remove_tree($dir, {error => \my $err});
 
-    # TODO Errorlog
     if (@{$err}) {
-        say "Error: remove_tree $err->[0]";
+        $self->{log}->error("remove_tree $err->[0]");
     }
 }
 
@@ -510,9 +498,8 @@ sub create_public_path ($$) {
     my $dir          = join('/', $self->get_public_path, $suffix);
     make_path($dir, {error => \my $err});
 
-    # TODO Errorlog
     if (@{$err}) {
-        say "Error: make_path $err->[0]";
+        $self->{log}->error("make_path $err->[0]");
     }
 }
 

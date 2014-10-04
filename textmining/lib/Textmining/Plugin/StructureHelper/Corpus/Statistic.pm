@@ -28,14 +28,9 @@ use Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR;
 
 use Data::Printer;
 
-#our $log = Mojo::Log->new(path=> '/var/log/textmining-error_log');
-our $log = Mojo::Log->new();
-
-
-sub new {
-    my $class = shift;
-    my $self  = {};
-    bless $self, $class;
+sub init ($$)  {
+    my ($self, $app)  = @_;
+    $self->{log} = $app->log;
     return $self;
 }
 
@@ -46,17 +41,17 @@ sub statistic ($$$) {
     my $ngrams_str  = shift || undef;
 
     unless (defined $ngrams_str) {
-        $log->error("statistic: undefind source string.");
+        $self->{log}->error("statistic: undefind source string.");
         return undef;
     }
 
     my $stat;
     if ($stat_id =~ qr/llr/) {
-        $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR->new();
+        $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR->new
     } elsif ($stat_id =~ qr/chi2/) {
-        $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic::CHI2->new();
+        $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic::CHI2->new;
     } else { 
-        $log->error("statistic: no valid statistic: $stat_id");
+        $self->{log}->error("statistic: no valid statistic: $stat_id");
         return undef;
     }
 
@@ -95,14 +90,14 @@ sub statistic ($$$) {
             # error!
             if ($error_code =~ /^1/) {  
                 my $error_mesg = $stat->getErrMesg();  
-                $log->error("statistic: Error code: $error_code\t$error_mesg");  
+                $self->{log}->error("statistic: Error code: $error_code\t$error_mesg");  
                 return undef;
             }  
             # warning!
             if ($error_code =~ /^2/) {  
                 my $error_mesg = $stat->getErrMesg();  
-                $log->warn("statistic: Error code: $error_code\t$error_mesg");  
-                $log->warn("statistic: Skipping ngram $ngram");  
+                $self->{log}->warn("statistic: Error code: $error_code\t$error_mesg");  
+                $self->{log}->warn("statistic: Skipping ngram $ngram");  
                 next; # if warning, dont save the statistic value just computed  
             }  
         }  

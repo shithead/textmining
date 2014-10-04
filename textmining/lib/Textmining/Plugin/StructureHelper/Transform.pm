@@ -36,8 +36,6 @@ Is using L<"get_doc"> and L<"nodestohtml">.
 
 =cut
 
-# TODO extract Course,modul and library functions to Textmining::Plugin::StructureHelper::Course
-
 use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use XML::LibXSLT;
@@ -45,14 +43,13 @@ use XML::LibXSLT;
 #use Textmining::Plugin::StructureHelper::Corpus;
 $XML::LibXML::skipXMLDeclaration = 1;
 
-sub new {
-    my $class = shift;
+sub init {
+    my ($self, $app) = (@_);
 
-    my $self  = {};
-    bless $self, $class;
+    my $home   = $app->home;
+    $self->{log} = $app->log;
     my $xslt        = XML::LibXSLT->new();
-    # $xslt->debug_callback( \&Callback );
-    my $xsl         = $self->get_xsl('templates/res/page.xsl');
+    my $xsl         = $self->get_xsl($home->rel_dir("templates/res/page.xsl"));
     my $stylesheet  = $xslt->parse_stylesheet($xsl);
     $self->{xslt}   = $stylesheet;
     # $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new();
