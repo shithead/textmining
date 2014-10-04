@@ -1,7 +1,6 @@
 use Mojo::Base -strict;
 use Test::More;
-
-use Data::Printer;
+use Test::Mojo;
 
 my $number_of_tests_run = 4;
 BEGIN { 
@@ -11,10 +10,11 @@ BEGIN {
     use_ok( 'Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR' );
 }
 
+my $t = Test::Mojo->new('Textmining');
 
 # Test for new
 $number_of_tests_run++;
-my $test_statistic = Textmining::Plugin::StructureHelper::Corpus::Statistic->new();
+my $test_statistic = Textmining::Plugin::StructureHelper::Corpus::Statistic->new->init($t->app);
 like($test_statistic, qr/Textmining::Plugin::StructureHelper::Corpus::Statistic/, 'new Textmining::Plugin::StructureHelper::Corpus::Statistic');
 
 # Test for CHI2 wrapping

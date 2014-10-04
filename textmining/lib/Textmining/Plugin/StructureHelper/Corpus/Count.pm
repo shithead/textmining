@@ -35,13 +35,7 @@ This method
 =cut
 
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Log;
 use Math::Combinatorics;
-
-use Data::Printer;
-
-#our $log = Mojo::Log->new(path=> '/var/log/textmining-error_log');
-our $log = Mojo::Log->new();
 
 our $comb_idx = 0;
 our %ngram_freq;
@@ -49,11 +43,9 @@ our %frequencies;
 our $window_idx = 0;
 our @window = ();
 
-sub new {
-    my $class = shift;
-
-    my $self  = {};
-    bless $self, $class;
+sub init ($$) {
+    my ($self, $app)  = @_;
+    $self->{log}    =   $app->log;
     $self->{freq_combo}  = ();
     return $self;
 }
@@ -148,7 +140,7 @@ sub process_token {
     my $ngram       = shift || scalar '2';
 
     unless ($permutations =~ /ARRAY/) {
-        $log->error('process_token: $permutations must be a reference of ARRAY');
+        $self->{log}->error('process_token: $permutations must be a reference of ARRAY');
         return undef;
     }
     $token =~ s/\s//g;

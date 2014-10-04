@@ -3,7 +3,6 @@
 package Textmining;
 use Mojo::Base 'Mojolicious';
 
-# TODO Fehlerbehandlung implementieren
 # This method will run once at server start
 sub startup {
     my $self = shift;

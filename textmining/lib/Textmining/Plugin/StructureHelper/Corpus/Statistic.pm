@@ -21,20 +21,16 @@ This method is need to register this plugin in mojo.
 =cut
 
 use Mojo::Base 'Mojolicious::Plugin';
-use Mojo::Log;
 use Textmining::Plugin::StructureHelper::Corpus::Count;
 use Textmining::Plugin::StructureHelper::Corpus::Statistic::CHI2;
 use Textmining::Plugin::StructureHelper::Corpus::Statistic::LLR;
 
-use Data::Printer;
-
 sub init ($$)  {
-    my ($self, $app)  = @_;
-    $self->{log} = $app->log;
+    my ($self, $app)    = @_;
+    $self->{log}        = $app->log;
     return $self;
 }
 
-# TODO Test
 sub statistic ($$$) {
     my $self        = shift;
     my $stat_id     = shift;
@@ -113,8 +109,9 @@ sub get_freq_idx ($$) {
     my $self    =   shift;
     my $ngram   =   shift;    # count of n
 
-    my $counter = Textmining::Plugin::StructureHelper::Corpus::Count->new();
-    my @freq_comb   =   $counter->calc_freq_combo($ngram);
+    my @freq_comb   = 
+            Textmining::Plugin::StructureHelper::Corpus::Count->new
+            ->calc_freq_combo($ngram);
     
     my @n;
     # XXX Maybe need the combo_index too
