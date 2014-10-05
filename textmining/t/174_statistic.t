@@ -114,4 +114,58 @@ my $got_llr = $test_statistic->statistic('llr', $test_ngram);
 $got->{llr} = $got_llr->{llr};
 is_deeply($got, $expect_ngram, 'statistic');
 
+# Test for compare
+# prepare expect
+my $expect_compare = {
+    chi2   => {
+        '1.9141'   => {
+            'line<>of'  => [ 2,2 ],
+            'of<>text'  => [ 2,2 ]
+        },
+        '3.4341'   => {
+            'and<>a'         => [ 1,1 ],
+            'a<>third'       => [ 1,1 ],
+            'first<>line'    => [ 1,1 ],
+            'line<>and'      => [ 1,1 ],
+            'second<>line'   => [ 1,1 ],
+            'text<>second'   => [ 1,1 ],
+            'third<>line'    => [ 1,1 ]
+        }
+    },
+    llr    => {
+        '0.0000'   => {
+            'and<>a'        => [ 1,1 ],
+            'a<>third'      => [ 1,1 ],
+            'first<>line'   => [ 1,1 ],
+            'line<>and'     => [ 1,1 ],
+            'line<>of'      => [ 2,2 ],
+            'of<>text'      => [ 2,2 ],
+            'second<>line'  => [ 1,1 ],
+            'text<>second'  => [ 1,1 ],
+            'third<>line'   => [ 1,1 ]
+        }
+    }
+};
+
+# prepare test data
+my $test_token = {
+'line<>of'    => 2,
+'of<>text'    => 2,
+'second<>line'=> 1,
+'line<>and'   => 1,
+'and<>a'      => 1,
+'a<>third'    => 1,
+'first<>line' => 1,
+'third<>line' => 1,
+'text<>second'=> 1
+};
+
+my @test_ngrams = ($test_token, $test_token );
+undef $got;
+
+$number_of_tests_run++;
+$got = $test_statistic->compare(\@test_ngrams, 1);
+
+is_deeply($got, $expect_compare, 'compare');
+
 done_testing( $number_of_tests_run );
