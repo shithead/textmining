@@ -63,7 +63,6 @@
              <xsl:apply-templates select="text() | person"/>
          </xsl:variable>
          <xsl:variable name="library_content">
-             <xsl:message> begin variable library_content </xsl:message>
              <xsl:choose>
                  <xsl:when test="/page/libraries">
                      <xsl:for-each select="/page/libraries/library">
@@ -77,7 +76,6 @@
                      </xsl:for-each>
                  </xsl:when>
                  <xsl:otherwise>
-                     <xsl:message> otherwise meta/libraries </xsl:message>
                      <xsl:for-each select="/course/module/meta/libraries/library">
                              <!-- concatination hack -->
                              <xsl:variable name="path">

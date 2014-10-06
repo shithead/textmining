@@ -19,7 +19,7 @@
                 <author>Matthias Jakobi</author>
             </authors>
             <libraries>
-                <library>t/examples/library.xml</library>
+                <library>library.xml</library>
             </libraries>
         </meta>
         <chapter id='testziel' type="test-type">

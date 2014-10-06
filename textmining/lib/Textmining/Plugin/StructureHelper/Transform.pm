@@ -40,6 +40,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use XML::LibXSLT;
 
+use Data::Printer;
 #use Textmining::Plugin::StructureHelper::Corpus;
 $XML::LibXML::skipXMLDeclaration = 1;
 
@@ -50,8 +51,7 @@ sub init {
     $self->{log} = $app->log;
     my $xslt        = XML::LibXSLT->new();
     my $xsl         = $self->get_xsl($home->rel_dir("templates/res/page.xsl"));
-    my $stylesheet  = $xslt->parse_stylesheet($xsl);
-    $self->{xslt}   = $stylesheet;
+    $self->{xslt}   = $xslt->parse_stylesheet($xsl);
     # $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new();
     return $self;
 }
@@ -103,11 +103,11 @@ sub nodestohtml ($@) {
 sub xml_doc_pages ($$$$) {
     my $self            = shift;
     my $modul_path      = shift;
-    my $library_path    = shift;
+    my $library_dir     = shift;
     my $library_files   = shift;
     my $modul_doc       = $self->get_doc($modul_path);
 
-    # sub get_library_node ($self, $modul_doc, $library_path, @library_files)
+    # sub get_library_node ($self, $modul_doc, $library_dir, @library_files)
     my @library_content;
     push (@library_content, $_->textContent)
            foreach ($modul_doc->findnodes('/course/module/meta/libraries/library'));
@@ -115,7 +115,7 @@ sub xml_doc_pages ($$$$) {
     my $new_libraries = XML::LibXML::Element->new( "libraries" );
 
     foreach (@{$library_files}) {
-        $new_libraries->appendTextChild('library', join('/', $library_path, $_) )
+        $new_libraries->appendTextChild('library', join('/', $library_dir, $_) )
                 if ($_ ~~ @library_content);
     }
     # return $new_libraries;

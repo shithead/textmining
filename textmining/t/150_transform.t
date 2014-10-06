@@ -33,29 +33,30 @@ for (values @publicstruct) {
     copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
     $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
 }
+my $test_res = join("/", $dir, "templates/res");
+make_path($test_res);
+copy("$FindBin::Bin/examples/page.xsl", join("/", $test_res, "page.xsl"));
 make_path( $test_public_dir );
 
-my $xslt = XML::LibXSLT->new();
 my $need_hash = {};
-bless $need_hash;
 
-
-# test for get_xsl
+# Test for get_xsl
 $number_of_tests_run++;
 
 my $expect_xsl;
-eval{ $expect_xsl = XML::LibXML->load_xml(location => 't/examples/page.xsl', , no_cdata => 1); };
+eval{ $expect_xsl = XML::LibXML->load_xml(location => "$FindBin::Bin/examples/page.xsl", , no_cdata => 1); };
 
-my $got_xsl = $need_hash->Textmining::Plugin::StructureHelper::Transform::get_xsl('t/examples/page.xsl');
+my $got_xsl = Textmining::Plugin::StructureHelper::Transform->get_xsl("$FindBin::Bin/examples/page.xsl");
 is_deeply($got_xsl, $expect_xsl, "loading a xslt-file works (get_xsl)");
 
+my $xslt = XML::LibXSLT->new();
 my $got_stylesheet  = $xslt->parse_stylesheet($got_xsl);
 $need_hash->{xslt} = $got_stylesheet;
-
 
 # Test for new
 # prepare app
 my $t = Test::Mojo->new('Textmining');
+$t->app->home->parse($dir);
 
 $number_of_tests_run++;
 my $test_transform = Textmining::Plugin::StructureHelper::Transform->new->init($t->app);
@@ -64,23 +65,22 @@ like($test_transform, qr/Textmining::Plugin::StructureHelper::Transform/, 'new T
 $test_transform->{_path}->{data} = $test_data_dir;
 $test_transform->{_path}->{public} = $test_public_dir;
 
-
-# test for get_doc
+# Test for get_doc
 $number_of_tests_run++;
 
-my $expect_doc = XML::LibXML->load_xml(location => 't/examples/modul.xml');
-my $got_doc = $test_transform->get_doc('t/examples/modul.xml');
-is_deeply($got_doc, $expect_doc, "loading a xml-file works (get_doc)");
+my $test_modul = join('/', $test_data_dir, "test_course", "modul", "modul.xml");
+my $expect_doc = XML::LibXML->load_xml(location => $test_modul);
+my $got_doc = $test_transform->get_doc($test_modul);
+is_deeply($got_doc, $expect_doc, "get_doc");
 
 
 # Test for doctohtml
 $number_of_tests_run++;
 
-my $expect_html;
-eval { $expect_html = $test_transform->{xslt}->transform($got_doc) };
+my $expect_html = $test_transform->{xslt}->transform($got_doc);
 
 my $got_html = $test_transform->doctohtml($got_doc);
-is_deeply($got_html, $expect_html, "transform docs to html works (doctohtml)");
+is_deeply($got_html, $expect_html, "doctohtml");
 undef $expect_html;
 
 
@@ -96,7 +96,7 @@ for my $node (@test_nodes) {
 }
 
 my @got_results = $test_transform->nodestohtml(@test_nodes);
-is_deeply(\@expect_results, \@got_results, "transform nodes to html works (notestohtml)");
+is_deeply(\@expect_results, \@got_results, "nodestohtml");
 
 # Test for xml_doc_pages
 #$number_of_tests_run++;

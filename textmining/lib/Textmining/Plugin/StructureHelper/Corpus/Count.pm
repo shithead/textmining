@@ -193,11 +193,17 @@ sub get_ngram_freq ($$$$$$) {
         if ( $window_idx < $window_size - 1 ) { $window_idx++; }
         else { shift @window; }
 
+    } elsif ($ngram == 1 and $window_size == 0)  {
+        my $ngram_str = $token;
+        $ngram_freq{$ngram_str}++;
+        my $freq_str = $token;
+        $frequencies{$freq_str}++;
     } else { # if $ngram <= 1
         my $ngram_str = $token . "<>";
         $ngram_freq{$ngram_str}++;
         my $freq_str = $token . "<>0";
         $frequencies{$freq_str}++;
+    
     }
     return %ngram_freq;
 }

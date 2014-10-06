@@ -70,7 +70,14 @@ sub get_metastruct ($$$) {
 
     my $hash = {
         author  => "",
-        corpus  => "",
+        corpus  => {
+            token => {},
+            windowsize => [],
+            statistic  => {
+                chi2 => {},
+                llr => {}
+            }
+        },
         date    => "",
         fpath   => "",
         id      => "",
@@ -83,7 +90,10 @@ sub get_metastruct ($$$) {
 
     if ($corpus_doc->exists($xpath)) {
         my $node = $corpus_doc->find($xpath)->get_node(1);
-        $hash->{$_} = $node->getAttribute($_) foreach (keys $hash);
+        foreach my $attr  (keys $hash) {
+            $hash->{$attr} = $node->getAttribute($attr)
+                    unless ( $attr ~~ [qw(corpus fpath)] );
+        }
     }
     return $hash;
 }
@@ -127,8 +137,8 @@ sub count_corpus ($$$$) {
     }
 
     my @ngrams_freq;
-    my @windows = (1);
-    @windows = qw(2 3 4 5 6 7 8 9 10) if ($ngram > 1);
+    my @windows = (0);
+    @windows = qw(0 2 3 4 5 6 7 8 9 10) if ($ngram > 1);
     for my $window_size (values @windows) {
         my $permu = $count->get_permu( $window_size - 1,
             $ngram - 1
@@ -156,7 +166,7 @@ sub get_corpus ($$$$) {
     my $self    =   shift;
     my $dir     =   shift;
     my $files   =   shift;
-    my $filter  =   shift;
+    my $filter  =   shift || undef;
     my $type    =   shift; # indirect a ngram value
 
     my @corpus_docs =    $self->get_corpus_docs($dir, $files);
@@ -177,17 +187,30 @@ sub get_corpus ($$$$) {
         $m_s->{fpath} = $suffix;
 
         my @counts = $self->count_corpus($corpus, $suffix, $type);
-        $m_s->{corpus} = \@counts;
+        $m_s->{corpus}->{windowsize} = \@counts;
+        $m_s->{corpus}->{token} = $counts[0];
         $hash->{id}->{$m_s->{id}} = $m_s;
-        $hash->{$_}->{$m_s->{$_}}->{$m_s->{id}} = $m_s->{corpus}
+
+        if ($type == $self->keywords) {
+            if (defined $filter) {
+                $hash->{$_}->{$m_s->{$_}}->{$m_s->{id}} = $m_s->{corpus}->{token}
                 foreach (values $filter);
-        
+            }
+        } elsif ($type == $self->collokation){
+
+        } else {
+            $self->{log}->warn("get_corpus: no valide type");
+            $self->{log}->debug("get_corpus: no valide type");
+        }
     }
     ####################################
     # {}- idvalue - ...
     #   \
     #     $filter - {$filter}value - idvalue - \ref on idvalue->corpus
     ####################################
+    #unterscheiden welche statistictool zu versenden ist durch den type 
+    #mit den Modulattributen
+
     return $hash;
 }
 
