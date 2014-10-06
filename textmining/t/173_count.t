@@ -21,20 +21,22 @@ like($CorpusCount,
     qr/Textmining::Plugin::StructureHelper::Corpus::Count/,
     'new Textmining::Plugin::StructureHelper::Corpus::Count');
 
-# Test for vrtToken
+# Test for vrt_token
 $number_of_tests_run++;
-my @got = $CorpusCount->vrtToken();
-my @test_token = qw(^(.+?)\t \t(.+?)\t \t([^\t]+)\$);
+my $got = $CorpusCount->vrt_token();
+my $test_token = { wortform => "^(.+?)\t", 
+                   pos      => "\t(.+?)\t",
+                   lemma    => "\t([^\t]+)\$" 
+                };
 
-is_deeply(\@got, \@test_token, 'vrtToken');
+is_deeply($got, $test_token, 'vrt_token');
 
 
 # Test for get_permutations
 $number_of_tests_run++;
 my @test_permutations = qw(0 1 2 0 1 3 0 1 4 0 2 3 0 2 4 0 3 4 1 2 3 1 2 4 1 3 4 2 3 4);
 
-undef @got;
-@got = $CorpusCount->get_permu(5, 3);
+my @got = $CorpusCount->get_permu(5, 3);
 #p @got;
 is_deeply(\@got, \@test_permutations, 'get_permute');
 
@@ -48,7 +50,7 @@ is_deeply(\@got, \@expect_combo, 'calc_freq_combo');
 
 my @test_freq_combo =   @expect_combo;
 
-# Test for process_token
+# Test for get_ngram_freq
 undef @test_permutations;
 @test_permutations = $CorpusCount->get_permu(
         $test_windowsize - 1 ,
@@ -77,10 +79,10 @@ my %got;
 
 open FH, "$test_file";
 while (<FH>) {
-    while ( /$test_token[0]/g ) {
+    while ( /$test_token->{wortform}/g ) {
         my $token = $&;
 
-        %got = $CorpusCount->process_token(
+        %got = $CorpusCount->get_ngram_freq(
             \@test_permutations,
             \@test_freq_combo,
             $token,
@@ -91,7 +93,7 @@ while (<FH>) {
 close FH;
 
 #p %got;
-is_deeply(\%got, $expect_hash_token, 'process_token');
+is_deeply(\%got, $expect_hash_token, 'get_ngram_freq');
 
 # Test for sort_ngram_freq
 my $expect_sort_ngram_freq = '13
@@ -112,8 +114,9 @@ together<>wither<>1 1 1
 
 my $test_ngram_freq = $expect_hash_token;
 
+undef $got;
 $number_of_tests_run++;
-my $got = $CorpusCount->sort_ngram_freq(
+$got = $CorpusCount->sort_ngram_freq(
         $test_ngram_freq,
         \@test_freq_combo
     );

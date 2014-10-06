@@ -50,7 +50,15 @@ sub init ($$) {
     return $self;
 }
 
-sub calc_freq_combo {
+sub clearup ($) {
+    $comb_idx = 0;
+    undef %ngram_freq;
+    undef %frequencies;
+    $window_idx = 0;
+    @window = ();
+}
+
+sub calc_freq_combo ($$) {
     my $self    = shift;
     my $ngram   = shift;    # count of n
 
@@ -61,11 +69,11 @@ sub calc_freq_combo {
     $comb_idx++;
 
     &_create_combination(\@freq_combo, $ngram, 0, $_) foreach (1..$ngram - 1);
-    $self->{freq_combo} = @freq_combo;
+    $self->{freq_combo} = \@freq_combo;
     return wantarray ? @freq_combo : \@freq_combo;
 }
 
-sub _create_combination {
+sub _create_combination ($$$$$) {
     my $freq_combo  = shift;
     my $ngram   = shift;    # count of n
     my $level   = shift;
@@ -89,12 +97,15 @@ sub _create_combination {
     return $freq_combo;
 }
 
-sub get_freq_combo ($) {
+sub get_freq_combo ($$) {
     my $self    =   shift;
+    my $ngram   =   shift;
+
+    $self->calc_freq_combo($ngram) if (defined $ngram);
     return wantarray ? @{$self->{freq_combo}} : $self->{freq_combo};
 }
 
-sub get_permu {
+sub get_permu ($$$) {
     my $self    = shift;
     my $total_len = shift;
     my $len_req = shift;
@@ -131,7 +142,7 @@ sub get_permu {
     return wantarray ? @permute : \@permute;
 }
 
-sub process_token {
+sub get_ngram_freq ($$$$$$) {
     my $self        = shift;
     my $permutations = shift;
     my $freq_comb   = shift;
@@ -171,8 +182,8 @@ sub process_token {
             foreach (0..$comb_idx - 1) {
                 my $freq_str = "";
                 my $j = $_;
-                $freq_str .= "$words[@{$freq_comb->[$j]}[$_]]<>"
-                        foreach (1..@{$freq_comb->[$j]}[0]);
+                $freq_str .= "$words[$freq_comb->[$j]->[$_]]<>"
+                        foreach (1..$freq_comb->[$j]->[0]);
 
                 $freq_str .= $j;
                 $frequencies{$freq_str}++;
@@ -191,7 +202,7 @@ sub process_token {
     return %ngram_freq;
 }
 
-sub sort_ngram_freq {
+sub sort_ngram_freq ($$$) {
     my $self = shift;
     my $ngram_freq = shift;
     my $freq_combo = shift;
@@ -215,11 +226,14 @@ sub sort_ngram_freq {
     return $output;
 }
 
-sub vrtToken($) {
+sub vrt_token($) {
     my $self    = shift;
 
-    my @tokenRegex = qw(^(.+?)\t \t(.+?)\t \t([^\t]+)\$);
-    return wantarray ? @tokenRegex : \@tokenRegex;
+    my $token = { wortform => "^(.+?)\t", 
+                  pos      => "\t(.+?)\t",
+                  lemma    => "\t([^\t]+)\$" 
+                };
+    return $token;
 }
 
 1;
