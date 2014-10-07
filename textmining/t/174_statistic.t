@@ -109,8 +109,8 @@ my $expect_ngram = {
 
 $number_of_tests_run++;
 
-$got = $test_statistic->statistic('chi2', $test_ngram);
-my $got_llr = $test_statistic->statistic('llr', $test_ngram);
+$got = $test_statistic->collocation('chi2', $test_ngram);
+my $got_llr = $test_statistic->collocation('llr', $test_ngram);
 $got->{llr} = $got_llr->{llr};
 is_deeply($got, $expect_ngram, 'statistic');
 

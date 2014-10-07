@@ -31,7 +31,7 @@ sub init ($$)  {
     return $self;
 }
 
-sub statistic ($$$) {
+sub collocation ($$$) {
     my $self        = shift;
     my $stat_id     = shift;
     my $ngrams_str  = shift || undef;
@@ -116,7 +116,6 @@ sub get_freq_idx ($$) {
     my @freq_comb   = 
             Textmining::Plugin::StructureHelper::Corpus::Count->new
             ->calc_freq_combo($ngram);
-    
     my @n;
     # XXX Maybe need the combo_index too
     foreach (0..$#freq_comb) {
@@ -125,7 +124,6 @@ sub get_freq_idx ($$) {
         elsif ($str eq "0") { $n[0][1] = $_; }  
         elsif ($str eq "1") { $n[1][0] = $_; }  
     }
-
     return wantarray ? @n : \@n;
 }
 
@@ -138,14 +136,13 @@ sub compare ($$$) {
     my %ngram_list;
     for (my $j = 0; $j < 2; $j++) {
         my $counter = 0;
-        for ( sort keys $ngrams->[$j] ) {
+        for ( sort keys %{$ngrams->[$j]} ) {
             my $string = $_;
             my $v = $ngrams->[$j]->{$_};
             $n[$j] += $v;
             if ($v >= $min_freq) {
                 $ngram_list{$string}->[$j] += $v;
             }
-
             $counter++;
         }
         $counter = 0;
@@ -155,7 +152,7 @@ sub compare ($$$) {
 
     my $lists = { chi2 => {}, llr => {} };
 
-	for (my $i = 0; $i < @ngram_key; $i++) {
+	for (my $i = 0; $i <= $#ngram_key; $i++) {
 		$ngram_list{$ngram_key[$i]}->[0] = 0 unless ($ngram_list{$ngram_key[$i]}->[0]);
 		$ngram_list{$ngram_key[$i]}->[1] = 0 unless ($ngram_list{$ngram_key[$i]}->[1]);
 		
