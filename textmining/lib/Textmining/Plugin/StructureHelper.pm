@@ -416,31 +416,9 @@ sub init_public_course ($$) {
         );
     }
 
-    my @page_meta_list;
-    # sub create_pages ($path, $modul_pages, @chapter_dirs)
-    # {
-    #my @page_meta_list;
-    my $prev_page = undef;
-    for my $modul_key (keys $modul_pages) {
-        for my $chapter (@chapter_dirs){
-            for my $pagenr (1..$chapter->{pagecnt}) {
-                my $page    = join(
-                            '/',
-                            $self->get_public_path,
-                            $chapter->{dir},
-                            "$pagenr.html");
-
-                open FH, ">:encoding(UTF-8)", $page
-                        or $self->{log}->error("init_public_course: open UTF-8 encode file failed")
-                                and return undef;
-                print FH shift @{$modul_pages->{$modul_key}};
-                close FH;
-                push @page_meta_list, $page;
-            }
-        }
-    }
-    # return wantarray ? @page_meta_list : \@page_meta_list;
-    # }
+    my @page_meta_list = $self->create_public_pages(
+                $modul_pages,
+                \@chapter_dirs );
 
     $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
 
@@ -479,6 +457,36 @@ sub create_public_chapter ($$$) {
         }
     }
     return wantarray ? @chapter_dirs : \@chapter_dirs;
+}
+
+sub create_public_pages ($$$) {
+    my $self = shift;
+    my $modul_pages = shift;
+    my $chapter_dirs = shift;
+
+    my @page_meta_list;
+    my $prev_page = undef;
+    for my $modul_key (keys $modul_pages) {
+        my $pages;
+        push @{$pages->{$modul_key}}, $_ foreach (@{$modul_pages->{$modul_key}});
+        for my $chapter (values $chapter_dirs){
+            for my $pagenr (1..$chapter->{pagecnt}) {
+                my $page    = join(
+                    '/',
+                    $self->get_public_path,
+                    $chapter->{dir},
+                    "$pagenr.html");
+
+                open FH, ">:encoding(UTF-8)", $page
+                    or $self->{log}->error("init_public_course: open UTF-8 encode file failed")
+                    and return undef;
+                print FH shift @{$pages->{$modul_key}};
+                close FH;
+                push @page_meta_list, $page;
+            }
+        }
+    }
+    return wantarray ? @page_meta_list : \@page_meta_list;
 }
 
 sub rm_public_path ($$) {

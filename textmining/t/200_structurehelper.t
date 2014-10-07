@@ -124,6 +124,7 @@ for (values @publicstruct) {
         push @{$test_hash->{test_course}->{$_}}, "$_.xml";
     } 
 }
+
 # Test for get_data_path($self)
 $number_of_tests_run++;
 is($test_structhelper->get_data_path(), $test_data_dir, 'get_data_path');
@@ -187,17 +188,16 @@ $test_structhelper->rm_public_path('test_public_path');
 is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_dir, 'test_public_path')), '1', 'rm_public_path');
 
 # Test for create_public_chapter($self, $course, $course_meta_struct)
-$number_of_tests_run++;
 my $test_modul = $test_structhelper->get_data_modul('test_course');
 my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct(
     $test_modul->{path},
     $test_modul->{files}
 );
-my @chapter_dirs    = $test_structhelper->create_public_chapter(
+my @test_chapter_dirs    = $test_structhelper->create_public_chapter(
     'test_course',
     $test_course_meta_struct
 );
-my @test_array = (
+my @expect_chapter_dirs = (
     {
         dir       => "test_course/modul/Test Modul/0_testziel",
         pagecnt   => 2
@@ -219,15 +219,66 @@ my @test_array = (
         pagecnt   => 3
     }
 );
-is_deeply(\@chapter_dirs, \@test_array, 'create_public_chapter');
+$number_of_tests_run++;
+is_deeply(\@test_chapter_dirs, \@expect_chapter_dirs, 'create_public_chapter');
 
 #{{{ subtest
-$number_of_tests_run++;
-my $chapter_dirs    = $test_structhelper->create_public_chapter(
+my $got    = $test_structhelper->create_public_chapter(
     'test_course',
     $test_course_meta_struct
 );
-isa_ok( $chapter_dirs, 'ARRAY' );
+$number_of_tests_run++;
+isa_ok( $got, 'ARRAY' );
+$number_of_tests_run++;
+is_deeply($got, \@expect_chapter_dirs, 'create_public_chapter return ref');
+#}}}
+
+# Test for create_public_pages
+# prepare test data
+my $test_chapter_dirs = \@expect_chapter_dirs;
+my $test_dir_hash;
+for (values @publicstruct) {
+    my $path = join('/', $test_data_dir, 'test_course', $_ ); 
+    if ( $_ =~ 'corpus') {
+        $test_dir_hash->{test_course}->{$_} = { "$_.xml" => undef};
+    } else {
+        push @{$test_dir_hash->{test_course}->{$_}}, "$_.xml";
+    } 
+}
+my $test_modul_pages;
+foreach (@{$test_dir_hash->{test_course}->{modul}}) {
+    $test_modul_pages->{$_} = $test_structhelper->{transform}->xml_doc_pages(
+        join('/', $test_data_dir, 'test_course', 'modul', $_),
+        join('/', $test_data_dir, 'test_course', 'library'),
+        $test_dir_hash->{test_course}->{library}
+    );
+}
+# prepare expect data
+my $expect_page_meta_list = ([
+    "$dir/test-public/test_course/modul/Test Modul/0_testziel/1.html",
+    "$dir/test-public/test_course/modul/Test Modul/0_testziel/2.html",
+    "$dir/test-public/test_course/modul/Test Modul/1_twotestid/1.html",
+    "$dir/test-public/test_course/modul/Test Modul/1_twotestid/2.html",
+    "$dir/test-public/test_course/modul/Test Modul/1_twotestid/3.html",
+    "$dir/test-public/test_course/modul/Test Modul/2_threetetestid/1.html",
+    "$dir/test-public/test_course/modul/Test Modul/3_fourtestid/1.html",
+    "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/1.html",
+    "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/2.html",
+    "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/3.html"
+]);
+my @got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
+
+$number_of_tests_run++;
+is_deeply(\@got, $expect_page_meta_list, 'create_public_pages');
+$got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
+
+use Data::Printer;
+remove_tree($_) foreach (values $expect_page_meta_list);
+#{{{ subtest
+$number_of_tests_run++;
+isa_ok( $got, 'ARRAY' );
+$number_of_tests_run++;
+is_deeply($got, $expect_page_meta_list, 'create_public_pages return ref');
 #}}}
 
 # Test for update_public_struct($self)
@@ -334,7 +385,7 @@ is($test_structhelper->get_public_page_path(
 
 # Test for get_public_navbar($self, $meta_struct, $modul)
 # create test array
-@test_array = (
+my @test_navbar_array = (
     {
         Testziel    =>  0
     },
@@ -353,10 +404,11 @@ is($test_structhelper->get_public_page_path(
 );
 
 $number_of_tests_run++;
-my @got_array = $test_structhelper->get_public_navbar(
+undef @got;
+@got = $test_structhelper->get_public_navbar(
             $test_course_meta_struct, 'Test Modul');
-is_deeply(\@got_array,
-        \@test_array,
+is_deeply(\@got,
+        \@test_navbar_array,
         'get_public_navbar normal' );
 
 $number_of_tests_run++;
