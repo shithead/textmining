@@ -162,6 +162,38 @@ sub count_corpus ($$$$) {
     return wantarray ? @ngrams_freq : \@ngrams_freq;
 }
 
+sub compare_corpus ($$$) {
+    my $self    = shift;
+    my $corpus_data =   shift;
+    my $min_freq    =   shift;
+
+    my $corpus_total;
+    my $corpus_parts;
+    for my $id (keys $corpus_data->{id}) {
+        my $corpus_token = $corpus_data->{id}->{$id}->{corpus}->{token};
+        for my $token (keys $corpus_token) {
+            for my $word (keys $corpus_token->{$token}) {
+                $corpus_total->{$token}->{$word} = 0
+                        unless (defined $corpus_total->{$token}->{$word});
+                $corpus_total->{$token}->{$word} +=
+                        $corpus_token->{$token}->{$word};
+            }
+        }
+        $corpus_parts->{$id} = $corpus_token;
+    }
+
+    my $statistic = Textmining::Plugin::StructureHelper::Corpus::Statistic->new();
+    for my $token (keys $corpus_total) {
+        my $ngrams_freq->[1] = $corpus_total->{$token};
+        for my $id (keys $corpus_parts) {
+            $ngrams_freq->[0] = $corpus_parts->{$id}->{$token};
+            $corpus_data->{id}->{$id}->{corpus}->{statistic}
+                    = $statistic->compare($ngrams_freq, $min_freq);
+        }
+    }
+    return $corpus_data;
+}
+
 sub get_corpus ($$$$) {
     my $self    =   shift;
     my $dir     =   shift;
@@ -191,16 +223,12 @@ sub get_corpus ($$$$) {
         $m_s->{corpus}->{token} = $counts[0];
         $hash->{id}->{$m_s->{id}} = $m_s;
 
+        my $statistic = Textmining::Plugin::StructureHelper::Corpus::Statistic->new;
         if ($type == $self->keywords) {
             if (defined $filter) {
                 $hash->{$_}->{$m_s->{$_}}->{$m_s->{id}} = $m_s->{corpus}->{token}
                 foreach (values $filter);
             }
-        } elsif ($type == $self->collokation){
-
-        } else {
-            $self->{log}->warn("get_corpus: no valide type");
-            $self->{log}->debug("get_corpus: no valide type");
         }
     }
     ####################################

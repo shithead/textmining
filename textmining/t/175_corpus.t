@@ -167,6 +167,7 @@ $number_of_tests_run++;
 $got = $test_corpus->count_corpus($test_extract_corpus, 'vrt', $test_corpus->keywords);
 is_deeply($got, \@expect_freq_array, 'count_corpus');
 
+# Test for get_corpus
 # prepare expect
 undef $expect_hash;
 my $expect_freq_hash = {
@@ -209,5 +210,51 @@ $number_of_tests_run++;
 $got = $test_corpus->get_corpus($test_dir, $test_files, $test_filter, $test_corpus->keywords);
 #p $got;
 is_deeply($got, $expect_freq_hash, 'get_corpus');
+
+# Test for compare_corpus
+my $test_freq_hash = $expect_freq_hash;
+$expect_freq_hash->{id}->{foobarid}->{corpus}->{statistic} = {
+    chi2 =>  {                                                            
+        '4.8407' =>  {
+            '.'           => [ 1,1 ],
+            'a'          => [ 1,1 ],
+            'Count'      => [ 1,1 ],
+            'for'        => [ 1,1 ],
+            'is'         => [ 1,1 ],
+            'pm'         => [ 1,1 ],
+            'test'       => [ 1,1 ],
+            'their'      => [ 1,1 ],
+            'them'       => [ 1,1 ],
+            'this'       => [ 1,1 ],
+            'tithe'      => [ 1,1 ],
+            'together'   => [ 1,1 ],
+            'wither'     => [ 1,1 ],
+            'written'    => [ 1,1 ]
+        }
+    },
+    llr =>   {
+        '0.0000' =>  {
+            '.'          => [ 1,1 ],
+            'a'          => [ 1,1 ],
+            'Count'      => [ 1,1 ],
+            'for'        => [ 1,1 ],
+            'is'         => [ 1,1 ],
+            'pm'         => [ 1,1 ],
+            'test'       => [ 1,1 ],
+            'their'      => [ 1,1 ],
+            'them'       => [ 1,1 ],
+            'this'       => [ 1,1 ],
+            'tithe'      => [ 1,1 ],
+            'together'   => [ 1,1 ],
+            'wither'     => [ 1,1 ],
+            'written'    => [ 1,1 ]
+        }
+    }
+};
+$number_of_tests_run++;
+$got = $test_corpus->compare_corpus($test_freq_hash, 1);
+use Data::Printer;
+p $got;
+is_deeply($got, $expect_freq_hash, 'compare corpus');
 
 done_testing( $number_of_tests_run );
