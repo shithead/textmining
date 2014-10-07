@@ -216,7 +216,7 @@ my $test_freq_hash = $expect_freq_hash;
 $expect_freq_hash->{id}->{foobarid}->{corpus}->{statistic} = {
     chi2 =>  {                                                            
         '4.8407' =>  {
-            '.'           => [ 1,1 ],
+            '.'          => [ 1,1 ],
             'a'          => [ 1,1 ],
             'Count'      => [ 1,1 ],
             'for'        => [ 1,1 ],
@@ -253,8 +253,89 @@ $expect_freq_hash->{id}->{foobarid}->{corpus}->{statistic} = {
 };
 $number_of_tests_run++;
 $got = $test_corpus->compare_corpus($test_freq_hash, 1);
-use Data::Printer;
-p $got;
+#p $got;
 is_deeply($got, $expect_freq_hash, 'compare corpus');
+
+# Test for collocation_corpus
+my $test_ngram_freq = {
+    wortfrom => {
+        'line<>of<>'    =>  2,
+        'of<>text<>'    =>  2,
+        'second<>line<>'=>  1,
+        'line<>and<>'   =>  1,
+        'and<>a<>'      =>  1,
+        'a<>third<>'    =>  1,
+        'first<>line<>' =>  1,
+        'third<>line<>' =>  1,
+        'text<>second<>'=>  1
+    }
+};
+$test_freq_hash->{id}->{foobarid}->{corpus}->{token} = $test_ngram_freq;
+$test_freq_hash->{id}->{foobarid}->{corpus}->{windowsize} = 
+        [$test_ngram_freq, undef, $test_ngram_freq];
+$test_freq_hash->{party}->{undef}->{foobarid} = $test_ngram_freq;
+$test_freq_hash->{year}->{2014}->{foobarid} = $test_ngram_freq;
+
+my $expect_ngram_stat = {
+    chi2  => {
+        '2.2500'  => {
+            '1 1 3'  => {
+                'first<>line'    => undef,
+                'second<>line'   => undef,
+                'third<>line'    => undef
+            }
+        },
+        '3.9375'   => {
+            '1 2 1'   => {
+                'line<>and'   => undef,
+                'line<>of'    => undef
+            }
+        },
+        '9.0000'   => {
+            '1 1 1'   => {
+                'and<>a'         => undef,
+                'a<>third'       => undef,
+                'of<>text'       => undef,
+                'text<>second'   => undef
+            }
+        }
+    },
+    llr    => {
+        '2.4599'   => {
+            '1 1 3'   => {
+                'first<>line'    => undef,
+                'second<>line'   => undef,
+                'third<>line'    => undef
+            }
+        },
+        '3.5064'   => {
+            '1 2 1'   => {
+                'line<>and'   => undef,
+                'line<>of'    => undef
+            }
+        },
+        '6.2790'   => {
+            '1 1 1'   => {
+                'and<>a'         => undef,
+                'a<>third'       => undef,
+                'of<>text'       => undef,
+                'text<>second'   => undef
+            }
+        }
+    }
+};
+
+my $expect_collocation_freq_hash = $test_freq_hash;
+$expect_collocation_freq_hash->{id}->{foobarid}->{corpus}->{statistic} =
+        $expect_ngram_stat;
+
+$number_of_tests_run++;
+$got = $test_corpus->collocation_corpus(
+        $test_freq_hash,
+        $test_corpus->collocation
+    );
+
+#p $got;
+is_deeply($got, $expect_collocation_freq_hash, 'collocation_corpus');
 
 done_testing( $number_of_tests_run );

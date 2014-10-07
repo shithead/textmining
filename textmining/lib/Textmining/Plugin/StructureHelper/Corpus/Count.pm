@@ -207,6 +207,7 @@ sub get_frequency ($$) {
     my $ngram       = shift;
     my $ngram_freq  = shift;
 
+    #return undef unless (\$ngram_freq =~ qr/HASH/ or \$ngram_freq =~ qr/ARRAY/);
     my $freq_combo = $self->get_freq_combo($ngram);
 
     my $frequ;
@@ -238,6 +239,7 @@ sub sort_ngram_freq ($$$) {
     my $ngram   = shift;
     my $ngram_freq = shift;
 
+    #return undef unless (\$ngram_freq =~ qr/HASH/ or \$ngram_freq =~ qr/ARRAY/);
     my $freq_combo = $self->get_freq_combo($ngram);
     my $frequs = $self->get_frequency($ngram, $ngram_freq);
 

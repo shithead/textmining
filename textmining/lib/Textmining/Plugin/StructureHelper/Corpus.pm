@@ -163,7 +163,7 @@ sub count_corpus ($$$$) {
 }
 
 sub compare_corpus ($$$) {
-    my $self    = shift;
+    my $self        = shift;
     my $corpus_data =   shift;
     my $min_freq    =   shift;
 
@@ -189,6 +189,35 @@ sub compare_corpus ($$$) {
             $ngrams_freq->[0] = $corpus_parts->{$id}->{$token};
             $corpus_data->{id}->{$id}->{corpus}->{statistic}
                     = $statistic->compare($ngrams_freq, $min_freq);
+        }
+    }
+    return $corpus_data;
+}
+
+sub collocation_corpus ($$$) {
+    my $self        =   shift;
+    my $corpus_data =   shift;
+    my $ngram       =   shift;
+
+    my $counter = Textmining::Plugin::StructureHelper::Corpus::Count->new;
+    my $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic->new;
+    my $corpus_parts;
+    for my $id (keys $corpus_data->{id}) {
+        my @corpus_ws = @{$corpus_data->{id}->{$id}->{corpus}->{windowsize}};
+        shift @corpus_ws; shift @corpus_ws; # remove the first two indizes
+        #return \@corpus_w;
+        for my $index (0..$#corpus_ws) {
+            for my $token (keys $corpus_ws[$index]) {
+                my $sort_ngram_freq =
+                        $counter->sort_ngram_freq(
+                            $ngram,
+                            $corpus_ws[$index]->{$token});
+
+                my $stats = { chi2 => {}, llr => {}};
+                $stats->{$_} = $stat->collocation($_, $sort_ngram_freq)->{$_}
+                    foreach (qw(chi2 llr));
+                $corpus_data->{id}->{$id}->{corpus}->{statistic} = $stats;
+            }
         }
     }
     return $corpus_data;

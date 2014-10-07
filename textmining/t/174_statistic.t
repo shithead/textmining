@@ -34,7 +34,7 @@ $number_of_tests_run++;
 $got = $test_statistic->get_freq_idx(2);
 is_deeply($got, \@expect_array, 'get_freq_idx with bigram');
 
-# Test for statistic
+# Test for collocation
 my $test_ngram =
 "11
 line<>of<>2 3 2

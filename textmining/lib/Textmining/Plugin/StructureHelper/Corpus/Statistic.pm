@@ -37,7 +37,11 @@ sub collocation ($$$) {
     my $ngrams_str  = shift || undef;
 
     unless (defined $ngrams_str) {
-        $self->{log}->error("statistic: undefind source string.");
+        if (defined $self->{log}) {
+            $self->{log}->error("statistic: undefind source string.");
+        } else {
+            print STDERR "statistic: undefind source string.\n";
+        }
         return undef;
     }
 
