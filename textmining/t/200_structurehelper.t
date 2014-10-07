@@ -272,7 +272,6 @@ $number_of_tests_run++;
 is_deeply(\@got, $expect_page_meta_list, 'create_public_pages');
 $got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
 
-use Data::Printer;
 remove_tree($_) foreach (values $expect_page_meta_list);
 #{{{ subtest
 $number_of_tests_run++;

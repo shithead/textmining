@@ -17,9 +17,15 @@
 
 <!ELEMENT check ( question, answer )+ >
 
-<!ELEMENT corpus ( range, frequence, statistic ) >
-<!ATTLIST corpus src CDATA #REQUIRED >
-<!ATTLIST corpus type ( keyword | kollokation ) #REQUIRED >
+<!ELEMENT collocate ( range, frequence, statistic ) >
+<!ATTLIST collocate href CDATA #REQUIRED >
+
+<!ELEMENT corpora ( corpus ) >
+
+<!ELEMENT corpus ( #PCDATA ) >
+<!ATTLIST corpus id ID #REQUIRED >
+<!ATTLIST corpus parts CDATA #IMPLIED >
+<!ATTLIST corpus type ( collocate | keywords ) #REQUIRED >
 
 <!ELEMENT course ( meta, module ) >
 
@@ -31,13 +37,14 @@
 
 <!ELEMENT emph ( #PCDATA ) >
 
-<!ELEMENT exercise ( ctext, corpus ) >
+<!ELEMENT exercise ( ctext, collocate | keywords ) >
 
 <!ELEMENT foreign ( #PCDATA ) >
 
 <!ELEMENT frequence EMPTY >
 <!ATTLIST frequence node ( enable | disable ) #REQUIRED >
 <!ATTLIST frequence collocate ( enable | disable ) #REQUIRED >
+<!ATTLIST frequence keywords ( enable | disable ) #REQUIRED >
 
 <!ELEMENT h1 ( #PCDATA | term )* >
 
@@ -47,6 +54,9 @@
 
 <!ELEMENT img ( #PCDATA ) >
 <!ATTLIST img src CDATA #REQUIRED >
+
+<!ELEMENT keywords ( range, frequence, statistic ) >
+<!ATTLIST keywords href CDATA #REQUIRED >
 
 <!ELEMENT kursiv ( #PCDATA ) >
 
@@ -60,7 +70,7 @@
 <!ELEMENT list ( li )+ >
 <!ATTLIST list type ( ordered ) #IMPLIED >
 
-<!ELEMENT meta ( title, version, date, authors, libraries* ) >
+<!ELEMENT meta ( title+ | version+ | date+ |  authors+ | libraries+ | corpora+ ) >
 
 <!ELEMENT module ( meta, chapter+ ) >
 <!ATTLIST module id ID #REQUIRED >

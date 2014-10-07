@@ -312,7 +312,11 @@ sub get_data_modul ($$) {
 
     my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
-        $self->{log}->error("modul: course $course not in \'" . join(',', @courses_keys) . "\'");
+        if (defined $self->{log}) {
+            $self->{log}->error("modul: course $course not in \'" . join(',', @courses_keys) . "\'");
+        } else {
+            print STDERR "modul: course $course not in \'@courses_keys\'";
+        }
         return undef;
     }
 
@@ -330,7 +334,11 @@ sub get_data_library ($$) {
 
     my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
-        $self->{log}->error("library: course $course not in \'@courses_keys\'");
+        if (defined $self->{log}) {
+            $self->{log}->error("library: course $course not in \'@courses_keys\'");
+        } else {
+            print STDERR "library: course $course not in \'@courses_keys\'";
+        }
         return undef;
     }
 
@@ -347,8 +355,12 @@ sub get_data_corpus ($$) {
     my $course = shift;
 
     my @courses_keys = (keys $self->get_data_struct());
-    unless (  $course ~~ @courses_keys ) {
-        $self->{log}->error("corpus: course $course not in \'@courses_keys\'");
+    unless ( $course ~~ @courses_keys ) {
+        if (defined $self->{log}) {
+            $self->{log}->error("corpus: course $course not in \'@courses_keys\'");
+        } else {
+            print STDERR "corpus: course $course not in \'@courses_keys\'";
+        }
         return undef;
     }
 
@@ -371,27 +383,25 @@ sub get_public_path ($) {
 sub init_public_course ($$) {
     my ($self, $course) = @_;
 
-    my $path = {
-        src     => join('/', $self->get_data_path  , $course),
-        dest    => join('/', $self->get_public_path, $course),
-        modul   => $self->get_data_modul($course),
-        library => $self->get_data_library($course)
-    };
+    my $dest    = join('/', $self->get_public_path, $course);
+    my $modul   = $self->get_data_modul($course);
+    my $library = $self->get_data_library($course);
+    my $corpus  = $self->get_data_corpus($course);
 
     my $course_meta_struct;
     # TODO change parameter for the output of 
     # $self->get_data_modul($course)
     $course_meta_struct = $self->{course}->get_course_struct(
-        $path->{modul}->{path},
-        $path->{modul}->{files}
+        $modul->{path},
+        $modul->{files}
     );
 
 
-    unless (&_exists_check($path->{dest})) {
+    unless (&_exists_check($dest)) {
         $self->rm_public_path($course);
         #say "rm public directory of $course";
     }
-    if (&_exists_check($path->{dest})) {
+    if (&_exists_check($dest)) {
         $self->create_public_path("$course/$_")
                 foreach (@coursestruct);
                 #say "create public directory of $course";
@@ -408,22 +418,20 @@ sub init_public_course ($$) {
 
 
     my $modul_pages;
-    foreach (@{$path->{modul}->{files}}) {
+    foreach (@{$modul->{files}}) {
         $modul_pages->{$_} = $self->{transform}->xml_doc_pages(
-            join('/', $path->{modul}->{path}, $_),
-            $path->{library}->{path},
-            $path->{library}->{files}
+            join('/', $modul->{path}, $_),
+            $library->{path},
+            $library->{files}
         );
     }
 
-    my @page_meta_list = $self->create_public_pages(
+    $course_meta_struct->{sub}->[0]->{pages} =
+            $self->create_public_pages(
                 $modul_pages,
                 \@chapter_dirs );
 
-    $course_meta_struct->{sub}->[0]->{pages} = \@page_meta_list;
-
-    my $course_meta_path    = join('/', $path->{dest});
-    $self->save_struct($course_meta_path, $course_meta_struct);
+    $self->save_struct(join('/', $dest), $course_meta_struct);
 
     # }}
     $self->update_public_struct();

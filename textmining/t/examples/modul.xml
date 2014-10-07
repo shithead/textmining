@@ -21,6 +21,14 @@
             <libraries>
                 <library>library.xml</library>
             </libraries>
+            <corpora>
+                <corpus id='corpus-directory' parts="party,year" type="keywords">
+                    corpus
+                </corpus>
+                <corpus id='corpus-file' type="collocate">
+                    corpus.xml
+                </corpus>
+            </corpora>
         </meta>
         <chapter id='testziel' type="test-type">
             <page>
@@ -30,11 +38,29 @@
                     <li>jd;rajsm vj;vmajjajfa</li>
                     <li>ene men miste was rappelt in der kiste</li>
                 </list>
+                <exercise>
+                    <ctext>
+                    </ctext>
+                    <collocate>
+                        <range from='-5' to='+5' standard='1'/>
+                        <frequence node='enable' collocate='enable' keywords='enable' />
+                        <statistic chi='' llr='' frequence='' />
+                    </collocate>
+                </exercise>
             </page>
             <page>
                 <h2>Header2 test</h2>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
                 <img src="">alternative text</img>
+                <exercise>
+                    <ctext>
+                    </ctext>
+                    <keywords>
+                        <range from='-5' to='+5' standard='1'/>
+                        <frequence node='enable' collocate='enable' keywords='enable' />
+                        <statistic chi='' llr='' frequence='' />
+                    </keywords>
+                </exercise>
             </page>
         </chapter>
         <chapter id="twotestid">
@@ -76,7 +102,7 @@
             <page>
                 <h1>Test four</h1>
                 <h2>Header2 test four</h2>
-                <p> Dings da<term>foo</term> blub foo bar foobar cccc</p>
+                <p> Dings da<term>foo</term> blub foo bar foobar ccc</p>
                 <img src="">Alternativer text</img>
             </page>
         </chapter>
