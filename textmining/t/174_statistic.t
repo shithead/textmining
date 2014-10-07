@@ -112,7 +112,7 @@ $number_of_tests_run++;
 $got = $test_statistic->collocation('chi2', $test_ngram);
 my $got_llr = $test_statistic->collocation('llr', $test_ngram);
 $got->{llr} = $got_llr->{llr};
-is_deeply($got, $expect_ngram, 'statistic');
+is_deeply($got, $expect_ngram, 'collocation');
 
 # Test for compare
 # prepare expect
