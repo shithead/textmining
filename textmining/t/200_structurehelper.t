@@ -66,9 +66,19 @@ $number_of_tests_run++;
 my $got = &Textmining::Plugin::StructureHelper::_search_tree($test_hash, 'modul.xml');
 is($got, $expect_path, '_search_tree');
 
-my $json = Mojo::JSON->new;
+## Test for _get_files($dir)
+# prepare expect
+my @expect_files = qw(modul.xml);
+$number_of_tests_run++;
+my @got = &Textmining::Plugin::StructureHelper::_get_files(
+    join( '/', $test_data_dir, 'test_course', 'modul')
+);
+
+is_deeply(\@got, \@expect_files, '_get_files');
 
 ## Test for hash_to_json($self, $meta_struct)
+my $json = Mojo::JSON->new;
+
 my $json_bytes = Textmining::Plugin::StructureHelper->hash_to_json($test_hash);
 my $test_json_bytes = decode('UTF-8', $json->encode($test_hash));
 my $err = $json->error;
@@ -275,7 +285,8 @@ my $expect_page_meta_list = ([
     "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/2.html",
     "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/3.html"
 ]);
-my @got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
+undef @got;
+@got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
 
 $number_of_tests_run++;
 is_deeply(\@got, $expect_page_meta_list, 'create_public_pages');
@@ -289,12 +300,34 @@ $number_of_tests_run++;
 is_deeply($got, $expect_page_meta_list, 'create_public_pages return ref');
 #}}}
 
+# TODO Test for create_public_corpus
+# prepare test data
+$test_hash = {};
+for (values @publicstruct) {
+    my $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
+    make_path( "$test_path/$_" );
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml.vrt"));
+    $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
+}
+my $test_corpus_dir = "$dir/test-public/test_course/corpus";
+my $test_corpus_files = &Textmining::Plugin::StructureHelper::_tree($test_corpus_dir);
+
+# prepare expect;
+
+#use Data::Printer;
+#p $test_corpus_dir;
+#p $test_corpus_files;
+#p $test_modul_meta_struct;
+$got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_files, $test_modul_meta_struct->{meta}->{corpora});
+#p $got;
+
 # Test for update_public_struct($self)
 remove_tree("$test_public_dir/test_course");
 # create test struct
 $test_hash = {};
 for (values @publicstruct) {
-    $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
+    my $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
     make_path( $test_path );
     copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
     $test_hash->{test_course}->{$_} = { "$_.xml" => undef};

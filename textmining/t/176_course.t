@@ -70,14 +70,14 @@ my $expect_course_modul_hash = {
                 type   => "keywords"
             },
             'corpus-file'       => {
-                parts  => undef,
-                src    => "corpus.xml",
-                type   => "collocate"
+                parts  => "party,year",
+                src    => "corpus.xml.vrt",
+                type   => "keywords"
             },
             'corpus-file-two'       => {
                 parts  => undef,
                 src    => "corpus.xml.vrt",
-                type   => "collocate"
+                type   => "collocation"
             }
         },
         date        => "2014-09-18",

@@ -20,7 +20,7 @@ my $dir = tempdir( CLEANUP => 1 );
 my $test_corpus_dir = 'test-corpus';
 
 my $test_dir = join('/', $dir, $test_corpus_dir );
-my $test_files = { 'corpus.xml.vrt' => undef };
+my $test_files = [qw(corpus.xml.vrt)];
 my $test_path = join("/", $test_dir, "corpus.xml.vrt");
 make_path( $test_dir );
 copy( "$FindBin::Bin/examples/corpus.xml", $test_path);

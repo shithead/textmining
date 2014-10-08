@@ -197,6 +197,23 @@ sub _search_tree($$) {
     return undef;
 }
 
+sub _get_files ($) {
+    my $dir = shift;
+    opendir(DIR, $dir);
+    my @files = readdir(DIR);
+    closedir(DIR);
+
+    my @o_files;
+    for my $file (values @files) {
+        # ignore .
+        if ($file =~ qr/(^[^\.])/ 
+                and not -d join('/', $dir, $file)) {
+            push @o_files, $file;
+        }
+    }
+    return @o_files;
+}
+
 sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
@@ -431,8 +448,6 @@ sub init_public_course ($$) {
         # modul nodes
         my $modul_struct    = $self->{course}->get_modul_struct(join('/', $modul->{path}, $modul_file));
 
-        #use Data::Printer;
-        #p $modul_struct;
         # {{ TODO build a stack of 
         # create_public_modul 
         # -> create_pages
@@ -455,6 +470,8 @@ sub init_public_course ($$) {
                 \@chapter_dirs );
 
         # XXX corpus ab hier verarbeitbar
+        #use Data::Printer;
+        #p $modul_struct;
         #p $course_meta_struct;
         $self->create_public_corpus(
             $corpus->{path},
@@ -535,14 +552,52 @@ sub create_public_corpus ($$$) {
     my $files   = shift; # like a tree
     my $corpora = shift;
 
-    #p $corpora;
 
-    #for my $corpus_id (sort keys $corpora) {
-    #    my $corpus = $corpora->{$corpus_id}->{src};
-    #    next unless (&_exists_check(join('/', $dir, $corpus)));
-    #    
-    #}
 
+    my $corpus_meta_struct;
+    for my $corpus_id (sort keys $corpora) {
+        my $corpus = $corpora->{$corpus_id}->{src};
+        next if (&_exists_check(join('/', $dir, $corpus)));
+        my $corpus_file = &_search_tree($files, $corpus);
+        next unless (defined $corpus_file);
+        my @corpus_files;
+        # is regulary file?
+        if (-f join('/', $dir, $corpus_file) ){
+            push @corpus_files, $corpus_file;
+        } else { # or a directory
+            @corpus_files = &_get_files(join('/', $dir, $corpus_file));
+            # XXX warn message no corpus found
+            next unless @corpus_files;
+        }
+        
+        my $filter = $corpora->{$corpus_id}->{parts};
+        $filter = [split ',', $filter] if (defined $filter);
+
+        my $type = $corpora->{$corpus_id}->{type};
+        if ($type =~ qr/collocation/) {
+            $type = $self->{corpus}->collocation;
+        } elsif ($type =~ qr/keywords/) {
+            $type = $self->{corpus}->keywords;
+        } else {
+            # XXX warning that vo valid type found use
+            # collocation or keywords
+            #
+            # try to find out which could be
+            if (defined $filter) {
+                # XXX info message to use for type keywords
+                $type = $self->{corpus}->keywords;
+            } else {
+                # XXX info message to use for type collocation
+                $type = $self->{corpus}->collocation;
+            }
+        }
+
+        return $self->{corpus}->get_corpus(
+                $dir, \@corpus_files, $filter, $type
+                );
+    }
+
+    return undef;
 }
 
 sub rm_public_path ($$) {

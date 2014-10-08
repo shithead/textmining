@@ -104,7 +104,7 @@ sub get_corpus_docs($$$) {
     my $files   =   shift;
     my @docs;
 
-    for my $file (sort keys $files) {
+    for my $file (sort values $files) {
         my $path = join('/', $dir, $file);
         my $doc =   $self->{transform}->get_doc($path);
         push @docs, $doc;
@@ -114,9 +114,11 @@ sub get_corpus_docs($$$) {
 
 sub count_corpus ($$$$) {
     my $self        = shift;
-    my $corpus      = shift;
+    my $corpus      = shift || undef;
     my $token_type  = shift;
     my $ngram       = shift || scalar '2';
+
+    return undef unless (defined $corpus);
 
     my $count =
     Textmining::Plugin::StructureHelper::Corpus::Count->new;
@@ -232,7 +234,7 @@ sub get_corpus ($$$$) {
 
     my @corpus_docs =    $self->get_corpus_docs($dir, $files);
     my $hash;
-    my @file_list = (sort keys $files);
+    my @file_list = (sort values $files);
     foreach my $doc (values @corpus_docs) {
         my $file = shift @file_list;
         $file = fileparse($file);
@@ -242,7 +244,7 @@ sub get_corpus ($$$$) {
         my $corpus;
         if  ($suffix =~ /vrt/) {
             $corpus = $self->extract_corpus($doc, '/text/body' );
-        }
+        } 
         #get meta structure (filled) from doc
         my $m_s = $self->get_metastruct($doc, '/text');
         $m_s->{fpath} = $suffix;
