@@ -38,7 +38,6 @@ sub init {
     return $self;
 }
 
-# TODO test
 sub get_node_metastruct ($$$) {
     my $self = shift;
     my $node = shift;
@@ -65,6 +64,16 @@ sub get_node_metastruct ($$$) {
         }
         for ($meta->findnodes('libraries/library')) {
             push @{$hash->{meta}->{libraries}}, $_->textContent;
+        }
+        for ($meta->findnodes('corpora/corpus')) {
+            my $text = $_->textContent;
+            $text =~ qr/([\w+\.?]+)/;
+            $text = $1;
+            $hash->{meta}->{corpora}->{$_->getAttribute("id")} = {
+                parts   => $_->getAttribute("parts"),
+                src     => $text, 
+                type    => $_->getAttribute("type")
+            };
         }
     }
     return $hash;

@@ -62,9 +62,6 @@ $number_of_tests_run++;
 my $test_transform = Textmining::Plugin::StructureHelper::Transform->new->init($t->app);
 like($test_transform, qr/Textmining::Plugin::StructureHelper::Transform/, 'new Textmining::Plugin::StructureHelper::Transform');
 
-$test_transform->{_path}->{data} = $test_data_dir;
-$test_transform->{_path}->{public} = $test_public_dir;
-
 # Test for get_doc
 $number_of_tests_run++;
 

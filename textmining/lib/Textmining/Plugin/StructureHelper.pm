@@ -117,6 +117,7 @@ use Mojo::Util qw(encode decode camelize);
 
 use Textmining::Plugin::StructureHelper::Transform;
 use Textmining::Plugin::StructureHelper::Course;
+use Textmining::Plugin::StructureHelper::Corpus;
 use File::Path qw(remove_tree make_path);
 use File::Basename;
 
@@ -139,6 +140,7 @@ sub init ($$) {
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new->init($app);
 
     $self->{course} = Textmining::Plugin::StructureHelper::Course->new->init($app); 
+    $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new->init($app); 
     return $self;
 }
 

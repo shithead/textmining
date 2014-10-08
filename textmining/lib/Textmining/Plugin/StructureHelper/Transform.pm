@@ -40,8 +40,6 @@ use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use XML::LibXSLT;
 
-use Data::Printer;
-#use Textmining::Plugin::StructureHelper::Corpus;
 $XML::LibXML::skipXMLDeclaration = 1;
 
 sub init {
@@ -52,7 +50,6 @@ sub init {
     my $xslt        = XML::LibXSLT->new();
     my $xsl         = $self->get_xsl($home->rel_dir("templates/res/page.xsl"));
     $self->{xslt}   = $xslt->parse_stylesheet($xsl);
-    # $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new();
     return $self;
 }
 

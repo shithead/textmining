@@ -28,6 +28,9 @@
                 <corpus id='corpus-file' type="collocate">
                     corpus.xml
                 </corpus>
+                <corpus id='corpus-file-two' type="collocate">
+                    corpus.xml.vrt
+                </corpus>
             </corpora>
         </meta>
         <chapter id='testziel' type="test-type">
