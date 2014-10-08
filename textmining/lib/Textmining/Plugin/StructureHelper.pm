@@ -180,6 +180,23 @@ sub _tree ($$) {
     return $hash;
 }
 
+sub _search_tree($$) {
+    my $tree    = shift;
+    my $pattern = shift;
+
+    if (defined $tree) {
+        for my $node (sort keys $tree) {
+            return $pattern if ($node eq $pattern);
+            my $next_tree = $tree->{$node};
+            my $result = &_search_tree($next_tree, $pattern);
+            if (defined $result) {
+               return join( '/', $node, $result); 
+            }
+        }
+    }
+    return undef;
+}
+
 sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
@@ -290,8 +307,6 @@ sub update_data_struct ($) {
 sub get_data_struct ($) {
     my $self = shift;
 
-
-    
     $self->{_data_struct} = $self->load_struct($self->get_data_path)
             unless (keys $self->{_data_struct});
     return $self->{_data_struct};
@@ -390,15 +405,6 @@ sub init_public_course ($$) {
     my $library = $self->get_data_library($course);
     my $corpus  = $self->get_data_corpus($course);
 
-    my $course_meta_struct;
-    # TODO change parameter for the output of 
-    # $self->get_data_modul($course)
-    $course_meta_struct = $self->{course}->get_course_struct(
-        $modul->{path},
-        $modul->{files}
-    );
-
-
     unless (&_exists_check($dest)) {
         $self->rm_public_path($course);
         #say "rm public directory of $course";
@@ -406,65 +412,88 @@ sub init_public_course ($$) {
     if (&_exists_check($dest)) {
         $self->create_public_path("$course/$_")
                 foreach (@coursestruct);
-                #say "create public directory of $course";
+        #say "create public directory of $course";
     }
 
-    # {{ TODO build a stack of 
-    # create_public_modul 
-    # -> create_pages
-    # update every sub modul with $page_meta_list see bottom of fnct
-    my @chapter_dirs    = $self->create_public_chapter(
-                $course,
-                $course_meta_struct
+    my $course_meta_struct;
+    if (@{$modul->{files}}) {
+        $course_meta_struct = $self->{course}->get_course_struct(
+            join('/', $modul->{path}, @{$modul->{files}}[0])
+        );
+    } else {
+        $self->{log}->error('init_public_course: no modul file');
+        return undef;
+    }
+    # TODO change parameter for the output of 
+    # $self->get_data_modul($course)
+    for my $modul_file (values @{$modul->{files}}) {
+
+        # modul nodes
+        my $modul_struct    = $self->{course}->get_modul_struct(join('/', $modul->{path}, $modul_file));
+
+        #use Data::Printer;
+        #p $modul_struct;
+        # {{ TODO build a stack of 
+        # create_public_modul 
+        # -> create_pages
+        # update every sub modul with $page_meta_list see bottom of fnct
+        my @chapter_dirs    = $self->create_public_chapter(
+            $course,
+            $modul_struct
+        );
+
+
+        my $modul_pages->{$modul_file} = $self->{transform}->xml_doc_pages(
+                join('/', $modul->{path}, $modul_file),
+                $library->{path},
+                $library->{files}
             );
 
-
-    my $modul_pages;
-    foreach (@{$modul->{files}}) {
-        $modul_pages->{$_} = $self->{transform}->xml_doc_pages(
-            join('/', $modul->{path}, $_),
-            $library->{path},
-            $library->{files}
-        );
-    }
-
-    $course_meta_struct->{sub}->[0]->{pages} =
-            $self->create_public_pages(
+        $modul_struct->{pages} =
+        $self->create_public_pages(
                 $modul_pages,
                 \@chapter_dirs );
 
-    $self->save_struct(join('/', $dest), $course_meta_struct);
+        # XXX corpus ab hier verarbeitbar
+        #p $course_meta_struct;
+        $self->create_public_corpus(
+            $corpus->{path},
+            $corpus->{files},
+            $modul_struct->{meta}->{corpora}
+        );
+        $course_meta_struct->{$modul_struct->{meta}->{title}} = $modul_struct;
+    }
+    $self->save_struct($dest, $course_meta_struct);
 
     # }}
     $self->update_public_struct();
+    return $course_meta_struct;
 }
 
 sub create_public_chapter ($$$) {
     my $self    = shift;
-    my ($course, $course_meta_struct) = @_;
+    my $course  = shift;
+    my $modul_meta_struct = shift;
 
     # TODO directory is knowing, change *_dir so
     # that $course variable is no more required
+    my $modul_dir = join('/',
+        $course, 'modul',
+        $modul_meta_struct->{meta}->{title}
+    );
     my @chapter_dirs;
-    for my $modulcnt (0 .. $#{$course_meta_struct->{sub}}) {
-        my $modul_dir = join('/',
-            $course, 'modul',
-            $course_meta_struct->{sub}->[$modulcnt]->{meta}->{title}
+    for my $chaptcnt (0 .. $#{$modul_meta_struct->{sub}}) {
+        my $chapter_dir = join('/',
+            $modul_dir,
+            $chaptcnt . "_" .
+            $modul_meta_struct->{sub}->[$chaptcnt]->{id}
         );
-        for my $chaptcnt (0 .. $#{$course_meta_struct->{sub}->[$modulcnt]->{sub}}) {
-            my $chapter_dir = join('/',
-                $modul_dir,
-                $chaptcnt . "_" .
-                $course_meta_struct->{sub}->[$modulcnt]->{sub}->[$chaptcnt]->{id}
-            );
-            $self->create_public_path($chapter_dir);
-            my $tmp = {
-                dir     => $chapter_dir,
-                pagecnt => $course_meta_struct->{sub}->[$modulcnt]->{sub}
-                            ->[$chaptcnt]->{pagecnt}
-                };
-            push @chapter_dirs, $tmp;
-        }
+        $self->create_public_path($chapter_dir);
+        my $tmp = {
+            dir     => $chapter_dir,
+            pagecnt => $modul_meta_struct->{sub}->[$chaptcnt]->{pagecnt}
+        };
+        push @chapter_dirs, $tmp;
     }
     return wantarray ? @chapter_dirs : \@chapter_dirs;
 }
@@ -499,6 +528,23 @@ sub create_public_pages ($$$) {
     return wantarray ? @page_meta_list : \@page_meta_list;
 }
 
+# TODO Test for create_public_corpus
+sub create_public_corpus ($$$) {
+    my $self    = shift;
+    my $dir     = shift; # basedir
+    my $files   = shift; # like a tree
+    my $corpora = shift;
+
+    #p $corpora;
+
+    #for my $corpus_id (sort keys $corpora) {
+    #    my $corpus = $corpora->{$corpus_id}->{src};
+    #    next unless (&_exists_check(join('/', $dir, $corpus)));
+    #    
+    #}
+
+}
+
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 
@@ -508,6 +554,7 @@ sub rm_public_path ($$) {
     if (@{$err}) {
         $self->{log}->error("remove_tree $err->[0]");
     }
+    return $dir;
 }
 
 sub create_public_path ($$) {
@@ -519,6 +566,7 @@ sub create_public_path ($$) {
     if (@{$err}) {
         $self->{log}->error("make_path $err->[0]");
     }
+    return $dir;
 }
 
 sub update_public_struct ($) {
@@ -555,31 +603,26 @@ sub get_public_page_path ($$$) {
                 = shift || return undef;
     my $modul   = shift || return undef;
 
-    return undef unless defined $course_meta_struct->{sub};
-    for my $m (values $course_meta_struct->{sub}) {
-        return wantarray ? @{$m->{pages}} : $m->{pages}
-                if $m->{meta}->{title} eq $modul;
-    }
+    return $course_meta_struct->{$modul} ?
+             $course_meta_struct->{$modul}->{pages} : undef;
 }
 
 sub get_public_navbar ($$$) {
     my $self            = shift;
     my $course_meta_struct
-                        = shift || return undef;
+    = shift || return undef;
     my $modul           = shift || return undef;
-    return undef unless defined $course_meta_struct->{sub};
-    for my $m (values $course_meta_struct->{sub}) {
-        if ($m->{meta}->{title} eq $modul) {
-            return undef unless defined $m->{sub};
-            my @navbar;
-            my $pagecnt = 0;
-            for my $c (values $m->{sub}) {
-                push @navbar, { camelize($c->{id}) => $pagecnt };
-                $pagecnt = $pagecnt + $c->{pagecnt};
-            }
-            return wantarray ? @navbar : \@navbar;
-        }
+
+    return undef unless (defined $course_meta_struct->{$modul});
+    my $m = $course_meta_struct->{$modul};
+    return undef unless (defined $m->{sub});
+    my @navbar;
+    my $pagecnt = 0;
+    for my $c (values $m->{sub}) {
+        push @navbar, { camelize($c->{id}) => $pagecnt };
+        $pagecnt = $pagecnt + $c->{pagecnt};
     }
+    return wantarray ? @navbar : \@navbar;
 }
 # }}}
 

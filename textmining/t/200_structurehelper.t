@@ -59,6 +59,13 @@ my $tree_hash = {};
 $tree_hash = &Textmining::Plugin::StructureHelper::_tree($test_data_dir, 10);
 is_deeply($tree_hash, $test_hash, '_tree');
 
+## Test for _search_tree($tree, $pattern)
+# prepare expect
+my $expect_path = "test_course/modul/modul.xml";
+$number_of_tests_run++;
+my $got = &Textmining::Plugin::StructureHelper::_search_tree($test_hash, 'modul.xml');
+is($got, $expect_path, '_search_tree');
+
 my $json = Mojo::JSON->new;
 
 ## Test for hash_to_json($self, $meta_struct)
@@ -188,15 +195,12 @@ $test_structhelper->rm_public_path('test_public_path');
 is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_dir, 'test_public_path')), '1', 'rm_public_path');
 
 # Test for create_public_chapter($self, $course, $course_meta_struct)
+# prepare test
 my $test_modul = $test_structhelper->get_data_modul('test_course');
-my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct(
-    $test_modul->{path},
-    $test_modul->{files}
+my $test_modul_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_modul_struct(
+        join( '/', $test_modul->{path}, 'modul.xml')
 );
-my @test_chapter_dirs    = $test_structhelper->create_public_chapter(
-    'test_course',
-    $test_course_meta_struct
-);
+# prepare expect
 my @expect_chapter_dirs = (
     {
         dir       => "test_course/modul/Test Modul/0_testziel",
@@ -219,13 +223,18 @@ my @expect_chapter_dirs = (
         pagecnt   => 3
     }
 );
+
+my @test_chapter_dirs    = $test_structhelper->create_public_chapter(
+    'test_course',
+    $test_modul_meta_struct
+);
 $number_of_tests_run++;
 is_deeply(\@test_chapter_dirs, \@expect_chapter_dirs, 'create_public_chapter');
 
 #{{{ subtest
-my $got    = $test_structhelper->create_public_chapter(
+$got    = $test_structhelper->create_public_chapter(
     'test_course',
-    $test_course_meta_struct
+    $test_modul_meta_struct
 );
 $number_of_tests_run++;
 isa_ok( $got, 'ARRAY' );
@@ -305,7 +314,7 @@ $test_structhelper->{_public_struct} = {};
 
 # Test for init_public_course($self, $course)
 # create test struct
-$test_hash = {
+my $expect_public_meta_struct = {
     test_course   => {
         corpus    => {
         },
@@ -343,23 +352,29 @@ $number_of_tests_run++;
 
 $test_structhelper->init_public_course('test_course');
 is_deeply($test_structhelper->{_public_struct}, 
-    $test_hash, 'init_public_course');
+    $expect_public_meta_struct, 'init_public_course');
 
 # Test for get_public_struct($self)
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_public_struct(), 
-    $test_hash, 'get_public_struct');
+    $expect_public_meta_struct, 'get_public_struct');
 
 # Test for get_public_modul_struct($self,$course)
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_public_modul_struct('test_course'), 
-    $test_hash->{test_course}, 'get_public_modul_struct with defined $course');
+    $expect_public_meta_struct->{test_course}, 'get_public_modul_struct with defined $course');
 
 $number_of_tests_run++;
 is($test_structhelper->get_public_modul_struct(), 
     undef, 'get_public_modul_struct with undefined $course');
 
 # Test for get_public_page_path($self, $course_struct, $modul)
+# prepare test data
+my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct( 
+        join( '/', $test_modul->{path}, 'modul.xml')
+);
+$test_course_meta_struct->{$test_modul_meta_struct->{meta}->{title}} =
+        $test_modul_meta_struct;
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_public_page_path(
             $test_course_meta_struct->{test_course}, 'modul'),

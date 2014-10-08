@@ -31,8 +31,6 @@ for (values @publicstruct) {
 copy("$FindBin::Bin/examples/page.xsl", join("/", $test_data_dir, "page.xsl"));
 my $test_doc  = XML::LibXML->load_xml(location => join('/', $test_data_dir, 'test_course', 'modul', 'modul.xml' ));
 
-
-
 # Test for new
 # prepare app
 my $t = Test::Mojo->new('Textmining');
@@ -132,17 +130,15 @@ $expect_course_modul_hash->{sub} = [
     }
 ];
 $expect_course_modul_hash->{type} =   "modul";
-$got = $test_struct_course->get_modul_struct($test_doc);
+$got = $test_struct_course->get_modul_struct(join('/', $test_data_dir, 'test_course', 'modul', 'modul.xml'));
 
 $number_of_tests_run++;
 is_deeply($got, $expect_course_modul_hash, 'get_modul_struct');
 
 # Test get_course_struct
 # prepare expect
-$expect_course_hash->{sub} = [ $expect_course_modul_hash ];
 $expect_course_hash->{type} =   "course";
-$got = $test_struct_course->get_course_struct( join('/', $test_data_dir, 'test_course', 'modul'), ['modul.xml']);
-
+$got = $test_struct_course->get_course_struct( join('/', $test_data_dir, 'test_course', 'modul', 'modul.xml'));
 $number_of_tests_run++;
 is_deeply($got, $expect_course_hash, 'get_course_struct');
 

@@ -79,33 +79,22 @@ sub get_node_metastruct ($$$) {
     return $hash;
 }
 
-# TODO test
 sub get_course_struct ($$$) {
     my $self            = shift;
-    my $modul_dir       = shift;
-    my $modul_files     = shift;
-
-    my $modul_path      = join '/', $modul_dir, @{$modul_files}[0];
+    my $modul_path      = shift;
 
     my $modul_doc       = Textmining::Plugin::StructureHelper::Transform->get_doc($modul_path);
     my $course_struct   = $self->get_node_metastruct($modul_doc, '/course');
     $course_struct->{type} = 'course';
 
-    undef $modul_path;
-    # modul nodes
-    for (values @{$modul_files}) {
-        $modul_path         = join '/', $modul_dir, $_;
-        my $modul_struct    = $self->get_modul_struct($modul_doc);
-        push @{$course_struct->{sub}}, $modul_struct;
-    }
     return $course_struct;
 }
 
-# TODO test
 sub get_modul_struct ($$) {
     my $self    = shift;
-    my $doc     = shift;
+    my $modul_path = shift;
 
+    my $doc = Textmining::Plugin::StructureHelper::Transform->get_doc($modul_path);
     # modul nodes
     my $modul_struct;
     for my $modul ($doc->findnodes('/course/module')) {
