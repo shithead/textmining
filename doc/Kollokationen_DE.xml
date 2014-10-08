@@ -1282,6 +1282,8 @@
                                 mithilfe einer Kollokationsanalyse über ein
                                 willkürlich bestimmtes Wort in Erfahrung
                                 bringen können.</li>
+                                <li>Unteraufgabe: Welchen Themen oder Bereichen lassen
+                                sich die jeweiligen Kollokatoren zuordnen?</li>
                         </list>
                     </ctext>
                     <corpus src="kollokation-corpus.xml" type="kollokation">
@@ -1301,18 +1303,18 @@
                                 Anordnung der Lesarten, Beispiele für
                                 Verwendungsweisen, Vollständigkeit...)
                                 feststellen?</li>
-                            <li>Prüfen Sie, ob die Kollokation X + Y frequenter
-                                und/oder signifikanter ist, als X2 + Y2.
+                            <!-- Weitere Aufgabe, je nach Korpus: <li>Prüfen Sie, ob die Kollokation X + Y (z.B. "rot" und "Ampel") frequenter
+                                und/oder signifikanter ist, als X2 + Y2 (z.B. "grün" und "Ampel").
                                 Beschreiben Sie Ihr Vorgehen und überlegen Sie,
                                 was die Gründe für Ihr Ergebnis sein
-                                könnten.</li>
-                            <li>Vergleichen Sie die Kollokationsprofile der
-                                beiden Verben X und Y und entscheiden Sie, ob
+                                könnten.</li>-->
+                            <!-- Weitere Aufgabe, je nach Korpus: <li>Vergleichen Sie die Kollokationsprofile der
+                                beiden Verben/Adjektive X und Y (z.B. "abspülen" und "abwaschen" oder "putzen" und "säubern" oder "finster" und "dunkel") und entscheiden Sie, ob
                                 es sich um bedeutungsgleiche Wörter handelt.
                                 Dokumentieren Sie Ihr Vorgehen und begründen
-                                Sie Ihre Meinung.</li>
-                            <li>Unteraufgabe: Welchen Themen/Bereichen lassen
-                                sich die jeweiligen Kollokatoren zuordnen?</li>
+                                Sie Ihre Meinung.</li>-->
+                            <!-- <li>Unteraufgabe: Welchen Themen/Bereichen lassen
+                                sich die jeweiligen Kollokatoren zuordnen?</li>-->
                             <li>Führen Sie Kollokationsanalysen zu politischen
                                 Schlagwörtern, z.B. zu "Freiheit" durch. Finden
                                 Sie Differenzen zwischen den Parteien? Erklären
