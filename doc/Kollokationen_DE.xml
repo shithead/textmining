@@ -3,7 +3,7 @@
 <!DOCTYPE course SYSTEM "../../../templates/res/course.dtd">
 <course>
     <meta>
-        <title>e-Learning-Kurs Text Mining</title>
+        <title>e-Learning-Kurs zum Thema "Text Mining"</title>
         <version>1.0</version>
         <date>2014-05-01</date>
         <language>German</language>
