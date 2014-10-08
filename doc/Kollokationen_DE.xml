@@ -1264,7 +1264,7 @@
         <chapter id="training">
             <page>
                 <h1>Training</h1>
-                <h2>Freies Experimentieren </h2>
+                <h2>Angeleitetes Experimentieren</h2>
                 <exercise>
                     <ctext>
                         <list type="ordered" > 
@@ -1292,7 +1292,7 @@
                         <statistic chi="" frequence="" llr="" />
                     </corpus>
                 </exercise>
-                <h2>Angeleitetes Experimentieren</h2>
+                <h2>Konkrete Aufgaben</h2>
                 <exercise>
                     <ctext>
                         <list type="ordered" > 
