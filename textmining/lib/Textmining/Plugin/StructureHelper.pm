@@ -239,7 +239,7 @@ sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
     my $json                = Mojo::JSON->new;
-    my $json_bytes          = decode('UTF-8', $json->encode($meta_struct));
+    my $json_bytes          = $json->encode($meta_struct);
     my $err                 = $json->error;
     if (defined $err) {
         $self->{log}->error("json encode: $err");
@@ -711,14 +711,10 @@ sub get_public_page_path ($$$) {
              $course_meta_struct->{$modul}->{pages} : undef;
 }
 
-    use Data::Printer;
 sub get_public_navbar ($$$) {
     my $self            = shift;
     my $course_meta_struct = shift || return undef;
     my $modul           = shift || return undef;
-
-    p $modul;
-    p $course_meta_struct;
 
     return undef unless (defined $course_meta_struct->{$modul});
     my $m = $course_meta_struct->{$modul};
@@ -729,7 +725,6 @@ sub get_public_navbar ($$$) {
         push @navbar, { camelize($c->{id}) => $pagecnt };
         $pagecnt = $pagecnt + $c->{pagecnt};
     }
-    p @navbar;
     return wantarray ? @navbar : \@navbar;
 }
 # }}}
