@@ -60,6 +60,73 @@ them	NO	them
 together	FO	togehter
 wither	LO	wither
 tithe	LO	tithe
+this	FO	this
+is	BA	is
+a	RA	a
+test	NN	test
+written	GL	write
+for	IN	for
+Count	NNO	count
+.	IN	.
+pm	GL	pm
+their	NO	their
+them	NO	them
+together	FO	togehter
+wither	LO	wither
+tithe	LO	tithe
+this	FO	this
+is	BA	is
+a	RA	a
+test	NN	test
+written	GL	write
+for	IN	for
+Count	NNO	count
+.	IN	.
+pm	GL	pm
+their	NO	their
+them	NO	them
+together	FO	togehter
+wither	LO	wither
+tithe	LO	tithe
+this	FO	this
+is	BA	is
+a	RA	a
+test	NN	test
+written	GL	write
+for	IN	for
+Count	NNO	count
+.	IN	.
+pm	GL	pm
+their	NO	their
+them	NO	them
+together	FO	togehter
+wither	LO	wither
+tithe	LO	tithe
+this	FO	this
+is	BA	is
+a	RA	a
+test	NN	test
+written	GL	write
+for	IN	for
+Count	NNO	count
+tithe	LO	tithe
+this	FO	this
+is	BA	is
+a	RA	a
+test	NN	test
+written	GL	write
+for	IN	for
+Count	NNO	count
+.	IN	.
+pm	GL	pm
+their	NO	their
+them	NO	them
+together	FO	togehter
+wither	LO	wither
+tithe	LO	tithe
+together	FO	togehter
+wither	LO	wither
+tithe	LO	tithe
 </body>
 </text>';
 
@@ -118,53 +185,54 @@ my $test_extract_corpus = $got;
 my @expect_freq_array = (
     {
         lemma     => {
-            '.'       => 1,
-            'a'       => 1,
-            'count'   => 1,
-            'for'     => 1,
-            'is'      => 1,
-            'pm'      => 1,
-            'test'    => 1,
-            'their'   => 1,
-            'them'    => 1,
-            'this'    => 1,
-            'tithe'   => 1,
-            'togehter'=> 1,
-            'wither'  => 1,
-            'write'   => 1
+            '.'       => 5,
+            'a'       => 6,
+            'count'   => 6,
+            'for'     => 6,
+            'is'      => 6,
+            'pm'      => 5,
+            'test'    => 6,
+            'their'   => 5,
+            'them'    => 5,
+            'this'    => 6,
+            'tithe'   => 7,
+            'togehter'=> 6,
+            'wither'  => 6,
+            'write'   => 6
         },
         pos      => {
-            'BA' => 1,
-            'FO' => 2,
-            'GL' => 2,
-            'IN' => 2,
-            'LO' => 2,
-            'NN' => 1,
-            'NNO'=> 1,
-            'NO' => 2,
-            'RA' => 1
+            'BA' => 6,
+            'FO' => 12,
+            'GL' => 11,
+            'IN' => 11,
+            'LO' => 13,
+            'NN' => 6,
+            'NNO'=> 6,
+            'NO' => 10,
+            'RA' => 6
         },
         wortform => {
-            '.'       => 1,
-            'a'       => 1,
-            'Count'   => 1,
-            'for'     => 1,
-            'is'      => 1,
-            'pm'      => 1,
-            'test'    => 1,
-            'their'   => 1,
-            'them'    => 1,
-            'this'    => 1,
-            'tithe'   => 1,
-            'together'=> 1,
-            'wither'  => 1,
-            'written' => 1
+            '.'       => 5,
+            'a'       => 6,
+            'Count'   => 6,
+            'for'     => 6,
+            'is'      => 6,
+            'pm'      => 5,
+            'test'    => 6,
+            'their'   => 5,
+            'them'    => 5,
+            'this'    => 6,
+            'tithe'   => 7,
+            'together'=> 6,
+            'wither'  => 6,
+            'written' => 6
         }
     }
 );
 undef $got;
 $number_of_tests_run++;
 $got = $test_corpus->count_corpus($test_extract_corpus, 'vrt', $test_corpus->keywords);
+#p $got;
 is_deeply($got, \@expect_freq_array, 'count_corpus');
 
 # Test for get_corpus

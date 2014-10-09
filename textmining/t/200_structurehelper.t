@@ -315,7 +315,7 @@ my $test_corpus_files = &Textmining::Plugin::StructureHelper::_tree($test_corpus
 
 # prepare expect;
 
-#use Data::Printer;
+use Data::Printer;
 #p $test_corpus_dir;
 #p $test_corpus_files;
 #p $test_modul_meta_struct;

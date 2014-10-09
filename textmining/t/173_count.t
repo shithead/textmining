@@ -58,19 +58,22 @@ undef @test_permutations;
     );
 
 my $expect_ngram_freq = {
-    'a<>test<>'          => 1,
-    'Count<>.<>'         => 1,
-    'for<>Count<>'       => 1,
-    'is<>a<>'            => 1,
-    '.<>pm<>'            => 1,
-    'pm<>their<>'        => 1,
-    'test<>written<>'    => 1,
-    'their<>them<>'      => 1,
-    'them<>together<>'   => 1,
-    'this<>is<>'         => 1,
-    'together<>wither<>' => 1,
-    'wither<>tithe<>'    => 1,
-    'written<>for<>'     => 1
+    'a<>test<>'          => 6,
+    'Count<>.<>'         => 5,
+    'Count<>tithe<>'     => 1,
+    'for<>Count<>'       => 6,
+    'is<>a<>'            => 6,
+    '.<>pm<>'            => 5,
+    'pm<>their<>'        => 5,
+    'test<>written<>'    => 6,
+    'their<>them<>'      => 5,
+    'them<>together<>'   => 5,
+    'this<>is<>'         => 6,
+    'tithe<>this<>'      => 5,
+    'tithe<>together<>'  => 1,
+    'together<>wither<>' => 6,
+    'wither<>tithe<>'    => 6,
+    'written<>for<>'     => 6
 };
 
 $number_of_tests_run++;
@@ -97,67 +100,77 @@ is_deeply(\%got, $expect_ngram_freq, 'get_ngram_freq');
 
 # Test for get_frequency
 my $expect_freq = {
-    '.<>1'                => 1,
-    '.<>2'                => 1,
-    'a<>test<>0'          => 1,
-    'a<>1'                => 1,
-    'a<>2'                => 1,
-    'Count<>.<>0'         => 1,
-    'Count<>1'            => 1,
-    'Count<>2'            => 1,
-    'for<>Count<>0'       => 1,
-    'for<>1'              => 1,
-    'for<>2'              => 1,
-    'is<>a<>0'            => 1,
-    'is<>1'               => 1,
-    'is<>2'               => 1,
-    '.<>pm<>0'            => 1,
-    'pm<>their<>0'        => 1,
-    'pm<>1'               => 1,
-    'pm<>2'               => 1,
-    'test<>written<>0'    => 1,
-    'test<>1'             => 1,
-    'test<>2'             => 1,
-    'their<>them<>0'      => 1,
-    'their<>1'            => 1,
-    'their<>2'            => 1,
-    'them<>together<>0'   => 1,
-    'them<>1'             => 1,
-    'them<>2'             => 1,
-    'this<>is<>0'         => 1,
-    'this<>1'             => 1,
-    'tithe<>2'            => 1,
-    'together<>wither<>0' => 1,
-    'together<>1'         => 1,
-    'together<>2'         => 1,
-    'wither<>tithe<>0'    => 1,
-    'wither<>1'           => 1,
-    'wither<>2'           => 1,
-    'written<>for<>0'     => 1,
-    'written<>1'          => 1,
-    'written<>2'          => 1
+    '.<>1'               => 1,
+    '.<>2'               => 1,
+    'a<>test<>0'         => 1,
+    'a<>1'               => 1,
+    'a<>2'               => 1,
+    'Count<>tithe<>0'    => 1,
+    'Count<>.<>0'        => 1,
+    'Count<>1'           => 2,
+    'Count<>2'           => 1,
+    'for<>Count<>0'      => 1,
+    'for<>1'             => 1,
+    'for<>2'             => 1,
+    'is<>a<>0'           => 1,
+    'is<>1'              => 1,
+    'is<>2'              => 1,
+    '.<>pm<>0'           => 1,
+    'pm<>their<>0'       => 1,
+    'pm<>1'              => 1,
+    'pm<>2'              => 1,
+    'test<>written<>0'   => 1,
+    'test<>1'            => 1,
+    'test<>2'            => 1,
+    'their<>them<>0'     => 1,
+    'their<>1'           => 1,
+    'their<>2'           => 1,
+    'them<>together<>0'  => 1,
+    'them<>1'            => 1,
+    'them<>2'            => 1,
+    'this<>is<>0'        => 1,
+    'this<>1'            => 1,
+    'this<>2'            => 1,
+    'tithe<>this<>0'     => 1,
+    'tithe<>together<>0' => 1,
+    'tithe<>1'           => 2,
+    'tithe<>2'           => 2,
+    'together<>wither<>0'=> 1,
+    'together<>1'        => 1,
+    'together<>2'        => 2,
+    'wither<>tithe<>0'   => 1,
+    'wither<>1'          => 1,
+    'wither<>2'          => 1,
+    'written<>for<>0'    => 1,
+    'written<>1'         => 1,
+    'written<>2'         => 1
 };
 
 my $test_ngram_freq =  $expect_ngram_freq;
 $number_of_tests_run++;
 $got = $test_count->get_frequency( $test_ngram, $test_ngram_freq);
+
+#p $got;
 is_deeply($got, $expect_freq, 'get_frequency');
 
 # Test for sort_ngram_freq
-my $expect_sort_ngram_freq = '13
-this<>is<>1 1 1 
+my $expect_sort_ngram_freq = '16
 test<>written<>1 1 1 
-Count<>.<>1 1 1 
-.<>pm<>1 1 1 
 for<>Count<>1 1 1 
 a<>test<>1 1 1 
-is<>a<>1 1 1 
-them<>together<>1 1 1 
-pm<>their<>1 1 1 
-their<>them<>1 1 1 
 written<>for<>1 1 1 
-wither<>tithe<>1 1 1 
+wither<>tithe<>1 1 2 
 together<>wither<>1 1 1 
+this<>is<>1 1 1 
+is<>a<>1 1 1 
+their<>them<>1 1 1 
+pm<>their<>1 1 1 
+Count<>.<>1 2 1 
+tithe<>this<>1 2 1 
+.<>pm<>1 1 1 
+them<>together<>1 1 2 
+tithe<>together<>1 2 2 
+Count<>tithe<>1 2 2 
 ';
 
 undef $got;
