@@ -25,7 +25,7 @@ my $test_data = 'test-data';
 my $test_public_dir = join('/', $dir, $test_public );
 my $test_data_dir = join('/', $dir, $test_data );
 
-my @publicstruct = qw(modul library corpus);
+my @publicstruct = qw(module library corpus);
 my $test_hash = {};
 for (values @publicstruct) {
     my $path = join('/', $test_data_dir, 'test_course', $_ );
@@ -65,7 +65,7 @@ like($test_transform, qr/Textmining::Plugin::StructureHelper::Transform/, 'new T
 # Test for get_doc
 $number_of_tests_run++;
 
-my $test_modul = join('/', $test_data_dir, "test_course", "modul", "modul.xml");
+my $test_modul = join('/', $test_data_dir, "test_course", 'module', 'module.xml');
 my $expect_doc = XML::LibXML->load_xml(location => $test_modul);
 my $got_doc = $test_transform->get_doc($test_modul);
 is_deeply($got_doc, $expect_doc, "get_doc");

@@ -28,7 +28,7 @@ my $test_data = 'test-data';
 my $test_public_dir = join('/', $dir, $test_public );
 my $test_data_dir = join('/', $dir, $test_data );
 
-my @publicstruct = qw(modul library corpus);
+my @publicstruct = qw(module library corpus);
 my $test_hash = {};
 for (values @publicstruct) {
     my $path = join('/', $test_data_dir, 'test_course', $_ ); 
@@ -61,17 +61,17 @@ is_deeply($tree_hash, $test_hash, '_tree');
 
 ## Test for _search_tree($tree, $pattern)
 # prepare expect
-my $expect_path = "test_course/modul/modul.xml";
+my $expect_path = "test_course/module/module.xml";
 $number_of_tests_run++;
-my $got = &Textmining::Plugin::StructureHelper::_search_tree($test_hash, 'modul.xml');
+my $got = &Textmining::Plugin::StructureHelper::_search_tree($test_hash, 'module.xml');
 is($got, $expect_path, '_search_tree');
 
 ## Test for _get_files($dir)
 # prepare expect
-my @expect_files = qw(modul.xml);
+my @expect_files = qw(module.xml);
 $number_of_tests_run++;
 my @got = &Textmining::Plugin::StructureHelper::_get_files(
-    join( '/', $test_data_dir, 'test_course', 'modul')
+    join( '/', $test_data_dir, 'test_course', 'module')
 );
 
 is_deeply(\@got, \@expect_files, '_get_files');
@@ -162,8 +162,8 @@ is_deeply($test_structhelper->get_data_course, @{['test_course']}, 'get_data_cou
 
 # Test for get_data_modul($self, $course)
 $test_hash = {
-        path    => join('/', $test_structhelper->{_path}->{data}, 'test_course', 'modul'),
-        files   => \@{$test_structhelper->{_data_struct}->{test_course}->{modul}}
+        path    => join('/', $test_structhelper->{_path}->{data}, 'test_course', 'module'),
+        files   => \@{$test_structhelper->{_data_struct}->{test_course}->{module}}
 };
 
 $number_of_tests_run++;
@@ -208,28 +208,28 @@ is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_di
 # prepare test
 my $test_modul = $test_structhelper->get_data_modul('test_course');
 my $test_modul_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_modul_struct(
-        join( '/', $test_modul->{path}, 'modul.xml')
+        join( '/', $test_modul->{path}, 'module.xml')
 );
 # prepare expect
 my @expect_chapter_dirs = (
     {
-        dir       => "test_course/modul/Test Modul/0_testziel",
+        dir       => "test_course/module/Test Modul/0_testziel",
         pagecnt   => 2
     },
     {
-        dir       => "test_course/modul/Test Modul/1_twotestid",
+        dir       => "test_course/module/Test Modul/1_twotestid",
         pagecnt   => 3
     },
     {
-        dir       => "test_course/modul/Test Modul/2_threetetestid",
+        dir       => "test_course/module/Test Modul/2_threetetestid",
         pagecnt   => 1
     },
     {
-        dir       => "test_course/modul/Test Modul/3_fourtestid",
+        dir       => "test_course/module/Test Modul/3_fourtestid",
         pagecnt   => 1
     },
     {
-        dir       => "test_course/modul/Test Modul/4_fivetestid",
+        dir       => "test_course/module/Test Modul/4_fivetestid",
         pagecnt   => 3
     }
 );
@@ -265,25 +265,25 @@ for (values @publicstruct) {
     } 
 }
 my $test_modul_pages;
-foreach (@{$test_dir_hash->{test_course}->{modul}}) {
+foreach (@{$test_dir_hash->{test_course}->{module}}) {
     $test_modul_pages->{$_} = $test_structhelper->{transform}->xml_doc_pages(
-        join('/', $test_data_dir, 'test_course', 'modul', $_),
+        join('/', $test_data_dir, 'test_course', 'module', $_),
         join('/', $test_data_dir, 'test_course', 'library'),
         $test_dir_hash->{test_course}->{library}
     );
 }
 # prepare expect data
 my $expect_page_meta_list = ([
-    "$dir/test-public/test_course/modul/Test Modul/0_testziel/1.html",
-    "$dir/test-public/test_course/modul/Test Modul/0_testziel/2.html",
-    "$dir/test-public/test_course/modul/Test Modul/1_twotestid/1.html",
-    "$dir/test-public/test_course/modul/Test Modul/1_twotestid/2.html",
-    "$dir/test-public/test_course/modul/Test Modul/1_twotestid/3.html",
-    "$dir/test-public/test_course/modul/Test Modul/2_threetetestid/1.html",
-    "$dir/test-public/test_course/modul/Test Modul/3_fourtestid/1.html",
-    "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/1.html",
-    "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/2.html",
-    "$dir/test-public/test_course/modul/Test Modul/4_fivetestid/3.html"
+    "$dir/test-public/test_course/module/Test Modul/0_testziel/1.html",
+    "$dir/test-public/test_course/module/Test Modul/0_testziel/2.html",
+    "$dir/test-public/test_course/module/Test Modul/1_twotestid/1.html",
+    "$dir/test-public/test_course/module/Test Modul/1_twotestid/2.html",
+    "$dir/test-public/test_course/module/Test Modul/1_twotestid/3.html",
+    "$dir/test-public/test_course/module/Test Modul/2_threetetestid/1.html",
+    "$dir/test-public/test_course/module/Test Modul/3_fourtestid/1.html",
+    "$dir/test-public/test_course/module/Test Modul/4_fivetestid/1.html",
+    "$dir/test-public/test_course/module/Test Modul/4_fivetestid/2.html",
+    "$dir/test-public/test_course/module/Test Modul/4_fivetestid/3.html"
 ]);
 undef @got;
 @got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
@@ -485,7 +485,7 @@ my $expect_public_meta_struct = {
         },
         library   => {
         },
-        modul     => {
+        module     => {
             'Test Modul'   => {
                 '0_testziel' =>       {
                    "1.html"     =>  undef,
@@ -536,23 +536,23 @@ is($test_structhelper->get_public_modul_struct(),
 # Test for get_public_page_path($self, $course_struct, $modul)
 # prepare test data
 my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct( 
-        join( '/', $test_modul->{path}, 'modul.xml')
+        join( '/', $test_modul->{path}, 'module.xml')
 );
 $test_course_meta_struct->{$test_modul_meta_struct->{meta}->{title}} =
         $test_modul_meta_struct;
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_public_page_path(
-            $test_course_meta_struct->{test_course}, 'modul'),
-        $test_course_meta_struct->{test_course}->{modul},
+            $test_course_meta_struct->{test_course}, 'module'),
+        $test_course_meta_struct->{test_course}->{module},
         'get_public_page_path normal' );
 
 $number_of_tests_run++;
-is($test_structhelper->get_public_page_path( undef, 'modul'), 
+is($test_structhelper->get_public_page_path( undef, 'module'), 
         undef,
         'get_public_page_path with undefined $course_struct');
 
 $number_of_tests_run++;
-is($test_structhelper->get_public_page_path($test_hash, 'modul'),
+is($test_structhelper->get_public_page_path($test_hash, 'module'),
         undef,
         'get_public_page_path with invalid $course_struct' );
 
@@ -560,7 +560,7 @@ $number_of_tests_run++;
 is($test_structhelper->get_public_page_path( 
             $test_hash->{test_course}, undef),
         undef,
-        'get_public_page_path with undefined $modul');
+        'get_public_page_path with undefined $module');
 
 # Test for get_public_navbar($self, $meta_struct, $modul)
 # create test array

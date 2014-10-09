@@ -51,7 +51,7 @@ This method return the structure of the specified course.
 
 =method get_data_modul()
 
-This method return the moduls files and directory
+This method return the modules files and directory
 in a structure of the specified course.
 Is using L<"update_data_struct">.
 
@@ -68,7 +68,7 @@ This method return the relative path to 'public' directory.
 =method init_public_course()
 
 This method initialing the public directory of the specified course
-with the informations from the modul by 
+with the informations from the module by 
 L<Textmining::StructureHelper::Transform/"get_meta_struct">.
 
 Is using L<Textmining::StructureHelper::Transform/"xml_doc_pages">,
@@ -123,7 +123,7 @@ use File::Path qw(remove_tree make_path);
 use File::Basename;
 
 use feature 'say';
-our @coursestruct = qw(modul library corpus);
+our @coursestruct = qw(module library corpus);
 
 sub register {
     my ($self, $app) = @_;
@@ -373,16 +373,16 @@ sub get_data_modul ($$) {
     my @courses_keys = (keys $self->get_data_struct());
     unless (  $course ~~ @courses_keys ) {
         if (defined $self->{log}) {
-            $self->{log}->error("modul: course $course not in \'" . join(',', @courses_keys) . "\'");
+            $self->{log}->error("module: course $course not in \'" . join(',', @courses_keys) . "\'");
         } else {
-            print STDERR "modul: course $course not in \'@courses_keys\'";
+            print STDERR "module: course $course not in \'@courses_keys\'";
         }
         return undef;
     }
 
     my $modules = {
-        path    => join('/', $self->get_data_path, $course, 'modul'),
-        files   => \@{$self->get_data_struct()->{$course}->{modul}}
+        path    => join('/', $self->get_data_path, $course, 'module'),
+        files   => \@{$self->get_data_struct()->{$course}->{module}}
     };
 
     return $modules;
@@ -464,14 +464,14 @@ sub init_public_course ($$) {
             join('/', $modul->{path}, @{$modul->{files}}[0])
         );
     } else {
-        $self->{log}->error('init_public_course: no modul file');
+        $self->{log}->error('init_public_course: no module file');
         return undef;
     }
     # TODO change parameter for the output of 
     # $self->get_data_modul($course)
     for my $modul_file (values @{$modul->{files}}) {
 
-        # modul nodes
+        # module nodes
         my $modul_struct    = $self->{course}->get_modul_struct(join('/', $modul->{path}, $modul_file));
 
         # {{ TODO build a stack of 
@@ -532,7 +532,7 @@ sub create_public_chapter ($$$) {
     # TODO directory is knowing, change *_dir so
     # that $course variable is no more required
     my $modul_dir = join('/',
-        $course, 'modul',
+        $course, 'module',
         $modul_meta_struct->{meta}->{title}
     );
     my @chapter_dirs;

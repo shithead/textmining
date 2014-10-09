@@ -99,7 +99,7 @@ sub get_modul_struct ($$) {
     my $modul_struct;
     for my $modul ($doc->findnodes('/course/module')) {
         $modul_struct =  $self->get_node_metastruct($doc, '/course/module');
-        $modul_struct->{type} = 'modul';
+        $modul_struct->{type} = 'module';
 
         # chapter nodes
         for my $chapter ($modul->findnodes('chapter')) {

@@ -21,7 +21,7 @@ my $test_data = 'test-data';
 my $test_public_dir = join('/', $dir, $test_public );
 my $test_data_dir = join('/', $dir, $test_data );
 
-my @publicstruct = qw(modul library corpus);
+my @publicstruct = qw(module library corpus);
 my $test_hash = {};
 for (values @publicstruct) {
     my $path = join('/', $test_data_dir, 'test_course', $_ ); 
@@ -29,7 +29,7 @@ for (values @publicstruct) {
     copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
 }
 copy("$FindBin::Bin/examples/page.xsl", join("/", $test_data_dir, "page.xsl"));
-my $test_doc  = XML::LibXML->load_xml(location => join('/', $test_data_dir, 'test_course', 'modul', 'modul.xml' ));
+my $test_doc  = XML::LibXML->load_xml(location => join('/', $test_data_dir, 'test_course', 'module', 'module.xml' ));
 
 # Test for new
 # prepare app
@@ -129,8 +129,8 @@ $expect_course_modul_hash->{sub} = [
         type     => undef
     }
 ];
-$expect_course_modul_hash->{type} =   "modul";
-$got = $test_struct_course->get_modul_struct(join('/', $test_data_dir, 'test_course', 'modul', 'modul.xml'));
+$expect_course_modul_hash->{type} =   "module";
+$got = $test_struct_course->get_modul_struct(join('/', $test_data_dir, 'test_course', 'module', 'module.xml'));
 
 $number_of_tests_run++;
 is_deeply($got, $expect_course_modul_hash, 'get_modul_struct');
@@ -138,7 +138,7 @@ is_deeply($got, $expect_course_modul_hash, 'get_modul_struct');
 # Test get_course_struct
 # prepare expect
 $expect_course_hash->{type} =   "course";
-$got = $test_struct_course->get_course_struct( join('/', $test_data_dir, 'test_course', 'modul', 'modul.xml'));
+$got = $test_struct_course->get_course_struct( join('/', $test_data_dir, 'test_course', 'module', 'module.xml'));
 $number_of_tests_run++;
 is_deeply($got, $expect_course_hash, 'get_course_struct');
 
