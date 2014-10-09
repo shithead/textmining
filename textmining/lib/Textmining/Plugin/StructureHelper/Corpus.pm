@@ -166,8 +166,8 @@ sub count_corpus ($$$$) {
 
 sub compare_corpus ($$$) {
     my $self        = shift;
-    my $corpus_data =   shift;
-    my $min_freq    =   shift;
+    my $corpus_data = shift;
+    my $min_freq    = shift;
 
     my $corpus_total;
     my $corpus_parts;

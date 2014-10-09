@@ -314,13 +314,130 @@ my $test_corpus_dir = "$dir/test-public/test_course/corpus";
 my $test_corpus_files = &Textmining::Plugin::StructureHelper::_tree($test_corpus_dir);
 
 # prepare expect;
+my $expect_token = {
+    lemma     => {
+        '.'       => 5,
+        'a'       => 6,
+        'count'   => 6,
+        'for'     => 6,
+        'is'      => 6,
+        'pm'      => 5,
+        'test'    => 6,
+        'their'   => 5,
+        'them'    => 5,
+        'this'    => 6,
+        'tithe'   => 7,
+        'togehter'=> 6,
+        'wither'  => 6,
+        'write'   => 6
+    },
+    pos      => {
+        'BA' => 6,
+        'FO' => 12,
+        'GL' => 11,
+        'IN' => 11,
+        'LO' => 13,
+        'NN' => 6,
+        'NNO'=> 6,
+        'NO' => 10,
+        'RA' => 6
+    },
+    wortform => {
+        '.'       => 5,
+        'a'       => 6,
+        'Count'   => 6,
+        'for'     => 6,
+        'is'      => 6,
+        'pm'      => 5,
+        'test'    => 6,
+        'their'   => 5,
+        'them'    => 5,
+        'this'    => 6,
+        'tithe'   => 7,
+        'together'=> 6,
+        'wither'  => 6,
+        'written' => 6
+    }
+};
+my $expect_corpus = {
+    id      => {
+        foobarid   => {
+            author   =>  "Blablub",
+            corpus     => {
+                statistic    => {
+                    chi2   => {
+                        '26.9637'   => {
+                            'tithe'       => [ 7,7 ]
+                        },
+                        '28.6299'   => {
+                            'a'           => [ 6,6 ],
+                            'count'       => [ 6,6 ],
+                            'for'         => [ 6,6 ],
+                            'is'          => [ 6,6 ],
+                            'test'        => [ 6,6 ],
+                            'this'        => [ 6,6 ],
+                            'togehter'    => [ 6,6 ],
+                            'wither'      => [ 6,6 ],
+                            'write'       => [ 6,6 ]
+                        },
+                        '30.3502'   => {
+                            '.'         => [ 5,5 ],
+                            'pm'        => [ 5,5 ],
+                            'their'     => [ 5,5 ],
+                            'them'      => [ 5,5 ]
+                        }
+                    },
+                    llr    => {
+                        '-0.0000'  =>  {
+                            '.'          => [ 5,5 ],
+                            'a'          => [ 6,6 ],
+                            'count'      => [ 6,6 ],
+                            'for'        => [ 6,6 ],
+                            'is'         => [ 6,6 ],
+                            'pm'         => [ 5,5 ],
+                            'test'       => [ 6,6 ],
+                            'their'      => [ 5,5 ],
+                            'them'       => [ 5,5 ],
+                            'this'       => [ 6,6 ],
+                            'tithe'      => [ 7,7 ],
+                            'togehter'   => [ 6,6 ],
+                            'wither'     => [ 6,6 ],
+                            'write'      => [ 6,6 ]
+                        }
+                    }
+
+
+                },
+                token       => $expect_token,
+                windowsize  => [ $expect_token ]
+            },
+            date     => undef,
+            fpath    => "vrt",
+            id       => "foobarid",
+            party    => "undef",
+            subtitle => undef,
+            title    => undef,
+            type     => undef,
+            year     => 2014
+        }
+    },
+    party   => {
+        undef   => {
+            foobarid  => $expect_token
+        }
+    },
+    year    => {
+        2014   => {
+            foobarid  => $expect_token
+        }
+    }
+};
 
 use Data::Printer;
-#p $test_corpus_dir;
-#p $test_corpus_files;
-#p $test_modul_meta_struct;
+$number_of_tests_run++;
 $got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_files, $test_modul_meta_struct->{meta}->{corpora});
 #p $got;
+is_deeply($got, $expect_corpus, 'create_public_corpus');
 
 # Test for update_public_struct($self)
 remove_tree("$test_public_dir/test_course");

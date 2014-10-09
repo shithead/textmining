@@ -76,7 +76,7 @@ my $expect_course_modul_hash = {
             },
             'corpus-file-two'       => {
                 parts  => undef,
-                src    => "corpus.xml.vrt",
+                src    => "corpus2.xml.vrt",
                 type   => "collocation"
             }
         },

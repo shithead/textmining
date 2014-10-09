@@ -29,7 +29,7 @@
                     corpus.xml.vrt
                 </corpus>
                 <corpus id='corpus-file-two' type="collocation">
-                    corpus.xml.vrt
+                    corpus2.xml.vrt
                 </corpus>
             </corpora>
         </meta>

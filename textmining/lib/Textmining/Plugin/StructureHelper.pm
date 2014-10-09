@@ -552,9 +552,7 @@ sub create_public_corpus ($$$) {
     my $files   = shift; # like a tree
     my $corpora = shift;
 
-
-
-    my $corpus_meta_struct;
+    my $corpora_meta_struct;
     for my $corpus_id (sort keys $corpora) {
         my $corpus = $corpora->{$corpus_id}->{src};
         next if (&_exists_check(join('/', $dir, $corpus)));
@@ -592,12 +590,28 @@ sub create_public_corpus ($$$) {
             }
         }
 
-        return $self->{corpus}->get_corpus(
+        my $corpus_data = $self->{corpus}->get_corpus(
                 $dir, \@corpus_files, $filter, $type
                 );
+                
+        $corpus_data = $self->{corpus}->compare_corpus($corpus_data)
+                if ($type == $self->{corpus}->keywords);
+        $corpus_data = $self->{corpus}->collocation_corpus($corpus_data, $type)
+                if ($type == $self->{corpus}->collocation);
+        for my $id (keys $corpus_data->{id}) {
+            $corpora_meta_struct->{id}->{$id} = $corpus_data->{id}->{$id};
+        }
+
+        if ($type == $self->{corpus}->keywords) {
+            for my $part (values $filter) {
+                    $corpora_meta_struct->{$part}->{$_} =
+                            $corpus_data->{$part}->{$_}
+                            foreach (keys $corpus_data->{$part});
+            }
+        }
     }
 
-    return undef;
+    return $corpora_meta_struct;
 }
 
 sub rm_public_path ($$) {
