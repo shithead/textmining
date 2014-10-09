@@ -40,8 +40,10 @@ sub startup {
             return 1;
         });
 
-    # GET /admin?update=1
+    # GET /admin
     $admin->get()->to('admin#overview');
+    # POST /admin?update=foo
+    $admin->post()->to('admin#overview');
     # POST /admin/course?course="foo"&type="bar"
     $admin->post('/course')->to('admin#course');
     # POST /admin/open?course="foo"

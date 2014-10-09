@@ -215,6 +215,7 @@ sub _get_files ($) {
     return @o_files;
 }
 
+#TODO Test for _store
 sub _store($$) {
     my $data        =   shift;
     my $location    =   shift;
@@ -224,6 +225,7 @@ sub _store($$) {
     close $FH;
 }
 
+#TODO Test for _retrieve
 sub _retrieve($) {
     my $location    = shift;
 
@@ -349,6 +351,7 @@ sub get_data_struct ($) {
 
     $self->{_data_struct} = $self->load_struct($self->get_data_path)
             unless (keys $self->{_data_struct});
+    $self->{_data_struct} = {} unless defined $self->{_data_struct};
     return $self->{_data_struct};
 }
 
@@ -492,16 +495,26 @@ sub init_public_course ($$) {
                         $modul_pages,
                         \@chapter_dirs );
 
-        # XXX corpus ab hier verarbeitbar
-        #use Data::Printer;
+        use Data::Printer;
         #p $modul_struct;
-        #p $course_meta_struct;
-        my $corpora_struct = $self->create_public_corpus(
+        if (defined $modul_struct->{meta}->{corpora})  {
+            my $corpora_data = $self->create_public_corpus(
                 $corpus->{path},
                 $corpus->{files},
                 $modul_struct->{meta}->{corpora}
             );
-            #save data from struct 
+            #save corpora_data
+            #p $course_meta_struct;
+            #p $modul_struct;
+            #p $corpora_data;
+
+            for my $filename (keys $corpora_data) {
+                my $location = join '/', $dest, 'corpus', $filename;
+                &_store($corpora_data->{$filename}, $location);
+                $modul_struct->{meta}->{corpora}->{$filename}->{public} = $location;
+            }
+        }
+
         $course_meta_struct->{$modul_struct->{meta}->{title}} = $modul_struct;
     }
     $self->save_struct($dest, $course_meta_struct);
@@ -569,14 +582,13 @@ sub create_public_pages ($$$) {
     return wantarray ? @page_meta_list : \@page_meta_list;
 }
 
-# TODO Test for create_public_corpus
 sub create_public_corpus ($$$) {
     my $self    = shift;
     my $dir     = shift; # basedir
     my $files   = shift; # like a tree
     my $corpora = shift;
 
-    my $corpora_meta_struct;
+    my $corpora_data_struct;
     for my $corpus_id (sort keys $corpora) {
         my $corpus = $corpora->{$corpus_id}->{src};
         next if (&_exists_check(join('/', $dir, $corpus)));
@@ -591,7 +603,6 @@ sub create_public_corpus ($$$) {
             # XXX warn message no corpus found
             next unless @corpus_files;
         }
-        
         my $filter = $corpora->{$corpus_id}->{parts};
         $filter = [split ',', $filter] if (defined $filter);
 
@@ -623,19 +634,19 @@ sub create_public_corpus ($$$) {
         $corpus_data = $self->{corpus}->collocation_corpus($corpus_data, $type)
                 if ($type == $self->{corpus}->collocation);
         for my $id (keys $corpus_data->{id}) {
-            $corpora_meta_struct->{id}->{$id} = $corpus_data->{id}->{$id};
+            $corpora_data_struct->{$corpus_id}->{id}->{$id} = $corpus_data->{id}->{$id};
         }
 
         if ($type == $self->{corpus}->keywords) {
             for my $part (values $filter) {
-                    $corpora_meta_struct->{$part}->{$_} =
+                    $corpora_data_struct->{$corpus_id}->{$part}->{$_} =
                             $corpus_data->{$part}->{$_}
                             foreach (keys $corpus_data->{$part});
             }
         }
     }
 
-    return $corpora_meta_struct;
+    return $corpora_data_struct;
 }
 
 sub rm_public_path ($$) {
@@ -700,11 +711,14 @@ sub get_public_page_path ($$$) {
              $course_meta_struct->{$modul}->{pages} : undef;
 }
 
+    use Data::Printer;
 sub get_public_navbar ($$$) {
     my $self            = shift;
-    my $course_meta_struct
-    = shift || return undef;
+    my $course_meta_struct = shift || return undef;
     my $modul           = shift || return undef;
+
+    p $modul;
+    p $course_meta_struct;
 
     return undef unless (defined $course_meta_struct->{$modul});
     my $m = $course_meta_struct->{$modul};
@@ -715,6 +729,7 @@ sub get_public_navbar ($$$) {
         push @navbar, { camelize($c->{id}) => $pagecnt };
         $pagecnt = $pagecnt + $c->{pagecnt};
     }
+    p @navbar;
     return wantarray ? @navbar : \@navbar;
 }
 # }}}

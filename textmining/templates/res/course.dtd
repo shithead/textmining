@@ -37,7 +37,7 @@
 
 <!ELEMENT emph ( #PCDATA ) >
 
-<!ELEMENT exercise ( ctext, collocate | keywords ) >
+<!ELEMENT exercise ( ctext+ | collocate | keywords ) >
 
 <!ELEMENT foreign ( #PCDATA ) >
 

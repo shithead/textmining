@@ -300,7 +300,7 @@ $number_of_tests_run++;
 is_deeply($got, $expect_page_meta_list, 'create_public_pages return ref');
 #}}}
 
-# TODO Test for create_public_corpus
+# Test for create_public_corpus
 # prepare test data
 $test_hash = {};
 for (values @publicstruct) {
@@ -360,75 +360,77 @@ my $expect_token = {
     }
 };
 my $expect_corpus = {
-    id      => {
-        foobarid   => {
-            author   =>  "Blablub",
-            corpus     => {
-                statistic    => {
-                    chi2   => {
-                        '26.9637'   => {
-                            'tithe'       => [ 7,7 ]
+    'corpus-file' => {
+        id      => {
+            foobarid   => {
+                author   =>  "Blablub",
+                corpus     => {
+                    statistic    => {
+                        chi2   => {
+                            '26.9637'   => {
+                                'tithe'       => [ 7,7 ]
+                            },
+                            '28.6299'   => {
+                                'a'           => [ 6,6 ],
+                                'count'       => [ 6,6 ],
+                                'for'         => [ 6,6 ],
+                                'is'          => [ 6,6 ],
+                                'test'        => [ 6,6 ],
+                                'this'        => [ 6,6 ],
+                                'togehter'    => [ 6,6 ],
+                                'wither'      => [ 6,6 ],
+                                'write'       => [ 6,6 ]
+                            },
+                            '30.3502'   => {
+                                '.'         => [ 5,5 ],
+                                'pm'        => [ 5,5 ],
+                                'their'     => [ 5,5 ],
+                                'them'      => [ 5,5 ]
+                            }
                         },
-                        '28.6299'   => {
-                            'a'           => [ 6,6 ],
-                            'count'       => [ 6,6 ],
-                            'for'         => [ 6,6 ],
-                            'is'          => [ 6,6 ],
-                            'test'        => [ 6,6 ],
-                            'this'        => [ 6,6 ],
-                            'togehter'    => [ 6,6 ],
-                            'wither'      => [ 6,6 ],
-                            'write'       => [ 6,6 ]
-                        },
-                        '30.3502'   => {
-                            '.'         => [ 5,5 ],
-                            'pm'        => [ 5,5 ],
-                            'their'     => [ 5,5 ],
-                            'them'      => [ 5,5 ]
+                        llr    => {
+                            '-0.0000'  =>  {
+                                '.'          => [ 5,5 ],
+                                'a'          => [ 6,6 ],
+                                'count'      => [ 6,6 ],
+                                'for'        => [ 6,6 ],
+                                'is'         => [ 6,6 ],
+                                'pm'         => [ 5,5 ],
+                                'test'       => [ 6,6 ],
+                                'their'      => [ 5,5 ],
+                                'them'       => [ 5,5 ],
+                                'this'       => [ 6,6 ],
+                                'tithe'      => [ 7,7 ],
+                                'togehter'   => [ 6,6 ],
+                                'wither'     => [ 6,6 ],
+                                'write'      => [ 6,6 ]
+                            }
                         }
+
+
                     },
-                    llr    => {
-                        '-0.0000'  =>  {
-                            '.'          => [ 5,5 ],
-                            'a'          => [ 6,6 ],
-                            'count'      => [ 6,6 ],
-                            'for'        => [ 6,6 ],
-                            'is'         => [ 6,6 ],
-                            'pm'         => [ 5,5 ],
-                            'test'       => [ 6,6 ],
-                            'their'      => [ 5,5 ],
-                            'them'       => [ 5,5 ],
-                            'this'       => [ 6,6 ],
-                            'tithe'      => [ 7,7 ],
-                            'togehter'   => [ 6,6 ],
-                            'wither'     => [ 6,6 ],
-                            'write'      => [ 6,6 ]
-                        }
-                    }
-
-
+                    token       => $expect_token,
+                    windowsize  => [ $expect_token ]
                 },
-                token       => $expect_token,
-                windowsize  => [ $expect_token ]
-            },
-            date     => undef,
-            fpath    => "vrt",
-            id       => "foobarid",
-            party    => "undef",
-            subtitle => undef,
-            title    => undef,
-            type     => undef,
-            year     => 2014
-        }
-    },
-    party   => {
-        undef   => {
-            foobarid  => $expect_token
-        }
-    },
-    year    => {
-        2014   => {
-            foobarid  => $expect_token
+                date     => undef,
+                fpath    => "vrt",
+                id       => "foobarid",
+                party    => "undef",
+                subtitle => undef,
+                title    => undef,
+                type     => undef,
+                year     => 2014
+            }
+        },
+        party   => {
+            undef   => {
+                foobarid  => $expect_token
+            }
+        },
+        year    => {
+            2014   => {
+                foobarid  => $expect_token
+            }
         }
     }
 };
@@ -446,7 +448,9 @@ for (values @publicstruct) {
     my $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
     make_path( $test_path );
     copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
-    $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml.vrt"));
+    $test_hash->{test_course}->{$_} = { "$_.xml" => undef,
+                                        "$_.xml.vrt" => undef};
 }
 
 $number_of_tests_run++;
@@ -462,10 +466,22 @@ remove_tree("$test_public_dir/test_course");
 $test_structhelper->{_public_struct} = {};
 
 # Test for init_public_course($self, $course)
-# create test struct
+# prepare test struct
+$test_hash = {};
+for (values @publicstruct) {
+    my $test_path = join('/', $test_data_dir, 'test_course', $_ ); 
+    make_path( $test_path );
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml.vrt"));
+    $test_hash->{test_course}->{$_} = { "$_.xml" => undef,
+                                        "$_.xml.vrt" => undef};
+}
+$test_structhelper->update_data_struct;
+# prepare expect
 my $expect_public_meta_struct = {
     test_course   => {
         corpus    => {
+            'corpus-file' => undef
         },
         library   => {
         },
