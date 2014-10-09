@@ -17,7 +17,7 @@
         <tbody>
         % my $nr = 1;
         % for my $course (keys $table) {
-        %   for my $modul (keys $table->{$course}->{modul}) {
+        %   for my $modul (keys $table->{$course}->{module}) {
         <tr>
          <td><%= $nr %></td>
          <td><%= $course %></td>

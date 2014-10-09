@@ -1,3 +1,6 @@
 [submodule "doc/wiki"]
        path = doc/wiki
        url = https://github.com/shithead/textmining.wiki.git
+[submodule "data/eLearning-Kurs-Text-Mining"]
+	path = data/eLearning-Kurs-Text-Mining
+	url = https://github.com/wiMieScience/eLearning-Kurs-Text-Mining.git
