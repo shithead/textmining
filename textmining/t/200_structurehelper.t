@@ -116,7 +116,7 @@ $test_structhelper->save_struct(
         $test_path,
         $test_json_hash
     );
-is(&Textmining::Plugin::StructureHelper::_exists_check("$test_path/.meta.json"),
+is(&Textmining::Plugin::StructureHelper::_exists_check("$test_path/.meta"),
      '0', 'save_struct');
  
 # Test for load_struct($self, $course)
@@ -433,10 +433,9 @@ my $expect_corpus = {
     }
 };
 
-use Data::Printer;
-$number_of_tests_run++;
 $got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_files, $test_modul_meta_struct->{meta}->{corpora});
 #p $got;
+$number_of_tests_run++;
 is_deeply($got, $expect_corpus, 'create_public_corpus');
 
 # Test for update_public_struct($self)

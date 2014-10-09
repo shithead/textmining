@@ -118,6 +118,7 @@ use Mojo::Util qw(encode decode camelize);
 use Textmining::Plugin::StructureHelper::Transform;
 use Textmining::Plugin::StructureHelper::Course;
 use Textmining::Plugin::StructureHelper::Corpus;
+use Storable qw(store_fd fd_retrieve);
 use File::Path qw(remove_tree make_path);
 use File::Basename;
 
@@ -214,6 +215,24 @@ sub _get_files ($) {
     return @o_files;
 }
 
+sub _store($$) {
+    my $data        =   shift;
+    my $location    =   shift;
+
+    open  my $FH , ">", $location;
+    store_fd \$data, $FH || return undef;
+    close $FH;
+}
+
+sub _retrieve($) {
+    my $location    = shift;
+
+    open  my $FH , "<", $location;
+    my $data = fd_retrieve($FH) || return undef;
+    close $FH;
+    return ${$data};
+}
+
 sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
@@ -242,28 +261,32 @@ sub save_struct ($$$) {
     my $self = shift;
     my ($location, $meta_struct) = @_;
 
-    $location = join('/', $location, ".meta.json");
+    $location = join('/', $location, ".meta");
 
     my $json_bytes = $self->hash_to_json($meta_struct);
 
-    open  my $FH , ">:encoding(UTF-8)", $location
-            or $self->{log}->error("file $location not opened") and return undef;
-    print $FH $json_bytes;
-    close $FH;
+    unless (defined &_store($json_bytes, $location)){
+#    open  my $FH , ">:encoding(UTF-8)", $location
+        $self->{log}->error("file $location not opened");
+        return undef;
+#    print $FH $json_bytes;
+#    close $FH;
+    }
 }
 
 sub load_struct ($$) {
     my $self        = shift;
     my $location    = shift || scalar $self->get_public_path;
 
-    $location       = join('/', $location, ".meta.json");
+    $location       = join('/', $location, ".meta");
     if (&_exists_check($location)) {
         $self->{log}->warn("file $location not exists");
         return undef;
     }
 
-    my $file        = Mojo::Asset::File->new( path => $location);
-    my $meta_struct = $self->json_to_hash($file->get_chunk(0));
+    #my $file        = Mojo::Asset::File->new( path => $location);
+    #my $meta_struct = $self->json_to_hash($file->get_chunk(0));
+    my $meta_struct = $self->json_to_hash(&_retrieve($location));
     return $meta_struct;
 }
 
@@ -465,19 +488,20 @@ sub init_public_course ($$) {
             );
 
         $modul_struct->{pages} =
-        $self->create_public_pages(
-                $modul_pages,
-                \@chapter_dirs );
+                $self->create_public_pages(
+                        $modul_pages,
+                        \@chapter_dirs );
 
         # XXX corpus ab hier verarbeitbar
         #use Data::Printer;
         #p $modul_struct;
         #p $course_meta_struct;
-        $self->create_public_corpus(
-            $corpus->{path},
-            $corpus->{files},
-            $modul_struct->{meta}->{corpora}
-        );
+        my $corpora_struct = $self->create_public_corpus(
+                $corpus->{path},
+                $corpus->{files},
+                $modul_struct->{meta}->{corpora}
+            );
+            #save data from struct 
         $course_meta_struct->{$modul_struct->{meta}->{title}} = $modul_struct;
     }
     $self->save_struct($dest, $course_meta_struct);
