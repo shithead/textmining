@@ -133,14 +133,15 @@ sub count_corpus ($$$$) {
     for my $line (split '\n', $corpus) {
         for my $key (keys $tokens) {
             if ( $line =~ $tokens->{$key}) {
-                push @{$words->{$key}}, $1; 
+                push @{$words->{$key}}, $1;
             }
         }
     }
 
     my @ngrams_freq;
     my @windows = (0);
-    @windows = qw(0 2 3 4 5 6 7 8 9 10) if ($ngram > 1);
+    #@windows = qw(0 2 3 4 5 6 7 8 9 10) if ($ngram > 1);
+    @windows = qw(0 2 3 4 5) if ($ngram > 1);
     for my $window_size (values @windows) {
         my $permu = $count->get_permu( $window_size - 1,
             $ngram - 1
@@ -235,18 +236,19 @@ sub get_corpus ($$$$) {
     my @corpus_docs =    $self->get_corpus_docs($dir, $files);
     my $hash;
     my @file_list = (sort values $files);
+
     foreach my $doc (values @corpus_docs) {
         my $file = shift @file_list;
         $file = fileparse($file);
-        my $suffix = $1 if ($file =~ qr/\.([^\.]+)$/); 
+        my $suffix = $1 if ($file =~ qr/\.([^\.]+)$/);
 
         #extract_corpus from document
         my $corpus;
         if  ($suffix =~ /vrt/) {
-            $corpus = $self->extract_corpus($doc, '/text/body' );
-        } 
+            $corpus = $self->extract_corpus($doc, '//text/body' );
+        }
         #get meta structure (filled) from doc
-        my $m_s = $self->get_metastruct($doc, '/text');
+        my $m_s = $self->get_metastruct($doc, '//text');
         $m_s->{fpath} = $suffix;
 
         my @counts = $self->count_corpus($corpus, $suffix, $type);

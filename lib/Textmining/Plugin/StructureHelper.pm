@@ -495,7 +495,6 @@ sub init_public_course ($$) {
                         $modul_pages,
                         \@chapter_dirs );
 
-        use Data::Printer;
         #p $modul_struct;
         if (defined $modul_struct->{meta}->{corpora})  {
             my $corpora_data = $self->create_public_corpus(
@@ -599,9 +598,10 @@ sub create_public_corpus ($$$) {
         if (-f join('/', $dir, $corpus_file) ){
             push @corpus_files, $corpus_file;
         } else { # or a directory
-            @corpus_files = &_get_files(join('/', $dir, $corpus_file));
+            my @files = &_get_files(join('/', $dir, $corpus_file));
             # XXX warn message no corpus found
-            next unless @corpus_files;
+            next unless @files;
+            push @corpus_files, join('/', $corpus_file, $_ ) foreach (@files);
         }
         my $filter = $corpora->{$corpus_id}->{parts};
         $filter = [split ',', $filter] if (defined $filter);
@@ -628,7 +628,7 @@ sub create_public_corpus ($$$) {
         my $corpus_data = $self->{corpus}->get_corpus(
                 $dir, \@corpus_files, $filter, $type
                 );
-                
+
         $corpus_data = $self->{corpus}->compare_corpus($corpus_data)
                 if ($type == $self->{corpus}->keywords);
         $corpus_data = $self->{corpus}->collocation_corpus($corpus_data, $type)

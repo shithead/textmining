@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" 
+<xsl:stylesheet version="1.0"
     xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     exclude-result-prefixes="tei">
@@ -70,9 +70,14 @@
                              <xsl:variable name="path">
                                  <xsl:value-of select="text()"/>
                              </xsl:variable>
-                             <xsl:if test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
+                             <xsl:choose>
+                             <xsl:when test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
                                  <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
-                             </xsl:if>
+                             </xsl:when>
+                             <xsl:otherwise>
+                                 <xsl:message>library: <xsl:value-of select="$path"/> not found</xsl:message>
+                             </xsl:otherwise>
+                         </xsl:choose>
                      </xsl:for-each>
                  </xsl:when>
                  <xsl:otherwise>
@@ -81,16 +86,20 @@
                              <xsl:variable name="path">
                                  <xsl:value-of select="text()"/>
                              </xsl:variable>
-                             <xsl:if test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
+                             <xsl:choose>
+                             <xsl:when test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
                                  <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
-                             </xsl:if>
+                             </xsl:when>
+                             <xsl:otherwise>
+                                 <xsl:message>library: <xsl:value-of select="$path"/> not found</xsl:message>
+                             </xsl:otherwise>
+                         </xsl:choose>
                      </xsl:for-each>
                  </xsl:otherwise>
              </xsl:choose>
          </xsl:variable>
          <bib class="message" id="{$id}" page="{@page}">
              <span>
-
                  <a class="css-truncate css-truncate-target" title="{$library_content}">
                      <xsl:value-of select="$bibo"/>
                  </a>
@@ -108,13 +117,17 @@
          <xsl:apply-templates select="question | answer"/>
      </xsl:template>
 
-     <xsl:template match="corpus">
+     <xsl:template match="collocation">
+         <xsl:call-template name="corpus"/>
+     </xsl:template>
+
+     <xsl:template match="corpus" name='corpus' >
          <div class="well bs-component">
              <form class="form-horizontal">
                  <fieldset>
                      <div class="form-group">
                          <label class="col-lg-2 control-label" for="select">
-                             <xsl:text> Fenstergröße </xsl:text>
+                             <xsl:text> Windowsize </xsl:text>
                          </label>
                          <div class="col-lg-2">
                              <select id="select" class="form-control">
@@ -144,11 +157,11 @@
                      </div>
                      <div class="form-group">
                          <label class="col-lg-2 control-label" for="select">
-                             <xsl:text> Wortsuche basierend auf </xsl:text>
+                             <xsl:text> Word searching based on </xsl:text>
                          </label>
                          <div class="col-lg-2">
                              <select id="select" class="form-control">
-                                 <option value="wortforms" ><xsl:text>Wortform</xsl:text></option>
+                                 <option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
                                  <option value="lemma" ><xsl:text>Lemma</xsl:text></option>
                                  <option value="pos"   ><xsl:text>POS</xsl:text></option>
                              </select>
@@ -157,7 +170,7 @@
                      <xsl:if test="frequence[@node='enable']">
                          <div class="form-group">
                              <label class="col-lg-2 control-label" for="select">
-                                 <xsl:text> mind. Frequenz des Suchwortes </xsl:text>
+                                 <xsl:text> min. frequency of searching word </xsl:text>
                              </label>
                              <div class="col-lg-2">
                                  <input type="text" id="inputminnode" class="form-control"/>
@@ -167,7 +180,7 @@
                      <xsl:if test="frequence[@collocate='enable']">
                          <div class="form-group">
                              <label class="col-lg-2 control-label" for="select">
-                                 <xsl:text> mind. Frequenz des Kollokators </xsl:text>
+                                 <xsl:text> min. frequency of collocate </xsl:text>
                              </label>
                              <div class="col-lg-2">
                                  <input type="text" id="inputmincollocator" class="form-control"/>
@@ -181,7 +194,7 @@
                          <div class="col-lg-2">
                              <select id="select" class="form-control">
                                  <xsl:if test="statistic/@chi">
-                                     <option value="chi" ><xsl:text>Chi-Quadrat</xsl:text></option>
+                                     <option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@dice">
                                      <option value="dice">
@@ -190,7 +203,7 @@
                                  </xsl:if>
                                  <xsl:if test="statistic/@frequence">
                                      <option value="frequence" >
-                                         <xsl:text>sortiert nach Frequenz</xsl:text>
+                                         <xsl:text>sort on frequency</xsl:text>
                                      </option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@llr">
@@ -218,12 +231,12 @@
                                          <xsl:text>Z-Score (not supported) </xsl:text>
                                      </option>
                                  </xsl:if>
-                             </select>           
+                             </select>
                          </div>
                      </div>
                      <div class="form-group">
                          <label class="col-lg-2 control-label" for="select">
-                             <xsl:text> Ein Suchwort </xsl:text>
+                             <xsl:text> search word (only one) </xsl:text>
                          </label>
                          <div class="col-lg-2">
                              <input type="text" id="inputDefault" class="form-control"/>
@@ -268,7 +281,7 @@
      </xsl:template>
 
      <xsl:template match="exercise">
-         <xsl:apply-templates select="ctext | corpus"/>
+         <xsl:apply-templates select="ctext | collocation | keywords"/>
          <!-- <xsl:if test="ctest=current()">
          <xsl:call-template name="ctext"/>
      </xsl:if>
@@ -301,6 +314,10 @@
 
      <xsl:template match="img">
          <img src="{@src}"></img>
+     </xsl:template>
+
+     <xsl:template match="keywords">
+         <xsl:call-template name="corpus"/>
      </xsl:template>
 
      <xsl:template match="kursiv">
@@ -350,7 +367,7 @@
                                  <xsl:for-each select="ctext">
                                      <option><xsl:apply-templates select="current()"/></option>
                                  </xsl:for-each>
-                             </select>           
+                             </select>
                          </xsl:when>
                          <xsl:otherwise>  <input type="text" id="inputDefault" class="form-control"/>
                          </xsl:otherwise>
@@ -474,7 +491,9 @@
      </xsl:template>
 
      <xsl:template match="quantity">
-         <xsl:value-of select="text()"/>
+         <i>
+            <xsl:value-of select="text()"/>
+         </i>
      </xsl:template>
 
      <xsl:template match="question">

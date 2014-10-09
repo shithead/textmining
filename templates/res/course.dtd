@@ -17,15 +17,15 @@
 
 <!ELEMENT check ( question, answer )+ >
 
-<!ELEMENT collocate ( range, frequence, statistic ) >
-<!ATTLIST collocate href CDATA #REQUIRED >
+<!ELEMENT collocation ( range, frequence, statistic ) >
+<!ATTLIST collocation href CDATA #REQUIRED >
 
 <!ELEMENT corpora ( corpus ) >
 
 <!ELEMENT corpus ( #PCDATA ) >
 <!ATTLIST corpus id ID #REQUIRED >
 <!ATTLIST corpus parts CDATA #IMPLIED >
-<!ATTLIST corpus type ( collocate | keywords ) #REQUIRED >
+<!ATTLIST corpus type ( collocation | keywords ) #REQUIRED >
 
 <!ELEMENT course ( meta, module ) >
 
@@ -33,24 +33,27 @@
 
 <!ELEMENT date ( #PCDATA ) >
 
-<!ELEMENT details ( #PCDATA ) >
+<!ELEMENT details ( p | list )* >
 
 <!ELEMENT emph ( #PCDATA ) >
 
-<!ELEMENT exercise ( ctext+ | collocate | keywords ) >
+<!ELEMENT exercise ( ctext+ | collocation | keywords ) >
 
 <!ELEMENT foreign ( #PCDATA ) >
 
 <!ELEMENT frequence EMPTY >
 <!ATTLIST frequence node ( enable | disable ) #REQUIRED >
-<!ATTLIST frequence collocate ( enable | disable ) #REQUIRED >
-<!ATTLIST frequence keywords ( enable | disable ) #REQUIRED >
+<!ATTLIST frequence collocate ( enable | disable ) #IMPLIED >
+<!ATTLIST frequence keywords ( enable | disable ) #IMPLIED >
 
 <!ELEMENT h1 ( #PCDATA | term )* >
+<!ATTLIST h1 id ID #IMPLIED >
 
 <!ELEMENT h2 ( #PCDATA | term )* >
+<!ATTLIST h2 id ID #IMPLIED >
 
 <!ELEMENT h3 ( #PCDATA | term )* >
+<!ATTLIST h3 id ID #IMPLIED >
 
 <!ELEMENT img ( #PCDATA ) >
 <!ATTLIST img src CDATA #REQUIRED >
@@ -59,6 +62,8 @@
 <!ATTLIST keywords href CDATA #REQUIRED >
 
 <!ELEMENT kursiv ( #PCDATA ) >
+
+<!ELEMENT language ( #PCDATA ) >
 
 <!ELEMENT li ( #PCDATA | bib | emph | foreign | img | kursiv | person | url | term )* >
 <!ATTLIST li type ( details | exercise ) #IMPLIED >
@@ -70,7 +75,7 @@
 <!ELEMENT list ( li )+ >
 <!ATTLIST list type ( ordered ) #IMPLIED >
 
-<!ELEMENT meta ( title+ | version+ | date+ |  authors+ | libraries+ | corpora+ ) >
+<!ELEMENT meta ( title, version, date, language*, authors, libraries*, corpora* ) >
 
 <!ELEMENT module ( meta, chapter+ ) >
 <!ATTLIST module id ID #REQUIRED >
@@ -80,7 +85,7 @@
 <!ELEMENT p ( #PCDATA | bib | details | emph | foreign | img | kursiv | person | quantity | url | term )* >
 <!ATTLIST p type ( details | example | quote ) #IMPLIED >
 
-<!ELEMENT page ( check | exercise | h1 | h2 | h3 | img | list | p )* >
+<!ELEMENT page ( check | details | exercise | h1 | h2 | h3 | img | list | p )* >
 
 <!ELEMENT person ( #PCDATA | person )* >
 <!ATTLIST person name CDATA #REQUIRED >
