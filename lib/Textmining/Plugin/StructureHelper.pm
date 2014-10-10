@@ -136,8 +136,8 @@ sub init ($$) {
     my ($self, $app) = @_;
     $self->{log}    = $app->log;
     $self->{_path}  = $app->config->{path};
-    $self->{_data_struct} = $self->load_struct($self->get_data_path) || {};
-    $self->{_public_struct} = $self->load_struct($self->get_public_path) || {};
+    $self->{_data_struct} = $self->load_struct($self->get_data_path()) || {};
+    $self->{_public_struct} = $self->load_struct($self->get_public_path()) || {};
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new->init($app);
 
     $self->{course} = Textmining::Plugin::StructureHelper::Course->new->init($app); 
@@ -278,7 +278,7 @@ sub save_struct ($$$) {
 
 sub load_struct ($$) {
     my $self        = shift;
-    my $location    = shift || scalar $self->get_public_path;
+    my $location    = shift || scalar $self->get_public_path();
 
     $location       = join('/', $location, ".meta");
     if (&_exists_check($location)) {
@@ -437,13 +437,16 @@ sub get_data_corpus ($$) {
 
 sub get_public_path ($) {
     my $self = shift;
+    my $course  =   shift || undef;
+
+    return join('/', $self->get_public_path(), $course) if (defined $course);
     return $self->{_path}->{public};
 }
 
 sub init_public_course ($$) {
     my ($self, $course) = @_;
 
-    my $dest    = join('/', $self->get_public_path, $course);
+    my $dest    = join('/', $self->get_public_path(), $course);
     my $modul   = $self->get_data_modul($course);
     my $library = $self->get_data_library($course);
     my $corpus  = $self->get_data_corpus($course);
@@ -664,7 +667,7 @@ sub rm_public_path ($$) {
 sub create_public_path ($$) {
     my ($self, $suffix) = @_;
 
-    my $dir          = join('/', $self->get_public_path, $suffix);
+    my $dir          = join('/', $self->get_public_path(), $suffix);
     make_path($dir, {error => \my $err});
 
     if (@{$err}) {
@@ -677,21 +680,23 @@ sub update_public_struct ($) {
     my $self = shift;
     my $hash = {} ;
 
-    $hash = &_tree($self->get_public_path);
+    $hash = &_tree($self->get_public_path());
 
     undef $self->{_public_struct};
     $self->{_public_struct} = $hash;
-    $self->save_struct($self->get_public_path, $hash);
+    $self->save_struct($self->get_public_path(), $hash);
 }
 
-sub get_public_struct ($) {
+sub get_public_struct ($$) {
     my $self    = shift;
+    my $course  = shift || undef;
 
-    $self->update_public_struct unless (keys $self->{_public_struct});
+    return $self->load_struct($self->get_public_path($course)) if (defined $course);
+    $self->update_public_struct() unless (keys $self->{_public_struct});
     return $self->{_public_struct};
 }
 
-sub get_public_modul_struct ($$) {
+sub get_public_course_struct ($$) {
     my $self    = shift;
     my $course  = shift || return undef;
 

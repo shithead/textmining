@@ -11,18 +11,22 @@
                 <th>#</th>
                 <th>Kurs</th>
                 <th>Modul</th>
+                <th>Author</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         % my $nr = 1;
         % for my $course (keys $table) {
-        %   for my $modul (keys $table->{$course}->{module}) {
+        %   my $author = join(', ', @{$meta->{$course}->{authors}})
+        %           if (defined $meta->{$course}->{authors});
+        %   for my $module (keys $table->{$course}->{module}) {
         <tr>
          <td><%= $nr %></td>
          <td><%= $course %></td>
-         <td><%= $modul %></td>
-         <td><a href="course/modul?course=<%= $course %>&modul=<%= $modul %>">
+         <td><%= $module %></td>
+         <td><%= $author %></td>
+         <td><a href="course/modul?course=<%= $course %>&modul=<%= $module %>">
              <button type="button" class="btn btn-default btn-xs">Start</button>
          </a></td>
         </tr>

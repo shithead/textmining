@@ -1,42 +1,56 @@
 <!-- vim:ft=html -->
 % layout 'modul-navbar';
 % title $modul;
-<div class="col-sm-2">
-    <div class="progress progress-striped">
-        % my $progress = ($pagenr / @{$page_path}) * 100;
-        <div class="progress-bar progress-bar-info" style="width: <%= $progress %>%"></div>
+<div>
+    <div class="col-sm-2">
+        <div class="progress progress-striped">
+            % my $progress = ($pagenr / @{$page_path}) * 100;
+            <div class="progress-bar progress-bar-info" style="width: <%= $progress %>%"></div>
+        </div>
+        <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
+            % my $it=0;
+            % for my $nav (values $navbar) {
+            %   my ($curtext) = keys $nav;
+            %   my ($curnr) = values $nav;
+            %   my $nextnr = $curnr;
+            %   if ( defined $navbar->[$it+1]) {
+            %       ($nextnr) = values $navbar->[$it+1];
+            %   } else {
+            %       $nextnr = @{$page_path};
+            %   }
+            %   if ( $pagenr >= $curnr and $pagenr < $nextnr) {
+            <li class="active">
+            <a  href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
+            %   } else {
+            <li>
+            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
+            %   }
+            </li>
+            %   $it++;
+            % }
+        </ul>
     </div>
-    <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-        % my $it=0;
-        % for my $nav (values $navbar) {
-        %   my ($curtext) = keys $nav;
-        %   my ($curnr) = values $nav;
-        %   my $nextnr = $curnr;
-        %   if ( defined $navbar->[$it+1]) {
-        %       ($nextnr) = values $navbar->[$it+1];
-        %   } else {
-        %       $nextnr = @{$page_path};
-        %   }
-        %   if ( $pagenr >= $curnr and $pagenr < $nextnr) {
-        <li class="active">
-        <a  href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
-        %   } else {
-        <li>
-        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
-        %   }
-        </li>
-        %   $it++;
-        % }
-    </ul>
-</div>
-<div class="bs-component col-lg-9">
-    <ul class="pager">
-        <li class="previous">
-        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
-        </li>
-        <li class="next">
-        <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr + 1 %>">Nächste →</a>
-        </li>
-    </ul>
-    <%= $page %>
+    <div class="bs-component col-lg-9">
+        <ul class="pager">
+            <li class="previous">
+            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
+            </li>
+            <li class="next">
+            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr + 1 %>">Nächste →</a>
+            </li>
+        </ul>
+        <%= $page %>
+    </div>
+    % my $author = join('/', values $meta->{authors});
+    % my $version = $meta->{version};
+    % my $datum = $meta->{date};
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <small>
+                    <p>Autor/in dieses Moduls: <%= $author %>, Version: <%= $version %>, Datum: <%= $datum %> </p>
+                </small>
+            </div>
+        </div>
+    </footer>
 </div>
