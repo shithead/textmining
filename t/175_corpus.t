@@ -133,7 +133,7 @@ tithe	LO	tithe
 my $got = $test_corpus->get_corpus_docs( $test_dir, $test_files );
 
 $number_of_tests_run++;
-like(ref $got, qr/ARRAY/, 'get_corpus_docs return ARRAY');
+isa_ok($got, 'ARRAY');
 
 $number_of_tests_run++;
 is(@{$got}, 1,  'get_corpus_docs return one element');
@@ -145,7 +145,7 @@ is($got->[0], $expect_doc_content, 'get_corpus_docs is Document');
 # Test for get_metastruct
 my $test_docs = $got;
 # create test hash
-my $expect_hash = {
+my $expect_meta_struct = {
     author  => "Blablub",
     corpus  => {
         token => {},
@@ -166,16 +166,17 @@ my $expect_hash = {
 };
 
 $number_of_tests_run++;
+
 undef $got;
-$got = $test_corpus->get_metastruct($test_docs->[0], '/text');
-is_deeply($got, $expect_hash, 'get_metastruct' );
+$got = $test_corpus->get_metastruct($test_docs->[0], '//text');
+is_deeply($got, $expect_meta_struct, 'get_metastruct' );
 
 # Test for extract_corpus
 # TODO More tests;
 $number_of_tests_run++;
-undef $got;
 
-$got = $test_corpus->extract_corpus($test_docs->[0], '/text/body' );
+undef $got;
+$got = $test_corpus->extract_corpus($test_docs->[0], '//text/body' );
 ok(length($got) > 0, 'extract_corpus');
 
 # Test for calc_corpus
@@ -229,6 +230,7 @@ my @expect_freq_array = (
         }
     }
 );
+
 undef $got;
 $number_of_tests_run++;
 $got = $test_corpus->count_corpus($test_extract_corpus, 'vrt', $test_corpus->keywords);
@@ -237,7 +239,6 @@ is_deeply($got, \@expect_freq_array, 'count_corpus');
 
 # Test for get_corpus
 # prepare expect
-undef $expect_hash;
 my $expect_freq_hash = {
     id => {
         foobarid => {
@@ -398,6 +399,7 @@ $expect_collocation_freq_hash->{id}->{foobarid}->{corpus}->{statistic} =
         $expect_ngram_stat;
 
 $number_of_tests_run++;
+undef $got;
 $got = $test_corpus->collocation_corpus(
         $test_freq_hash,
         $test_corpus->collocation

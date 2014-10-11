@@ -140,10 +140,11 @@ sub count_corpus ($$$$) {
 
     my @ngrams_freq;
     my @windows = (0);
-    #@windows = qw(0 2 3 4 5 6 7 8 9 10) if ($ngram > 1);
-    @windows = qw(0 2 3 4 5) if ($ngram > 1);
+    @windows = qw(0 2 3 4 5 6 7 8 9 10) if ($ngram > 1);
+    #@windows = qw(1 2 3 4 5) if ($ngram > 1);
     for my $window_size (values @windows) {
-        my $permu = $count->get_permu( $window_size - 1,
+        my $permu = $count->get_permu(
+            $window_size - 1,
             $ngram - 1
         );
 
@@ -155,7 +156,7 @@ sub count_corpus ($$$$) {
                     $_,
                     $window_size,
                     $ngram
-                ) } foreach ( values $words->{$key});
+                ) } foreach (values $words->{$key});
             $count->clearup();
             $count->calc_freq_combo($ngram);
 

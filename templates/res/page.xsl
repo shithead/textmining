@@ -118,19 +118,22 @@
      </xsl:template>
 
      <xsl:template match="collocation">
-         <xsl:call-template name="corpus"/>
+         <xsl:call-template name="corpus">
+            <xsl:with-param name="corpus" select="@href"/>
+         </xsl:call-template>
      </xsl:template>
 
      <xsl:template match="corpus" name='corpus' >
+         <xsl:param name="corpus" select="@href"/>
          <div class="well bs-component">
              <form class="form-horizontal">
                  <fieldset>
                      <div class="form-group">
-                         <label class="col-lg-2 control-label" for="select">
+                         <label class="col-lg-3 control-label" for="select">
                              <xsl:text> Windowsize </xsl:text>
                          </label>
-                         <div class="col-lg-2">
-                             <select id="select" class="form-control">
+                         <div class="col-lg-3">
+                             <select id="select_ws_one" class="form-control">
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="end" select="0"/>
                                      <xsl:with-param name="id" select="'one'"/>
@@ -142,8 +145,8 @@
                              </select>
                          </div>
                          <!-- seconde -->
-                         <div class="col-lg-2">
-                             <select id="select" class="form-control">
+                         <div class="col-lg-3">
+                             <select id="select_ws_two" class="form-control">
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="end" select="0"/>
                                      <xsl:with-param name="id" select="'two'"/>
@@ -156,11 +159,11 @@
                          </div>
                      </div>
                      <div class="form-group">
-                         <label class="col-lg-2 control-label" for="select">
+                         <label class="col-lg-3 control-label" for="select">
                              <xsl:text> Word searching based on </xsl:text>
                          </label>
-                         <div class="col-lg-2">
-                             <select id="select" class="form-control">
+                         <div class="col-lg-3">
+                             <select id="selectsearchfor" class="form-control">
                                  <option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
                                  <option value="lemma" ><xsl:text>Lemma</xsl:text></option>
                                  <option value="pos"   ><xsl:text>POS</xsl:text></option>
@@ -169,29 +172,29 @@
                      </div>
                      <xsl:if test="frequence[@node='enable']">
                          <div class="form-group">
-                             <label class="col-lg-2 control-label" for="select">
+                             <label class="col-lg-3 control-label" for="select">
                                  <xsl:text> min. frequency of searching word </xsl:text>
                              </label>
-                             <div class="col-lg-2">
+                             <div class="col-lg-3">
                                  <input type="text" id="inputminnode" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
                      <xsl:if test="frequence[@collocate='enable']">
                          <div class="form-group">
-                             <label class="col-lg-2 control-label" for="select">
+                             <label class="col-lg-3 control-label" for="select">
                                  <xsl:text> min. frequency of collocate </xsl:text>
                              </label>
-                             <div class="col-lg-2">
+                             <div class="col-lg-3">
                                  <input type="text" id="inputmincollocator" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
                      <div class="form-group">
-                         <label class="col-lg-2 control-label" for="select">
+                         <label class="col-lg-3 control-label" for="select">
                              <xsl:text> Signifikanzmaß </xsl:text>
                          </label>
-                         <div class="col-lg-2">
+                         <div class="col-lg-3">
                              <select id="select" class="form-control">
                                  <xsl:if test="statistic/@chi">
                                      <option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
@@ -235,15 +238,20 @@
                          </div>
                      </div>
                      <div class="form-group">
-                         <label class="col-lg-2 control-label" for="select">
+                         <label class="col-lg-3 control-label" for="select">
                              <xsl:text> search word (only one) </xsl:text>
                          </label>
-                         <div class="col-lg-2">
+                         <div class="col-lg-3">
                              <input type="text" id="inputDefault" class="form-control"/>
                          </div>
                      </div>
                      <div class="col-lg-10 col-lg-offset-2">
-                         <button class="btn btn-primary" type="submit">Submit</button>
+                         <div class="col-sm-4">
+                             <button class="btn btn-primary" formaction="corpus?corpus={$corpus}" type="submit">Submit</button>
+                         </div>
+                         <div class="col-sm-4">
+                             <button class="btn btn-primary" type="reset">Reset</button>
+                         </div>
                      </div>
                  </fieldset>
              </form>
