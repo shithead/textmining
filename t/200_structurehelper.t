@@ -524,14 +524,14 @@ $number_of_tests_run++;
 is_deeply($test_structhelper->get_public_struct(), 
     $expect_public_meta_struct, 'get_public_struct');
 
-# Test for get_public_modul_struct($self,$course)
+# Test for get_public_course_struct($self,$course)
 $number_of_tests_run++;
-is_deeply($test_structhelper->get_public_modul_struct('test_course'), 
-    $expect_public_meta_struct->{test_course}, 'get_public_modul_struct with defined $course');
+is_deeply($test_structhelper->get_public_course_struct('test_course'), 
+    $expect_public_meta_struct->{test_course}, 'get_public_course_struct with defined $course');
 
 $number_of_tests_run++;
-is($test_structhelper->get_public_modul_struct(), 
-    undef, 'get_public_modul_struct with undefined $course');
+is($test_structhelper->get_public_course_struct(), 
+    undef, 'get_public_course_struct with undefined $course');
 
 # Test for get_public_page_path($self, $course_struct, $modul)
 # prepare test data
