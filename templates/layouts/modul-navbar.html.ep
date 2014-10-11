@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de-de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title> Modul - <%= title %> </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/bootstrap.min.css" media="screen">
+</head>
+  <body style="zoom: 1;">
+<!-- Navbar
+      ================================================== -->
+<div class="container">
+    <div class="bs-component">
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-responsive-collapse">
+                </button>
+                <a class="navbar-brand" href="/#">Text<strong>Mining</strong></a>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse-collapse">
+                <form class="navbar-form navbar-right">
+                    <input class="form-control col-lg-8" placeholder="Search" type="text">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="bs-component">
+        <%= content %>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <small>
+                        <p><a rel="nofollow" href="http://www.tu-dresden.de">Technische Universität Dresden</a>, <a rel="nofollow" href="http://linguistik.zih.tu-dresden.de">Dresden Center for Digital Linguistics</a>,</p>
+                        <p>Inhalte und Code unterstehen folgender Lizenz: <a rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+                        <p>Gefördert durch Mittel des <a rel="nofollow" href="http://www.escience-sachsen.de">eScience-Forschungsnetzwerkes Sachsen</a>
+                        und des <a rel="nofollow" href="https://www.hds.uni-leipzig.de">Hochschuldidaktischen Zentrums Sachsen</a></p>
+                    </small>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="../js/jquery-1.js"></script>
+<script src="../js/bootstrap.js"></script>
+</body>
+</html>

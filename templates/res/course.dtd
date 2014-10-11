@@ -1,0 +1,120 @@
+<!ELEMENT action ( ctext | url )+ >
+
+<!ELEMENT answer ( option )+ >
+<!ATTLIST answer type ( form | radio )  #IMPLIED >
+
+<!ELEMENT author ( #PCDATA ) >
+
+<!ELEMENT authors ( author+ ) >
+
+<!ELEMENT bib ( #PCDATA | person )* >
+<!ATTLIST bib id CDATA #REQUIRED >
+<!ATTLIST bib page CDATA #IMPLIED>
+
+<!ELEMENT chapter ( page+ ) >
+<!ATTLIST chapter id ID #REQUIRED >
+<!ATTLIST chapter type NMTOKEN #IMPLIED >
+
+<!ELEMENT check ( question, answer )+ >
+
+<!ELEMENT collocation ( range, frequence, statistic ) >
+<!ATTLIST collocation href CDATA #REQUIRED >
+
+<!ELEMENT corpora ( corpus ) >
+
+<!ELEMENT corpus ( #PCDATA ) >
+<!ATTLIST corpus id ID #REQUIRED >
+<!ATTLIST corpus parts CDATA #IMPLIED >
+<!ATTLIST corpus type ( collocation | keywords ) #REQUIRED >
+
+<!ELEMENT course ( meta, module ) >
+
+<!ELEMENT ctext ( #PCDATA | list | p | term )* >
+
+<!ELEMENT date ( #PCDATA ) >
+
+<!ELEMENT details ( p | list )* >
+
+<!ELEMENT emph ( #PCDATA ) >
+
+<!ELEMENT exercise ( ctext+ | collocation | keywords ) >
+
+<!ELEMENT foreign ( #PCDATA ) >
+
+<!ELEMENT frequence EMPTY >
+<!ATTLIST frequence node ( enable | disable ) #REQUIRED >
+<!ATTLIST frequence collocate ( enable | disable ) #IMPLIED >
+<!ATTLIST frequence keywords ( enable | disable ) #IMPLIED >
+
+<!ELEMENT h1 ( #PCDATA | term )* >
+<!ATTLIST h1 id ID #IMPLIED >
+
+<!ELEMENT h2 ( #PCDATA | term )* >
+<!ATTLIST h2 id ID #IMPLIED >
+
+<!ELEMENT h3 ( #PCDATA | term )* >
+<!ATTLIST h3 id ID #IMPLIED >
+
+<!ELEMENT img ( #PCDATA ) >
+<!ATTLIST img src CDATA #REQUIRED >
+
+<!ELEMENT keywords ( range, frequence, statistic ) >
+<!ATTLIST keywords href CDATA #REQUIRED >
+
+<!ELEMENT kursiv ( #PCDATA ) >
+
+<!ELEMENT language ( #PCDATA ) >
+
+<!ELEMENT li ( #PCDATA | bib | emph | foreign | img | kursiv | person | url | term )* >
+<!ATTLIST li type ( details | exercise ) #IMPLIED >
+
+<!ELEMENT libraries ( library+ ) >
+
+<!ELEMENT library ( #PCDATA ) >
+
+<!ELEMENT list ( li )+ >
+<!ATTLIST list type ( ordered ) #IMPLIED >
+
+<!ELEMENT meta ( title, version, date, language*, authors, libraries*, corpora* ) >
+
+<!ELEMENT module ( meta, chapter+ ) >
+<!ATTLIST module id ID #REQUIRED >
+
+<!ELEMENT option ( ctext, action+ ) >
+
+<!ELEMENT p ( #PCDATA | bib | details | emph | foreign | img | kursiv | person | quantity | url | term )* >
+<!ATTLIST p type ( details | example | quote ) #IMPLIED >
+
+<!ELEMENT page ( check | details | exercise | h1 | h2 | h3 | img | list | p )* >
+
+<!ELEMENT person ( #PCDATA | person )* >
+<!ATTLIST person name CDATA #REQUIRED >
+
+<!ELEMENT range EMPTY >
+<!ATTLIST range from CDATA #REQUIRED >
+<!ATTLIST range to CDATA #REQUIRED >
+<!ATTLIST range standard CDATA #IMPLIED >
+
+<!ELEMENT statistic EMPTY >
+<!ATTLIST statistic chi CDATA #IMPLIED  >
+<!ATTLIST statistic dice CDATA #IMPLIED  >
+<!ATTLIST statistic frequence CDATA #IMPLIED  >
+<!ATTLIST statistic llr CDATA #IMPLIED  >
+<!ATTLIST statistic mi CDATA #IMPLIED  >
+<!ATTLIST statistic mi3 CDATA #IMPLIED  >
+<!ATTLIST statistic tscore CDATA #IMPLIED  >
+<!ATTLIST statistic zscore CDATA #IMPLIED  >
+
+<!ELEMENT term ( #PCDATA | emph | foreign | kursiv )* >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT quantity ( #PCDATA ) >
+
+<!ELEMENT question ( ctext ) >
+
+<!ELEMENT url ( #PCDATA ) >
+<!ATTLIST url href CDATA #REQUIRED >
+
+<!ELEMENT version ( #PCDATA ) >
+

@@ -1,0 +1,52 @@
+<!-- vim:ft=html -->
+% layout 'default';
+% title 'Board';
+<div class="page-header">
+    <h2><%= title %></h2>
+</div>
+<div class="container-fluid">
+    <form><button type="submit" class="btn btn-default btn-xs" formmethod="post" formaction="admin?update=1">
+            Update
+    </button></form>
+</div>
+<div class="bs-component">
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Kurs</th>
+                <th></th>
+                <th></th>
+                <th>HTML Typ</th>
+            </tr>
+        </thead>
+        <tbody>
+        % my $nr = 1;
+        % foreach my $course (values $courses) {
+        <tr>
+            <td><%= $nr %></td>
+            <td><%= $course %></td>
+            <td></td>
+            <td>
+                <form><button type="submit" class="btn btn-default btn-xs" formmethod="post" formaction="admin/open?course=<%= $course %>">
+                        Freigabe
+                </button></form>
+            </td>
+            <td>
+                <form>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default btn-xs" formmethod="post" formaction="admin/course?course=<%= $course %>&type=dyn">
+                            dynamisch
+                        </button>
+                        <button type="submit" class="btn btn-default btn-xs"  formmethod="post" formaction="admin/course?course=<%= $course %>&type=stat">
+                            statisch
+                        </button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        % $nr++;
+        % }
+        </tbody>
+    </table> 
+</div>

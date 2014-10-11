@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+require 5.016;
+
+use strict;
+use warnings;
+use FindBin;
+BEGIN {
+    unshift @INC, "$FindBin::Bin/../lib",
+    push @INC, "$FindBin::Bin/../ext_lib",
+    push @INC, "$FindBin::Bin/../ext_lib/mach" }
+
+# Start command line interface for application
+require Mojolicious::Commands;
+
+Mojolicious::Commands->start_app('Textmining');

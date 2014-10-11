@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="course.xsl" ?>
+<course>
+    <meta>
+        <title>test course</title>
+        <version>1.0</version>
+        <date>2014-09-18</date>
+        <authors>
+            <author>Matthias Jakobi</author>
+            <author>N. N.</author>
+        </authors>
+    </meta>
+    <module id="test-modul">
+        <meta>
+            <title>Test Modul</title>
+            <version>1.0</version>
+            <date>2014-09-18</date>
+            <authors>
+                <author>Matthias Jakobi</author>
+            </authors>
+            <libraries>
+                <library>library.xml</library>
+            </libraries>
+            <corpora>
+                <corpus id='corpus-directory' parts="party,year" type="keywords">
+                    corpus
+                </corpus>
+                <corpus id='corpus-file' parts="party,year" type="keywords">
+                    corpus.xml.vrt
+                </corpus>
+                <corpus id='corpus-file-two' type="collocation">
+                    corpus2.xml.vrt
+                </corpus>
+            </corpora>
+        </meta>
+        <chapter id='testziel' type="test-type">
+            <page>
+                <h1>Ziele des Tests"</h1>
+                <p>foo bar</p>
+                <list>
+                    <li>jd;rajsm vj;vmajjajfa</li>
+                    <li>ene men miste was rappelt in der kiste</li>
+                </list>
+                <exercise>
+                    <ctext>
+                    </ctext>
+                    <collocate>
+                        <range from='-5' to='+5' standard='1'/>
+                        <frequence node='enable' collocate='enable' keywords='enable' />
+                        <statistic chi='' llr='' frequence='' />
+                    </collocate>
+                </exercise>
+            </page>
+            <page>
+                <h2>Header2 test</h2>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+                <exercise>
+                    <ctext>
+                    </ctext>
+                    <keywords>
+                        <range from='-5' to='+5' standard='1'/>
+                        <frequence node='enable' collocate='enable' keywords='enable' />
+                        <statistic chi='' llr='' frequence='' />
+                    </keywords>
+                </exercise>
+            </page>
+        </chapter>
+        <chapter id="twotestid">
+            <page>
+                <h1>Test Two</h1>
+                <h2>Header2 test two</h2>
+                <p> Dings da<term>foo</term> blub foo bar foobar cccc</p>
+                <p> hier ist ein bib
+                    <bib>
+                        dkdkdkdkdkdkdk
+                    </bib>
+                    jetzt kommt kein bib mehr
+                </p>
+                <img src="">Alternativer text</img>
+            </page>
+            <page>
+                <h2>Header2 test two two</h2>
+                <h3>Header3 test two two</h3>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+            </page>
+            <page>
+                <h2>Header2 test two three</h2>
+                <h3>Header3 test two three</h3>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+            </page>
+        </chapter>
+        <chapter id="threetetestid">
+            <page>
+                <h1>Test Three</h1>
+                <h2>Header2 test three</h2>
+                <h3>Header3 test three</h3>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+            </page>
+        </chapter>
+        <chapter id="fourtestid">
+            <page>
+                <h1>Test four</h1>
+                <h2>Header2 test four</h2>
+                <p> Dings da<term>foo</term> blub foo bar foobar ccc</p>
+                <img src="">Alternativer text</img>
+            </page>
+        </chapter>
+        <chapter id="fivetestid">
+            <page>
+                <h1>Test five</h1>
+                <h2>Header2 test five</h2>
+                <h3>Header3 test five</h3>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+            </page>
+            <page>
+                <h2>Header2 test five two</h2>
+                <h3>Header3 test five two</h3>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+            </page>
+            <page>
+                <h2>Header2 test five three</h2>
+                <h3>Header3 test five three</h3>
+                <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
+                <img src="">alternative text</img>
+            </page>
+        </chapter>
+    </module>
+</course>
