@@ -8,7 +8,7 @@ use FindBin;
 BEGIN {
     unshift @INC, "$FindBin::Bin/../lib",
     push @INC, "$FindBin::Bin/../ext_lib",
-
+}
 # Start command line interface for application
 require Mojolicious::Commands;
 
