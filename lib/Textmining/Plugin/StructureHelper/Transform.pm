@@ -119,7 +119,7 @@ sub xml_doc_pages ($$$$) {
 
     my @pages;
     for my $page ($modul_doc->findnodes('/course/module/chapter/page')){
-       $page->appendChild($new_libraries) if ($page->exists('//bib'));
+       $page->appendChild($new_libraries) if ($page->exists('//bib') and @{$library_files});
         push @pages, $self->nodestohtml($page);
     }
     return wantarray ? @pages : \@pages;

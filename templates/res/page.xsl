@@ -321,11 +321,13 @@
      </xsl:template>
 
      <xsl:template match="img">
-         <img src="{@src}"></img>
+         <img src="{@src}"><xsl:value-of select="text()"/> </img>
      </xsl:template>
 
      <xsl:template match="keywords">
-         <xsl:call-template name="corpus"/>
+         <xsl:call-template name="corpus">
+            <xsl:with-param name="corpus" select="@href"/>
+         </xsl:call-template>
      </xsl:template>
 
      <xsl:template match="kursiv">

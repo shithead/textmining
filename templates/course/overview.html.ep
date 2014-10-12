@@ -26,7 +26,7 @@
          <td><%= $course %></td>
          <td><%= $module %></td>
          <td><%= $author %></td>
-         <td><a href="course/modul?course=<%= $course %>&modul=<%= $module %>">
+         <td><a href="course/module?course=<%= $course %>&module=<%= $module %>">
              <button type="button" class="btn btn-default btn-xs">Start</button>
          </a></td>
         </tr>

@@ -36,7 +36,7 @@ my $test_doc  = XML::LibXML->load_xml(location => join('/', $test_data_dir, 'tes
 my $t = Test::Mojo->new('Textmining');
 $number_of_tests_run++;
 my $test_struct_course = Textmining::Plugin::StructureHelper::Course->new->init($t->app);
-like($test_struct_course, qr/Textmining::Plugin::StructureHelper::Course/, 'new Textmining::Plugin::StructureHelper::Course');
+isa_ok($test_struct_course, 'Textmining::Plugin::StructureHelper::Course');
 
 # Test for get_node_metastruct
 # prepare expect

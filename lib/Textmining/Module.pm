@@ -1,4 +1,4 @@
-package Textmining::Modul;
+package Textmining::Module;
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Util 'camelize';
 use Mojo::Asset::File;
@@ -8,7 +8,7 @@ use Mojo::ByteStream;
 sub module {
     my $self    = shift;
     my $course  = $self->param('course');
-    my $module   = $self->param('module');
+    my $module  = $self->param('module');
     my $pagenr  = $self->param('page') || scalar 0;
 
     my $course_meta_struct  = $self->struct->load_struct(
@@ -19,6 +19,7 @@ sub module {
 
     # TODO error message
     unless ($page_path || @navbar) {
+        $self->app->log->error('page_path or navbar empty');
         print STDERR "page_path or navbar empty\n";
         $self->redirect_to('/course') ;
     }
@@ -33,7 +34,7 @@ sub module {
     # Render template "module/module.html.ep"
     $self->render(
         course        =>  $course,
-        module         =>  $module,
+        module        =>  $module,
         navbar        =>  \@navbar,
         page          =>  $stream,
         pagenr        =>  $pagenr,
