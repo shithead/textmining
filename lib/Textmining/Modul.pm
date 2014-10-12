@@ -5,17 +5,17 @@ use Mojo::Asset::File;
 use Mojo::ByteStream;
 
 # This action will render a template
-sub modul {
+sub module {
     my $self    = shift;
     my $course  = $self->param('course');
-    my $modul   = $self->param('modul');
+    my $module   = $self->param('module');
     my $pagenr  = $self->param('page') || scalar 0;
 
     my $course_meta_struct  = $self->struct->load_struct(
             $self->struct->get_public_path($course));
 
-    my $page_path   = $self->struct->get_public_page_path($course_meta_struct, $modul);
-    my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $modul);
+    my $page_path   = $self->struct->get_public_page_path($course_meta_struct, $module);
+    my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $module);
 
     # TODO error message
     unless ($page_path || @navbar) {
@@ -30,15 +30,15 @@ sub modul {
     my $file      = Mojo::Asset::File->new( path => $page_path->[$pagenr]);
     my $stream    = Mojo::ByteStream->new($file->slurp)->decode('UTF-8');
 
-    # Render template "modul/modul.html.ep"
+    # Render template "module/module.html.ep"
     $self->render(
         course        =>  $course,
-        modul         =>  $modul,
+        module         =>  $module,
         navbar        =>  \@navbar,
         page          =>  $stream,
         pagenr        =>  $pagenr,
         page_path     =>  $page_path,
-        meta          =>  $course_meta_struct->{$modul}->{meta}
+        meta          =>  $course_meta_struct->{$module}->{meta}
     );
 }
 1;

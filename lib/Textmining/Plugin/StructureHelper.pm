@@ -678,8 +678,8 @@ sub create_public_path ($$) {
 
 sub update_public_struct ($) {
     my $self = shift;
-    my $hash = {} ;
 
+    my $hash = {} ;
     $hash = &_tree($self->get_public_path());
 
     undef $self->{_public_struct};

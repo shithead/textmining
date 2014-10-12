@@ -1,6 +1,6 @@
 <!-- vim:ft=html -->
-% layout 'modul-navbar';
-% title $modul;
+% layout 'module-navbar';
+% title $module;
 <div>
     <div class="col-sm-2">
         <div class="progress progress-striped">
@@ -20,10 +20,10 @@
             %   }
             %   if ( $pagenr >= $curnr and $pagenr < $nextnr) {
             <li class="active">
-            <a  href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
+            <a  href="?course=<%= $course %>&module=<%= $module %>&page=<%= $curnr %>"><%= $curtext %></a>
             %   } else {
             <li>
-            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $curnr %>"><%= $curtext %></a>
+            <a href="?course=<%= $course %>&module=<%= $module %>&page=<%= $curnr %>"><%= $curtext %></a>
             %   }
             </li>
             %   $it++;
@@ -33,10 +33,10 @@
     <div class="bs-component col-lg-9">
         <ul class="pager">
             <li class="previous">
-            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
+            <a href="?course=<%= $course %>&module=<%= $module %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
             </li>
             <li class="next">
-            <a href="?course=<%= $course %>&modul=<%= $modul %>&page=<%= $pagenr + 1 %>">Nächste →</a>
+            <a href="?course=<%= $course %>&module=<%= $module %>&page=<%= $pagenr + 1 %>">Nächste →</a>
             </li>
         </ul>
         <%= $page %>
