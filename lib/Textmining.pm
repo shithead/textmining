@@ -11,7 +11,7 @@ sub startup {
     # Configuration file loadable
     $self->plugin('Config');
 
-    use Data::Printer;
+    $self->mode($self->config->{mode});
     $self->home->parse($self->config->{home});
     $self->log->path($self->config->{log}->{path});
     $self->log->level($self->config->{log}->{level});
