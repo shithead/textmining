@@ -126,6 +126,10 @@
      <xsl:template match="corpus" name='corpus' >
          <xsl:param name="corpus" select="@href"/>
          <div class="well bs-component">
+             <div class="alert alert-dismissable alert-warning">
+                 <h4>Warning!</h4>
+                 <p>corpus <xsl:value-of select="$corpus" /> not available</p>
+             </div>
              <form class="form-horizontal">
                  <fieldset>
                      <div class="form-group">
