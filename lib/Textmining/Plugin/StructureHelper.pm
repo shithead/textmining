@@ -682,7 +682,7 @@ sub update_public_struct ($) {
     my $hash = {} ;
     $hash = &_tree($self->get_public_path());
 
-    undef $self->{_public_struct};
+    $self->{_public_struct} = undef;
     $self->{_public_struct} = $hash;
     $self->save_struct($self->get_public_path(), $hash);
 }

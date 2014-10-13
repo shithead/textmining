@@ -516,6 +516,7 @@ my $expect_public_meta_struct = {
 $number_of_tests_run++;
 
 $test_structhelper->init_public_course('test_course');
+#p $test_structhelper->{_public_struct};
 is_deeply($test_structhelper->{_public_struct}, 
     $expect_public_meta_struct, 'init_public_course');
 
