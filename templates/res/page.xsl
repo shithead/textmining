@@ -325,7 +325,8 @@
      </xsl:template>
 
      <xsl:template match="img">
-         <img src="{@src}"><xsl:value-of select="text()"/> </img>
+         <xsl:variable name="alttext"  select="text()"/>
+         <img src="{@src}" alt="{$alttext}" class="img-responsive" />
      </xsl:template>
 
      <xsl:template match="keywords">

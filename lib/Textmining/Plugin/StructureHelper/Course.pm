@@ -14,9 +14,9 @@ This method return metastructure from specified node meta-tag.
 =method get_course_struct()
 
 This method return metastructure from xml-file.
-Is using L<"get_doc">, L<"get_node_metastruct">, L<"get_modul_struct">
+Is using L<"get_doc">, L<"get_node_metastruct">, L<"get_module_struct">
 
-=method get_modul_struct()
+=method get_module_struct()
 
 This method return metastructure from module-tag.
 Is using L<"get_node_metastruct">.
@@ -81,25 +81,25 @@ sub get_node_metastruct ($$$) {
 
 sub get_course_struct ($$$) {
     my $self            = shift;
-    my $modul_path      = shift;
+    my $module_path      = shift;
 
-    my $modul_doc       = Textmining::Plugin::StructureHelper::Transform->get_doc($modul_path);
-    my $course_struct   = $self->get_node_metastruct($modul_doc, '/course');
+    my $module_doc       = Textmining::Plugin::StructureHelper::Transform->get_doc($module_path);
+    my $course_struct   = $self->get_node_metastruct($module_doc, '/course');
     $course_struct->{type} = 'course';
 
     return $course_struct;
 }
 
-sub get_modul_struct ($$) {
+sub get_module_struct ($$) {
     my $self    = shift;
-    my $modul_path = shift;
+    my $module_path = shift;
 
-    my $doc = Textmining::Plugin::StructureHelper::Transform->get_doc($modul_path);
+    my $doc = Textmining::Plugin::StructureHelper::Transform->get_doc($module_path);
     # modul nodes
-    my $modul_struct;
+    my $module_struct;
     for my $modul ($doc->findnodes('/course/module')) {
-        $modul_struct =  $self->get_node_metastruct($doc, '/course/module');
-        $modul_struct->{type} = 'module';
+        $module_struct =  $self->get_node_metastruct($doc, '/course/module');
+        $module_struct->{type} = 'module';
 
         # chapter nodes
         for my $chapter ($modul->findnodes('chapter')) {
@@ -118,10 +118,10 @@ sub get_modul_struct ($$) {
                 $pagecnt++;
             }
             $chapter_struct->{pagecnt} = $pagecnt;
-            push @{$modul_struct->{sub}}, $chapter_struct;
+            push @{$module_struct->{sub}}, $chapter_struct;
         }
     }
-    return $modul_struct;
+    return $module_struct;
 }
 
 1;

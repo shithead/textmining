@@ -85,15 +85,59 @@ sub doctohtml ($$) {
 
 sub nodestohtml ($@) {
     my $self = shift;
-    my @nodes = @_;
+    my $nodes = shift;
 
     my @results;
-    for my $node (@nodes) {
+    for my $node (@{$nodes}) {
         my $result_html;
         eval { $result_html = $self->doctohtml($node->toString)->toString };
         push @results, $result_html;
     }
     return  wantarray ? @results : \@results;
+}
+
+# TODO test
+#use Data::Printer;
+sub update_xml_tag_img ($$$) {
+    my $self    = shift;
+    my $public_path = shift;
+    my $page_node = shift;
+
+    for my $img_element ($page_node->findnodes('//img')) {
+       #p $img_element;
+       my $src_attr    = $img_element->getAttribute('src');
+       #p $src_attr;
+       next unless ( $src_attr );
+       next if ($src_attr =~ qr/^https?:\/\//);
+       my $new_src_attr = "../$public_path";
+       #p $src_attr;
+       foreach (split('/', $src_attr)) {
+           $new_src_attr = join('/', $new_src_attr, $_) unless ($_ =~ qr/^\.\./);
+       }
+       $img_element->setAttribute('src', $new_src_attr);
+       #p $img_element->toString();
+    }
+    return $page_node;
+}
+
+# TODO test
+sub get_library_node ($$$$) {
+    my $self            = shift;
+    my $module_doc      = shift;
+    my $library_dir     = shift;
+    my $library_files   = shift;
+
+    my @library_content;
+    push (@library_content, $_->textContent)
+           foreach ($module_doc->findnodes('/course/module/meta/libraries/library'));
+
+    my $new_libraries = XML::LibXML::Element->new( "libraries" );
+
+    foreach (@{$library_files}) {
+        $new_libraries->appendTextChild('library', join('/', $library_dir, $_) )
+                if ($_ ~~ @library_content);
+    }
+    return $new_libraries;
 }
 
 # TODO test
@@ -104,23 +148,13 @@ sub xml_doc_pages ($$$$) {
     my $library_files   = shift;
     my $modul_doc       = $self->get_doc($modul_path);
 
-    # sub get_library_node ($self, $modul_doc, $library_dir, @library_files)
-    my @library_content;
-    push (@library_content, $_->textContent)
-           foreach ($modul_doc->findnodes('/course/module/meta/libraries/library'));
-
-    my $new_libraries = XML::LibXML::Element->new( "libraries" );
-
-    foreach (@{$library_files}) {
-        $new_libraries->appendTextChild('library', join('/', $library_dir, $_) )
-                if ($_ ~~ @library_content);
-    }
-    # return $new_libraries;
+    my $new_libraries = $self->get_library_node($modul_doc, $library_dir, $library_files);
 
     my @pages;
     for my $page ($modul_doc->findnodes('/course/module/chapter/page')){
        $page->appendChild($new_libraries) if ($page->exists('//bib') and @{$library_files});
-        push @pages, $self->nodestohtml($page);
+       push @pages, $page;
+       #push @pages, $self->nodestohtml($page);
     }
     return wantarray ? @pages : \@pages;
 }

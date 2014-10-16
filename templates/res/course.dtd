@@ -12,7 +12,7 @@
 <!ATTLIST bib page CDATA #IMPLIED>
 
 <!ELEMENT chapter ( page+ ) >
-<!ATTLIST chapter id ID #REQUIRED >
+<!ATTLIST chapter id CDATA #REQUIRED >
 <!ATTLIST chapter type NMTOKEN #IMPLIED >
 
 <!ELEMENT check ( question, answer )+ >
@@ -20,22 +20,22 @@
 <!ELEMENT collocation ( range, frequence, statistic ) >
 <!ATTLIST collocation href CDATA #REQUIRED >
 
-<!ELEMENT corpora ( corpus ) >
+<!ELEMENT corpora ( corpus )+ >
 
 <!ELEMENT corpus ( #PCDATA ) >
-<!ATTLIST corpus id ID #REQUIRED >
+<!ATTLIST corpus id CDATA #REQUIRED >
 <!ATTLIST corpus parts CDATA #IMPLIED >
 <!ATTLIST corpus type ( collocation | keywords ) #REQUIRED >
 
 <!ELEMENT course ( meta, module ) >
 
-<!ELEMENT ctext ( #PCDATA | list | p | term )* >
+<!ELEMENT ctext ( #PCDATA | list | details | p | term )* >
 
 <!ELEMENT date ( #PCDATA ) >
 
 <!ELEMENT details ( p | list )* >
 
-<!ELEMENT emph ( #PCDATA ) >
+<!ELEMENT emph ( #PCDATA | kursiv )* >
 
 <!ELEMENT exercise ( ctext+ | collocation | keywords ) >
 
@@ -47,13 +47,13 @@
 <!ATTLIST frequence keywords ( enable | disable ) #IMPLIED >
 
 <!ELEMENT h1 ( #PCDATA | term )* >
-<!ATTLIST h1 id ID #IMPLIED >
+<!ATTLIST h1 id CDATA #IMPLIED >
 
 <!ELEMENT h2 ( #PCDATA | term )* >
-<!ATTLIST h2 id ID #IMPLIED >
+<!ATTLIST h2 id CDATA #IMPLIED >
 
 <!ELEMENT h3 ( #PCDATA | term )* >
-<!ATTLIST h3 id ID #IMPLIED >
+<!ATTLIST h3 id CDATA #IMPLIED >
 
 <!ELEMENT img ( #PCDATA ) >
 <!ATTLIST img src CDATA #REQUIRED >

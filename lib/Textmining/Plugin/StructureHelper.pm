@@ -120,6 +120,7 @@ use Textmining::Plugin::StructureHelper::Course;
 use Textmining::Plugin::StructureHelper::Corpus;
 use Storable qw(store_fd fd_retrieve);
 use File::Path qw(remove_tree make_path);
+use File::Copy::Recursive qw(dircopy);
 use File::Basename;
 
 use feature 'say';
@@ -135,6 +136,7 @@ sub register {
 sub init ($$) {
     my ($self, $app) = @_;
     $self->{log}    = $app->log;
+    $self->{home}   = $app->home;
     $self->{_path}  = $app->config->{path};
     $self->{_data_struct} = $self->load_struct($self->get_data_path()) || {};
     $self->{_public_struct} = $self->load_struct($self->get_public_path()) || {};
@@ -296,8 +298,11 @@ sub load_struct ($$) {
 
 # {{{ data directory
 
-sub get_data_path ($) {
+sub get_data_path ($$) {
     my $self = shift;
+    my $course  =   shift || undef;
+
+    return join('/', $self->get_data_path(), $course) if (defined $course);
     return $self->{_path}->{data};
 }
 
@@ -446,10 +451,11 @@ sub get_public_path ($) {
 sub init_public_course ($$) {
     my ($self, $course) = @_;
 
-    my $dest    = join('/', $self->get_public_path(), $course);
+    my $dest    = $self->get_public_path($course);
     my $modul   = $self->get_data_modul($course);
     my $library = $self->get_data_library($course);
     my $corpus  = $self->get_data_corpus($course);
+    my $resource = join('/', $self->get_data_path($course), 'res');
 
     unless (&_exists_check($dest)) {
         $self->rm_public_path($course);
@@ -472,52 +478,78 @@ sub init_public_course ($$) {
     }
     # TODO change parameter for the output of 
     # $self->get_data_modul($course)
-    for my $modul_file (values @{$modul->{files}}) {
-
+    for my $module_file (values @{$modul->{files}}) {
         # module nodes
-        my $modul_struct    = $self->{course}->get_modul_struct(join('/', $modul->{path}, $modul_file));
+        my $module_struct    = $self->{course}->get_module_struct(
+                join('/', $modul->{path}, $module_file) );
 
+        my $module_dir = join('/',
+            $dest, 'module',
+            $module_struct->{meta}->{title}
+        );
+
+        # copy extra resourcen
+        unless (&_exists_check($resource)) {
+            dircopy($resource, join('/', $dest, 'res')) or
+                    $self->{log}->error("resourcen directory $resource could not be recursive  copy") ;
+        } else {
+            $self->{log}->debug("resource directory $resource not exists");
+        }
         # {{ TODO build a stack of 
         # create_public_modul 
         # -> create_pages
         # update every sub modul with $page_meta_list see bottom of fnct
         my @chapter_dirs    = $self->create_public_chapter(
-            $course,
-            $modul_struct
-        );
+                $module_dir,
+                $module_struct
+            );
 
-
-        my $modul_pages->{$modul_file} = $self->{transform}->xml_doc_pages(
-                join('/', $modul->{path}, $modul_file),
+        my @page_docs = $self->{transform}->xml_doc_pages(
+                join('/', $modul->{path}, $module_file),
                 $library->{path},
                 $library->{files}
             );
 
-        $modul_struct->{pages} =
-                $self->create_public_pages(
-                        $modul_pages,
-                        \@chapter_dirs );
+        my $foo = $dest; 
+        $foo =~ s/$self->{home}->to_string//;
+        $foo =~ s/\/[^\/]+\///;
 
-        #p $modul_struct;
-        if (defined $modul_struct->{meta}->{corpora})  {
+        #use Data::Printer;
+        # XXX maybe an mistake in XML::LibXML but it is running over the hole doc
+        $page_docs[0] = $self->{transform}->update_xml_tag_img(
+                    $foo,
+                    $page_docs[0]
+                );
+        my $module_pages;
+        $module_pages->{$module_file} = $self->{transform}->nodestohtml(\@page_docs);
+                #use Data::Printer;
+                #p $module_pages;
+
+        $module_struct->{pages} = $self->create_public_pages(
+                        $module_pages,
+                        \@chapter_dirs 
+                    );
+
+        #p $module_struct;
+        if (defined $module_struct->{meta}->{corpora} and 0)  {
             my $corpora_data = $self->create_public_corpus(
                 $corpus->{path},
                 $corpus->{files},
-                $modul_struct->{meta}->{corpora}
+                $module_struct->{meta}->{corpora}
             );
             #save corpora_data
             #p $course_meta_struct;
-            #p $modul_struct;
+            #p $module_struct;
             #p $corpora_data;
 
             for my $filename (keys $corpora_data) {
                 my $location = join '/', $dest, 'corpus', $filename;
                 &_store($corpora_data->{$filename}, $location);
-                $modul_struct->{meta}->{corpora}->{$filename}->{public} = $location;
+                $module_struct->{meta}->{corpora}->{$filename}->{public} = $location;
             }
         }
 
-        $course_meta_struct->{$modul_struct->{meta}->{title}} = $modul_struct;
+        $course_meta_struct->{$module_struct->{meta}->{title}} = $module_struct;
     }
     $self->save_struct($dest, $course_meta_struct);
 
@@ -528,26 +560,20 @@ sub init_public_course ($$) {
 
 sub create_public_chapter ($$$) {
     my $self    = shift;
-    my $course  = shift;
-    my $modul_meta_struct = shift;
+    my $module_dir  = shift;
+    my $module_meta_struct = shift;
 
-    # TODO directory is knowing, change *_dir so
-    # that $course variable is no more required
-    my $modul_dir = join('/',
-        $course, 'module',
-        $modul_meta_struct->{meta}->{title}
-    );
     my @chapter_dirs;
-    for my $chaptcnt (0 .. $#{$modul_meta_struct->{sub}}) {
+    for my $chaptcnt (0 .. $#{$module_meta_struct->{sub}}) {
         my $chapter_dir = join('/',
-            $modul_dir,
+            $module_dir,
             $chaptcnt . "_" .
-            $modul_meta_struct->{sub}->[$chaptcnt]->{id}
+            $module_meta_struct->{sub}->[$chaptcnt]->{id}
         );
         $self->create_public_path($chapter_dir);
         my $tmp = {
             dir     => $chapter_dir,
-            pagecnt => $modul_meta_struct->{sub}->[$chaptcnt]->{pagecnt}
+            pagecnt => $module_meta_struct->{sub}->[$chaptcnt]->{pagecnt}
         };
         push @chapter_dirs, $tmp;
     }
@@ -556,14 +582,14 @@ sub create_public_chapter ($$$) {
 
 sub create_public_pages ($$$) {
     my $self = shift;
-    my $modul_pages = shift;
+    my $module_pages = shift;
     my $chapter_dirs = shift;
 
     my @page_meta_list;
     my $prev_page = undef;
-    for my $modul_key (keys $modul_pages) {
+    for my $module_key (keys $module_pages) {
         my $pages;
-        push @{$pages->{$modul_key}}, $_ foreach (@{$modul_pages->{$modul_key}});
+        push @{$pages->{$module_key}}, $_ foreach (@{$module_pages->{$module_key}});
         for my $chapter (values $chapter_dirs){
             for my $pagenr (1..$chapter->{pagecnt}) {
                 my $page    = join(
@@ -575,7 +601,7 @@ sub create_public_pages ($$$) {
                 open FH, ">:encoding(UTF-8)", $page
                     or $self->{log}->error("init_public_course: open UTF-8 encode file failed")
                     and return undef;
-                print FH shift @{$pages->{$modul_key}};
+                print FH shift @{$pages->{$module_key}};
                 close FH;
                 push @page_meta_list, $page;
             }
@@ -665,9 +691,9 @@ sub rm_public_path ($$) {
 }
 
 sub create_public_path ($$) {
-    my ($self, $suffix) = @_;
+    my ($self, $path) = @_;
 
-    my $dir          = join('/', $self->get_public_path(), $suffix);
+    my $dir          = $self->get_public_path($path);
     make_path($dir, {error => \my $err});
 
     if (@{$err}) {

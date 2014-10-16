@@ -58,7 +58,7 @@ $number_of_tests_run++;
 is_deeply($got, $expect_course_hash, 'get_node_metastruct /course');
 
 # prepare expect
-my $expect_course_modul_hash = {
+my $expect_course_module_hash = {
     meta  => {
         authors    => [
             "Matthias Jakobi"
@@ -93,11 +93,11 @@ my $expect_course_modul_hash = {
 
 $got = $test_struct_course->get_node_metastruct($test_doc, '/course/module');
 $number_of_tests_run++;
-is_deeply($got, $expect_course_modul_hash, 'get_node_metastruct /course/module');
+is_deeply($got, $expect_course_module_hash, 'get_node_metastruct /course/module');
 
-# Test for get_modul_struct
+# Test for get_module_struct
 # prepare expect
-$expect_course_modul_hash->{sub} = [
+$expect_course_module_hash->{sub} = [
     {
         head     => "Ziele des Tests\"",
         id       => "testziel",
@@ -129,11 +129,11 @@ $expect_course_modul_hash->{sub} = [
         type     => undef
     }
 ];
-$expect_course_modul_hash->{type} =   "module";
-$got = $test_struct_course->get_modul_struct(join('/', $test_data_dir, 'test_course', 'module', 'module.xml'));
+$expect_course_module_hash->{type} =   "module";
+$got = $test_struct_course->get_module_struct(join('/', $test_data_dir, 'test_course', 'module', 'module.xml'));
 
 $number_of_tests_run++;
-is_deeply($got, $expect_course_modul_hash, 'get_modul_struct');
+is_deeply($got, $expect_course_module_hash, 'get_module_struct');
 
 # Test get_course_struct
 # prepare expect

@@ -207,7 +207,7 @@ is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_di
 # Test for create_public_chapter($self, $course, $course_meta_struct)
 # prepare test
 my $test_modul = $test_structhelper->get_data_modul('test_course');
-my $test_modul_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_modul_struct(
+my $test_module_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_module_struct(
         join( '/', $test_modul->{path}, 'module.xml')
 );
 # prepare expect
@@ -236,7 +236,7 @@ my @expect_chapter_dirs = (
 
 my @test_chapter_dirs    = $test_structhelper->create_public_chapter(
     'test_course',
-    $test_modul_meta_struct
+    $test_module_meta_struct
 );
 $number_of_tests_run++;
 is_deeply(\@test_chapter_dirs, \@expect_chapter_dirs, 'create_public_chapter');
@@ -244,7 +244,7 @@ is_deeply(\@test_chapter_dirs, \@expect_chapter_dirs, 'create_public_chapter');
 #{{{ subtest
 $got    = $test_structhelper->create_public_chapter(
     'test_course',
-    $test_modul_meta_struct
+    $test_module_meta_struct
 );
 $number_of_tests_run++;
 isa_ok( $got, 'ARRAY' );
@@ -264,9 +264,9 @@ for (values @publicstruct) {
         push @{$test_dir_hash->{test_course}->{$_}}, "$_.xml";
     } 
 }
-my $test_modul_pages;
+my $test_module_pages;
 foreach (@{$test_dir_hash->{test_course}->{module}}) {
-    $test_modul_pages->{$_} = $test_structhelper->{transform}->xml_doc_pages(
+    $test_module_pages->{$_} = $test_structhelper->{transform}->xml_doc_pages(
         join('/', $test_data_dir, 'test_course', 'module', $_),
         join('/', $test_data_dir, 'test_course', 'library'),
         $test_dir_hash->{test_course}->{library}
@@ -286,11 +286,11 @@ my $expect_page_meta_list = ([
     "$dir/test-public/test_course/module/Test Modul/4_fivetestid/3.html"
 ]);
 undef @got;
-@got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
+@got = $test_structhelper->create_public_pages( $test_module_pages, $test_chapter_dirs);
 
 $number_of_tests_run++;
 is_deeply(\@got, $expect_page_meta_list, 'create_public_pages');
-$got = $test_structhelper->create_public_pages( $test_modul_pages, $test_chapter_dirs);
+$got = $test_structhelper->create_public_pages( $test_module_pages, $test_chapter_dirs);
 
 remove_tree($_) foreach (values $expect_page_meta_list);
 #{{{ subtest
@@ -435,7 +435,7 @@ my $expect_corpus = {
     }
 };
 
-$got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_files, $test_modul_meta_struct->{meta}->{corpora});
+$got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_files, $test_module_meta_struct->{meta}->{corpora});
 #p $got;
 $number_of_tests_run++;
 is_deeply($got, $expect_corpus, 'create_public_corpus');
@@ -539,8 +539,8 @@ is($test_structhelper->get_public_course_struct(),
 my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct( 
         join( '/', $test_modul->{path}, 'module.xml')
 );
-$test_course_meta_struct->{$test_modul_meta_struct->{meta}->{title}} =
-        $test_modul_meta_struct;
+$test_course_meta_struct->{$test_module_meta_struct->{meta}->{title}} =
+        $test_module_meta_struct;
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_public_page_path(
             $test_course_meta_struct->{test_course}, 'module'),
