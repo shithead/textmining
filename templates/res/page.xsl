@@ -457,7 +457,7 @@
 
      <xsl:template match="page">
          <xsl:choose>
-             <xsl:when test="count(p)=1 and not(check or exercise or img or list)">
+             <xsl:when test="count(p)=1 and not(check or details or exercise or img or list)">
                  <div class="bs-component">
                      <div class="jumbotron">
                          <xsl:apply-templates select="h1 | h2 | h3 | p"/>
@@ -465,7 +465,7 @@
                  </div>
              </xsl:when>
              <xsl:otherwise>
-                 <xsl:apply-templates select="h1 | h2 | h3 | check | exercise | img | list | p"/>
+                 <xsl:apply-templates select="h1 | h2 | h3 | check | details | exercise | img | list | p"/>
              </xsl:otherwise>
          </xsl:choose>
      </xsl:template>

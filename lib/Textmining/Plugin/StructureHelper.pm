@@ -594,10 +594,10 @@ sub create_public_pages ($$$) {
             for my $pagenr (1..$chapter->{pagecnt}) {
                 my $page    = join(
                     '/',
-                    $self->get_public_path,
                     $chapter->{dir},
                     "$pagenr.html");
 
+                #say $page;
                 open FH, ">:encoding(UTF-8)", $page
                     or $self->{log}->error("init_public_course: open UTF-8 encode file failed")
                     and return undef;
@@ -693,13 +693,12 @@ sub rm_public_path ($$) {
 sub create_public_path ($$) {
     my ($self, $path) = @_;
 
-    my $dir          = $self->get_public_path($path);
-    make_path($dir, {error => \my $err});
+    make_path($path, {error => \my $err});
 
     if (@{$err}) {
         $self->{log}->error("make_path $err->[0]");
     }
-    return $dir;
+    return $path;
 }
 
 sub update_public_struct ($) {
