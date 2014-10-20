@@ -484,7 +484,7 @@ sub init_public_course ($$) {
                 join('/', $modul->{path}, $module_file) );
 
         my $module_dir = join('/',
-            $dest, 'module',
+            $course, 'module',
             $module_struct->{meta}->{title}
         );
 
@@ -594,6 +594,7 @@ sub create_public_pages ($$$) {
             for my $pagenr (1..$chapter->{pagecnt}) {
                 my $page    = join(
                     '/',
+                    $self->get_public_path(),
                     $chapter->{dir},
                     "$pagenr.html");
 
@@ -693,12 +694,13 @@ sub rm_public_path ($$) {
 sub create_public_path ($$) {
     my ($self, $path) = @_;
 
-    make_path($path, {error => \my $err});
+    my $dir          = join('/', $self->get_public_path, $path);
+    make_path($dir, {error => \my $err});
 
     if (@{$err}) {
         $self->{log}->error("make_path $err->[0]");
     }
-    return $path;
+    return $dir;
 }
 
 sub update_public_struct ($) {
