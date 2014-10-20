@@ -195,8 +195,13 @@ $number_of_tests_run++;
 is($test_structhelper->get_public_path(), $test_public_dir, 'get_public_path');
 
 # Test for create_public_path($self, $suffix)
+$got = $test_structhelper->create_public_path('test_public_path');
+#p $got;
+
 $number_of_tests_run++;
-$test_structhelper->create_public_path('test_public_path');
+is($got, join('/', $test_public_dir, 'test_public_path'), 'test_public_path got');
+
+$number_of_tests_run++;
 is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_dir, 'test_public_path')), '0', 'create_public_path');
 
 # Test for rm_public_path($self, $suffix)
