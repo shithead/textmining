@@ -520,6 +520,7 @@ sub init_public_course ($$) {
                     $foo,
                     $page_docs[0]
                 );
+
         my $module_pages;
         $module_pages->{$module_file} = $self->{transform}->nodestohtml(\@page_docs);
                 #use Data::Printer;

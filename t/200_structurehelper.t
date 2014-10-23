@@ -211,10 +211,13 @@ is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_di
 
 # Test for create_public_chapter($self, $course, $course_meta_struct)
 # prepare test
-my $test_modul = $test_structhelper->get_data_modul('test_course');
+my $test_module = $test_structhelper->get_data_modul('test_course');
 my $test_module_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_module_struct(
-        join( '/', $test_modul->{path}, 'module.xml')
+        join( '/', $test_module->{path}, 'module.xml')
 );
+
+my $test_module_dir = join('/', 'test_course/module', $test_module_meta_struct->{meta}->{title});
+
 # prepare expect
 my @expect_chapter_dirs = (
     {
@@ -240,7 +243,7 @@ my @expect_chapter_dirs = (
 );
 
 my @test_chapter_dirs    = $test_structhelper->create_public_chapter(
-    'test_course',
+    $test_module_dir,
     $test_module_meta_struct
 );
 $number_of_tests_run++;
@@ -248,7 +251,7 @@ is_deeply(\@test_chapter_dirs, \@expect_chapter_dirs, 'create_public_chapter');
 
 #{{{ subtest
 $got    = $test_structhelper->create_public_chapter(
-    'test_course',
+    $test_module_dir,
     $test_module_meta_struct
 );
 $number_of_tests_run++;
@@ -486,7 +489,7 @@ $test_structhelper->update_data_struct;
 my $expect_public_meta_struct = {
     test_course   => {
         corpus    => {
-            'corpus-file' => undef
+#            'corpus-file' => undef
         },
         library   => {
         },
@@ -542,7 +545,7 @@ is($test_structhelper->get_public_course_struct(),
 # Test for get_public_page_path($self, $course_struct, $modul)
 # prepare test data
 my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct( 
-        join( '/', $test_modul->{path}, 'module.xml')
+        join( '/', $test_module->{path}, 'module.xml')
 );
 $test_course_meta_struct->{$test_module_meta_struct->{meta}->{title}} =
         $test_module_meta_struct;
