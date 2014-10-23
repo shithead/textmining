@@ -22,21 +22,23 @@ my $dir = tempdir( CLEANUP => 1 );
 #($fh, $filename) = tempfile( DIR => $dir );
 my $test_public = 'test-public';
 my $test_data = 'test-data';
-my $test_public_dir = join('/', $dir, $test_public );
-my $test_data_dir = join('/', $dir, $test_data );
+my $test_public_path = join('/', $dir, $test_public );
+my $test_data_path = join('/', $dir, $test_data );
 
-my @publicstruct = qw(module library corpus);
+my @publicstruct = qw(module library corpus res);
 my $test_hash = {};
 for (values @publicstruct) {
-    my $path = join('/', $test_data_dir, 'test_course', $_ );
+    my $path = join('/', $test_data_path, 'test_course', $_ );
     make_path( $path );
     copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
     $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
 }
+
 my $test_res = join("/", $dir, "templates/res");
 make_path($test_res);
 copy("$FindBin::Bin/examples/page.xsl", join("/", $test_res, "page.xsl"));
-make_path( $test_public_dir );
+copy("$FindBin::Bin/examples/library.xml", join("/", $test_res, "library.xml"));
+make_path( $test_public_path );
 
 my $need_hash = {};
 
@@ -65,19 +67,21 @@ like($test_transform, qr/Textmining::Plugin::StructureHelper::Transform/, 'new T
 # Test for get_doc
 $number_of_tests_run++;
 
-my $test_modul = join('/', $test_data_dir, "test_course", 'module', 'module.xml');
-my $expect_doc = XML::LibXML->load_xml(location => $test_modul);
-my $got_doc = $test_transform->get_doc($test_modul);
-is_deeply($got_doc, $expect_doc, "get_doc");
+my $test_module = join('/', $test_data_path, "test_course", 'module', 'module.xml');
+my $expect_doc = XML::LibXML->load_xml(location => $test_module);
+my $got = $test_transform->get_doc($test_module);
+is_deeply($got, $expect_doc, "get_doc");
 
 
 # Test for doctohtml
+my $test_doc = $got;
 $number_of_tests_run++;
 
-my $expect_html = $test_transform->{xslt}->transform($got_doc);
+my $expect_html = $test_transform->{xslt}->transform($test_doc);
 
-my $got_html = $test_transform->doctohtml($got_doc);
-is_deeply($got_html, $expect_html, "doctohtml");
+undef $got;
+$got = $test_transform->doctohtml($test_doc);
+is_deeply($got, $expect_html, "doctohtml");
 undef $expect_html;
 
 
@@ -92,18 +96,60 @@ undef $expect_html;
 #    push @expect_results, $expect_html;
 #}
 #
+undef $got;
 #my @got_results = $test_transform->nodestohtml(\@test_nodes);
 #is_deeply(\@expect_results, \@got_results, "nodestohtml");
 
-# Test for xml_doc_pages
+# Test for update_xml_tag_img
+# prepare test
+my $test_course_path = join '/', $test_public_path, 'test_course';
+$test_course_path =~ s/$dir//;
+$test_course_path =~ s/\/[^\/]+\///;
+
+#prepare expect
+my @expect_img_src = (
+    "../test_course/test-img",
+    "../test_course/test-img-two",
+    "../test_course/test-img-two-two",
+    "../test_course/test-img-two-three",
+    "../test_course/test-img-three",
+    "../test_course/test-img-four",
+    "https://test-img-five",
+    "http://test-img-five-two",
+    ""
+);
+
+$number_of_tests_run++;
+undef $got;
+$got = $test_transform->update_xml_tag_img($test_course_path, $test_doc);
+my @test_img_src = ($got->toString =~ m/<img src="(.*)">/g);
+is_deeply(\@test_img_src, \@expect_img_src, 'update_xml_tag_img');
+
+# Test for get_library_node
+# prepare expect
+my $expect_libraries_node ="<libraries><library>$test_res/library.xml</library></libraries>";
+
+undef $got;
+$got = $test_transform->get_library_node($test_doc ,$test_res, ['library.xml']);
+$number_of_tests_run++;
+is($got->toString, $expect_libraries_node, 'get_library_node');
+
+# TODO Test for xml_doc_pages
+undef $got;
 #$number_of_tests_run++;
-#
-#my @got_pages = $test_transform->xml_doc_pages('t/examples/modul.xml','t/examples/',['t/examles/library.xml']);
-#
-#for my $page (@got_pages) {
-#    ok($page->exists("library"), "page ok");
-#    $number_of_tests_run++;
-#}
+my @got = $test_transform->xml_doc_pages(
+        join('/', $test_data_path, 'test_course', 'module', 'module.xml'),
+        join('/', 'test_course', 'library'),
+        ['library.xml']
+    );
+
+my $counter = 0;
+foreach (@got) {
+    $number_of_tests_run++;
+    $counter++;
+    like($_->toString, qr/libraries/, "page $counter exists libraries");
+}
+undef $counter;
 #
 #
 # done

@@ -11,18 +11,13 @@ use File::Temp qw(tempfile tempdir);
 use File::Copy;
 use FindBin;
 
+use Data::Printer;
 my $number_of_tests_run = 1;
 BEGIN { 
     use_ok( 'Textmining::Plugin::StructureHelper' );
 }
 
-#my ($fh, $filename) = tempfile();
-#($fh, $filename) = tempfile( $template, DIR => $dir);
-#($fh, $filename) = tempfile( $template, SUFFIX => '.dat');
-#($fh, $filename) = tempfile( $template, TMPDIR => 1 );
 my $dir = tempdir( CLEANUP => 1 );
-#my $dir = tempdir();
-#($fh, $filename) = tempfile( DIR => $dir );
 my $test_public = 'test-public';
 my $test_data = 'test-data';
 my $test_public_dir = join('/', $dir, $test_public );
@@ -470,6 +465,7 @@ is_deeply(
     'update_public_struct'
 );
 
+# post cleaning
 remove_tree("$test_public_dir/test_course");
 $test_structhelper->{_public_struct} = {};
 
@@ -477,14 +473,14 @@ $test_structhelper->{_public_struct} = {};
 # prepare test struct
 $test_hash = {};
 for (values @publicstruct) {
-    my $test_path = join('/', $test_data_dir, 'test_course', $_ ); 
+    my $test_course_path = join('/', $test_data_dir, 'test_course', $_ ); 
     make_path( $test_path );
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml.vrt"));
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_course_path, "$_.xml"));
+    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_course_path, "$_.xml.vrt"));
     $test_hash->{test_course}->{$_} = { "$_.xml" => undef,
                                         "$_.xml.vrt" => undef};
 }
-$test_structhelper->update_data_struct;
+$test_structhelper->update_data_struct();
 # prepare expect
 my $expect_public_meta_struct = {
     test_course   => {

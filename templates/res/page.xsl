@@ -66,13 +66,20 @@
              <xsl:choose>
                  <xsl:when test="/page/libraries">
                      <xsl:for-each select="/page/libraries/library">
-                             <!-- concatination hack -->
-                             <xsl:variable name="path">
-                                 <xsl:value-of select="text()"/>
-                             </xsl:variable>
-                             <xsl:choose>
-                             <xsl:when test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
-                                 <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
+                         <!-- concatination hack -->
+                         <xsl:variable name="path">
+                             <xsl:value-of select="text()"/>
+                         </xsl:variable>
+                         <xsl:choose>
+                             <xsl:when test="document($path)">
+                                 <xsl:choose>
+                                     <xsl:when test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
+                                         <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
+                                     </xsl:when>
+                                     <xsl:otherwise>
+                                         <xsl:message>library: in <xsl:value-of select="$path"/> id <xsl:value-of select="$id"/> not found</xsl:message>
+                                     </xsl:otherwise>
+                                 </xsl:choose>
                              </xsl:when>
                              <xsl:otherwise>
                                  <xsl:message>library: <xsl:value-of select="$path"/> not found</xsl:message>
@@ -81,30 +88,42 @@
                      </xsl:for-each>
                  </xsl:when>
                  <xsl:otherwise>
-                     <xsl:for-each select="/course/module/meta/libraries/library">
-                             <!-- concatination hack -->
-                             <xsl:variable name="path">
-                                 <xsl:value-of select="text()"/>
-                             </xsl:variable>
-                             <xsl:choose>
-                             <xsl:when test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
-                                 <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
-                             </xsl:when>
-                             <xsl:otherwise>
-                                 <xsl:message>library: <xsl:value-of select="$path"/> not found</xsl:message>
-                             </xsl:otherwise>
-                         </xsl:choose>
-                     </xsl:for-each>
+                     <xsl:message>library: /page/libraries not found</xsl:message>
+                     <xsl:choose>
+                         <xsl:when test="/course/module/meta/libraries/library">
+                             <xsl:for-each select="/course/module/meta/libraries/library">
+                                 <xsl:variable name="path">
+                                     <xsl:value-of select="text()"/>
+                                 </xsl:variable>
+                                 <xsl:choose>
+                                     <xsl:when test="document($path)">
+                                         <xsl:choose>
+                                             <xsl:when test="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]">
+                                                 <xsl:value-of select="document($path)/tei:listBibl/tei:biblStruct[@xml:id=$id]"/>
+                                             </xsl:when>
+                                             <xsl:otherwise>
+                                                 <xsl:message>library: in <xsl:value-of select="$path"/> id <xsl:value-of select="$id"/> not found</xsl:message>
+                                             </xsl:otherwise>
+                                         </xsl:choose>
+                                     </xsl:when>
+                                     <xsl:otherwise>
+                                         <xsl:message>library: <xsl:value-of select="$path"/> not found</xsl:message>
+                                     </xsl:otherwise>
+                                 </xsl:choose>
+                             </xsl:for-each>
+                         </xsl:when>
+                         <xsl:otherwise>
+                             <xsl:message>library: /course/module/meta/libraries/library not found</xsl:message>
+                         </xsl:otherwise>
+                     </xsl:choose>
                  </xsl:otherwise>
              </xsl:choose>
          </xsl:variable>
-         <bib class="message" id="{$id}" page="{@page}">
-             <span>
-                 <a class="css-truncate css-truncate-target" title="{$library_content}">
-                     <xsl:value-of select="$bibo"/>
-                 </a>
-             </span>
-         </bib>
+         <span class="message" id="{$id}" page="{@page}">
+             <a class="css-truncate css-truncate-target" title="{$library_content}">
+                 <xsl:value-of select="$bibo"/>
+             </a>
+         </span>
      </xsl:template>
 
      <xsl:template match="chapter">
@@ -270,7 +289,6 @@
          <time><xsl:value-of select="text()"/></time>
      </xsl:template>
 
-     <!-- XXX  -->
      <xsl:template match="details">
          <xsl:variable name="it" select='generate-id(current())'/>
          <div class="tab-content">

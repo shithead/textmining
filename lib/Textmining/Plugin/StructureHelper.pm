@@ -515,7 +515,7 @@ sub init_public_course ($$) {
         $foo =~ s/\/[^\/]+\///;
 
         #use Data::Printer;
-        # XXX maybe an mistake in XML::LibXML but it is running over the hole doc
+        # XML::LibXML is running over the hole doc
         $page_docs[0] = $self->{transform}->update_xml_tag_img(
                     $foo,
                     $page_docs[0]

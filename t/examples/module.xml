@@ -54,7 +54,7 @@
             <page>
                 <h2>Header2 test</h2>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
-                <img src="">alternative text</img>
+                <img src="test-img">alternative text</img>
                 <exercise>
                     <ctext>
                     </ctext>
@@ -72,24 +72,24 @@
                 <h2>Header2 test two</h2>
                 <p> Dings da<term>foo</term> blub foo bar foobar cccc</p>
                 <p> hier ist ein bib
-                    <bib>
+                    <bib id="test-two">
                         dkdkdkdkdkdkdk
                     </bib>
                     jetzt kommt kein bib mehr
                 </p>
-                <img src="">Alternativer text</img>
+                <img src="test-img-two">alternative text</img>
             </page>
             <page>
                 <h2>Header2 test two two</h2>
                 <h3>Header3 test two two</h3>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
-                <img src="">alternative text</img>
+                <img src="test-img-two-two">alternative text</img>
             </page>
             <page>
                 <h2>Header2 test two three</h2>
                 <h3>Header3 test two three</h3>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
-                <img src="">alternative text</img>
+                <img src="test-img-two-three">alternative text</img>
             </page>
         </chapter>
         <chapter id="threetetestid">
@@ -98,7 +98,7 @@
                 <h2>Header2 test three</h2>
                 <h3>Header3 test three</h3>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
-                <img src="">alternative text</img>
+                <img src="test-img-three">alternative text</img>
             </page>
         </chapter>
         <chapter id="fourtestid">
@@ -106,7 +106,7 @@
                 <h1>Test four</h1>
                 <h2>Header2 test four</h2>
                 <p> Dings da<term>foo</term> blub foo bar foobar ccc</p>
-                <img src="">Alternativer text</img>
+                <img src="test-img-four">alternative text</img>
             </page>
         </chapter>
         <chapter id="fivetestid">
@@ -115,13 +115,13 @@
                 <h2>Header2 test five</h2>
                 <h3>Header3 test five</h3>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
-                <img src="">alternative text</img>
+                <img src="https://test-img-five">alternative text</img>
             </page>
             <page>
                 <h2>Header2 test five two</h2>
                 <h3>Header3 test five two</h3>
                 <p> jdsa;lfdsfk;lksafl<term>hoohoo a ghost</term> der plumpsack geht rum</p>
-                <img src="">alternative text</img>
+                <img src="http://test-img-five-two">alternative text</img>
             </page>
             <page>
                 <h2>Header2 test five three</h2>

@@ -84,7 +84,7 @@ sub doctohtml ($$) {
 }
 
 # TODO Test for nodestohtml
-sub nodestohtml ($@) {
+sub nodestohtml ($$) {
     my $self = shift;
     my $nodes = shift;
 
@@ -97,11 +97,10 @@ sub nodestohtml ($@) {
     return  wantarray ? @results : \@results;
 }
 
-# TODO test
 #use Data::Printer;
 sub update_xml_tag_img ($$$) {
     my $self    = shift;
-    my $public_path = shift;
+    my $course_path = shift;
     my $page_node = shift;
 
     for my $img_element ($page_node->findnodes('//img')) {
@@ -110,7 +109,7 @@ sub update_xml_tag_img ($$$) {
        #p $src_attr;
        next unless ( $src_attr );
        next if ($src_attr =~ qr/^https?:\/\//);
-       my $new_src_attr = "../$public_path";
+       my $new_src_attr = "../$course_path";
        #p $src_attr;
        foreach (split('/', $src_attr)) {
            $new_src_attr = join('/', $new_src_attr, $_) unless ($_ =~ qr/^\.\./);
@@ -121,7 +120,6 @@ sub update_xml_tag_img ($$$) {
     return $page_node;
 }
 
-# TODO test
 sub get_library_node ($$$$) {
     my $self            = shift;
     my $module_doc      = shift;
@@ -141,21 +139,21 @@ sub get_library_node ($$$$) {
     return $new_libraries;
 }
 
-# TODO test
+# TODO Test for xml_doc_pages
 sub xml_doc_pages ($$$$) {
     my $self            = shift;
-    my $modul_path      = shift;
+    my $module_path     = shift;
     my $library_dir     = shift;
     my $library_files   = shift;
-    my $modul_doc       = $self->get_doc($modul_path);
+    my $module_doc      = $self->get_doc($module_path);
 
-    my $new_libraries = $self->get_library_node($modul_doc, $library_dir, $library_files);
+    my $new_libraries = $self->get_library_node($module_doc, $library_dir, $library_files);
 
     my @pages;
-    for my $page ($modul_doc->findnodes('/course/module/chapter/page')){
-       $page->appendChild($new_libraries) if ($page->exists('//bib') and @{$library_files});
-       push @pages, $page;
-       #push @pages, $self->nodestohtml($page);
+    for my $page ($module_doc->findnodes('/course/module/chapter/page')){
+        $page->appendChild($new_libraries->cloneNode(1))
+                if ($page->exists('//bib') and @{$library_files});
+        push @pages, $page;
     }
     return wantarray ? @pages : \@pages;
 }
