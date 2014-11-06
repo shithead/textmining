@@ -38,7 +38,7 @@ make_path( $test_public_dir );
 my $t = Test::Mojo->new('Textmining');
 $number_of_tests_run++;
 my $test_structhelper = Textmining::Plugin::StructureHelper->new->init($t->app);
-like($test_structhelper, qr/Textmining::Plugin::StructureHelper/, 'new Textmining::Plugin::StructureHelper');
+isa_ok($test_structhelper, "Textmining::Plugin::StructureHelper");
 
 $test_structhelper->{_path}->{data} = $test_data_dir;
 $test_structhelper->{_path}->{public} = $test_public_dir;

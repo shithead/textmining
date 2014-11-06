@@ -62,7 +62,7 @@ $t->app->home->parse($dir);
 
 $number_of_tests_run++;
 my $test_transform = Textmining::Plugin::StructureHelper::Transform->new->init($t->app);
-like($test_transform, qr/Textmining::Plugin::StructureHelper::Transform/, 'new Textmining::Plugin::StructureHelper::Transform');
+isa_ok($test_transform, "Textmining::Plugin::StructureHelper::Transform");
 
 # Test for get_doc
 $number_of_tests_run++;

@@ -32,9 +32,7 @@ my $t = Test::Mojo->new('Textmining');
 $number_of_tests_run++;
 my $test_corpus = Textmining::Plugin::StructureHelper::Corpus->new->init($t->app);
 
-like( $test_corpus,
-    qr/Textmining::Plugin::StructureHelper::Corpus/, 
-    "new Textmining::Plugin::StructureHelper::Corpus");
+isa_ok( $test_corpus, "Textmining::Plugin::StructureHelper::Corpus");
 
 
 # Test attributes
