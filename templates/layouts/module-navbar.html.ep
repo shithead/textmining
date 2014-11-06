@@ -14,7 +14,7 @@
     <div class="bs-component">
         <div class="navbar navbar-default">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/#">Text<strong>Mining</strong></a>
+                <a class="navbar-brand" href="#">Text<strong>Mining</strong></a>
             </div>
             <!--
             <div class="navbar-collapse collapse navbar-inverse-collapse">
