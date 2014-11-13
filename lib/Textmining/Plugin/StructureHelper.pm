@@ -526,6 +526,12 @@ sub init_public_course ($$) {
                         \@chapter_dirs 
                     );
 
+        $self->create_public_library(
+                $library->{path},
+                $library->{files},
+                $course
+            );
+
         #p $module_struct;
         if (defined $module_struct->{meta}->{corpora} and 0)  {
             my $corpora_data = $self->create_public_corpus(
@@ -689,7 +695,9 @@ sub create_public_library {
         my $doc = $self->{transform}->get_doc($data_src);
         my $style = $self->{transform}->get_xsl('templates/res/xsl/page-library.xsl');
         my $html_string = $self->{transform}->doctohtml($doc);
-        my $html_file_path = join('/', $public_dest, $_);
+        my $html_file = $_;
+        $html_file =~ s/\.xml$/.html/;
+        my $html_file_path = join('/', $public_dest, $html_file);
         open FH, ">:encoding(UTF-8)", $html_file_path
             or $self->{log}->error("create_public_library: open UTF-8 encode file failed")
             and return undef;

@@ -445,7 +445,7 @@ is_deeply($got, $expect_corpus, 'create_public_corpus');
 
 # Test for create_public_library ($$$$)
 # expect data
-my $expect_paths = [ "$dir/test-public/test_course/library/library.xml" ];
+my $expect_paths = [ "$dir/test-public/test_course/library/library.html" ];
 
 # Test
 undef $got;
@@ -502,6 +502,7 @@ my $expect_public_meta_struct = {
 #            'corpus-file' => undef
         },
         library   => {
+            "library.html" => undef
         },
         module     => {
             'Test Modul'   => {
