@@ -675,6 +675,31 @@ sub create_public_corpus ($$$) {
     return $corpora_data_struct;
 }
 
+sub create_public_library {
+    my $self     =   shift;
+    my $data_dir =   shift;
+    my $data_files = shift;
+    my $course   =   shift;
+
+    my $public_dest = join '/', $self->get_public_path($course), 'library';
+
+    my @html_files;
+    foreach (values $data_files) {
+        my $data_src = join '/', $data_dir, $_;
+        my $doc = $self->{transform}->get_doc($data_src);
+        my $style = $self->{transform}->get_xsl('templates/res/xsl/page-library.xsl');
+        my $html_string = $self->{transform}->doctohtml($doc);
+        my $html_file_path = join('/', $public_dest, $_);
+        open FH, ">:encoding(UTF-8)", $html_file_path
+            or $self->{log}->error("create_public_library: open UTF-8 encode file failed")
+            and return undef;
+        push @html_files, $html_file_path;
+        print FH $html_string;
+        close FH;
+    }
+    return wantarray ? @html_files : \@html_files;
+}
+
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 

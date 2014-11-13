@@ -443,6 +443,20 @@ $got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_
 $number_of_tests_run++;
 is_deeply($got, $expect_corpus, 'create_public_corpus');
 
+# Test for create_public_library ($$$$)
+# expect data
+my $expect_paths = [ "$dir/test-public/test_course/library/library.xml" ];
+
+# Test
+undef $got;
+$got = $test_structhelper->create_public_library(
+        join('/', $test_data_dir, 'test_course', 'library'),
+        $test_dir_hash->{test_course}->{library},
+        'test_course'
+    );
+$number_of_tests_run++;
+is_deeply($got, $expect_paths, 'create_public_library'); 
+
 # Test for update_public_struct($self)
 remove_tree("$test_public_dir/test_course");
 # create test struct
