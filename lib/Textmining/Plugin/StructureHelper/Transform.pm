@@ -67,6 +67,11 @@ sub get_xsl ($$) {
 
     my $style;
     eval{ $style = XML::LibXML->load_xml(location => $xslfile, , no_cdata => 1); };
+
+    if ($self->isa( "HASH" ) ) {
+        my $xslt        = XML::LibXSLT->new();
+        $self->{xslt}   = $xslt->parse_stylesheet($style);
+    }
     return $style;
 }
 

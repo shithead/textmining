@@ -13,13 +13,7 @@ BEGIN {
     use_ok( 'Textmining::Plugin::StructureHelper::Transform' );
 }
 
-#my ($fh, $filename) = tempfile();
-#($fh, $filename) = tempfile( $template, DIR => $dir);
-#($fh, $filename) = tempfile( $template, SUFFIX => '.dat');
-#($fh, $filename) = tempfile( $template, TMPDIR => 1 );
 my $dir = tempdir( CLEANUP => 1 );
-#my $dir = tempdir();
-#($fh, $filename) = tempfile( DIR => $dir );
 my $test_public = 'test-public';
 my $test_data = 'test-data';
 my $test_public_path = join('/', $dir, $test_public );
@@ -40,8 +34,6 @@ copy("$FindBin::Bin/examples/page.xsl", join("/", $test_res, "page.xsl"));
 copy("$FindBin::Bin/examples/library.xml", join("/", $test_res, "library.xml"));
 make_path( $test_public_path );
 
-my $need_hash = {};
-
 # Test for get_xsl
 $number_of_tests_run++;
 
@@ -53,7 +45,6 @@ is_deeply($got_xsl, $expect_xsl, "loading a xslt-file works (get_xsl)");
 
 my $xslt = XML::LibXSLT->new();
 my $got_stylesheet  = $xslt->parse_stylesheet($got_xsl);
-$need_hash->{xslt} = $got_stylesheet;
 
 # Test for new
 # prepare app
@@ -122,7 +113,7 @@ my @expect_img_src = (
 $number_of_tests_run++;
 undef $got;
 $got = $test_transform->update_xml_tag_img($test_course_path, $test_doc);
-my @test_img_src = ($got->toString =~ m/<img src="(.*)">/g);
+my @test_img_src = ($got->toString =~ m/<img.+src="(.*)">/g);
 is_deeply(\@test_img_src, \@expect_img_src, 'update_xml_tag_img');
 
 # Test for get_library_node

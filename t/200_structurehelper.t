@@ -270,9 +270,9 @@ for (values @publicstruct) {
 my $test_module_pages;
 foreach (@{$test_dir_hash->{test_course}->{module}}) {
     $test_module_pages->{$_} = $test_structhelper->{transform}->xml_doc_pages(
-        join('/', $test_data_dir, 'test_course', 'module', $_),
-        join('/', $test_data_dir, 'test_course', 'library'),
-        $test_dir_hash->{test_course}->{library}
+            join('/', $test_data_dir, 'test_course', 'module', $_),
+            join('/', $test_data_dir, 'test_course', 'library'),
+            $test_dir_hash->{test_course}->{library}
     );
 }
 # prepare expect data

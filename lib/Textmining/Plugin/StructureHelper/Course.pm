@@ -80,8 +80,8 @@ sub get_node_metastruct ($$$) {
 }
 
 sub get_course_struct ($$$) {
-    my $self            = shift;
-    my $module_path      = shift;
+    my $self        = shift;
+    my $module_path = shift;
 
     my $module_doc       = Textmining::Plugin::StructureHelper::Transform->get_doc($module_path);
     my $course_struct   = $self->get_node_metastruct($module_doc, '/course');
@@ -114,7 +114,8 @@ sub get_module_struct ($$) {
             # page nodes
             my $pagecnt = 0;
             for my $page ($chapter->findnodes('page')) {
-                $chapter_struct->{head} = $page->findvalue('h1') if ($page->exists('h1')) ;
+                $chapter_struct->{head} = $page->findvalue('h1')
+                        if ($page->exists('h1')) ;
                 $pagecnt++;
             }
             $chapter_struct->{pagecnt} = $pagecnt;

@@ -270,11 +270,8 @@ sub save_struct ($$$) {
     my $json_bytes = $self->hash_to_json($meta_struct);
 
     unless (defined &_store($json_bytes, $location)){
-#    open  my $FH , ">:encoding(UTF-8)", $location
         $self->{log}->error("file $location not opened");
         return undef;
-#    print $FH $json_bytes;
-#    close $FH;
     }
 }
 
@@ -288,8 +285,6 @@ sub load_struct ($$) {
         return undef;
     }
 
-    #my $file        = Mojo::Asset::File->new( path => $location);
-    #my $meta_struct = $self->json_to_hash($file->get_chunk(0));
     my $meta_struct = $self->json_to_hash(&_retrieve($location));
     return $meta_struct;
 }
@@ -398,7 +393,7 @@ sub get_data_library ($$) {
     my $course = shift;
 
     my @courses_keys = (keys $self->get_data_struct());
-    unless (  $course ~~ @courses_keys ) {
+    unless ( $course ~~ @courses_keys ) {
         if (defined $self->{log}) {
             $self->{log}->error("library: course $course not in \'@courses_keys\'");
         } else {
