@@ -45,11 +45,10 @@ $XML::LibXML::skipXMLDeclaration = 1;
 sub init {
     my ($self, $app) = (@_);
 
-    my $home   = $app->home;
-    $self->{log} = $app->log;
-    my $xslt        = XML::LibXSLT->new();
-    my $xsl         = $self->get_xsl($home->rel_dir("templates/res/page.xsl"));
-    $self->{xslt}   = $xslt->parse_stylesheet($xsl);
+    my $home        = $app->home;
+    $self->{log}    = $app->log;
+    $self->{xslt}   = {};
+    bless $self->{xslt}, "XML::LibXSLT::StylesheetWrapper";
     return $self;
 }
 

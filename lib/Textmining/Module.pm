@@ -23,8 +23,6 @@ sub module {
         print STDERR "page_path or navbar empty\n";
         $self->redirect_to('/course') ;
     }
-    # TODO
-    # a job for Mojo::Content ? 
     $pagenr = 0 if ($pagenr >= (@{$page_path} - 1));
     $pagenr = @{$page_path} - $pagenr - 2 if ($pagenr < 0);
 

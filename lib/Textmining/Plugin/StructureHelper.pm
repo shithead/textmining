@@ -517,6 +517,8 @@ sub init_public_course ($$) {
                 );
 
         my $module_pages;
+
+        $self->{transform}->get_xsl('templates/res/xsl/page.xsl');
         $module_pages->{$module_file} = $self->{transform}->nodestohtml(\@page_docs);
                 #use Data::Printer;
                 #p $module_pages;
