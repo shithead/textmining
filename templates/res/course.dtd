@@ -82,7 +82,7 @@
 
 <!ELEMENT option ( ctext, action+ ) >
 
-<!ELEMENT p ( #PCDATA | bib | emph | foreign | img | kursiv | person | quantity | url | term )* >
+<!ELEMENT p ( #PCDATA | bib | emph | foreign | img | kursiv | person | quantity | url | sub | sup | term )* >
 <!ATTLIST p type ( details | example | quote ) #IMPLIED >
 
 <!ELEMENT page ( check | details | exercise | h1 | h2 | h3 | img | list | p )* >
@@ -104,6 +104,10 @@
 <!ATTLIST statistic mi3 CDATA #IMPLIED  >
 <!ATTLIST statistic tscore CDATA #IMPLIED  >
 <!ATTLIST statistic zscore CDATA #IMPLIED  >
+
+<!ELEMENT sub ( #PCDATA ) >
+
+<!ELEMENT sup ( #PCDATA ) >
 
 <!ELEMENT term ( #PCDATA | emph | foreign | kursiv )* >
 

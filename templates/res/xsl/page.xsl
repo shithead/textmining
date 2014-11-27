@@ -285,6 +285,10 @@
          <xsl:apply-templates select="meta | module"/>
      </xsl:template>
 
+     <xsl:template match="ctext">
+         <xsl:apply-templates select="text() | list | p | term"/>
+     </xsl:template>
+
      <xsl:template match="date">
          <time><xsl:value-of select="text()"/></time>
      </xsl:template>
@@ -306,7 +310,7 @@
 
      <xsl:template match="emph">
          <b>
-             <xsl:value-of select="text()"/>
+             <xsl:apply-templates select="text() | kursiv"/>
          </b>
      </xsl:template>
 
@@ -432,7 +436,7 @@
                          <div class="bs-component">
                              <blockquote>
                                  <p>
-                                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term"/>
                                  </p>
                                  <small>
                                      <cite title="bib[@id]">
@@ -444,7 +448,9 @@
                      </div>
                  </div>
              </xsl:when>
+             <!-- deprecated -->
              <xsl:when test="@type='details'">
+                 <xsl:message>p with type details is deprecated</xsl:message>
                  <xsl:variable name="it" select='generate-id(current())'/>
                  <div class="tab-content">
                      <div class="tab-pane active" id="{$it}2">
@@ -462,12 +468,12 @@
              </xsl:when>
              <xsl:when test="@type='example'">
                  <p class="example">
-                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term"/>
                  </p>
              </xsl:when>
              <xsl:otherwise>
                  <p>
-                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term"/>
                  </p>
              </xsl:otherwise>
          </xsl:choose>
@@ -494,12 +500,20 @@
          </person>
      </xsl:template>
 
-     <xsl:template match="term">
-         <dfn><xsl:apply-templates select="text() | emph | foreign | kursiv"/></dfn>
+     <xsl:template match="sub">
+         <sub>
+             <xsl:value-of select="text()"/>
+         </sub>
      </xsl:template>
 
-     <xsl:template match="ctext">
-         <xsl:apply-templates select="text() | list | p | term"/>
+     <xsl:template match="sup">
+         <sup>
+             <xsl:value-of select="text()"/>
+         </sup>
+     </xsl:template>
+
+     <xsl:template match="term">
+         <dfn><xsl:apply-templates select="text() | emph | foreign | kursiv"/></dfn>
      </xsl:template>
 
      <xsl:template match="title">
