@@ -49,7 +49,7 @@ This method return the structure of the 'data' directory.
 
 This method return the structure of the specified course.
 
-=method get_data_modul()
+=method get_data_module()
 
 This method return the modules files and directory
 in a structure of the specified course.
@@ -68,7 +68,7 @@ This method return the relative path to 'public' directory.
 =method init_public_course()
 
 This method initialing the public directory of the specified course
-with the informations from the module by 
+with the informations from the module by
 L<Textmining::StructureHelper::Transform/"get_meta_struct">.
 
 Is using L<Textmining::StructureHelper::Transform/"xml_doc_pages">,
@@ -88,7 +88,7 @@ This method remove the public directory of the specified course.
 
 This method create path of the specified directory in 'public/course' directory.
 
-=method get_public_modul()
+=method get_public_module()
 
 This method return all module informaitions from a course hash.
 
@@ -138,12 +138,29 @@ sub init ($$) {
     $self->{log}    = $app->log;
     $self->{home}   = $app->home;
     $self->{_path}  = $app->config->{path};
+    unless (defined $self->{_path}->{xsl}){
+        $self->{_path}->{xsl}->{module}  = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+        $self->{_path}->{xsl}->{library} = $self->{home}->to_string . '/templates/res/xsl/page-library.xsl';
+    } else {
+        unless (defined $self->{_path}->{xsl}->{module}){
+            $self->{_path}->{xsl}->{module}  = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+        } else {
+            $self->{_path}->{xsl}->{module} = join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{module})
+                unless ($self->{_path}->{xsl}->{module} =~ "$self->{home}->to_string");
+        }
+        unless (defined $self->{_path}->{xsl}->{library}){
+            $self->{_path}->{xsl}->{library}  = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+        } else {
+            $self->{_path}->{xsl}->{library} = join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{library})
+                unless ($self->{_path}->{xsl}->{library} =~ "$self->{home}->to_string");
+        }
+    }
     $self->{_data_struct} = $self->load_struct($self->get_data_path()) || {};
     $self->{_public_struct} = $self->load_struct($self->get_public_path()) || {};
-    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new->init($app);
 
-    $self->{course} = Textmining::Plugin::StructureHelper::Course->new->init($app); 
-    $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new->init($app); 
+    $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new->init($app);
+    $self->{course} = Textmining::Plugin::StructureHelper::Course->new->init($app);
+    $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new->init($app);
     return $self;
 }
 
@@ -193,7 +210,7 @@ sub _search_tree($$) {
             my $next_tree = $tree->{$node};
             my $result = &_search_tree($next_tree, $pattern);
             if (defined $result) {
-               return join( '/', $node, $result); 
+               return join( '/', $node, $result);
             }
         }
     }
@@ -209,7 +226,7 @@ sub _get_files ($) {
     my @o_files;
     for my $file (values @files) {
         # ignore .
-        if ($file =~ qr/(^[^\.])/ 
+        if ($file =~ qr/(^[^\.])/
                 and not -d join('/', $dir, $file)) {
             push @o_files, $file;
         }
@@ -366,7 +383,7 @@ sub get_data_course ($) {
     return wantarray ? @course_list : \@course_list;
 }
 
-sub get_data_modul ($$) {
+sub get_data_module ($$) {
     my $self = shift;
     my $course = shift;
 
@@ -447,7 +464,7 @@ sub init_public_course ($$) {
     my ($self, $course) = @_;
 
     my $dest    = $self->get_public_path($course);
-    my $modul   = $self->get_data_modul($course);
+    my $module  = $self->get_data_module($course);
     my $library = $self->get_data_library($course);
     my $corpus  = $self->get_data_corpus($course);
     my $resource = join('/', $self->get_data_path($course), 'res');
@@ -463,20 +480,20 @@ sub init_public_course ($$) {
     }
 
     my $course_meta_struct;
-    if (@{$modul->{files}}) {
+    if (@{$module->{files}}) {
         $course_meta_struct = $self->{course}->get_course_struct(
-            join('/', $modul->{path}, @{$modul->{files}}[0])
+            join('/', $module->{path}, @{$module->{files}}[0])
         );
     } else {
         $self->{log}->error('init_public_course: no module file');
         return undef;
     }
-    # TODO change parameter for the output of 
-    # $self->get_data_modul($course)
-    for my $module_file (values @{$modul->{files}}) {
+    # TODO change parameter for the output of
+    # $self->get_data_module($course)
+    for my $module_file (values @{$module->{files}}) {
         # module nodes
         my $module_struct    = $self->{course}->get_module_struct(
-                join('/', $modul->{path}, $module_file) );
+                join('/', $module->{path}, $module_file) );
 
         my $module_dir = join('/',
             $course, 'module',
@@ -490,22 +507,22 @@ sub init_public_course ($$) {
         } else {
             $self->{log}->debug("resource directory $resource not exists");
         }
-        # {{ TODO build a stack of 
-        # create_public_modul 
+        # {{ TODO build a stack of
+        # create_public_modul
         # -> create_pages
-        # update every sub modul with $page_meta_list see bottom of fnct
+        # update every sub module with $page_meta_list see bottom of fnct
         my @chapter_dirs    = $self->create_public_chapter(
                 $module_dir,
                 $module_struct
             );
 
         my @page_docs = $self->{transform}->xml_doc_pages(
-                join('/', $modul->{path}, $module_file),
+                join('/', $module->{path}, $module_file),
                 $library->{path},
                 $library->{files}
             );
 
-        my $foo = $dest; 
+        my $foo = $dest;
         $foo =~ s/$self->{home}->to_string//;
         $foo =~ s/\/[^\/]+\///;
 
@@ -518,14 +535,14 @@ sub init_public_course ($$) {
 
         my $module_pages;
 
-        $self->{transform}->get_xsl('templates/res/xsl/page.xsl');
+        $self->{transform}->get_xsl($self->{_path}->{xsl}->{module});
         $module_pages->{$module_file} = $self->{transform}->nodestohtml(\@page_docs);
                 #use Data::Printer;
                 #p $module_pages;
-
+                #p @chapter_dirs;
         $module_struct->{pages} = $self->create_public_pages(
                         $module_pages,
-                        \@chapter_dirs 
+                        \@chapter_dirs
                     );
 
         $self->create_public_library(
@@ -695,7 +712,7 @@ sub create_public_library {
     foreach (values $data_files) {
         my $data_src = join '/', $data_dir, $_;
         my $doc = $self->{transform}->get_doc($data_src);
-        my $style = $self->{transform}->get_xsl('templates/res/xsl/page-library.xsl');
+        my $style = $self->{transform}->get_xsl($self->{_path}->{xsl}->{library});
         my $html_string = $self->{transform}->doctohtml($doc);
         my $html_file = $_;
         $html_file =~ s/\.xml$/.html/;
