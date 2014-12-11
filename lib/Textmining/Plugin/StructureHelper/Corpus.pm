@@ -217,7 +217,7 @@ sub collocation_corpus ($$$) {
                             $ngram,
                             $corpus_ws[$index]->{$token});
 
-                my $stats = { chi2 => {}, llr => {}};
+                my $stats = {chi2 => {}, llr => {}};
                 $stats->{$_} = $stat->collocation($_, $sort_ngram_freq)->{$_}
                     foreach (qw(chi2 llr));
                 $corpus_data->{id}->{$id}->{corpus}->{statistic} = $stats;

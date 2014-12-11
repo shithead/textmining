@@ -82,7 +82,7 @@
 
 <!ELEMENT option ( ctext, action+ ) >
 
-<!ELEMENT p ( #PCDATA | bib | emph | foreign | img | kursiv | person | quantity | url | sub | sup | term )* >
+<!ELEMENT p ( #PCDATA | bib | emph | foreign | img | kursiv | person | quantity | url | sub | sup | term | url )* >
 <!ATTLIST p type ( details | example | quote ) #IMPLIED >
 
 <!ELEMENT page ( check | details | exercise | h1 | h2 | h3 | img | list | p )* >

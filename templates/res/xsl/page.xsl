@@ -460,7 +460,7 @@
                          <div class="glyphicon glyphicon-minus" data-toggle="tab" data-target="#{$it}2"><b> Detail</b></div>
                          <span>
                              <p>
-                                 <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term"/>
+                                 <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term | url"/>
                              </p>
                          </span>
                      </div>
@@ -468,12 +468,12 @@
              </xsl:when>
              <xsl:when test="@type='example'">
                  <p class="example">
-                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term"/>
+                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
                  </p>
              </xsl:when>
              <xsl:otherwise>
                  <p>
-                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term"/>
+                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
                  </p>
              </xsl:otherwise>
          </xsl:choose>
