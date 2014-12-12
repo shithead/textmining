@@ -57,6 +57,7 @@
 
 <!ELEMENT img ( #PCDATA ) >
 <!ATTLIST img src CDATA #REQUIRED >
+<!ATTLIST img type ( svg ) #IMPLIED >
 
 <!ELEMENT keywords ( range, frequence, statistic ) >
 <!ATTLIST keywords href CDATA #REQUIRED >

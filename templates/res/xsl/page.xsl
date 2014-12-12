@@ -348,7 +348,14 @@
 
      <xsl:template match="img">
          <xsl:variable name="alttext"  select="text()"/>
-         <img src="{@src}" alt="{$alttext}" class="img-responsive" />
+         <xsl:choose>
+             <xsl:when test="@type='svg'">
+                 <object class="col-lg-12" type="image/svg+xml" data="{@src}" border="1"></object>
+             </xsl:when>
+             <xsl:otherwise>
+                <img src="{@src}" alt="{$alttext}" class="img-responsive" />
+             </xsl:otherwise>
+         </xsl:choose>
      </xsl:template>
 
      <xsl:template match="keywords">

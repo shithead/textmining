@@ -522,14 +522,9 @@ sub init_public_course ($$) {
                 $library->{files}
             );
 
-        my $foo = $dest;
-        $foo =~ s/$self->{home}->to_string//;
-        $foo =~ s/\/[^\/]+\///;
-
-        #use Data::Printer;
         # XML::LibXML is running over the hole doc
         $page_docs[0] = $self->{transform}->update_xml_tag_img(
-                    $foo,
+                    join('/', $course, "res"),
                     $page_docs[0]
                 );
 

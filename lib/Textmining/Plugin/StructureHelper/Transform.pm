@@ -113,8 +113,9 @@ sub update_xml_tag_img ($$$) {
        #p $src_attr;
        next unless ( $src_attr );
        next if ($src_attr =~ qr/^https?:\/\//);
-       my $new_src_attr = "../$course_path";
-       #p $src_attr;
+       my $new_src_attr = "$course_path";
+       #use Data::Printer;
+       #p $new_src_attr;
        foreach (split('/', $src_attr)) {
            $new_src_attr = join('/', $new_src_attr, $_) unless ($_ =~ qr/^\.\./);
        }

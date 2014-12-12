@@ -17,7 +17,6 @@ sub module {
     my $page_path   = $self->struct->get_public_page_path($course_meta_struct, $module);
     my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $module);
 
-    # TODO error message
     unless ($page_path || @navbar) {
         $self->app->log->error('page_path or navbar empty');
         print STDERR "page_path or navbar empty\n";
