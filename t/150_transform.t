@@ -68,6 +68,7 @@ is_deeply($got, $expect_doc, "get_doc");
 my $test_doc = $got;
 $number_of_tests_run++;
 
+$test_transform->get_xsl('templates/res/xsl/page.xsl');
 my $expect_html = $test_transform->{xslt}->transform($test_doc);
 
 undef $got;
@@ -99,12 +100,12 @@ $test_course_path =~ s/\/[^\/]+\///;
 
 #prepare expect
 my @expect_img_src = (
-    "../test_course/test-img",
-    "../test_course/test-img-two",
-    "../test_course/test-img-two-two",
-    "../test_course/test-img-two-three",
-    "../test_course/test-img-three",
-    "../test_course/test-img-four",
+    "test_course/test-img",
+    "test_course/test-img-two",
+    "test_course/test-img-two-two",
+    "test_course/test-img-two-three",
+    "test_course/test-img-three",
+    "test_course/test-img-four",
     "https://test-img-five",
     "http://test-img-five-two",
     ""

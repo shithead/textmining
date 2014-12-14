@@ -41,7 +41,7 @@ my $xsl_doc = $transform->get_xsl($test_xsl);
 my $bibl_doc = $transform->get_doc($test_bibl);
 
 # test library/biblography transforming
-my $expect_html_string='<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta charset="utf-8"/><link rel="stylesheet" href="css/bootstrap.min.css" media="screen"/><link rel="stylesheet" href="css/bootstrap.css" media="screen"/><link rel="stylesheet" href="css/font-awesome.min.css"/></head><body><dl class="listBibl"><dt><a name="test-one"><!--anchor--></a>
+my $expect_html_string='<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta charset="utf-8"/><link rel="stylesheet" href="css/bootstrap.min.css" media="screen"/></head><body><dl class="listBibl"><dt><a name="test-one"><!--anchor--></a>
                     Testname one
                 </dt><dd>
         
@@ -67,7 +67,7 @@ my $expect_html_string='<html><head><meta http-equiv="Content-Type" content="tex
             . 
         
 
-</dd></dl></body></html>';
+</dd></dl><script src="js/jquery-1.js"/><script src="js/bootstrap.js"/></body></html>';
 $number_of_tests_run++;
 my $test_html = $transform->doctohtml($bibl_doc);
 is($test_html->toString, $expect_html_string, "biblo transform");

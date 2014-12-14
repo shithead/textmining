@@ -155,14 +155,14 @@ is_deeply($test_structhelper->get_data_struct, $test_hash, 'get_data_struct');
 $number_of_tests_run++;
 is_deeply($test_structhelper->get_data_course, @{['test_course']}, 'get_data_course');
 
-# Test for get_data_modul($self, $course)
+# Test for get_data_module($self, $course)
 $test_hash = {
         path    => join('/', $test_structhelper->{_path}->{data}, 'test_course', 'module'),
         files   => \@{$test_structhelper->{_data_struct}->{test_course}->{module}}
 };
 
 $number_of_tests_run++;
-is_deeply($test_structhelper->get_data_modul('test_course'), $test_hash, 'get_data_modul');
+is_deeply($test_structhelper->get_data_module('test_course'), $test_hash, 'get_data_module');
 
 # Test for get_data_library($self, $course)
 $test_hash = {
@@ -206,7 +206,7 @@ is(&Textmining::Plugin::StructureHelper::_exists_check(join('/', $test_public_di
 
 # Test for create_public_chapter($self, $course, $course_meta_struct)
 # prepare test
-my $test_module = $test_structhelper->get_data_modul('test_course');
+my $test_module = $test_structhelper->get_data_module('test_course');
 my $test_module_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_module_struct(
         join( '/', $test_module->{path}, 'module.xml')
 );
@@ -553,7 +553,7 @@ $number_of_tests_run++;
 is($test_structhelper->get_public_course_struct(), 
     undef, 'get_public_course_struct with undefined $course');
 
-# Test for get_public_page_path($self, $course_struct, $modul)
+# Test for get_public_page_path($self, $course_struct, $module)
 # prepare test data
 my $test_course_meta_struct = Textmining::Plugin::StructureHelper::Course->new->get_course_struct( 
         join( '/', $test_module->{path}, 'module.xml')
@@ -582,7 +582,7 @@ is($test_structhelper->get_public_page_path(
         undef,
         'get_public_page_path with undefined $module');
 
-# Test for get_public_navbar($self, $meta_struct, $modul)
+# Test for get_public_navbar($self, $meta_struct, $module)
 # create test array
 my @test_navbar_array = (
     {
@@ -624,7 +624,7 @@ $number_of_tests_run++;
 is($test_structhelper->get_public_navbar( 
             $test_course_meta_struct, undef),
         undef,
-        'get_public_navbar with undefined $modul');
+        'get_public_navbar with undefined $module');
 
 # }}} public directory
 done_testing( $number_of_tests_run );
