@@ -66,6 +66,7 @@ sub startup {
     # Modul route to controller
     # GET /course/module?course="foo"&module="bar"&page=<nr>
     $course->get('/module')->to('module#module');
+    $course->any('/module/ws')->to('module#ws');
     # TODO websocket
 }
 

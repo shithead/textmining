@@ -30,7 +30,8 @@ for (values @publicstruct) {
 
 my $test_res = join("/", $dir, "templates/res");
 make_path($test_res);
-copy("$FindBin::Bin/examples/page.xsl", join("/", $test_res, "page.xsl"));
+make_path(join('/', $test_res, 'xsl'));
+copy("$FindBin::Bin/examples/page.xsl", join("/", $test_res, 'xsl', "page.xsl"));
 copy("$FindBin::Bin/examples/library.xml", join("/", $test_res, "library.xml"));
 make_path( $test_public_path );
 

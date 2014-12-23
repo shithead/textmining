@@ -1,56 +1,212 @@
 <!-- vim:ft=html -->
 % layout 'module-navbar';
 % title $module;
-<div>
-    <div class="col-sm-2">
-        <div class="progress progress-striped">
-            % my $progress = ($pagenr / @{$page_path}) * 100;
-            <div class="progress-bar progress-bar-info" style="width: <%= $progress %>%"></div>
-        </div>
-        <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-            % my $it=0;
-            % for my $nav (values $navbar) {
-            %   my ($curtext) = keys $nav;
-            %   my ($curnr) = values $nav;
-            %   my $nextnr = $curnr;
-            %   if ( defined $navbar->[$it+1]) {
-            %       ($nextnr) = values $navbar->[$it+1];
-            %   } else {
-            %       $nextnr = @{$page_path};
-            %   }
-            %   if ( $pagenr >= $curnr and $pagenr < $nextnr) {
-            <li class="active">
-            <a  href="?course=<%= $course %>&module=<%= $module %>&page=<%= $curnr %>"><%= $curtext %></a>
-            %   } else {
-            <li>
-            <a href="?course=<%= $course %>&module=<%= $module %>&page=<%= $curnr %>"><%= $curtext %></a>
-            %   }
-            </li>
-            %   $it++;
-            % }
-        </ul>
-    </div>
-    <div class="bs-component col-lg-9">
-        <ul class="pager">
-            <li class="previous">
-            <a href="?course=<%= $course %>&module=<%= $module %>&page=<%= $pagenr - 1 %>">← Vorhergehende</a>
-            </li>
-            <li class="next">
-            <a href="?course=<%= $course %>&module=<%= $module %>&page=<%= $pagenr + 1 %>">Nächste →</a>
-            </li>
-        </ul>
-        <%= $page %>
-    </div>
-    % my $author = join('/', values $meta->{authors});
-    % my $version = $meta->{version};
-    % my $datum = $meta->{date};
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <small>
-                    <p>Autor/in dieses Moduls: <%= $author %>, Version: <%= $version %>, Datum: <%= $datum %> </p>
-                </small>
+% my $url = $self->req->url->to_abs->scheme($self->req->is_secure ? 'wss' : 'ws')->path('/course/module');
+% $url = 'ws://127.0.0.1:3000/course/module/';
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active">
+    <a data-toggle="tab" href="javascript:get_module();">Module</a>
+    </li>
+    <li>
+    <a data-toggle="tab" href="javascript:get_library();">Library</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div id="module"  class="tab-pane fade active in">
+        <div>
+            <div class="col-sm-2">
+                <div id="progress" class="progress progress-striped">
+                </div>
+                <ul id="navbar" class="nav nav-pills nav-stacked" style="max-width: 300px;">
+                </ul>
+            </div>
+            <div class="bs-component col-lg-10">
+                <ul class="pager">
+                    <li class="previous">
+                    <a href="javascript:get_prev_page();">← Vorhergehende</a>
+                    </li>
+                    <li class="next">
+                    <a href="javascript:get_next_page();">Nächste →</a>
+                    </li>
+                </ul>
+                <div id="page">
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
 </div>
+            % my $author = join('/', values $meta->{authors});
+            % my $version = $meta->{version};
+            % my $datum = $meta->{date};
+            <footer>
+                <div class="container">
+                    <div class="col-lg-12">
+                        <small>
+                            <p>Autor/in dieses Moduls: <%= $author %>, Version: <%= $version %>, Datum: <%= $datum %> </p>
+                        </small>
+                    </div>
+                </div>
+            </footer>
+    <script language="javascript" type="text/javascript">
+
+    var currentUser, ele, websocket;
+    var wsUri = "<%= $url %>ws";
+    // send this information bei established first socket
+    // check on user id
+    var course = "<%= $course %>";
+    var module = "<%= $module %>";
+    var pagenr = <%= $pagenr %>;
+    var pages  = <%= @{$page_path} - 1 %>;
+    var progress = 0.0;
+
+    function init()
+    {
+        webSocket();
+    }
+
+    function webSocket()
+    {
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function(evt) { onOpen(evt) };
+        websocket.onclose = function(evt) { onClose(evt) };
+        websocket.onmessage = function(evt) { onMessage(evt) };
+        websocket.onerror = function(evt) { onError(evt) };
+    }
+
+    function onOpen(evt)
+    {
+    }
+
+    function onClose(evt)
+    {
+    }
+
+    function onMessage(evt)
+    {
+        var data;
+
+        try {
+            data = JSON.parse(evt.data);
+        } catch (SyntaxError) {
+            log('SyntaxError');
+            log(evt);
+            return false;
+        }
+        if (data.status == 'refresh') {
+            var msg = {
+                'user': currentUser,
+                'type':'page',
+                'message':{
+                    'course': course,
+                    'module': module,
+                    'pagenr': pagenr
+                }
+            };
+            sendmsg(msg);
+        }
+        if (currentUser == data.user) {
+            ele = document.getElementById(data.type);
+            if (data.type == 'page') {
+                pagenr = Number(data.message.pagenr);
+            }
+            if (data.type == 'library') {
+            }
+            if (data.type == 'module') {
+                module = data.message.module;
+            }
+            if (data.type == 'navbar') {
+            }
+            writeToScreen(data.message);
+            update_progress();
+        } else {
+            currentUser = data.user;
+        }
+    }
+
+    function onError(evt)
+    {
+        log('ERROR: ' + evt.data);
+    }
+
+    function doSend(message)
+    {
+        websocket.send(message);
+    }
+
+    function writeToScreen(message)
+    {
+        ele.innerHTML = message.content;
+    }
+
+    window.onunload = function () {
+        websocket.close();
+    };
+
+    function log(msg)
+    {
+        console.log(msg);
+    }
+
+    function get_module()
+    {
+        var message = {};
+        message.user = currentUser;
+        message.type ='module';
+        message.message = {};
+        sendmsg(message);
+    }
+
+    function get_page(nr)
+    {
+        var message = {};
+        message.user = currentUser;
+        message.type ='page';
+        message.message = {};
+        message.message.course = course;
+        message.message.module = module;
+        pagenr = nr;
+        message.message.pagenr = pagenr;
+        sendmsg(message);
+    }
+
+    function get_prev_page()
+    {
+        var nr = Number(pagenr) - 1;
+        get_page(nr);
+    }
+
+    function get_next_page()
+    {
+        var nr = Number(pagenr) + 1;
+        get_page(nr);
+    }
+
+    function update_progress()
+    {
+        progress = 100 * Number(pagenr) / Number(pages);
+        ele = document.getElementById("progress");
+
+        var message = { 'content': "<div class=\"progress-bar progress-bar-info\" style=\"width: " + progress + "%\"></div>"};
+        writeToScreen(message);
+    }
+
+    function sendmsg(message)
+    {
+        // check websocket is open and if not reconnect
+        if (websocket.readyState >= 2) {
+            init();
+        }
+        message.sendtime = now();
+        doSend(JSON.stringify(message));
+    }
+
+    function now()
+    {
+        if (!Date.now) {
+            Date.now = function() { return new Date().getTime(); };
+        }
+        return Date.now();
+    }
+
+    window.addEventListener("load", init, false);
+    </script>
