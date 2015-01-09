@@ -1,6 +1,6 @@
 #!/usr/bin/env perl -w
 
-package Textmining::Plugin::StructureHelper::Corpus::Count;
+package Textmining::Plugin::CorpusHelper::Count;
 # ABSTRACT: Count.pm - Count the frequency of Ngrams in text
 
 =head1 SYNOPSIS
@@ -30,7 +30,7 @@ This method
 =head1 SEE ALSO
 
 =for :list
-* L<Textmining::Plugin::StructureHelper::Corpus::Count>
+* L<Textmining::Plugin::CorpusHelper::Count>
 
 =cut
 
@@ -265,9 +265,9 @@ sub sort_ngram_freq ($$$) {
 sub vrt_token($) {
     my $self    = shift;
 
-    my $token = { wortform => "^(.+?)\t", 
+    my $token = { wortform => "^(.+?)\t",
                   pos      => "\t(.+?)\t",
-                  lemma    => "\t([^\t]+)\$" 
+                  lemma    => "\t([^\t]+)\$"
                 };
     return $token;
 }

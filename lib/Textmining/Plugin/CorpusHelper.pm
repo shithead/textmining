@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-package Textmining::Plugin::StructureHelper::Corpus;
+package Textmining::Plugin::CorpusHelper;
 # ABSTRACT: Corpus library for create corpus.
 
 =head1 SYNOPSIS
@@ -22,9 +22,9 @@ This method
 =head1 SEE ALSO
 
 =for :list
-* L<Textmining::Plugin::StructureHelper::Corpus>
-* L<Textmining::Plugin::StructureHelper::Corpus::Count>
-* L<Textmining::Plugin::StructureHelper::Corpus::Statistic>
+* L<Textmining::Plugin::CorpusHelper>
+* L<Textmining::Plugin::CorpusHelper::Count>
+* L<Textmining::Plugin::CorpusHelper::Statistic>
 * L<Textmining::Plugin::StructureHelper::Transform>
 
 =cut
@@ -33,8 +33,15 @@ use Mojo::Base 'Mojolicious::Plugin';
 use XML::LibXML;
 use File::Basename;
 use Textmining::Plugin::StructureHelper::Transform;
-use Textmining::Plugin::StructureHelper::Corpus::Count;
-use Textmining::Plugin::StructureHelper::Corpus::Statistic;
+use Textmining::Plugin::CorpusHelper::Count;
+use Textmining::Plugin::CorpusHelper::Statistic;
+
+sub register {
+  my ($self, $app) = @_;
+    $app->helper(corpus => sub {
+            state $corpus = \$self->new();
+        });
+}
 
 sub init ($$) {
     my ($self, $app)    =   @_;
@@ -121,7 +128,7 @@ sub count_corpus ($$$$) {
     return undef unless (defined $corpus);
 
     my $count =
-    Textmining::Plugin::StructureHelper::Corpus::Count->new;
+    Textmining::Plugin::CorpusHelper::Count->new;
     my $tokens;
     if ($token_type =~ /vrt/) {
         $tokens         = $count->vrt_token();
@@ -186,7 +193,7 @@ sub compare_corpus ($$$) {
         $corpus_parts->{$id} = $corpus_token;
     }
 
-    my $statistic = Textmining::Plugin::StructureHelper::Corpus::Statistic->new();
+    my $statistic = Textmining::Plugin::CorpusHelper::Statistic->new();
     for my $token (keys $corpus_total) {
         my $ngrams_freq->[1] = $corpus_total->{$token};
         for my $id (keys $corpus_parts) {
@@ -203,8 +210,8 @@ sub collocation_corpus ($$$) {
     my $corpus_data =   shift;
     my $ngram       =   shift;
 
-    my $counter = Textmining::Plugin::StructureHelper::Corpus::Count->new;
-    my $stat = Textmining::Plugin::StructureHelper::Corpus::Statistic->new;
+    my $counter = Textmining::Plugin::CorpusHelper::Count->new;
+    my $stat = Textmining::Plugin::CorpusHelper::Statistic->new;
     my $corpus_parts;
     for my $id (keys $corpus_data->{id}) {
         my @corpus_ws = @{$corpus_data->{id}->{$id}->{corpus}->{windowsize}};
@@ -257,7 +264,7 @@ sub get_corpus ($$$$) {
         $m_s->{corpus}->{token} = $counts[0];
         $hash->{id}->{$m_s->{id}} = $m_s;
 
-        my $statistic = Textmining::Plugin::StructureHelper::Corpus::Statistic->new;
+        my $statistic = Textmining::Plugin::CorpusHelper::Statistic->new;
         if ($type == $self->keywords) {
             if (defined $filter) {
                 $hash->{$_}->{$m_s->{$_}}->{$m_s->{id}} = $m_s->{corpus}->{token}

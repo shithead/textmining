@@ -107,6 +107,7 @@ Is using L<"save_struct">.
 =for :list
 * L<Textmining::Plugin::StructureHelper::Transform>
 * L<Textmining::Plugin::StructureHelper>
+* L<Textmining::Plugin::CorpusHelper>
 
 =cut
 
@@ -117,7 +118,8 @@ use Mojo::Util qw(encode decode camelize);
 
 use Textmining::Plugin::StructureHelper::Transform;
 use Textmining::Plugin::StructureHelper::Course;
-use Textmining::Plugin::StructureHelper::Corpus;
+use Textmining::Plugin::CorpusHelper;
+
 use Storable qw(store_fd fd_retrieve);
 use File::Path qw(remove_tree make_path);
 use File::Copy::Recursive qw(dircopy);
@@ -143,16 +145,16 @@ sub init ($$) {
         $self->{_path}->{xsl}->{library} = $self->{home}->to_string . '/templates/res/xsl/page-library.xsl';
     } else {
         unless (defined $self->{_path}->{xsl}->{module}){
-            $self->{_path}->{xsl}->{module}  = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+            $self->{_path}->{xsl}->{module} = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
         } else {
             $self->{_path}->{xsl}->{module} = join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{module})
-                unless ($self->{_path}->{xsl}->{module} =~ "$self->{home}->to_string");
+                    unless ($self->{_path}->{xsl}->{module} =~ "$self->{home}->to_string");
         }
         unless (defined $self->{_path}->{xsl}->{library}){
-            $self->{_path}->{xsl}->{library}  = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+            $self->{_path}->{xsl}->{library} = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
         } else {
             $self->{_path}->{xsl}->{library} = join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{library})
-                unless ($self->{_path}->{xsl}->{library} =~ "$self->{home}->to_string");
+                    unless ($self->{_path}->{xsl}->{library} =~ "$self->{home}->to_string");
         }
     }
     $self->{_data_struct} = $self->load_struct($self->get_data_path()) || {};
@@ -160,7 +162,7 @@ sub init ($$) {
 
     $self->{transform} = Textmining::Plugin::StructureHelper::Transform->new->init($app);
     $self->{course} = Textmining::Plugin::StructureHelper::Course->new->init($app);
-    $self->{corpus} = Textmining::Plugin::StructureHelper::Corpus->new->init($app);
+    $self->{corpus} = Textmining::Plugin::CorpusHelper->new->init($app);
     return $self;
 }
 
