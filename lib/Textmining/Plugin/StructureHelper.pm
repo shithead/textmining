@@ -549,23 +549,23 @@ sub init_public_course ($$) {
             );
 
         #p $module_struct;
-        if (defined $module_struct->{meta}->{corpora} and 0)  {
-            my $corpora_data = $self->create_public_corpus(
-                $corpus->{path},
-                $corpus->{files},
-                $module_struct->{meta}->{corpora}
-            );
-            #save corpora_data
-            #p $course_meta_struct;
-            #p $module_struct;
-            #p $corpora_data;
+        #if (defined $module_struct->{meta}->{corpora} and 0)  {
+        #    my $corpora_data = $self->create_public_corpus(
+        #        $corpus->{path},
+        #        $corpus->{files},
+        #        $module_struct->{meta}->{corpora}
+        #    );
+        #    #save corpora_data
+        #    #p $course_meta_struct;
+        #    #p $module_struct;
+        #    #p $corpora_data;
 
-            for my $filename (keys $corpora_data) {
-                my $location = join '/', $dest, 'corpus', $filename;
-                &_store($corpora_data->{$filename}, $location);
-                $module_struct->{meta}->{corpora}->{$filename}->{public} = $location;
-            }
-        }
+        #    for my $filename (keys $corpora_data) {
+        #        my $location = join '/', $dest, 'corpus', $filename;
+        #        &_store($corpora_data->{$filename}, $location);
+        #        $module_struct->{meta}->{corpora}->{$filename}->{public} = $location;
+        #    }
+        #}
 
         $course_meta_struct->{$module_struct->{meta}->{title}} = $module_struct;
     }
