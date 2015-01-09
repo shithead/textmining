@@ -207,7 +207,7 @@ sub _search_tree($$) {
     my $pattern = shift;
 
     if (defined $tree) {
-        for my $node (sort keys $tree) {
+        for my $node (sort keys %{$tree}) {
             return $pattern if ($node eq $pattern);
             my $next_tree = $tree->{$node};
             my $result = &_search_tree($next_tree, $pattern);
@@ -342,7 +342,7 @@ sub update_data_struct ($) {
         }
     }
 
-    for my $course (keys $hash) {
+    for my $course (keys %{$hash}) {
         for (values @coursestruct) {
             my $cwd = join('/', $data, $course, $_);
             if ( $_ =~ 'corpus') {
@@ -369,7 +369,7 @@ sub get_data_struct ($) {
     my $self = shift;
 
     $self->{_data_struct} = $self->load_struct($self->get_data_path)
-            unless (keys $self->{_data_struct});
+            unless (keys %{$self->{_data_struct}});
     $self->{_data_struct} = {} unless defined $self->{_data_struct};
     return $self->{_data_struct};
 }
@@ -378,7 +378,7 @@ sub get_data_course ($) {
     my $self = shift;
 
     my @course_list;
-    foreach (keys $self->get_data_struct()) {
+    foreach (keys %{$self->get_data_struct()}) {
         push @course_list, $_;
     }
 
@@ -389,8 +389,8 @@ sub get_data_module ($$) {
     my $self = shift;
     my $course = shift;
 
-    my @courses_keys = (keys $self->get_data_struct());
-    unless (  $course ~~ @courses_keys ) {
+    my @courses_keys = (keys %{$self->get_data_struct()});
+    unless ( $course ~~ @courses_keys ) {
         if (defined $self->{log}) {
             $self->{log}->error("module: course $course not in \'" . join(',', @courses_keys) . "\'");
         } else {
@@ -411,7 +411,7 @@ sub get_data_library ($$) {
     my $self = shift;
     my $course = shift;
 
-    my @courses_keys = (keys $self->get_data_struct());
+    my @courses_keys = (keys %{$self->get_data_struct()});
     unless ( $course ~~ @courses_keys ) {
         if (defined $self->{log}) {
             $self->{log}->error("library: course $course not in \'@courses_keys\'");
@@ -433,7 +433,7 @@ sub get_data_corpus ($$) {
     my $self = shift;
     my $course = shift;
 
-    my @courses_keys = (keys $self->get_data_struct());
+    my @courses_keys = (keys %{$self->get_data_struct()});
     unless ( $course ~~ @courses_keys ) {
         if (defined $self->{log}) {
             $self->{log}->error("corpus: course $course not in \'@courses_keys\'");
@@ -605,10 +605,10 @@ sub create_public_pages ($$$) {
 
     my @page_meta_list;
     my $prev_page = undef;
-    for my $module_key (keys $module_pages) {
+    for my $module_key (keys %{$module_pages}) {
         my $pages;
         push @{$pages->{$module_key}}, $_ foreach (@{$module_pages->{$module_key}});
-        for my $chapter (values $chapter_dirs){
+        for my $chapter (values @{$chapter_dirs}){
             for my $pagenr (1..$chapter->{pagecnt}) {
                 my $page    = join(
                     '/',
@@ -636,7 +636,7 @@ sub create_public_corpus ($$$) {
     my $corpora = shift;
 
     my $corpora_data_struct;
-    for my $corpus_id (sort keys $corpora) {
+    for my $corpus_id (sort keys @{$corpora}) {
         my $corpus = $corpora->{$corpus_id}->{src};
         next if (&_exists_check(join('/', $dir, $corpus)));
         my $corpus_file = &_search_tree($files, $corpus);
@@ -681,15 +681,14 @@ sub create_public_corpus ($$$) {
                 if ($type == $self->{corpus}->keywords);
         $corpus_data = $self->{corpus}->collocation_corpus($corpus_data, $type)
                 if ($type == $self->{corpus}->collocation);
-        for my $id (keys $corpus_data->{id}) {
+        for my $id (keys %{$corpus_data->{id}}) {
             $corpora_data_struct->{$corpus_id}->{id}->{$id} = $corpus_data->{id}->{$id};
         }
 
         if ($type == $self->{corpus}->keywords) {
-            for my $part (values $filter) {
+            for my $part (values @{$filter}) {
                     $corpora_data_struct->{$corpus_id}->{$part}->{$_} =
-                            $corpus_data->{$part}->{$_}
-                            foreach (keys $corpus_data->{$part});
+                            $corpus_data->{$part}->{$_} foreach (keys %{$corpus_data->{$part}});
             }
         }
     }
@@ -706,7 +705,7 @@ sub create_public_library {
     my $public_dest = join '/', $self->get_public_path($course), 'library';
 
     my @html_files;
-    foreach (values $data_files) {
+    foreach (values @{$data_files}) {
         my $data_src = join '/', $data_dir, $_;
         my $doc = $self->{transform}->get_doc($data_src);
         my $style = $self->{transform}->get_xsl($self->{_path}->{xsl}->{library});
@@ -764,7 +763,7 @@ sub get_public_struct ($$) {
     my $course  = shift || undef;
 
     return $self->load_struct($self->get_public_path($course)) if (defined $course);
-    $self->update_public_struct() unless (keys $self->{_public_struct});
+    $self->update_public_struct() unless (keys %{$self->{_public_struct}});
     return $self->{_public_struct};
 }
 
@@ -798,7 +797,7 @@ sub get_public_navbar ($$$) {
     return undef unless (defined $m->{sub});
     my @navbar;
     my $pagecnt = 0;
-    for my $c (values $m->{sub}) {
+    for my $c (values @{$m->{sub}}) {
         push @navbar, { camelize($c->{id}) => $pagecnt };
         $pagecnt = $pagecnt + $c->{pagecnt};
     }

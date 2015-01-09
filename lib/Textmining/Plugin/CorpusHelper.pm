@@ -97,7 +97,7 @@ sub get_metastruct ($$$) {
 
     if ($corpus_doc->exists($xpath)) {
         my $node = $corpus_doc->find($xpath)->get_node(1);
-        foreach my $attr  (keys $hash) {
+        foreach my $attr  (keys %{$hash}) {
             $hash->{$attr} = $node->getAttribute($attr)
                     unless ( $attr ~~ [qw(corpus fpath)] );
         }
@@ -111,7 +111,7 @@ sub get_corpus_docs($$$) {
     my $files   =   shift;
     my @docs;
 
-    for my $file (sort values $files) {
+    for my $file (sort values @{$files}) {
         my $path = join('/', $dir, $file);
         my $doc =   $self->{transform}->get_doc($path);
         push @docs, $doc;
@@ -138,7 +138,7 @@ sub count_corpus ($$$$) {
 
     my $words;
     for my $line (split '\n', $corpus) {
-        for my $key (keys $tokens) {
+        for my $key (keys %{$tokens}) {
             if ( $line =~ $tokens->{$key}) {
                 push @{$words->{$key}}, $1;
             }
@@ -156,14 +156,14 @@ sub count_corpus ($$$$) {
         );
 
         my $ngram_freq = {};
-        foreach my $key (keys $words) {
+        foreach my $key (keys %{$words}) {
             $ngram_freq->{$key} = { $count->get_ngram_freq(
                     $permu,
                     $freq_comb,
                     $_,
                     $window_size,
                     $ngram
-                ) } foreach (values $words->{$key});
+                ) } foreach (values @{$words->{$key}});
             $count->clearup();
             $count->calc_freq_combo($ngram);
 
@@ -180,10 +180,10 @@ sub compare_corpus ($$$) {
 
     my $corpus_total;
     my $corpus_parts;
-    for my $id (keys $corpus_data->{id}) {
+    for my $id (keys %{$corpus_data->{id}}) {
         my $corpus_token = $corpus_data->{id}->{$id}->{corpus}->{token};
-        for my $token (keys $corpus_token) {
-            for my $word (keys $corpus_token->{$token}) {
+        for my $token (keys %{$corpus_token}) {
+            for my $word (keys %{$corpus_token->{$token}}) {
                 $corpus_total->{$token}->{$word} = 0
                         unless (defined $corpus_total->{$token}->{$word});
                 $corpus_total->{$token}->{$word} +=
@@ -194,9 +194,9 @@ sub compare_corpus ($$$) {
     }
 
     my $statistic = Textmining::Plugin::CorpusHelper::Statistic->new();
-    for my $token (keys $corpus_total) {
+    for my $token (keys %{$corpus_total}) {
         my $ngrams_freq->[1] = $corpus_total->{$token};
-        for my $id (keys $corpus_parts) {
+        for my $id (keys %{$corpus_parts}) {
             $ngrams_freq->[0] = $corpus_parts->{$id}->{$token};
             $corpus_data->{id}->{$id}->{corpus}->{statistic}
                     = $statistic->compare($ngrams_freq, $min_freq);
@@ -213,12 +213,12 @@ sub collocation_corpus ($$$) {
     my $counter = Textmining::Plugin::CorpusHelper::Count->new;
     my $stat = Textmining::Plugin::CorpusHelper::Statistic->new;
     my $corpus_parts;
-    for my $id (keys $corpus_data->{id}) {
+    for my $id (keys %{$corpus_data->{id}}) {
         my @corpus_ws = @{$corpus_data->{id}->{$id}->{corpus}->{windowsize}};
         shift @corpus_ws; shift @corpus_ws; # remove the first two indizes
         #return \@corpus_w;
         for my $index (0..$#corpus_ws) {
-            for my $token (keys $corpus_ws[$index]) {
+            for my $token (keys %{$corpus_ws[$index]}) {
                 my $sort_ngram_freq =
                         $counter->sort_ngram_freq(
                             $ngram,
@@ -243,7 +243,7 @@ sub get_corpus ($$$$) {
 
     my @corpus_docs =    $self->get_corpus_docs($dir, $files);
     my $hash;
-    my @file_list = (sort values $files);
+    my @file_list = (sort values @{$files});
 
     foreach my $doc (values @corpus_docs) {
         my $file = shift @file_list;
@@ -268,7 +268,7 @@ sub get_corpus ($$$$) {
         if ($type == $self->keywords) {
             if (defined $filter) {
                 $hash->{$_}->{$m_s->{$_}}->{$m_s->{id}} = $m_s->{corpus}->{token}
-                foreach (values $filter);
+                        foreach (values @{$filter});
             }
         }
     }

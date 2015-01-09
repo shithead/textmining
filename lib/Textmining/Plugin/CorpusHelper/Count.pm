@@ -211,7 +211,7 @@ sub get_frequency ($$) {
     my $freq_combo = $self->get_freq_combo($ngram);
 
     my $frequ;
-    for my $ngram_str (keys $ngram_freq) {
+    for my $ngram_str (keys %{$ngram_freq}) {
         if ($ngram > 1) {
             my @words = split /<>/, $ngram_str;
             foreach (0..$self->{combo_idx} - 1) {
@@ -243,16 +243,16 @@ sub sort_ngram_freq ($$$) {
     my $freq_combo = $self->get_freq_combo($ngram);
     my $frequs = $self->get_frequency($ngram, $ngram_freq);
 
-    my $output = (keys $ngram_freq) . "\n"; # count of keys
+    my $output = (keys %{$ngram_freq}) . "\n"; # count of keys
 
-    for (sort { $ngram_freq->{$b} <=> $ngram_freq->{$a} } keys $ngram_freq) {
+    for (sort { $ngram_freq->{$b} <=> $ngram_freq->{$a} } keys %{$ngram_freq}) {
         my @words = split /<>/;
 
-        $output .= "$_"; 
+        $output .= "$_";
 
         for my $j ( 0..$self->{combo_idx} - 1) {
             my $tmp_str = "";
-            $tmp_str .= "$words[@{$freq_combo->[$j]}[$_]]<>" 
+            $tmp_str .= "$words[@{$freq_combo->[$j]}[$_]]<>"
                     foreach (1..@{$freq_combo->[$j]}[0]);
             $tmp_str .= $j;
             $output .= "$frequs->{$tmp_str} ";

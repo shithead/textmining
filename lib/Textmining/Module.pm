@@ -191,7 +191,7 @@ sub _get_navbar ($$$) {
     my @navbar;
     my $pagecnt = 0;
     my $title = undef;
-    for my $c (values $module->{sub}) {
+    for my $c (values @{$module->{sub}}) {
         if (defined $title) {
             $navbar->{$title}->{end} = $pagecnt - 1;
         }

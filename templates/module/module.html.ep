@@ -35,7 +35,7 @@
         </div>
     </div>
 </div>
-            % my $author = join('/', values $meta->{authors});
+            % my $author = join('/', values @{$meta->{authors}});
             % my $version = $meta->{version};
             % my $datum = $meta->{date};
             <footer>

@@ -17,11 +17,11 @@
         </thead>
         <tbody>
         % my $nr = 1;
-        % for my $course (keys $table) {
+        % for my $course (keys %{$table}) {
         %   next unless ($table->{$course}->{module});
         %   my $author = join(', ', @{$meta->{$course}->{authors}})
         %           if (defined $meta->{$course}->{authors});
-        %   for my $module (keys $table->{$course}->{module}) {
+        %   for my $module (keys %{$table->{$course}->{module}}) {
         <tr>
          <td><%= $nr %></td>
          <td><%= $course %></td>
