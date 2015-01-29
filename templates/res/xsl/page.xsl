@@ -156,27 +156,11 @@
                              <xsl:text> Windowsize </xsl:text>
                          </label>
                          <div class="col-lg-3">
-                             <select id="select_ws_one" class="form-control">
+                             <select id="select_ws" class="form-control">
                                  <xsl:apply-templates select="range">
-                                     <xsl:with-param name="end" select="0"/>
-                                     <xsl:with-param name="id" select="'one'"/>
-                                 </xsl:apply-templates>
-                                 <xsl:apply-templates select="range">
-                                     <xsl:with-param name="it" select="1"/>
-                                     <xsl:with-param name="id" select="'one'"/>
-                                 </xsl:apply-templates>
-                             </select>
-                         </div>
-                         <!-- seconde -->
-                         <div class="col-lg-3">
-                             <select id="select_ws_two" class="form-control">
-                                 <xsl:apply-templates select="range">
-                                     <xsl:with-param name="end" select="0"/>
-                                     <xsl:with-param name="id" select="'two'"/>
-                                 </xsl:apply-templates>
-                                 <xsl:apply-templates select="range">
-                                     <xsl:with-param name="it" select="1"/>
-                                     <xsl:with-param name="id" select="'two'"/>
+                                     <xsl:with-param name="it" select="0"/>
+                                     <xsl:with-param name="end" select="5"/>
+                                     <xsl:with-param name="id" select="'windowsize'"/>
                                  </xsl:apply-templates>
                              </select>
                          </div>
@@ -186,7 +170,7 @@
                              <xsl:text> Word searching based on </xsl:text>
                          </label>
                          <div class="col-lg-3">
-                             <select id="selectsearchfor" class="form-control">
+                             <select id="select_search_for" class="form-control">
                                  <option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
                                  <option value="lemma" ><xsl:text>Lemma</xsl:text></option>
                                  <option value="pos"   ><xsl:text>POS</xsl:text></option>
@@ -199,7 +183,7 @@
                                  <xsl:text> min. frequency of searching word </xsl:text>
                              </label>
                              <div class="col-lg-3">
-                                 <input type="text" id="inputminnode" class="form-control"/>
+                                 <input type="text" id="input_min_node" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
@@ -209,7 +193,7 @@
                                  <xsl:text> min. frequency of collocate </xsl:text>
                              </label>
                              <div class="col-lg-3">
-                                 <input type="text" id="inputmincollocator" class="form-control"/>
+                                 <input type="text" id="min_collocator_input" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
@@ -218,13 +202,16 @@
                              <xsl:text> Signifikanzmaß </xsl:text>
                          </label>
                          <div class="col-lg-3">
-                             <select id="select" class="form-control">
+                             <select id="select_statistic" class="form-control">
                                  <xsl:if test="statistic/@chi">
                                      <option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@dice">
                                      <option value="dice">
                                          <xsl:text>Dice-Koeffizient (not supported) </xsl:text>
+                                         <xsl:message>
+                                             Dice-Koeffizient not supported 
+                                         </xsl:message>
                                      </option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@frequence">
@@ -240,21 +227,33 @@
                                  <xsl:if test="statistic/@mi">
                                      <option value="mi" >
                                          <xsl:text>Mutual information (not supported) </xsl:text>
+                                         <xsl:message>
+                                            Mutual information not supported
+                                         </xsl:message>
                                      </option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@mi3">
                                      <option value="mi3" >
                                          <xsl:text>MI3 (not supported) </xsl:text>
+                                         <xsl:message>
+                                             MI3 not supported
+                                         </xsl:message>
                                      </option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@tscore">
                                      <option value="tscore" >
                                          <xsl:text>T-Score (not supported) </xsl:text>
+                                         <xsl:message>
+                                             T-Score not supported
+                                         </xsl:message>
                                      </option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@zscore">
                                      <option value="zscore" >
                                          <xsl:text>Z-Score (not supported) </xsl:text>
+                                         <xsl:message>
+                                             Z-Score not supported
+                                         </xsl:message>
                                      </option>
                                  </xsl:if>
                              </select>
@@ -265,12 +264,12 @@
                              <xsl:text> search word (only one) </xsl:text>
                          </label>
                          <div class="col-lg-3">
-                             <input type="text" id="inputDefault" class="form-control"/>
+                             <input type="text" id="search_input" class="form-control"/>
                          </div>
                      </div>
                      <div class="col-lg-10 col-lg-offset-2">
                          <div class="col-sm-4">
-                             <button class="btn btn-primary" formaction="corpus?corpus={$corpus}" type="submit">Submit</button>
+                             <button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
                          </div>
                          <div class="col-sm-4">
                              <button class="btn btn-primary" type="reset">Reset</button>
