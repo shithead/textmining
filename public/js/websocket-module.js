@@ -134,87 +134,53 @@ function update_progress()
     writeToScreen(message);
 }
 
-<xsl:text> Windowsize </xsl:text>
-<select id="select_ws" class="form-control">
-<xsl:apply-templates select="range">
-<xsl:with-param name="end" select="5"/>
-<xsl:with-param name="it" select="0"/>
-<xsl:with-param name="id" select="'windowsize'"/>
-<xsl:text> Word searching based on </xsl:text>
-<div class="col-lg-3">
-<select id="select_search_for" class="form-control">
-<option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
-<option value="lemma" ><xsl:text>Lemma</xsl:text></option>
-<option value="pos"   ><xsl:text>POS</xsl:text></option>
-</select>
-<xsl:text> min. frequency of searching word </xsl:text>
-<input type="text" id="inputminnode" class="form-control"/>
-<xsl:if test="frequence[@collocate='enable']">
-<div class="form-group">
-<label class="col-lg-3 control-label" for="select">
-<xsl:text> min. frequency of collocate </xsl:text>
-<input type="text" id="input_min_collocator" class="form-control"/>
-</xsl:if>
-<xsl:text> Signifikanzmaß </xsl:text>
-<select id="selecti_statistic" class="form-control">
-<xsl:if test="statistic/@chi">
-<option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
-</xsl:if>
-<xsl:if test="statistic/@dice">
-<option value="dice">
-<xsl:text>Dice-Koeffizient (not supported) </xsl:text>
-</option>
-</xsl:if>
-<xsl:if test="statistic/@frequence">
-<option value="frequence" >
-<xsl:text>sort on frequency</xsl:text>
-</option>
-</xsl:if>
-<xsl:if test="statistic/@llr">
-<option value="llr" >
-<xsl:text>Log-Likelihood-Ratio (LLR)</xsl:text>
-</option>
-</xsl:if>
-<xsl:if test="statistic/@mi">
-<option value="mi" >
-<xsl:text>Mutual information (not supported) </xsl:text>
-</option>
-</xsl:if>
-<xsl:if test="statistic/@mi3">
-<option value="mi3" >
-<xsl:text>MI3 (not supported) </xsl:text>
-</option>
-</xsl:if>
-<xsl:if test="statistic/@tscore">
-<option value="tscore" >
-<xsl:text>T-Score (not supported) </xsl:text>
-</option>
-</xsl:if>
-<xsl:if test="statistic/@zscore">
-<option value="zscore" >
-<xsl:text>Z-Score (not supported) </xsl:text>
-</option>
-</xsl:if>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label class="col-lg-3 control-label" for="select">
-<xsl:text> search word (only one) </xsl:text>
-</label>
-<div class="col-lg-3">
-<input type="text" id="inputDefault" class="form-control"/>
-</div>
-</div>
-<div class="col-lg-10 col-lg-offset-2">
-<div class="col-sm-4">
-<button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
-</div>
-<div class="col-sm-4">
-<button class="btn btn-primary" type="reset">Reset</button>
-</div>
-</div>
-</fieldset>
+
+//<xsl:text> Windowsize </xsl:text>
+//<select id="select_ws" class="form-control">
+//<xsl:apply-templates select="range">
+//<xsl:with-param name="end" select="5"/>
+//<xsl:with-param name="it" select="0"/>
+//<xsl:with-param name="id" select="'windowsize'"/>
+//<xsl:text> Word searching based on </xsl:text>
+//<div class="col-lg-3">
+//<select id="select_search_for" class="form-control">
+//<option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
+//<option value="lemma" ><xsl:text>Lemma</xsl:text></option>
+//<option value="pos"   ><xsl:text>POS</xsl:text></option>
+//</select>
+//<xsl:text> min. frequency of searching word </xsl:text>
+//<input type="text" id="min_node_input" class="form-control"/>
+//<xsl:if test="frequence[@collocate='enable']">
+//<xsl:text> min. frequency of collocate </xsl:text>
+//<input type="text" id="min_collocator_input" class="form-control"/>
+//</xsl:if>
+//<xsl:text> Signifikanzmaß </xsl:text>
+//<select id="select_statistic" class="form-control">
+//<option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
+//<option value="dice"> <xsl:text>Dice-Koeffizient (not supported) </xsl:text>
+//<xsl:if test="statistic/@frequence">
+//<option value="frequence" ><xsl:text>sort on frequency</xsl:text></option>
+//</xsl:if>
+//<xsl:if test="statistic/@llr">
+//<option value="llr" >
+//<xsl:text>Log-Likelihood-Ratio (LLR)</xsl:text>
+//</option>
+//</xsl:if>
+//<xsl:if test="statistic/@mi">
+//<option value="mi" ><xsl:text>Mutual information (not supported) </xsl:text></option>
+//</xsl:if>
+//<xsl:if test="statistic/@mi3">
+//<option value="mi3" ><xsl:text>MI3 (not supported) </xsl:text></option>
+//</xsl:if>
+//<xsl:if test="statistic/@tscore">
+//<option value="tscore" ><xsl:text>T-Score (not supported) </xsl:text></option>
+//</xsl:if>
+//<xsl:if test="statistic/@zscore">
+//<option value="zscore" ><xsl:text>Z-Score (not supported) </xsl:text></option>
+//</xsl:if>
+//<xsl:text> search word (only one) </xsl:text>
+//<input type="text" id="search_input" class="form-control"/>
+//<button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
 function get_corpus_data(
         corpus,
         windowsize,
