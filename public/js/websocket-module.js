@@ -1,5 +1,4 @@
 var currentUser, ele, websocket;
-var progress = 0.0;
 
 function init()
 {
@@ -127,7 +126,7 @@ function get_next_page()
 
 function update_progress()
 {
-    progress = 100 * Number(pagenr) / Number(pages);
+    var progress = 100 * Number(pagenr) / Number(pages);
     ele = document.getElementById("progress");
 
     var message = { 'content': "<div class=\"progress-bar progress-bar-info\" style=\"width: " + progress + "%\"></div>"};
@@ -182,13 +181,15 @@ function update_progress()
 //<input type="text" id="search_input" class="form-control"/>
 //<button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
 function get_corpus_data(
-        corpus,
-        windowsize,
-        token,
-        min-freq,
-        statist,
-        search
+        corpus
         ) {
+//document.getElementById(data.type)
+    var windowsize  = document.getElementById('windowsize');
+    var token       = document.getElementById('select_search_for');
+    var min_collo   = document.getElementById('min_collocator_input');
+    var min_freq    = document.getElementById('min_node_input');
+    var statist     = document.getElementById('select_statistic');
+    var search      = document.getElementById('search_input');
     var message = {};
     message.user = currentUser;
     message.type = 'corpus';
@@ -197,7 +198,7 @@ function get_corpus_data(
     message.message.corpus      = corpus;
     message.message.windowsize  = windowsize;
     message.message.token       = token;
-    message.message.min_freq    = min-freq;
+    message.message.min_freq    = min_freq;
     message.message.stat        = statist;
     message.message.search      = search;
     sendmsg(message);
