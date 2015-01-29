@@ -19,4 +19,23 @@ sub overview {
     }
     $self->render(table => $hash, meta => $meta_hash);
 }
+
+sub corpus {
+    my $self    = shift;
+    my $course  = $self->stash('course');
+    my $corpus  = $self->stash('corpus');
+    my $req = {};
+    $req->{course} = $course;
+    $req->{corpus} = $corpus;
+    my @sources;
+    if ($course && $corpus) {
+        @sources = glob("./{public}/{course}/$course/{corpus}/$corpus/*");
+    }
+    if (@sources) {
+        $req->{sources} = \@sources;
+    }
+
+    $self->render(json => $req);
+}
+
 1;
