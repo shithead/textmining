@@ -141,19 +141,25 @@ sub init ($$) {
     $self->{home}   = $app->home;
     $self->{_path}  = $app->config->{path};
     unless (defined $self->{_path}->{xsl}){
-        $self->{_path}->{xsl}->{module}  = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
-        $self->{_path}->{xsl}->{library} = $self->{home}->to_string . '/templates/res/xsl/page-library.xsl';
+        $self->{_path}->{xsl}->{module}  =
+                $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+        $self->{_path}->{xsl}->{library} =
+                $self->{home}->to_string . '/templates/res/xsl/page-library.xsl';
     } else {
         unless (defined $self->{_path}->{xsl}->{module}){
-            $self->{_path}->{xsl}->{module} = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+            $self->{_path}->{xsl}->{module} =
+                    $self->{home}->to_string . '/templates/res/xsl/page.xsl';
         } else {
-            $self->{_path}->{xsl}->{module} = join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{module})
+            $self->{_path}->{xsl}->{module} =
+                    join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{module})
                     unless ($self->{_path}->{xsl}->{module} =~ "$self->{home}->to_string");
         }
         unless (defined $self->{_path}->{xsl}->{library}){
-            $self->{_path}->{xsl}->{library} = $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+            $self->{_path}->{xsl}->{library} =
+                    $self->{home}->to_string . '/templates/res/xsl/page.xsl';
         } else {
-            $self->{_path}->{xsl}->{library} = join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{library})
+            $self->{_path}->{xsl}->{library} =
+                    join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{library})
                     unless ($self->{_path}->{xsl}->{library} =~ "$self->{home}->to_string");
         }
     }
@@ -526,7 +532,8 @@ sub init_public_course ($$) {
 
         # XML::LibXML is running over the hole doc
         $page_docs[0] = $self->{transform}->update_xml_tag_img(
-                    join('/', $course, "res"),
+            # TODO maybe /course are wrong with vhost webserver
+                    join('/', "/course", $course, "res"),
                     $page_docs[0]
                 );
 

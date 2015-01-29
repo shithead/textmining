@@ -2,6 +2,9 @@
 
 package Textmining;
 use Mojo::Base 'Mojolicious';
+use Mojo::JSON qw(decode_json encode_json);
+use File::Glob ':globally';
+use Data::Printer;
 
 # This method will run once at server start
 sub startup {
@@ -28,6 +31,7 @@ sub startup {
     # Normal route to controller
     $r->get('/')->to('example#welcome');
 
+    $r->any("not_found")->to("course#overview");
 
     # Admin route to controller
     # Admin section
@@ -59,15 +63,39 @@ sub startup {
             #   return undef;
             return 1;
         });
-
     # Course route to controller
     $course->get()->to('course#overview');
 
     # Modul route to controller
     # GET /course/module?course="foo"&module="bar"&page=<nr>
-    $course->get('/module')->to('module#module');
-    $course->any('/module/ws')->to('module#ws');
-    # TODO websocket
+    $course->get('/module/:course/:module')->to('module#module');
+    $course->any('/module/ws')->name('modulews')->to('module#ws');
+    $course->get('/corpus/:course/:corpus')->to(
+            controller => 'course',
+            action => 'corpus'
+        );
+    $r->get('/json/:query' => sub {
+            my $c = shift;
+            my ($query);
+            my $req = {};
+            my $res = {};
+            my @filtered_src;
+
+            $req->{query}  = $c->stash('query');
+            if ($req->{query}) {
+                my @sources = glob("./{public}/{course}/*/*");
+                p @sources;
+                foreach (@sources) {
+                    if ($_ =~ m/$req->{query}/) {
+                       push @filtered_src, $_;
+                    }
+                }
+                $res->{sources} =  \@sources;
+                #<$self->config->{path}->{data}/*/$req->{query}>;
+            }
+            
+            $c->render(json =>$res);
+        });
 }
 
 1;

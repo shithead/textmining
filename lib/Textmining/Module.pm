@@ -3,13 +3,14 @@ use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Util 'camelize';
 use Mojo::Asset::File;
 use Mojo::ByteStream;
+use File::Glob ':globally';
 
 # This action will render a template
 sub module {
     my $self    = shift;
-    my $course  = $self->param('course');
-    my $module  = $self->param('module');
-    my $pagenr  = $self->param('page') || scalar 0;
+    my $course  = $self->stash('course');
+    my $module  = $self->stash('module');
+    my $pagenr  = 0;
 
     my $course_meta_struct  = $self->struct->load_struct(
             $self->struct->get_public_path($course));
@@ -64,7 +65,7 @@ sub ws {
         my $id;
         defined $req->{message}->{user} ?
                 $id = $req->{message}->{user} : $id = $tx->connection;
-        $c->app->log->debug("User $id send message: " . $message);
+        #$c->app->log->debug("User $id send message: " . $message);
 
         if (defined $req->{message}->{type}){
             if ($req->{message}->{type} =~ m/page/) {
@@ -77,7 +78,7 @@ sub ws {
                 $res->{message}->{sendtime} = $req->{message}->{sendtime};
                
                 $res->{user} = $id;
-                p $res;
+                #p $res;
                 _send_message($c, $res);
                 my $navbar = _get_navbar(
                         $message->{pagenr},
@@ -183,8 +184,8 @@ sub _send_message {
 }
 
 sub _get_navbar ($$$) {
-    my $pagenr              = shift;
-    my $module              = shift || return undef;
+    my $pagenr  = shift;
+    my $module  = shift || return undef;
 
     return undef unless (defined $module->{sub});
     my $navbar = {};

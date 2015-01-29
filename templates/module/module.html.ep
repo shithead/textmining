@@ -1,8 +1,7 @@
 <!-- vim:ft=html -->
 % layout 'module-navbar';
 % title $module;
-% my $url = $self->req->url->to_abs->scheme($self->req->is_secure ? 'wss' : 'ws')->path('/course/module');
-% $url = 'ws://127.0.0.1:3000/course/module/';
+% my $url = $self->req->url->to_abs->scheme($self->req->is_secure ? 'wss' : 'ws')->path($self->url_for('modulews'));
 <ul class="nav nav-tabs" style="margin-bottom: 15px;">
     <li class="active">
     <a data-toggle="tab" href="javascript:get_module();">Module</a>
@@ -48,7 +47,7 @@
                 </div>
             </footer>
     <script language="javascript" type="text/javascript">
-    var wsUri = "<%= $url %>ws";
+    var wsUri = "<%= $url %>";
     // send this information bei established first socket
     // check on user id
     var course = "<%= $course %>";
