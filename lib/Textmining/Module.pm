@@ -1,6 +1,6 @@
 package Textmining::Module;
 use Mojo::Base 'Mojolicious::Controller';
-use Mojo::Util 'camelize';
+use Mojo::Util qw(camelize decode) ;
 use Mojo::Asset::File;
 use Mojo::ByteStream;
 use File::Glob ':globally';
@@ -65,7 +65,7 @@ sub ws {
         my $id;
         defined $req->{message}->{user} ?
                 $id = $req->{message}->{user} : $id = $tx->connection;
-        #$c->app->log->debug("User $id send message: " . $message);
+                #$c->app->log->debug("User $id send message: " . $message);
 
         if (defined $req->{message}->{type}){
             if ($req->{message}->{type} =~ m/page/) {
@@ -90,8 +90,8 @@ sub ws {
                 $res->{message}->{sendtime} = $req->{message}->{sendtime};
             }
         }
-    #   $msg{color} = ;
-        #p $msg{message};
+
+        #p $res;
         $USERS->{$req->{message}->{user}} = $res->{message} 
                 if(defined $req->{message}->{user});
         _send_message($c, $res);
@@ -166,14 +166,14 @@ sub _get_module () {
         </div>
     </div>
 EOT
+    return $module;
 
 }
-
 sub _message_to_json {
     my $message = shift;
 
     my $json = Mojo::JSON->new;
-    return $json->encode($message);
+    return decode('UTF-8',$json->encode($message));
 }
 
 sub _send_message {
