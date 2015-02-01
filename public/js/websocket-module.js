@@ -180,16 +180,14 @@ function update_progress()
 //<xsl:text> search word (only one) </xsl:text>
 //<input type="text" id="search_input" class="form-control"/>
 //<button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
-function get_corpus_data(
-        corpus
-        ) {
-//document.getElementById(data.type)
-    var windowsize  = document.getElementById('windowsize');
-    var token       = document.getElementById('select_search_for');
-    var min_collo   = document.getElementById('min_collocator_input');
-    var min_freq    = document.getElementById('min_node_input');
-    var statist     = document.getElementById('select_statistic');
-    var search      = document.getElementById('search_input');
+function get_corpus_data(corpus) {
+    var form        = document.getElementById('corpus_'+corpus);
+    var windowsize  = form['select_ws'].value;
+    var token       = form['select_search_for'].value;
+    var min_collo   = form['min_collocator_input'].value;
+    var min_freq    = form['input_min_node'].value;
+    var statist     = form['select_statistic'].value;
+    var search      = form['search_input'].value;
     var message = {};
     message.user = currentUser;
     message.type = 'corpus';
@@ -198,6 +196,7 @@ function get_corpus_data(
     message.message.corpus      = corpus;
     message.message.windowsize  = windowsize;
     message.message.token       = token;
+    message.message.min_collo   = min_collo;
     message.message.min_freq    = min_freq;
     message.message.stat        = statist;
     message.message.search      = search;
