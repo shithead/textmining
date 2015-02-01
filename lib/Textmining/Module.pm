@@ -57,45 +57,7 @@ sub ws {
     $USERS->{$id} = $msg;
     _send_message($c, $msg);
     # Incoming message
-    $c->on(message => sub {
-        my ($c, $message) = @_;
-        my $res = {};
-        my $json = Mojo::JSON->new();
-        my $req->{message} = $json->decode($message);
-        my $id;
-        defined $req->{message}->{user} ?
-                $id = $req->{message}->{user} : $id = $tx->connection;
-                #$c->app->log->debug("User $id send message: " . $message);
-
-        if (defined $req->{message}->{type}){
-            if ($req->{message}->{type} =~ m/page/) {
-                $res->{type} = 'page';
-                my $msg = $req->{message}->{message};
-                my $course_meta_struct  = $self->struct->load_struct(
-                        $self->struct->get_public_path($msg->{course}));
-                my $message = _get_page($msg, $course_meta_struct);
-                $res->{message} = $message;
-                $res->{message}->{sendtime} = $req->{message}->{sendtime};
-               
-                $res->{user} = $id;
-                #p $res;
-                _send_message($c, $res);
-                my $navbar = _get_navbar(
-                        $message->{pagenr},
-                        $course_meta_struct->{$msg->{module}}
-                    );
-                $res->{type} = 'navbar';
-                $res->{message} = undef;
-                $res->{message}->{content} = $navbar;
-                $res->{message}->{sendtime} = $req->{message}->{sendtime};
-            }
-        }
-
-        #p $res;
-        $USERS->{$req->{message}->{user}} = $res->{message} 
-                if(defined $req->{message}->{user});
-        _send_message($c, $res);
-    });
+    $c->on(message => \&onMessage);
     # Closed
     $c->on(finish => sub {
         my ($c, $code, $reason) = @_;
@@ -108,6 +70,45 @@ sub ws {
             _send_message($c, $msg);
         }
     });
+}
+
+sub onMessage {
+    my ($c, $message) = @_;
+    my $res = {};
+    my $json = Mojo::JSON->new();
+    my $req->{message} = $json->decode($message);
+    my $id;
+    defined $req->{message}->{user} ?
+    $id = $req->{message}->{user} : $id = $c->tx->connection;
+    #$c->app->log->debug("User $id send message: " . $message);
+
+    if (defined $req->{message}->{type}){
+        if ($req->{message}->{type} =~ m/page/) {
+            $res->{type} = 'page';
+            my $msg = $req->{message}->{message};
+            my $course_meta_struct  = $c->struct->load_struct(
+                $c->struct->get_public_path($msg->{course}));
+            my $message = _get_page($msg, $course_meta_struct);
+            $res->{message} = $message;
+            $res->{message}->{sendtime} = $req->{message}->{sendtime};
+
+            $res->{user} = $id;
+            #p $res;
+            _send_message($c, $res);
+            my $navbar = _get_navbar(
+                $message->{pagenr},
+                $course_meta_struct->{$msg->{module}}
+            );
+            $res->{type} = 'navbar';
+            $res->{message} = undef;
+            $res->{message}->{content} = $navbar;
+            $res->{message}->{sendtime} = $req->{message}->{sendtime};
+            _send_message($c, $res);
+        }
+    }
+
+    ##$USERS->{$req->{message}->{user}} = $res->{message} 
+    ##        if(defined $req->{message}->{user});
 }
 
 sub _get_page($$) {
