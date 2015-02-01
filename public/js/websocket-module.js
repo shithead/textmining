@@ -180,14 +180,14 @@ function update_progress()
 //<xsl:text> search word (only one) </xsl:text>
 //<input type="text" id="search_input" class="form-control"/>
 //<button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
-function get_corpus_data(corpus) {
-    var form        = document.getElementById('corpus_'+corpus);
+function get_corpus_data(id, corpus) {
+    var form        = document.getElementById(id);
     var windowsize  = form['select_ws'].value;
     var token       = form['select_search_for'].value;
-    var min_collo   = form['min_collocator_input'].value;
+    var min_collo   = form['input_min_collocator'].value;
     var min_freq    = form['input_min_node'].value;
     var statist     = form['select_statistic'].value;
-    var search      = form['search_input'].value;
+    var search      = form['input_search'].value;
     var message = {};
     message.user = currentUser;
     message.type = 'corpus';

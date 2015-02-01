@@ -144,12 +144,13 @@
 
      <xsl:template match="corpus" name='corpus' >
          <xsl:param name="corpus" select="@href"/>
+         <xsl:variable name="form_id" select='generate-id(current())'/>
          <div class="well bs-component">
              <div class="alert alert-dismissable alert-warning">
                  <h4>Warning!</h4>
                  <p>corpus <xsl:value-of select="$corpus" /> not available</p>
              </div>
-             <form class="form-horizontal">
+             <form id="{$form_id}" class="form-horizontal">
                  <fieldset>
                      <div class="form-group">
                          <label class="col-lg-3 control-label" for="select">
@@ -160,7 +161,6 @@
                                  <xsl:apply-templates select="range">
                                      <xsl:with-param name="it" select="0"/>
                                      <xsl:with-param name="end" select="5"/>
-                                     <xsl:with-param name="id" select="'windowsize'"/>
                                  </xsl:apply-templates>
                              </select>
                          </div>
@@ -193,7 +193,7 @@
                                  <xsl:text> min. frequency of collocate </xsl:text>
                              </label>
                              <div class="col-lg-3">
-                                 <input type="text" id="min_collocator_input" class="form-control"/>
+                                 <input type="text" id="input_min_collocator" class="form-control"/>
                              </div>
                          </div>
                      </xsl:if>
@@ -264,12 +264,12 @@
                              <xsl:text> search word (only one) </xsl:text>
                          </label>
                          <div class="col-lg-3">
-                             <input type="text" id="search_input" class="form-control"/>
+                             <input type="text" id="input_search" class="form-control"/>
                          </div>
                      </div>
                      <div class="col-lg-10 col-lg-offset-2">
                          <div class="col-sm-4">
-                             <button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
+                             <button class="btn btn-primary" formaction="javascript:get_corpus_data('{$form_id}','{$corpus}')" type="submit">Submit</button>
                          </div>
                          <div class="col-sm-4">
                              <button class="btn btn-primary" type="reset">Reset</button>
@@ -556,21 +556,19 @@
      <xsl:template match="range">
          <xsl:param name="it" select="@from"/>
          <xsl:param name="end" select="@to + 1"/>
-         <xsl:param name="id"/>
          <xsl:copy-of select="."/>
          <xsl:if test="$it &lt; $end">
              <xsl:choose>
                  <xsl:when test="$it=@standard">
-                     <option selected="" value="range{$id}={$it}" ><xsl:value-of select="$it"/></option>
+                     <option selected="" value="{$it}" ><xsl:value-of select="$it"/></option>
                  </xsl:when>
                  <xsl:otherwise>
-                     <option value="range{$id}={$it}" ><xsl:value-of select="$it"/></option>
+                     <option value="{$it}" ><xsl:value-of select="$it"/></option>
                  </xsl:otherwise>
              </xsl:choose>
              <xsl:apply-templates select=".">
                  <xsl:with-param name="it" select="$it + 1"/>
                  <xsl:with-param name="end" select="$end"/>
-                 <xsl:with-param name="id" select="$id"/>
              </xsl:apply-templates>
          </xsl:if>
      </xsl:template>
