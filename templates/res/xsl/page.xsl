@@ -228,7 +228,7 @@
                          <div class="col-lg-3">
                              <select id="select_statistic" class="form-control">
                                  <xsl:if test="statistic/@chi">
-                                     <option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
+                                     <option value="x2" ><xsl:text>Chi-Square</xsl:text></option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@dice">
                                      <option value="dice">
@@ -244,7 +244,7 @@
                                      </option>
                                  </xsl:if>
                                  <xsl:if test="statistic/@llr">
-                                     <option value="llr" >
+                                     <option value="ll" >
                                          <xsl:text>Log-Likelihood-Ratio (LLR)</xsl:text>
                                      </option>
                                  </xsl:if>

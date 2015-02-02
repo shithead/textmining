@@ -119,8 +119,8 @@ use Mojo::Util qw(encode decode camelize);
 use Textmining::Plugin::StructureHelper::Transform;
 use Textmining::Plugin::StructureHelper::Course;
 use Textmining::Plugin::CorpusHelper;
+use Textmining::Assert::Storable qw(store retrieve);
 
-use Storable qw(store_fd fd_retrieve);
 use File::Path qw(remove_tree make_path);
 use File::Copy::Recursive qw(dircopy);
 use File::Basename;
@@ -242,26 +242,6 @@ sub _get_files ($) {
     return @o_files;
 }
 
-#TODO Test for _store
-sub _store($$) {
-    my $data        =   shift;
-    my $location    =   shift;
-
-    open  my $FH , ">", $location || return undef;
-    store_fd \$data, $FH;
-    close $FH;
-}
-
-#TODO Test for _retrieve
-sub _retrieve($) {
-    my $location    = shift;
-
-    open  my $FH , "<", $location || return undef;
-    my $data = fd_retrieve($FH);
-    close $FH;
-    return ${$data};
-}
-
 sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
@@ -294,7 +274,7 @@ sub save_struct ($$$) {
 
     my $json_bytes = $self->hash_to_json($meta_struct);
 
-    unless (defined &_store($json_bytes, $location)){
+    unless (defined store($json_bytes, $location)){
         $self->{log}->error("file $location not opened");
         return undef;
     }
@@ -310,7 +290,7 @@ sub load_struct ($$) {
         return undef;
     }
 
-    my $meta_struct = $self->json_to_hash(&_retrieve($location));
+    my $meta_struct = $self->json_to_hash(retrieve($location));
     return $meta_struct;
 }
 
@@ -569,7 +549,7 @@ sub init_public_course ($$) {
 
         #    for my $filename (keys $corpora_data) {
         #        my $location = join '/', $dest, 'corpus', $filename;
-        #        &_store($corpora_data->{$filename}, $location);
+        #        store($corpora_data->{$filename}, $location);
         #        $module_struct->{meta}->{corpora}->{$filename}->{public} = $location;
         #    }
         #}
