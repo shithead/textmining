@@ -145,6 +145,31 @@
      <xsl:template match="corpus" name='corpus' >
          <xsl:param name="corpus" select="@href"/>
          <xsl:variable name="form_id" select='generate-id(current())'/>
+         <div class="row">
+             <div class="col-sm-4">
+                 <div class="bs-component">
+                     <div id="modal_{$form_id}" class="modal">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <a class="close" aria-hidden="true" data-dismiss="modal" type="button">×</a>
+                                     <h4 class="modal-title">
+                                         <xsl:value-of select="$corpus"/>
+                                     </h4>
+                                 </div>
+                                 <div id="modal_body_{$form_id}" class="modal-body">
+                                     <p> foo bar </p>
+                                 </div>
+                                 <div class="modal-footer">
+                                     <a class="btn btn-default" data-dismiss="modal" type="button">Close</a>
+                                     <button class="btn btn-primary" type="button">Save</button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
          <div class="well bs-component">
              <div class="alert alert-dismissable alert-warning">
                  <h4>Warning!</h4>
@@ -268,10 +293,13 @@
                          </div>
                      </div>
                      <div class="col-lg-10 col-lg-offset-2">
-                         <div class="col-sm-4">
-                             <button class="btn btn-primary" formaction="javascript:get_corpus_data('{$form_id}','{$corpus}')" type="submit">Submit</button>
+                         <div class="col-sm-2">
+                             <button class="btn btn-primary" formaction="javascript:get_corpus_data('{$form_id}','{$corpus}');" type="submit">Submit</button>
                          </div>
-                         <div class="col-sm-4">
+                         <div class="col-sm-2">
+                             <a id="result_{$form_id}" class="btn btn-primary" data-toggle="modal" href="javascript:modal_toggle('modal_{$form_id}');" type="button" disabled='' >Show Result</a>
+                         </div>
+                         <div class="col-sm-2">
                              <button class="btn btn-primary" type="reset">Reset</button>
                          </div>
                      </div>

@@ -134,63 +134,18 @@ function update_progress()
 }
 
 
-//<xsl:text> Windowsize </xsl:text>
-//<select id="select_ws" class="form-control">
-//<xsl:apply-templates select="range">
-//<xsl:with-param name="end" select="5"/>
-//<xsl:with-param name="it" select="0"/>
-//<xsl:with-param name="id" select="'windowsize'"/>
-//<xsl:text> Word searching based on </xsl:text>
-//<div class="col-lg-3">
-//<select id="select_search_for" class="form-control">
-//<option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
-//<option value="lemma" ><xsl:text>Lemma</xsl:text></option>
-//<option value="pos"   ><xsl:text>POS</xsl:text></option>
-//</select>
-//<xsl:text> min. frequency of searching word </xsl:text>
-//<input type="text" id="min_node_input" class="form-control"/>
-//<xsl:if test="frequence[@collocate='enable']">
-//<xsl:text> min. frequency of collocate </xsl:text>
-//<input type="text" id="min_collocator_input" class="form-control"/>
-//</xsl:if>
-//<xsl:text> Signifikanzmaß </xsl:text>
-//<select id="select_statistic" class="form-control">
-//<option value="chi2" ><xsl:text>Chi-Square</xsl:text></option>
-//<option value="dice"> <xsl:text>Dice-Koeffizient (not supported) </xsl:text>
-//<xsl:if test="statistic/@frequence">
-//<option value="frequence" ><xsl:text>sort on frequency</xsl:text></option>
-//</xsl:if>
-//<xsl:if test="statistic/@llr">
-//<option value="llr" >
-//<xsl:text>Log-Likelihood-Ratio (LLR)</xsl:text>
-//</option>
-//</xsl:if>
-//<xsl:if test="statistic/@mi">
-//<option value="mi" ><xsl:text>Mutual information (not supported) </xsl:text></option>
-//</xsl:if>
-//<xsl:if test="statistic/@mi3">
-//<option value="mi3" ><xsl:text>MI3 (not supported) </xsl:text></option>
-//</xsl:if>
-//<xsl:if test="statistic/@tscore">
-//<option value="tscore" ><xsl:text>T-Score (not supported) </xsl:text></option>
-//</xsl:if>
-//<xsl:if test="statistic/@zscore">
-//<option value="zscore" ><xsl:text>Z-Score (not supported) </xsl:text></option>
-//</xsl:if>
-//<xsl:text> search word (only one) </xsl:text>
-//<input type="text" id="search_input" class="form-control"/>
-//<button class="btn btn-primary" formaction="javascript:get_corpus_data()" type="submit">Submit</button>
 function get_corpus_data(id, corpus) {
     var form        = document.getElementById(id);
     var windowsize  = form['select_ws'].value;
     var token       = form['select_search_for'].value;
+    var statist     = form['select_statistic'].value;
     var min_collo   = form['input_min_collocator'].value;
     var min_freq    = form['input_min_node'].value;
-    var statist     = form['select_statistic'].value;
     var search      = form['input_search'].value;
     var message = {};
     message.user = currentUser;
     message.type = 'corpus';
+    message.id   = id;
     message.message = {};
     message.message.course      = course;
     message.message.corpus      = corpus;
@@ -222,3 +177,19 @@ function now()
 }
 
 window.addEventListener("load", init, false);
+
+// asset
+function modal_toggle(id)
+{
+    $('#'+id).modal('toggle')
+}
+
+function modal_show(id)
+{
+    $('#'+id).modal('show') 
+}
+
+function modal_hide(id)
+{
+    $('#'+id).modal('hide') 
+}
