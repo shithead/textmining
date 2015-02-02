@@ -193,3 +193,8 @@ function modal_hide(id)
 {
     $('#'+id).modal('hide') 
 }
+
+function enable_button(id)
+{
+    $('#'+id).removeAttr('disabled');
+}
