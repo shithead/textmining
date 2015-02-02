@@ -196,7 +196,7 @@
                          </label>
                          <div class="col-lg-3">
                              <select id="select_search_for" class="form-control">
-                                 <option value="wortforms" ><xsl:text>Word forms</xsl:text></option>
+                                 <option value="wordforms" ><xsl:text>Word forms</xsl:text></option>
                                  <option value="lemma" ><xsl:text>Lemma</xsl:text></option>
                                  <option value="pos"   ><xsl:text>POS</xsl:text></option>
                              </select>
