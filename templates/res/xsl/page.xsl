@@ -184,8 +184,7 @@
                          <div class="col-lg-3">
                              <select id="select_ws" class="form-control">
                                  <xsl:apply-templates select="range">
-                                     <xsl:with-param name="it" select="0"/>
-                                     <xsl:with-param name="end" select="5"/>
+                                     <xsl:with-param name="it" select="2"/>
                                  </xsl:apply-templates>
                              </select>
                          </div>
