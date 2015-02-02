@@ -24,18 +24,18 @@ sub corpus {
     my $self    = shift;
     my $course  = $self->stash('course');
     my $corpus  = $self->stash('corpus');
-    my $req = {};
-    $req->{course} = $course;
-    $req->{corpus} = $corpus;
+    my $res = {};
+    $res->{course} = $course;
+    $res->{corpus} = $corpus;
     my @sources;
     if ($course && $corpus) {
         @sources = glob("./{public}/{course}/$course/{corpus}/$corpus/*");
     }
     if (@sources) {
-        $req->{sources} = \@sources;
+        $res->{sources} = \@sources;
     }
 
-    $self->render(json => $req);
+    $self->render(json => $res);
 }
 
 1;

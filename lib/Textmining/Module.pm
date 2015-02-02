@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Util qw(camelize decode) ;
 use Mojo::Asset::File;
 use Mojo::ByteStream;
+use Mojo::JSON;
 use File::Glob ':globally';
 
 # This action will render a template
@@ -106,8 +107,76 @@ sub onMessage {
             $res->{message}->{sendtime} = $req->{message}->{sendtime};
             _send_message($c, $res);
         }
-    }
+        if ($req->{message}->{type} =~ m/corpus/) {
+            my ($token, $windowsize, $search, $course, $corpus); #must have
+            my ($min_collo, $min_freq, $stat); # optional
+            $res->{type} = 'corpus';
+            my $msg = $req->{message}->{message};
+            $res->{form}->{id} = $req->{message}->{id};
+            $res->{user} = $id;
+            $res->{message} = {content => undef};
+            unless (defined $msg->{course} &&
+                    defined $msg->{corpus}) {
+                    $res->{message}->{content} = '<p>Course or Corpus not filled</p>';
+                    _send_message($c, $res);
+            } else {
+                unless ($msg->{course} =~ m/^\w+/) {
+                    $res->{message}->{content} = '<p>Coursename is a not valid word</p>';
+                    _send_message($c, $res);
+                }
+                unless ($msg->{corpus} =~ m/^\w+/) {
+                    $res->{message}->{content} = '<p>Corpusname is a not valid word</p>';
+                    _send_message($c, $res);
+                }
+                $course = $msg->{course};
+                $corpus = $msg->{corpus};
+            }
+            unless ( defined $msg->{search} &&
+                        defined $msg->{windowsize} &&
+                        defined $msg->{token}) {
+                    $res->{message}->{content} = '<p>Search or windowsize or token not filled</p>';
+                    _send_message($c, $res);
+            } else {
+                unless ($msg->{windowsize} =~ m/^(\d{1,2})$/) {
+                    $res->{message}->{content} = '<p>Windowsize is not a Number</p>';
+                    _send_message($c, $res);
+                }
+                unless ($msg->{token} ~~ ['wordforms', 'pos', 'lemma']) {
+                    $res->{message}->{content} = '<p>Token is not valid</p>';
+                    _send_message($c, $res);
+                }
+                unless ($msg->{search} =~ m/^\w+$/) {
+                    $res->{message}->{content} = '<p>Only one Word for searching</p>';
+                    _send_message($c, $res);
+                }
+                if (defined $msg->{stat}) {
+                    if ( $msg->{stat} ~~ ['mi', 'mi3', 'tscore', 'zscore']) {
+                        $res->{message}->{content} = '<p>Static value not supported</p>';
+                        _send_message($c, $res);
+                    }
+                    if ( $msg->{stat} ~~ ['chi2', 'llr', 'frequence']) {
+                        $stat = $msg->{stat}; 
+                    } else {
+                        $res->{message}->{content} = '<p>Static value not valid</p>';
+                        _send_message($c, $res);
+                    }
+                }
+                $windowsize = $msg->{windowsize};
+                $search = $msg->{search};
+                $token  = $msg->{token};
+            }
 
+            my $sources = {};
+            $sources = $json->decode( $c->app->ua->get("/course/corpus/$course/$corpus")->res->dom->text);
+            unless (defined $sources->{sources}) {
+                        $res->{message}->{content} = '<p>No Corpus found</p>';
+                        _send_message($c, $res);
+            }
+            #p $res;
+            #p $sources;
+            #_send_message($c, $res);
+        }
+    }
     ##$USERS->{$req->{message}->{user}} = $res->{message} 
     ##        if(defined $req->{message}->{user});
 }
