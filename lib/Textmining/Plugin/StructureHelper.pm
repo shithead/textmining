@@ -787,20 +787,20 @@ sub get_public_course_struct ($$) {
 sub get_public_page_path ($$$) {
     my $self    = shift;
     my $course_meta_struct
-                = shift || return undef;
-    my $modul   = shift || return undef;
+                    = shift || return undef;
+    my $module      = shift || return undef;
 
-    return $course_meta_struct->{$modul} ?
-             $course_meta_struct->{$modul}->{pages} : undef;
+    return $course_meta_struct->{$module} ?
+             $course_meta_struct->{$module}->{pages} : undef;
 }
 
 sub get_public_navbar ($$$) {
-    my $self            = shift;
-    my $course_meta_struct = shift || return undef;
-    my $modul           = shift || return undef;
+    my $self                = shift;
+    my $course_meta_struct  = shift || return undef;
+    my $module              = shift || return undef;
 
-    return undef unless (defined $course_meta_struct->{$modul});
-    my $m = $course_meta_struct->{$modul};
+    return undef unless (defined $course_meta_struct->{$module});
+    my $m = $course_meta_struct->{$module};
     return undef unless (defined $m->{sub});
     my @navbar;
     my $pagecnt = 0;

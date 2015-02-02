@@ -18,23 +18,24 @@ sub module {
     my $page_path   = $self->struct->get_public_page_path($course_meta_struct, $module);
     my @navbar      = $self->struct->get_public_navbar($course_meta_struct, $module);
 
-    unless ($page_path || @navbar) {
+    unless (defined $page_path && defined $navbar[0]) {
         $self->app->log->error('page_path or navbar empty');
         print STDERR "page_path or navbar empty\n";
         $self->redirect_to('/course') ;
-    }
-    $pagenr = 0 if ($pagenr >= (@{$page_path} - 1));
-    $pagenr = @{$page_path} - $pagenr - 2 if ($pagenr < 0);
+    } else {
+        $pagenr = 0 if ($pagenr >= (@{$page_path} - 1));
+        $pagenr = @{$page_path} - $pagenr - 2 if ($pagenr < 0);
 
-    # Render template "module/module.html.ep"
-    $self->render(
-        course        =>  $course,
-        module        =>  $module,
-        navbar        =>  \@navbar,
-        pagenr        =>  $pagenr,
-        page_path     =>  $page_path,
-        meta          =>  $course_meta_struct->{$module}->{meta}
-    );
+        # Render template "module/module.html.ep"
+        $self->render(
+            course        =>  $course,
+            module        =>  $module,
+            navbar        =>  \@navbar,
+            pagenr        =>  $pagenr,
+            page_path     =>  $page_path,
+            meta          =>  $course_meta_struct->{$module}->{meta}
+        );
+    }
 }
 
 our $USERS;
