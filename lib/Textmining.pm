@@ -70,10 +70,7 @@ sub startup {
     # GET /course/module?course="foo"&module="bar"&page=<nr>
     $course->get('/module/:course/:module')->to('module#module');
     $course->any('/module/ws')->name('modulews')->to('module#ws');
-    $course->get('/corpus/:course/:corpus')->to(
-            controller => 'course',
-            action => 'corpus'
-        );
+    $course->get('/corpus/:course/:corpus')->to('course#corpus');
     $r->get('/json/:query' => sub {
             my $c = shift;
             my ($query);

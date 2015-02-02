@@ -58,6 +58,9 @@ function onMessage(evt)
         if (data.type == 'navbar') {
         }
         if (data.type == 'corpus') {
+            ele = document.getElementById('modal_body_'+data.form.id);
+            enable_button('result_'+data.form.id);
+            modal_toggle('modal_'+data.form.id);
         }
         writeToScreen(data.message);
         update_progress();
