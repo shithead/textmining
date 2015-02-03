@@ -4,6 +4,7 @@ use Mojo::Util qw(camelize decode) ;
 use Mojo::Asset::File;
 use Mojo::ByteStream;
 use Mojo::JSON;
+use Textmining::Assert::Storable qw(retrieve);
 use File::Glob ':globally';
 
 # This action will render a template
@@ -119,14 +120,17 @@ sub onMessage {
                     defined $msg->{corpus}) {
                     $res->{message}->{content} = '<p>Course or Corpus not filled</p>';
                     _send_message($c, $res);
+                    return 1;
             } else {
                 unless ($msg->{course} =~ m/^\w+/) {
                     $res->{message}->{content} = '<p>Coursename is a not valid word</p>';
                     _send_message($c, $res);
+                    return 1;
                 }
                 unless ($msg->{corpus} =~ m/^\w+/) {
                     $res->{message}->{content} = '<p>Corpusname is a not valid word</p>';
                     _send_message($c, $res);
+                    return 1;
                 }
                 $course = $msg->{course};
                 $corpus = $msg->{corpus};
@@ -136,30 +140,42 @@ sub onMessage {
                         defined $msg->{token}) {
                     $res->{message}->{content} = '<p>Search or windowsize or token not filled</p>';
                     _send_message($c, $res);
+                    return 1;
             } else {
                 unless ($msg->{windowsize} =~ m/^(\d{1,2})$/) {
                     $res->{message}->{content} = '<p>Windowsize is not a Number</p>';
                     _send_message($c, $res);
+                    return 1;
                 }
                 unless ($msg->{token} ~~ ['wordforms', 'pos', 'lemma']) {
                     $res->{message}->{content} = '<p>Token is not valid</p>';
                     _send_message($c, $res);
+                    return 1;
                 }
                 unless ($msg->{search} =~ m/^\w+$/) {
                     $res->{message}->{content} = '<p>Only one Word for searching</p>';
                     _send_message($c, $res);
+                    return 1;
                 }
                 if (defined $msg->{stat}) {
                     if ( $msg->{stat} ~~ ['mi', 'mi3', 'tscore', 'zscore']) {
-                        $res->{message}->{content} = '<p>Static value not supported</p>';
+                        $res->{message}->{content} = "<p>Statistic value $msg->{stat} not supported</p>";
                         _send_message($c, $res);
+                        return 1;
                     }
-                    if ( $msg->{stat} ~~ ['chi2', 'llr', 'frequence']) {
+                    if ( $msg->{stat} ~~ ['x2', 'll', 'frequence']) {
                         $stat = $msg->{stat}; 
                     } else {
-                        $res->{message}->{content} = '<p>Static value not valid</p>';
+                        $res->{message}->{content} = '<p>Statistic value not valid</p>';
                         _send_message($c, $res);
+                        return 1;
                     }
+                }
+                if (defined $msg->{min_collo}){
+                    $min_collo = $msg->{min_collo};
+                }
+                if (defined $msg->{min_freq}){
+                    $min_freq = $msg->{min_freq};
                 }
                 $windowsize = $msg->{windowsize};
                 $search = $msg->{search};
@@ -169,12 +185,102 @@ sub onMessage {
             my $sources = {};
             $sources = $json->decode( $c->app->ua->get("/course/corpus/$course/$corpus")->res->dom->text);
             unless (defined $sources->{sources}) {
-                        $res->{message}->{content} = '<p>No Corpus found</p>';
-                        _send_message($c, $res);
+                $res->{message}->{content} = '<p>No Corpus found</p>';
+                _send_message($c, $res);
+                return 1;
             }
-            #p $res;
-            #p $sources;
-            #_send_message($c, $res);
+            # get right file
+            my $file;
+            for my $source (@{$sources->{sources}}) {
+                if ($source =~ m/$windowsize/ and $source =~ m/$token/i) {
+                    $file = $source;
+                }
+            }
+            # get right content
+            my $content;
+            my $corpus_data = retrieve($file);
+            my @search_keys;
+            unless (defined $corpus_data->{$search}) {
+                for my $n1 (keys %{$corpus_data}) {
+                    #only one word
+                    push @search_keys, $n1 if $n1 =~ m/$search/i;
+                }
+            } else {
+                push @search_keys, $search;
+            }
+            # secondary test
+            unless (@search_keys) {
+                $res->{message}->{content} = '<p>Search not found</p>';
+                _send_message($c, $res);
+                return 1;
+            }
+            my @rel_keys;
+            foreach (@search_keys) {
+                if (defined $corpus_data->{$_}->{rel}) {
+                    push @rel_keys, $_ foreach (@{$corpus_data->{$_}->{rel}}); 
+                }
+            }
+            # sub _create_table
+            # XXX Da gibt es sicher was von Mojolicous!
+            $content = "<table class=\"table table-striped table-hover \">
+            <thead>
+            <tr>
+            <th>Word 1 ($token)</th>
+            <th>Word 2 ($token)</th>
+            <th>Total</th>";
+            if (defined $stat) {
+                $content .= "<th>Statistic ($stat)</th>";
+                $content .= "<th>Priority</th>";
+                $content .= "<th>Value</th>";
+            }
+            $content .= "</tr></thead><tbody>\n";
+            #p $corpus_data;
+            #XXX FIRST round
+            # create_table_body
+            for my $n1 (@search_keys) {
+                for my $n2 (keys %{$corpus_data->{$n1}}) {
+                    next if $n2 =~ /rel/;
+                    next if $n2 =~ /\d+/;
+                    next unless defined $n1 and defined $n2;
+                    my $n2_data = $corpus_data->{$n1}->{$n2};
+                    my $total = %{$n2_data}{ctotal};
+                    next if defined $min_collo
+                        and $total < $min_collo;
+                    my $content_tmp .= "<tr><td>$n1</td><td>$n2</td><td>$total<td>";
+                    if (defined $stat) {
+                        my $corpus_stat = $corpus_data->{$n1}->{$n2}->{statistic}->{$stat};
+                        next if defined $min_freq
+                            and $corpus_stat->{value} < $min_freq;
+                        $content_tmp .=
+                        "<td>$corpus_stat->{priority}</td>
+                        <td>$corpus_stat->{value}</td></tr>";
+                    }
+                    $content .= $content_tmp;
+                } 
+            }
+            #XXX SECOND round
+            for my $n1 (@rel_keys) {
+                for my $n2 (@search_keys) {
+                    next unless defined $corpus_data->{$n1}->{$n2};
+                    my $total = $corpus_data->{$n1}->{$n2}->{ctotal};
+                    next if defined $min_collo
+                        and $total < $min_collo;
+                    my $content_tmp .= "<tr><td>$n1</td><td>$n2</td><td>$total<td>";
+                    if (defined $stat) {
+                        my $corpus_stat = $corpus_data->{$n1}->{$n2}->{statistic}->{$stat};
+                        next if defined $min_freq
+                            and $corpus_stat->{value} < $min_freq;
+                        $content_tmp .= "
+                        <td>$corpus_stat->{priority}</td>
+                        <td>$corpus_stat->{value}</td></tr>";
+                    }
+                    $content .= $content_tmp;
+                } 
+            }
+            $content .= "</tbody></table>";
+
+            $res->{message}->{content} = $content;
+            _send_message($c, $res);
         }
     }
     ##$USERS->{$req->{message}->{user}} = $res->{message} 
