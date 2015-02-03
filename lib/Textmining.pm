@@ -90,7 +90,7 @@ sub startup {
                 $res->{sources} =  \@sources;
                 #<$self->config->{path}->{data}/*/$req->{query}>;
             }
-            
+
             $c->render(json =>$res);
         });
 }
