@@ -46,12 +46,12 @@ sub startup {
 
     # GET /admin
     $admin->get()->to('admin#overview');
-    # POST /admin?update=foo
-    $admin->post()->to('admin#overview');
-    # POST /admin/course?course="foo"&type="bar"
-    $admin->post('/course')->to('admin#course');
-    # POST /admin/open?course="foo"
-    $admin->post('/open')->to('admin#open');
+    # GET /admin/update
+    $admin->get('/update')->to('admin#update');
+    # GET /admin/course/:course/:type
+    #$admin->post('/course/:course/:type')->to('admin#course');
+    # GET /admin/open/:course
+    $admin->get('/open/:course')->to('admin#open');
 
 
     # Course route to controller
