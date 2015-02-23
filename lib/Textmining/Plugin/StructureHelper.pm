@@ -205,7 +205,7 @@ sub _tree ($$) {
             }
         }
     }
-    return $hash;
+    return $hash || undef;
 }
 
 sub _search_tree($$) {
@@ -751,7 +751,7 @@ sub get_public_struct ($$) {
 
     return $self->load_struct($self->get_public_path($course)) if (defined $course);
     $self->update_public_struct() unless (keys %{$self->{_public_struct}});
-    return $self->{_public_struct};
+    return $self->{_public_struct} || undef;
 }
 
 sub get_public_course_struct ($$) {
