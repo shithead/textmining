@@ -5,7 +5,7 @@ use Mojo::Asset::File;
 use Mojo::ByteStream;
 use Mojo::JSON;
 use Textmining::Assert::Storable qw(retrieve);
-use File::Glob ':globally';
+use File::Glob ':globally'; #XXX maybe obsolate?
 
 # This action will render a template
 sub module {
@@ -243,6 +243,7 @@ sub onMessage {
                     next if $n2 =~ /\d+/;
                     next unless defined $n1 and defined $n2;
                     my $n2_data = $corpus_data->{$n1}->{$n2};
+                    # perl 5.14 and 5.18  my $total = $n2_data->{ctotal};
                     my $total = %{$n2_data}{ctotal};
                     next if defined $min_collo
                         and $total < $min_collo;
@@ -320,6 +321,7 @@ sub _get_page_content($$$) {
     return $stream->to_string;
 }
 
+#TODO deprecated? defently removable?
 sub _get_module () {
     my $module = << 'EOT';
     <div>
