@@ -4,20 +4,36 @@ package Textmining;
 use Mojo::Base 'Mojolicious';
 use Mojo::JSON qw(decode_json encode_json);
 use File::Glob ':globally';
+use File::Basename 'dirname';
+use File::Spec::Functions 'catdir';
 use Data::Printer;
+
+# Every CPAN module needs a version
+our $VERSION = '0.8a';
+
+sub configure {
+    my $self = shift;
+    # Configuration file loadable
+    $self->plugin('Config');
+
+    $self->mode($self->config->{mode});
+    $self->home->parse($self->config->{home} ? 
+        $self->config->{home} : catdir(dirname(__FILE__), 'Textmining'));
+    $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : 'log/development.log');
+    $self->log->level($self->config->{log}->{level} ? 
+        $self->config->{log}->{level} : 'debug');
+    # Switch to installable "public" directory
+    $self->static->paths->[0] = $self->home->rel_dir('public');
+
+    # Switch to installable "templates" directory
+    $self->renderer->paths->[0] = $self->home->rel_dir('templates');
+}
 
 # This method will run once at server start
 sub startup {
     my $self = shift;
 
-
-    # Configuration file loadable
-    $self->plugin('Config');
-
-    $self->mode($self->config->{mode});
-    $self->home->parse($self->config->{home});
-    $self->log->path($self->config->{log}->{path});
-    $self->log->level($self->config->{log}->{level});
+    configure($self);
     # Documentation browser under "/perldoc"
     $self->plugin('PODRenderer');
     # Add namspace for new plugins
