@@ -9,7 +9,7 @@ require_ok('Textmining::Plugin::StructureHelper');
 $number_of_tests_run++;
 require_ok('Textmining::Plugin::StructureHelper::Course');
 
-$number_of_tests_run++;
-require_ok('Textmining::Plugin::StructureHelper::Corpus');
+#$number_of_tests_run++;
+#require_ok('Textmining::Plugin::StructureHelper::Corpus');
 
 done_testing( $number_of_tests_run );
