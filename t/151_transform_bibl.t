@@ -28,12 +28,12 @@ for (values @publicstruct) {
 copy("$FindBin::Bin/examples/library.xml", join('/', $test_data_path, 'test_course', "library", "library.xml"));
 my $test_bibl = join('/', $test_data_path, 'test_course', "library", "library.xml");
 
-dircopy("$FindBin::Bin/../templates/res/xsl", join('/', $test_data_path, 'test_course', "res", "xsl"));
-my $test_xsl = join('/', $test_data_path, 'test_course', "res", "xsl", "page-library.xsl");
-
 # prepare app
 my $t = Test::Mojo->new('Textmining');
 $t->app->home->parse($dir);
+
+dircopy(join('/', $t->app->renderer->paths->[0], "res/xsl"), join('/', $test_data_path, 'test_course', "res", "xsl"));
+my $test_xsl = join('/', $test_data_path, 'test_course', "res", "xsl", "page-library.xsl");
 
 #$number_of_tests_run++;
 my $transform = Textmining::Plugin::StructureHelper::Transform->new->init($t->app);
@@ -70,6 +70,6 @@ my $expect_html_string='<html><head><meta http-equiv="Content-Type" content="tex
 </dd></dl><script src="js/jquery-1.js"/><script src="js/bootstrap.js"/></body></html>';
 $number_of_tests_run++;
 my $test_html = $transform->doctohtml($bibl_doc);
-is($test_html->toString, $expect_html_string, "biblo transform");
+is($test_html, $expect_html_string, "biblo transform");
 
 done_testing( $number_of_tests_run );
