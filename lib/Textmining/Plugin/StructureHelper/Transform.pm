@@ -48,7 +48,7 @@ sub init {
     my $home        = $app->home;
     $self->{log}    = $app->log;
     $self->{xslt}   = {};
-    bless $self->{xslt}, "XML::LibXSLT::StylesheetWrapper";
+    bless $self->{xslt}, 'XML::LibXSLT::StylesheetWrapper';
     return $self;
 }
 
@@ -65,7 +65,7 @@ sub get_xsl ($$) {
     my $xslfile = shift;
 
     my $style;
-    eval{ $style = XML::LibXML->load_xml(location => $xslfile, , no_cdata => 1); };
+    eval{ $style = XML::LibXML->load_xml(location => $xslfile, no_cdata => 1); };
 
     if ($self->isa( "HASH" ) ) {
         my $xslt        = XML::LibXSLT->new();
@@ -83,7 +83,6 @@ sub doctohtml ($$) {
 
     my $results;
     eval { $results = $self->{xslt}->transform($doc) };
-
     return $results;
 }
 

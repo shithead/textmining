@@ -8,6 +8,10 @@ use File::Temp qw(tempfile tempdir);
 use File::Copy;
 use FindBin;
 
+use XML::LibXML;
+use XML::LibXSLT;
+$XML::LibXML::skipXMLDeclaration = 1;
+
 my $number_of_tests_run = 1;
 BEGIN {
     use_ok( 'Textmining::Plugin::StructureHelper::Transform' );
@@ -35,17 +39,16 @@ copy("$FindBin::Bin/examples/page.xsl", join("/", $test_res, 'xsl', "page.xsl"))
 copy("$FindBin::Bin/examples/library.xml", join("/", $test_res, "library.xml"));
 make_path( $test_public_path );
 
+my $expect_xslfile = "$FindBin::Bin/examples/page.xsl";
+
 # Test for get_xsl
 $number_of_tests_run++;
 
 my $expect_xsl;
-eval{ $expect_xsl = XML::LibXML->load_xml(location => "$FindBin::Bin/examples/page.xsl", , no_cdata => 1); };
+$expect_xsl = XML::LibXML->load_xml(location => $expect_xslfile, no_cdata => 1);;
 
-my $got_xsl = Textmining::Plugin::StructureHelper::Transform->get_xsl("$FindBin::Bin/examples/page.xsl");
-is_deeply($got_xsl, $expect_xsl, "loading a xslt-file works (get_xsl)");
-
-my $xslt = XML::LibXSLT->new();
-my $got_stylesheet  = $xslt->parse_stylesheet($got_xsl);
+my $got_xsl = Textmining::Plugin::StructureHelper::Transform->get_xsl($expect_xslfile);
+is_deeply($got_xsl, $expect_xsl, "get_xsl");
 
 # Test for new
 # prepare app
@@ -59,21 +62,22 @@ isa_ok($test_transform, "Textmining::Plugin::StructureHelper::Transform");
 # Test for get_doc
 $number_of_tests_run++;
 
-my $test_module = join('/', $test_data_path, "test_course", 'module', 'module.xml');
-my $expect_doc = XML::LibXML->load_xml(location => $test_module);
-my $got = $test_transform->get_doc($test_module);
+my $expect_module = join('/', $test_data_path, "test_course", 'module', 'module.xml');
+my $expect_doc = XML::LibXML->load_xml(location => $expect_module);
+my $got = $test_transform->get_doc($expect_module);
 is_deeply($got, $expect_doc, "get_doc");
 
 
 # Test for doctohtml
-my $test_doc = $got;
 $number_of_tests_run++;
 
-$test_transform->get_xsl('templates/res/xsl/page.xsl');
-my $expect_html = $test_transform->{xslt}->transform($test_doc);
+my $xslt = XML::LibXSLT->new();
+my $expect_stylesheet  = $xslt->parse_stylesheet($expect_xsl);
+my $expect_html = $expect_stylesheet->transform($expect_doc);
 
 undef $got;
-$got = $test_transform->doctohtml($test_doc);
+$test_transform->get_xsl($expect_xslfile);
+$got = $test_transform->doctohtml($expect_doc);
 is_deeply($got, $expect_html, "doctohtml");
 undef $expect_html;
 
@@ -114,7 +118,7 @@ my @expect_img_src = (
 
 $number_of_tests_run++;
 undef $got;
-$got = $test_transform->update_xml_tag_img($test_course_path, $test_doc);
+$got = $test_transform->update_xml_tag_img($test_course_path, $expect_doc);
 my @test_img_src = ($got->toString =~ m/<img.+src="(.*)">/g);
 is_deeply(\@test_img_src, \@expect_img_src, 'update_xml_tag_img');
 
@@ -123,7 +127,7 @@ is_deeply(\@test_img_src, \@expect_img_src, 'update_xml_tag_img');
 my $expect_libraries_node ="<libraries><library>$test_res/library.xml</library></libraries>";
 
 undef $got;
-$got = $test_transform->get_library_node($test_doc ,$test_res, ['library.xml']);
+$got = $test_transform->get_library_node($expect_doc ,$test_res, ['library.xml']);
 $number_of_tests_run++;
 is($got->toString, $expect_libraries_node, 'get_library_node');
 
