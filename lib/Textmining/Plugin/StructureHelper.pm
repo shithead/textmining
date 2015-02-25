@@ -142,13 +142,13 @@ sub init ($$) {
     $self->{_path}  = $app->config->{path};
     unless (defined $self->{_path}->{xsl}){
         $self->{_path}->{xsl}->{module}  =
-                $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+                $app->renderer->paths->[0] . '/res/xsl/page.xsl';
         $self->{_path}->{xsl}->{library} =
-                $self->{home}->to_string . '/templates/res/xsl/page-library.xsl';
+                $app->renderer->paths->[0] . '/res/xsl/page-library.xsl';
     } else {
         unless (defined $self->{_path}->{xsl}->{module}){
             $self->{_path}->{xsl}->{module} =
-                    $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+                    $app->renderer->paths->[0] . '/res/xsl/page.xsl';
         } else {
             $self->{_path}->{xsl}->{module} =
                     join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{module})
@@ -156,7 +156,7 @@ sub init ($$) {
         }
         unless (defined $self->{_path}->{xsl}->{library}){
             $self->{_path}->{xsl}->{library} =
-                    $self->{home}->to_string . '/templates/res/xsl/page.xsl';
+                    $app->renderer->paths->[0] . '/res/xsl/page.xsl';
         } else {
             $self->{_path}->{xsl}->{library} =
                     join("/", $self->{home}->to_string, $self->{_path}->{xsl}->{library})
@@ -623,7 +623,7 @@ sub create_public_corpus ($$$) {
     my $corpora = shift;
 
     my $corpora_data_struct;
-    for my $corpus_id (sort keys @{$corpora}) {
+    for my $corpus_id (sort keys %{$corpora}) {
         my $corpus = $corpora->{$corpus_id}->{src};
         next if (&_exists_check(join('/', $dir, $corpus)));
         my $corpus_file = &_search_tree($files, $corpus);
@@ -697,12 +697,11 @@ sub create_public_library {
         my $doc = $self->{transform}->get_doc($data_src);
         my $style = $self->{transform}->get_xsl($self->{_path}->{xsl}->{library});
         my $html_string = $self->{transform}->doctohtml($doc);
-        my $html_file = $_;
-        $html_file =~ s/\.xml$/.html/;
-        my $html_file_path = join('/', $public_dest, $html_file);
+        s/\.xml$/.html/; # worked on $_
+        my $html_file_path = join('/', $public_dest, $_);
         open FH, ">:encoding(UTF-8)", $html_file_path
-            or $self->{log}->error("create_public_library: open UTF-8 encode file failed")
-            and return undef;
+            or ($self->{log}->error("create_public_library: open UTF-8 encode file failed")
+            and return undef);
         push @html_files, $html_file_path;
         print FH $html_string;
         close FH;
@@ -713,7 +712,7 @@ sub create_public_library {
 sub rm_public_path ($$) {
     my ($self, $suffix) = @_;
 
-    my $dir          = join('/', $self->get_public_path, $suffix);
+    my $dir          = join('/', $self->get_public_path(), $suffix);
     remove_tree($dir, {error => \my $err});
 
     if (@{$err}) {
@@ -725,7 +724,7 @@ sub rm_public_path ($$) {
 sub create_public_path ($$) {
     my ($self, $path) = @_;
 
-    my $dir          = join('/', $self->get_public_path, $path);
+    my $dir          = join('/', $self->get_public_path(), $path);
     make_path($dir, {error => \my $err});
 
     if (@{$err}) {
@@ -740,8 +739,7 @@ sub update_public_struct ($) {
     my $hash = {} ;
     $hash = &_tree($self->get_public_path());
 
-    $self->{_public_struct} = undef;
-    $self->{_public_struct} = $hash;
+    $self->{_public_struct} = $hash || undef;
     $self->save_struct($self->get_public_path(), $hash);
 }
 

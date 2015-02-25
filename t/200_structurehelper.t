@@ -17,21 +17,35 @@ BEGIN {
     use_ok( 'Textmining::Plugin::StructureHelper' );
 }
 
-my $dir = tempdir( CLEANUP => 1 );
-my $test_public = 'test-public';
-my $test_data = 'test-data';
-my $test_public_dir = join('/', $dir, $test_public );
-my $test_data_dir = join('/', $dir, $test_data );
+our $dir = tempdir( CLEANUP => 0 );
+our $test_public = 'test-public';
+our $test_data = 'test-data';
+our $test_public_dir = join('/', $dir, $test_public );
+our $test_data_dir = join('/', $dir, $test_data );
 
-my @publicstruct = qw(module library corpus);
-my $test_hash = {};
-for (values @publicstruct) {
-    my $path = join('/', $test_data_dir, 'test_course', $_ ); 
-    make_path( $path );
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $path, "$_.xml"));
-    $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
+our @publicstruct = qw(module library corpus);
+
+sub _create_directories {
+    my $test_hash = {};
+    for (values @publicstruct) {
+        my $test_public_path = join('/', $test_public_dir, 'test_course', $_ );
+        make_path( $test_public_path );
+        copy("$FindBin::Bin/examples/$_.xml", join("/", $test_public_path, "$_.xml"));
+        copy("$FindBin::Bin/examples/$_.xml", join("/", $test_public_path, "$_.xml.vrt"));
+        $test_hash->{$test_public}->{test_course}->{$_} = { "$_.xml" => undef,
+            "$_.xml.vrt" => undef};
+    }
+    for (values @publicstruct) {
+        my $test_data_path = join('/', $test_data_dir, 'test_course', $_ );
+        make_path( $test_data_path );
+        copy("$FindBin::Bin/examples/$_.xml", join("/", $test_data_path, "$_.xml"));
+        $test_hash->{$test_data}->{test_course}->{$_} = { "$_.xml" => undef};
+    }
+
+    return $test_hash;
 }
-make_path( $test_public_dir );
+my $test_hash = {};
+$test_hash = _create_directories();
 
 # Test for new
 # prepare app
@@ -52,11 +66,11 @@ cmp_ok(&Textmining::Plugin::StructureHelper::_exists_check($dir), '==' , 0, '_ex
 $number_of_tests_run++;
 my $tree_hash = {};
 $tree_hash = &Textmining::Plugin::StructureHelper::_tree($test_data_dir, 10);
-is_deeply($tree_hash, $test_hash, '_tree');
+is_deeply($tree_hash, $test_hash->{$test_data}, '_tree');
 
 ## Test for _search_tree($tree, $pattern)
 # prepare expect
-my $expect_path = "test_course/module/module.xml";
+my $expect_path = "$test_data/test_course/module/module.xml";
 $number_of_tests_run++;
 my $got = &Textmining::Plugin::StructureHelper::_search_tree($test_hash, 'module.xml');
 is($got, $expect_path, '_search_tree');
@@ -277,16 +291,16 @@ foreach (@{$test_dir_hash->{test_course}->{module}}) {
 }
 # prepare expect data
 my $expect_page_meta_list = ([
-    "$dir/test-public/test_course/module/Test Modul/0_testziel/1.html",
-    "$dir/test-public/test_course/module/Test Modul/0_testziel/2.html",
-    "$dir/test-public/test_course/module/Test Modul/1_twotestid/1.html",
-    "$dir/test-public/test_course/module/Test Modul/1_twotestid/2.html",
-    "$dir/test-public/test_course/module/Test Modul/1_twotestid/3.html",
-    "$dir/test-public/test_course/module/Test Modul/2_threetetestid/1.html",
-    "$dir/test-public/test_course/module/Test Modul/3_fourtestid/1.html",
-    "$dir/test-public/test_course/module/Test Modul/4_fivetestid/1.html",
-    "$dir/test-public/test_course/module/Test Modul/4_fivetestid/2.html",
-    "$dir/test-public/test_course/module/Test Modul/4_fivetestid/3.html"
+    "$test_public_dir/test_course/module/Test Modul/0_testziel/1.html",
+    "$test_public_dir/test_course/module/Test Modul/0_testziel/2.html",
+    "$test_public_dir/test_course/module/Test Modul/1_twotestid/1.html",
+    "$test_public_dir/test_course/module/Test Modul/1_twotestid/2.html",
+    "$test_public_dir/test_course/module/Test Modul/1_twotestid/3.html",
+    "$test_public_dir/test_course/module/Test Modul/2_threetetestid/1.html",
+    "$test_public_dir/test_course/module/Test Modul/3_fourtestid/1.html",
+    "$test_public_dir/test_course/module/Test Modul/4_fivetestid/1.html",
+    "$test_public_dir/test_course/module/Test Modul/4_fivetestid/2.html",
+    "$test_public_dir/test_course/module/Test Modul/4_fivetestid/3.html"
 ]);
 undef @got;
 @got = $test_structhelper->create_public_pages( $test_module_pages, $test_chapter_dirs);
@@ -295,7 +309,7 @@ $number_of_tests_run++;
 is_deeply(\@got, $expect_page_meta_list, 'create_public_pages');
 $got = $test_structhelper->create_public_pages( $test_module_pages, $test_chapter_dirs);
 
-remove_tree($_) foreach (values $expect_page_meta_list);
+remove_tree($_) foreach (values @{$expect_page_meta_list});
 #{{{ subtest
 $number_of_tests_run++;
 isa_ok( $got, 'ARRAY' );
@@ -303,17 +317,13 @@ $number_of_tests_run++;
 is_deeply($got, $expect_page_meta_list, 'create_public_pages return ref');
 #}}}
 
+SKIP: {
+$number_of_tests_run++;
+    skip 'create_public_corpus is not more implemented', 1;
 # Test for create_public_corpus
 # prepare test data
-$test_hash = {};
-for (values @publicstruct) {
-    my $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
-    make_path( "$test_path/$_" );
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml.vrt"));
-    $test_hash->{test_course}->{$_} = { "$_.xml" => undef};
-}
-my $test_corpus_dir = "$dir/test-public/test_course/corpus";
+$test_hash = _create_directories();
+my $test_corpus_dir = "$test_public_dir/test_course/corpus";
 my $test_corpus_files = &Textmining::Plugin::StructureHelper::_tree($test_corpus_dir);
 
 # prepare expect;
@@ -442,10 +452,14 @@ $got = $test_structhelper->create_public_corpus( $test_corpus_dir, $test_corpus_
 #p $got;
 $number_of_tests_run++;
 is_deeply($got, $expect_corpus, 'create_public_corpus');
+}; # SKIP BLOCK
 
+# post cleaning
+remove_tree("$test_public_dir");
 # Test for create_public_library ($$$$)
 # expect data
-my $expect_paths = [ "$dir/test-public/test_course/library/library.html" ];
+_create_directories();
+my $expect_paths = [ "$test_public_dir/test_course/library/library.html" ];
 
 # Test
 undef $got;
@@ -457,43 +471,28 @@ $got = $test_structhelper->create_public_library(
 $number_of_tests_run++;
 is_deeply($got, $expect_paths, 'create_public_library'); 
 
-# Test for update_public_struct($self)
-remove_tree("$test_public_dir/test_course");
-# create test struct
-$test_hash = {};
-for (values @publicstruct) {
-    my $test_path = join('/', $test_public_dir, 'test_course', $_ ); 
-    make_path( $test_path );
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml"));
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_path, "$_.xml.vrt"));
-    $test_hash->{test_course}->{$_} = { "$_.xml" => undef,
-                                        "$_.xml.vrt" => undef};
-}
+# post cleaning
+remove_tree("$test_public_dir");
 
+# Test for update_public_struct($self)
+# create test struct
+$test_hash = _create_directories();
 $number_of_tests_run++;
 
 $test_structhelper->update_public_struct();
 is_deeply(
     $test_structhelper->{_public_struct}, 
-    $test_hash,
+    $test_hash->{$test_public},
     'update_public_struct'
 );
 
 # post cleaning
-remove_tree("$test_public_dir/test_course");
+remove_tree("$test_public_dir");
 $test_structhelper->{_public_struct} = {};
 
 # Test for init_public_course($self, $course)
 # prepare test struct
-$test_hash = {};
-for (values @publicstruct) {
-    my $test_course_path = join('/', $test_data_dir, 'test_course', $_ ); 
-    make_path( $test_path );
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_course_path, "$_.xml"));
-    copy("$FindBin::Bin/examples/$_.xml", join("/", $test_course_path, "$_.xml.vrt"));
-    $test_hash->{test_course}->{$_} = { "$_.xml" => undef,
-                                        "$_.xml.vrt" => undef};
-}
+$test_hash = _create_directories();
 $test_structhelper->update_data_struct();
 # prepare expect
 my $expect_public_meta_struct = {
@@ -535,7 +534,6 @@ my $expect_public_meta_struct = {
 $number_of_tests_run++;
 
 $test_structhelper->init_public_course('test_course');
-#p $test_structhelper->{_public_struct};
 is_deeply($test_structhelper->{_public_struct}, 
     $expect_public_meta_struct, 'init_public_course');
 
