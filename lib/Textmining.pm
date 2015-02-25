@@ -23,10 +23,22 @@ sub configure {
     $self->log->level($self->config->{log}->{level} ? 
         $self->config->{log}->{level} : 'debug');
     # Switch to installable "public" directory
-    $self->static->paths->[0] = $self->home->rel_dir('public');
+    unless (-x $self->static->paths->[0]) {
+        $self->static->paths->[0] = $self->home->rel_dir('lib/Textmining/public');
+    }
 
     # Switch to installable "templates" directory
-    $self->renderer->paths->[0] = $self->home->rel_dir('templates');
+    unless (-x $self->renderer->paths->[0]) {
+        $self->renderer->paths->[0] = $self->home->rel_dir('lib/Textmining/templates');
+    }
+
+    # Switch to installable "public/course" directory
+    unless (-x $self->config->{path}->{public}) {
+        $self->config->{path}->{public} = $self->home->rel_dir('lib/Textmining/public/course');
+    }
+    unless (-x $self->config->{path}->{data}) {
+        $self->config->{path}->{data} = $self->home->rel_dir('lib/Textmining/data');
+    }
 }
 
 # This method will run once at server start
