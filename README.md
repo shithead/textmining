@@ -27,7 +27,7 @@ applications
 libraries
 ---------
 
-;  development version
+###  development version
 
 * libgdbm
 * libxslt1
@@ -49,7 +49,7 @@ perl modules
 * XML::LibXML
 * XML::LibXSLT
 
-    $ cpan `cat requirements.txt`
+    $ cpan \`cat requirements.txt\`
 
 run application
 ===============
