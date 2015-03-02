@@ -16,6 +16,31 @@ package CPAN module
     $ make manifest
     $ make dist
 
+requirements
+============
+
+applications
+------------
+
+* git (optional)
+
+perl modules
+------------
+
+* Data::Printer
+* Exporter
+* File::Basename
+* File::Copy::Recursive
+* File::Glob
+* File::Path
+* File::Spec::Functions
+* Math::Combinatoric
+* Mojolicious
+* Storable
+* Text::NSP
+* XML::LibXML
+* XML::LibXSLT
+
 run application
 ===============
 
