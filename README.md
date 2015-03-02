@@ -41,6 +41,8 @@ perl modules
 * XML::LibXML
 * XML::LibXSLT
 
+    $ cpan i `cat requirements.txt`
+
 run application
 ===============
 
