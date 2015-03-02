@@ -11,5 +11,19 @@ BEGIN {
 }
 # Start command line interface for application
 require Mojolicious::Commands;
+require Data::Printer;
+require Exporter;
+require File::Basename;
+require File::Copy::Recursive;
+require File::Glob;
+require File::Path;
+require File::Spec::Functions;
+#require Math::Combinatoric;
+require Mojolicious;
+require Storable;
+require Text::NSP;
+require XML::LibXML;
+require XML::LibXSLT;
+
 
 Mojolicious::Commands->start_app('Textmining');

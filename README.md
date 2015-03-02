@@ -24,6 +24,15 @@ applications
 
 * git (optional)
 
+libraries
+---------
+
+;  development version
+
+* libgdbm
+* libxslt1
+* libxml2
+
 perl modules
 ------------
 
@@ -34,14 +43,13 @@ perl modules
 * File::Glob
 * File::Path
 * File::Spec::Functions
-* Math::Combinatoric
 * Mojolicious
 * Storable
 * Text::NSP
 * XML::LibXML
 * XML::LibXSLT
 
-    $ cpan i `cat requirements.txt`
+    $ cpan `cat requirements.txt`
 
 run application
 ===============
