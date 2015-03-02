@@ -9,16 +9,16 @@ use File::Spec::Functions 'catdir';
 use Data::Printer;
 
 # Every CPAN module needs a version
-our $VERSION = '0.8a';
+our $VERSION = '0.8';
 
 sub configure {
     my $self = shift;
     # Configuration file loadable
     $self->plugin('Config');
 
-    $self->mode($self->config->{mode});
+    $self->mode($self->config->{mode} ? $self->config->{mode} : 'development');
     $self->home->parse($self->config->{home} ? 
-        $self->config->{home} : catdir(dirname(__FILE__), 'Textmining'));
+        $self->config->{home} : join('/', $self->home->detect, '..'));
     $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : 'log/development.log');
     $self->log->level($self->config->{log}->{level} ? 
         $self->config->{log}->{level} : 'debug');
@@ -33,10 +33,12 @@ sub configure {
     }
 
     # Switch to installable "public/course" directory
-    unless (-x $self->config->{path}->{public}) {
+    unless (defined $self->config->{path}->{public} &&
+        -x $self->config->{path}->{public}) {
         $self->config->{path}->{public} = $self->home->rel_dir('lib/Textmining/public/course');
     }
-    unless (-x $self->config->{path}->{data}) {
+    unless (defined $self->config->{path}->{data} &&
+        -x $self->config->{path}->{data}) {
         $self->config->{path}->{data} = $self->home->rel_dir('lib/Textmining/data');
     }
 }
@@ -109,7 +111,6 @@ sub startup {
             $req->{query}  = $c->stash('query');
             if ($req->{query}) {
                 my @sources = glob("./{public}/{course}/*/*");
-                p @sources;
                 foreach (@sources) {
                     if ($_ =~ m/$req->{query}/) {
                        push @filtered_src, $_;
