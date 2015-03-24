@@ -107,13 +107,12 @@ Is using L<"save_struct">.
 =for :list
 * L<Textmining::Plugin::StructureHelper::Transform>
 * L<Textmining::Plugin::StructureHelper>
-* L<Textmining::Plugin::CorpusHelper>
 
 =cut
 
 use Mojo::Base 'Mojolicious::Plugin';
 use Mojo::Asset::File;
-use Mojo::JSON;
+use Mojo::JSON qw(decode_json encode_json);
 use Mojo::Util qw(encode decode camelize);
 
 use Textmining::Plugin::StructureHelper::Transform;
@@ -245,24 +244,14 @@ sub _get_files ($) {
 sub hash_to_json ($$) {
     my $self                = shift;
     my $meta_struct         = shift;
-    my $json                = Mojo::JSON->new;
-    my $json_bytes          = $json->encode($meta_struct);
-    my $err                 = $json->error;
-    if (defined $err) {
-        $self->{log}->error("json encode: $err");
-    }
+    my $json_bytes          = encode_json($meta_struct);
     return $json_bytes;
 }
 
 sub json_to_hash ($$) {
     my $self                = shift;
     my $json_bytes          = shift;
-    my $json                = Mojo::JSON->new;
-    my $meta_struct         = $json->decode($json_bytes);
-    my $err                 = $json->error;
-    if (defined $err) {
-        $self->{log}->error("json decode: $err");
-    }
+    my $meta_struct         = decode_json($json_bytes);
     return $meta_struct;
 }
 
@@ -316,15 +305,14 @@ sub update_data_struct ($) {
     my @file = readdir(DIR);
     closedir(DIR);
 
-    my $hash = {} ;
+    my $hash = {};
     for my $course (values @file) {
         # ignore . and ..
-        unless ($course =~ m/(^\.+)/) {
-            # build course tree
-            $hash->{$course} = {};
-            for (values @coursestruct) {
-                $hash->{$course}->{$_} = [];
-            }
+        next if ($course =~ m/(^\.+)/);
+        # build course tree
+        $hash->{$course} = {};
+        foreach (values @coursestruct) {
+            $hash->{$course}->{$_} = [];
         }
     }
 
@@ -339,6 +327,7 @@ sub update_data_struct ($) {
                 closedir(DIR);
 
                 for my $file (values @files) {
+                    next if ($file =~ m/(^\.+)/);
                     # ignore .+ and grep files with xml-Suffix
                     if ($file =~ qr/(^[^\.]+.*\.xml$)/ ) {
                         unshift @{$hash->{$course}->{$_}}, $file;
@@ -521,9 +510,7 @@ sub init_public_course ($$) {
 
         $self->{transform}->get_xsl($self->{_path}->{xsl}->{module});
         $module_pages->{$module_file} = $self->{transform}->nodestohtml(\@page_docs);
-                #use Data::Printer;
-                #p $module_pages;
-                #p @chapter_dirs;
+
         $module_struct->{pages} = $self->create_public_pages(
                         $module_pages,
                         \@chapter_dirs
@@ -693,12 +680,13 @@ sub create_public_library {
 
     my @html_files;
     foreach (values @{$data_files}) {
-        my $data_src = join '/', $data_dir, $_;
+        my $data_file = $_;
+        my $data_src = join '/', $data_dir, $data_file;
         my $doc = $self->{transform}->get_doc($data_src);
         my $style = $self->{transform}->get_xsl($self->{_path}->{xsl}->{library});
         my $html_string = $self->{transform}->doctohtml($doc);
-        s/\.xml$/.html/; # worked on $_
-        my $html_file_path = join('/', $public_dest, $_);
+        $data_file =~ s/\.xml$/.html/;
+        my $html_file_path = join('/', $public_dest, $data_file);
         open FH, ">:encoding(UTF-8)", $html_file_path
             or ($self->{log}->error("create_public_library: open UTF-8 encode file failed")
             and return undef);
