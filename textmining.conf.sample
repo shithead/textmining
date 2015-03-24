@@ -7,6 +7,5 @@
         data => app->home->rel_dir('data'),
         public => app->home->rel_dir('public/course')
     },
-    home  => '/usr/home/PwnyTail/devel/git/textmining',
     mode  => 'development'
 }

@@ -66,7 +66,7 @@ configuration
         listen  => ['https://*:443?cert=/etc/server.crt&key=/etc/server.key'],
         workers => 10
       }
-    };
+    }
 
 develop application
 ===================
