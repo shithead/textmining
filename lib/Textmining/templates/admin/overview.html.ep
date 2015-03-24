@@ -29,9 +29,9 @@
             <td><%= $course %></td>
             <td></td>
             <td>
-                <form><button type="submit" class="btn btn-default btn-xs" formmethod="get" formaction="admin/open/<%= $course %>">
+                <a type="submit" class="btn btn-default btn-xs" href="admin/open/<%= $course %>">
                         Freigabe
-                </button></form>
+                </a>
             </td>
             <td>
             %#    <form>

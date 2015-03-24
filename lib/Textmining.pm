@@ -18,28 +18,28 @@ sub configure {
 
     $self->mode($self->config->{mode} ? $self->config->{mode} : 'development');
     $self->home->parse($self->config->{home} ? 
-        $self->config->{home} : join('/', $self->home->detect, '..'));
+        $self->config->{home} : catdir(dirname(__FILE__), 'Textmining'));
     $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : 'log/development.log');
     $self->log->level($self->config->{log}->{level} ? 
         $self->config->{log}->{level} : 'debug');
     # Switch to installable "public" directory
-    unless (-x $self->static->paths->[0]) {
-        $self->static->paths->[0] = $self->home->rel_dir('lib/Textmining/public');
-    }
+    #unless (-x $self->static->paths->[0]) {
+        $self->static->paths->[0] = $self->home->rel_dir('public');
+        #}
 
     # Switch to installable "templates" directory
-    unless (-x $self->renderer->paths->[0]) {
-        $self->renderer->paths->[0] = $self->home->rel_dir('lib/Textmining/templates');
-    }
+    #unless (-x $self->renderer->paths->[0]) {
+        $self->renderer->paths->[0] = $self->home->rel_dir('templates');
+        #}
 
     # Switch to installable "public/course" directory
     unless (defined $self->config->{path}->{public} &&
         -x $self->config->{path}->{public}) {
-        $self->config->{path}->{public} = $self->home->rel_dir('lib/Textmining/public/course');
+        $self->config->{path}->{public} = join('/', $self->static->paths->[0], 'course');
     }
     unless (defined $self->config->{path}->{data} &&
         -x $self->config->{path}->{data}) {
-        $self->config->{path}->{data} = $self->home->rel_dir('lib/Textmining/data');
+        $self->config->{path}->{data} = $self->home->rel_dir('data');
     }
 }
 
@@ -59,7 +59,7 @@ sub startup {
     my $r = $self->routes;
 
     # Normal route to controller
-    $r->get('/')->to('example#welcome');
+    $r->get('/')->to('course#overview');
 
     $r->any("not_found")->to("course#overview");
 
