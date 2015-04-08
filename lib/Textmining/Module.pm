@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Util qw(camelize decode) ;
 use Mojo::Asset::File;
 use Mojo::ByteStream;
-use Mojo::JSON;
+use Mojo::JSON qw(decode_json encode_json);
 use Textmining::Assert::Storable qw(retrieve);
 use File::Glob ':globally'; #XXX maybe obsolate?
 
@@ -78,8 +78,7 @@ sub ws {
 sub onMessage {
     my ($c, $message) = @_;
     my $res = {};
-    my $json = Mojo::JSON->new();
-    my $req->{message} = $json->decode($message);
+    my $req->{message} = decode_json($message);
     my $id;
     defined $req->{message}->{user} ?
     $id = $req->{message}->{user} : $id = $c->tx->connection;
@@ -183,7 +182,7 @@ sub onMessage {
             }
 
             my $sources = {};
-            $sources = $json->decode( $c->app->ua->get("/course/corpus/$course/$corpus")->res->dom->text);
+            $sources = decode_json( $c->app->ua->get("/course/corpus/$course/$corpus")->res->dom->text);
             unless (defined $sources->{sources}) {
                 $res->{message}->{content} = '<p>No Corpus found</p>';
                 _send_message($c, $res);
@@ -351,8 +350,7 @@ EOT
 sub _message_to_json {
     my $message = shift;
 
-    my $json = Mojo::JSON->new;
-    return decode('UTF-8',$json->encode($message));
+    return decode('UTF-8',encode_json($message));
 }
 
 sub _send_message {
