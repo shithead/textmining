@@ -110,7 +110,8 @@ sub startup {
 
             $req->{query}  = $c->stash('query');
             if ($req->{query}) {
-                my @sources = glob("./{public}/{course}/*/*");
+
+                my @sources = glob("$self->app->static->paths->[0]/{course}/*/*");
                 foreach (@sources) {
                     if ($_ =~ m/$req->{query}/) {
                        push @filtered_src, $_;

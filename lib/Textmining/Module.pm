@@ -181,8 +181,8 @@ sub onMessage {
                 $token  = $msg->{token};
             }
 
-            my $sources = {};
-            $sources = decode_json( $c->app->ua->get("/course/corpus/$course/$corpus")->res->dom->text);
+            my $json = _scrape($c, "/course/corpus/$course/$corpus");
+            my $sources = decode_json($json);
             unless (defined $sources->{sources}) {
                 $res->{message}->{content} = '<p>No Corpus found</p>';
                 _send_message($c, $res);
@@ -235,6 +235,7 @@ sub onMessage {
             $content .= "</tr></thead><tbody>\n";
             #p $corpus_data;
             #XXX FIRST round
+            #TODO pelr build was webbuild (templates!) has to do.
             # create_table_body
             for my $n1 (@search_keys) {
                 for my $n2 (keys %{$corpus_data->{$n1}}) {
@@ -244,11 +245,14 @@ sub onMessage {
                     my $n2_data = $corpus_data->{$n1}->{$n2};
                     # perl 5.14 and 5.18  my $total = $n2_data->{ctotal};
                     my $total = %{$n2_data}{ctotal};
-                    next if defined $min_collo
-                        and $total < $min_collo;
+                    # TODO Argument "" isn't numeric in numeric lt 
+                    # $min_collo is the problem (default webfontend)
+                    next if defined $min_collo and $total < $min_collo;
                     my $content_tmp .= "<tr><td>$n1</td><td>$n2</td><td>$total<td>";
                     if (defined $stat) {
                         my $corpus_stat = $corpus_data->{$n1}->{$n2}->{statistic}->{$stat};
+                    # TODO Argument "" isn't numeric in numeric lt
+                    # $min_freq is the problem (default webfontend)
                         next if defined $min_freq
                             and $corpus_stat->{value} < $min_freq;
                         $content_tmp .=
@@ -392,6 +396,21 @@ sub _get_navbar ($$$) {
     }
 
     return $navigation;
+}
+
+sub _scrape ($$) {
+    my $c = shift;
+    my $uri = shift;
+
+    # Fetch web site
+    my $tx = $c->app->ua->get($uri);
+    my $err = $tx->error;
+    if (!$tx->success) {
+        # TODO use logging
+        say "$err->{code} response: $err->{message}" if $err->{code};
+        say "Connection error: $err->{message}";
+    }
+    return $tx->res->dom->text;
 }
 
 1;

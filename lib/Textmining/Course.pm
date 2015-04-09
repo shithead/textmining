@@ -29,7 +29,9 @@ sub corpus {
     $res->{corpus} = $corpus;
     my @sources;
     if ($course && $corpus) {
-        @sources = glob("./{public}/{course}/$course/{corpus}/$corpus/*");
+        # TODO implement array logic
+        my $public = $self->app->static->paths->[0];
+        @sources = glob( "$public/{course}/$course/{corpus}/$corpus/*");
     }
     if (@sources) {
         $res->{sources} = \@sources;
