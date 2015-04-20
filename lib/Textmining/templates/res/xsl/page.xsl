@@ -171,10 +171,10 @@
              </div>
          </div>
          <div class="well bs-component">
-             <div class="alert alert-dismissable alert-warning">
+             <!--    <div class="alert alert-dismissable alert-warning">
                  <h4>Warning!</h4>
                  <p>corpus <xsl:value-of select="$corpus" /> not available</p>
-             </div>
+             </div> -->
              <form id="{$form_id}" class="form-horizontal">
                  <fieldset>
                      <div class="form-group">
