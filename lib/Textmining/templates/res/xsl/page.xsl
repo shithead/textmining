@@ -327,9 +327,9 @@
              </div>
              <div class="tab-pane" id="{$it}">
                  <div class="glyphicon glyphicon-minus" data-toggle="tab" data-target="#{$it}2"><b> Detail</b></div>
-                 <span>
+                 <mark>
                      <xsl:apply-templates select="list | p"/>
-                 </span>
+                 </mark>
              </div>
          </div>
      </xsl:template>
