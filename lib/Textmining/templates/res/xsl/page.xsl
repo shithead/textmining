@@ -349,7 +349,9 @@
      </xsl:template>
 
      <xsl:template match="foreign">
+         <i>
          <xsl:value-of select="text()"/>
+         </i>
      </xsl:template>
 
      <xsl:template match="h1">
