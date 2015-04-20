@@ -312,7 +312,7 @@
      </xsl:template>
 
      <xsl:template match="ctext">
-         <xsl:apply-templates select="text() | list | p | term"/>
+         <xsl:apply-templates select="text() | details | list | p | term"/>
      </xsl:template>
 
      <xsl:template match="date">
