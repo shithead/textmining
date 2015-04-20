@@ -506,6 +506,16 @@
                      <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
                  </p>
              </xsl:when>
+             <xsl:when test="@align='left'">
+                 <p class="text-left">
+                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
+                 </p>
+             </xsl:when>
+             <xsl:when test="@align='right'">
+                 <p class="text-right">
+                     <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
+                 </p>
+             </xsl:when>
              <xsl:otherwise>
                  <p>
                      <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
