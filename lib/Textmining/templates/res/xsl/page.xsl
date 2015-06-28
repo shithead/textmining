@@ -484,24 +484,6 @@
                      </div>
                  </div>
              </xsl:when>
-             <!-- deprecated -->
-             <xsl:when test="@type='details'">
-                 <xsl:message>p with type details is deprecated</xsl:message>
-                 <xsl:variable name="it" select='generate-id(current())'/>
-                 <div class="tab-content">
-                     <div class="tab-pane active" id="{$it}2">
-                         <div class="glyphicon glyphicon-plus" data-toggle="tab" data-target="#{$it}"><b> Detail</b></div>
-                     </div>
-                     <div class="tab-pane" id="{$it}">
-                         <div class="glyphicon glyphicon-minus" data-toggle="tab" data-target="#{$it}2"><b> Detail</b></div>
-                         <span>
-                             <p>
-                                 <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | term | url"/>
-                             </p>
-                         </span>
-                     </div>
-                 </div>
-             </xsl:when>
              <xsl:when test="@type='example'">
                  <p class="example">
                      <xsl:apply-templates select="text() | a | bib | emph | foreign | img | kursiv | person | quantity | sub | sup | term | url"/>
