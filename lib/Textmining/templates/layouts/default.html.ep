@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <title> TextMining - <%= title %> </title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen">
 </head>
 <body style="zoom: 1;">
 <div class="container">
