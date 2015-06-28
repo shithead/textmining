@@ -296,7 +296,7 @@
                              <button class="btn btn-primary" formaction="javascript:get_corpus_data('{$form_id}','{$corpus}');" type="submit">Submit</button>
                          </div>
                          <div class="col-sm-2">
-                             <a id="result_{$form_id}" class="btn btn-primary" data-toggle="modal" href="javascript:modal_toggle('modal_{$form_id}');" type="button" disabled='' >Show Result</a>
+                             <a id="result_{$form_id}" class="btn btn-primary disabled" data-toggle="modal" href="javascript:modal_toggle('modal_{$form_id}');" type="button" disabled='' >Show Result</a>
                          </div>
                          <div class="col-sm-2">
                              <button class="btn btn-primary" type="reset">Reset</button>
@@ -327,6 +327,7 @@
              </div>
              <div class="tab-pane" id="{$it}">
                  <div class="glyphicon glyphicon-minus" data-toggle="tab" data-target="#{$it}2"><b> Detail</b></div>
+                 <br />
                  <mark>
                      <xsl:apply-templates select="list | p"/>
                  </mark>
@@ -612,6 +613,7 @@
          </xsl:if>
      </xsl:template>
 
+     <!-- nicht dtd konform -->
      <xsl:template match="url">
          <a href="{@href}"><xsl:value-of select="text()"/></a>
      </xsl:template>
