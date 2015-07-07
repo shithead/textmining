@@ -485,7 +485,7 @@ sub init_public_course ($$) {
             $self->{log}->debug("resource directory $resource not exists");
         }
         # {{ TODO build a stack of
-        # create_public_modul
+        # create_public_module
         # -> create_pages
         # update every sub module with $page_meta_list see bottom of fnct
         my @chapter_dirs    = $self->create_public_chapter(
@@ -506,7 +506,7 @@ sub init_public_course ($$) {
                     $page_docs[0]
                 );
 
-        my $module_pages;
+        my $module_pages = {};
 
         $self->{transform}->get_xsl($self->{_path}->{xsl}->{module});
         $module_pages->{$module_file} = $self->{transform}->nodestohtml(\@page_docs);
@@ -516,11 +516,7 @@ sub init_public_course ($$) {
                         \@chapter_dirs
                     );
 
-        $self->create_public_library(
-                $library->{path},
-                $library->{files},
-                $course
-            );
+        $self->create_public_library( $library, $course );
 
         #p $module_struct;
         #if (defined $module_struct->{meta}->{corpora} and 0)  {
@@ -671,17 +667,16 @@ sub create_public_corpus ($$$) {
 }
 
 sub create_public_library {
-    my $self     =   shift;
-    my $data_dir =   shift;
-    my $data_files = shift;
-    my $course   =   shift;
+    my $self     =  shift;
+    my $library  =  shift;
+    my $course   =  shift;
 
     my $public_dest = join '/', $self->get_public_path($course), 'library';
 
     my @html_files;
-    foreach (values @{$data_files}) {
+    foreach (values @{$library->{files}}) {
         my $data_file = $_;
-        my $data_src = join '/', $data_dir, $data_file;
+        my $data_src = join '/', $library->{path}, $data_file;
         my $doc = $self->{transform}->get_doc($data_src);
         my $style = $self->{transform}->get_xsl($self->{_path}->{xsl}->{library});
         my $html_string = $self->{transform}->doctohtml($doc);
