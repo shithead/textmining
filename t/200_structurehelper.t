@@ -1,6 +1,6 @@
 use Mojo::Base -strict;
 use Mojo::Asset::File;
-use Mojo::JSON;
+use Mojo::JSON qw(decode_json encode_json);
 use Mojo::Util qw(encode decode camelize);
 use Test::More;
 use Test::Mojo;
@@ -86,33 +86,16 @@ my @got = &Textmining::Plugin::StructureHelper::_get_files(
 is_deeply(\@got, \@expect_files, '_get_files');
 
 ## Test for hash_to_json($self, $meta_struct)
-my $json = Mojo::JSON->new;
 
 my $json_bytes = Textmining::Plugin::StructureHelper->hash_to_json($test_hash);
-my $test_json_bytes = decode('UTF-8', $json->encode($test_hash));
-my $err = $json->error;
-
-$number_of_tests_run++;
-if (defined $err) {
-    fail('hash_to_json failed');
-} else {
-    pass('hash_to_json successed');
-}
+my $test_json_bytes = decode('UTF-8', encode_json($test_hash));
 
 $number_of_tests_run++;
 is($json_bytes, $test_json_bytes, 'json_bytes eq test_json_bytes');
 
 ## Test for json_to_hash($self, $json_bytes)
 my $json_hash = Textmining::Plugin::StructureHelper->json_to_hash($json_bytes);
-my $test_json_hash = $json->decode($json_bytes);
-$err = $json->error;
-
-$number_of_tests_run++;
-if (defined $err) {
-    fail('json_to_hash failed');
-} else {
-    pass('json_to_hash successed');
-}
+my $test_json_hash = decode_json($json_bytes);
 
 $number_of_tests_run++;
 is_deeply($json_hash, $test_json_hash, 'json_hash eq test_json_hash');
@@ -456,18 +439,19 @@ is_deeply($got, $expect_corpus, 'create_public_corpus');
 
 # post cleaning
 remove_tree("$test_public_dir");
-# Test for create_public_library ($$$$)
+# Test for create_public_library ($$$)
 # expect data
 _create_directories();
 my $expect_paths = [ "$test_public_dir/test_course/library/library.html" ];
 
 # Test
 undef $got;
+my $test_library = {
+    path => join('/', $test_data_dir, 'test_course', 'library'),
+    files => $test_dir_hash->{test_course}->{library}
+};
 $got = $test_structhelper->create_public_library(
-        join('/', $test_data_dir, 'test_course', 'library'),
-        $test_dir_hash->{test_course}->{library},
-        'test_course'
-    );
+    $test_library, 'test_course' );
 $number_of_tests_run++;
 is_deeply($got, $expect_paths, 'create_public_library'); 
 
