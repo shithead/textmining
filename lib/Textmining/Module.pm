@@ -297,7 +297,7 @@ sub _get_page($$) {
 
     my $pagenr = $msg->{pagenr};
     my $page_path   = _get_page_path($struct, $msg->{module});
-    $pagenr = 0 if ($pagenr >= (@{$page_path} - 1));
+    $pagenr = 0 if ($pagenr >= @{$page_path});
     $pagenr = @{$page_path} - $pagenr - 2 if ($pagenr < 0);
     my $stream = _get_page_content($page_path->[$pagenr]);
 
