@@ -16,6 +16,7 @@ sub configure {
     # Configuration file loadable
     $self->plugin('Config');
 
+    $self->config->{home_uri} = "/" unless defined $self->config->{home_uri};
     $self->mode($self->config->{mode} ? $self->config->{mode} : 'development');
     $self->home->parse($self->config->{home} ? 
         $self->config->{home} : catdir(dirname(__FILE__), 'Textmining'));
