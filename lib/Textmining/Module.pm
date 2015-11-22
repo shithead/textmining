@@ -109,6 +109,7 @@ sub onMessage {
         }
         if ($req->{message}->{type} =~ m/corpus/) {
             my ($token, $windowsize, $search, $course, $corpus); #must have
+            # TODO set default values. problem on lines 255, 261
             my ($min_collo, $min_freq, $stat); # optional
             $res->{type} = 'corpus';
             my $msg = $req->{message}->{message};
@@ -243,8 +244,13 @@ sub onMessage {
                     next if $n2 =~ /\d+/;
                     next unless defined $n1 and defined $n2;
                     my $n2_data = $corpus_data->{$n1}->{$n2};
-                    # perl 5.14 and 5.18  my $total = $n2_data->{ctotal};
-                    my $total = %{$n2_data}{ctotal};
+                    my $total;
+                    if ($] >= 5.020000) {
+                        $total = %{$n2_data}{ctotal};
+                    } else {
+                        # perl 5.14 and 5.18
+                        $total = $n2_data->{ctotal};
+                    }
                     # TODO Argument "" isn't numeric in numeric lt 
                     # $min_collo is the problem (default webfontend)
                     next if defined $min_collo and $total < $min_collo;
