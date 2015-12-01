@@ -4,10 +4,10 @@
 % my $url = $self->req->url->to_abs->scheme($self->req->is_secure ? 'wss' : 'ws')->path($self->url_for('modulews'));
 <ul class="nav nav-tabs" style="margin-bottom: 15px;">
     <li class="active">
-    <a data-toggle="tab" href="javascript:get_module();">Module</a>
+    <a data-toggle="tab" href="#module">Module</a>
     </li>
     <li>
-    <a data-toggle="tab" href="javascript:get_library();">Library</a>
+    <a data-toggle="tab" href="#library">Library</a>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content">
@@ -28,9 +28,13 @@
                     <a href="javascript:get_next_page();">Nächste →</a>
                     </li>
                 </ul>
-                <div id="page">
+                <div id="page-module">
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="library"  class="tab-pane fade active in">
+        <div id="page-library">
         </div>
     </div>
 </div>

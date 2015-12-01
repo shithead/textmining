@@ -82,11 +82,13 @@ sub onMessage {
     my $id;
     defined $req->{message}->{user} ?
     $id = $req->{message}->{user} : $id = $c->tx->connection;
+    $req->{message}->{user} = $id;
     #$c->app->log->debug("User $id send message: " . $message);
 
     if (defined $req->{message}->{type}){
         if ($req->{message}->{type} =~ m/page/) {
-            $res->{type} = 'page';
+            # PAGE
+            $res->{type} = 'page-module';
             my $msg = $req->{message}->{message};
             my $course_meta_struct  = $c->struct->load_struct(
                 $c->struct->get_public_path($msg->{course}));
@@ -97,6 +99,7 @@ sub onMessage {
             $res->{user} = $id;
             #p $res;
             _send_message($c, $res);
+            # NAVBAR
             my $navbar = _get_navbar(
                 $message->{pagenr},
                 $course_meta_struct->{$msg->{module}}
@@ -107,6 +110,10 @@ sub onMessage {
             $res->{message}->{sendtime} = $req->{message}->{sendtime};
             _send_message($c, $res);
         }
+        if ($req->{message}->{type} =~ m/library/) {
+            _type_library($c, $req->{message});
+        }
+
         if ($req->{message}->{type} =~ m/corpus/) {
             my ($token, $windowsize, $search, $course, $corpus); #must have
             # TODO set default values. problem on lines 255, 261
@@ -117,10 +124,10 @@ sub onMessage {
             $res->{user} = $id;
             $res->{message} = {content => undef};
             unless (defined $msg->{course} &&
-                    defined $msg->{corpus}) {
-                    $res->{message}->{content} = '<p>Course or Corpus not filled</p>';
-                    _send_message($c, $res);
-                    return 1;
+                defined $msg->{corpus}) {
+                $res->{message}->{content} = '<p>Course or Corpus not filled</p>';
+                _send_message($c, $res);
+                return 1;
             } else {
                 unless ($msg->{course} =~ m/^\w+/) {
                     $res->{message}->{content} = '<p>Coursename is a not valid word</p>';
@@ -136,11 +143,11 @@ sub onMessage {
                 $corpus = $msg->{corpus};
             }
             unless ( defined $msg->{search} &&
-                        defined $msg->{windowsize} &&
-                        defined $msg->{token}) {
-                    $res->{message}->{content} = '<p>Search or windowsize or token not filled</p>';
-                    _send_message($c, $res);
-                    return 1;
+                defined $msg->{windowsize} &&
+                defined $msg->{token}) {
+                $res->{message}->{content} = '<p>Search or windowsize or token not filled</p>';
+                _send_message($c, $res);
+                return 1;
             } else {
                 unless ($msg->{windowsize} =~ m/^(\d{1,2})$/) {
                     $res->{message}->{content} = '<p>Windowsize is not a Number</p>';

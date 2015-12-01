@@ -3,17 +3,6 @@
     <xsl:import href="html/tei.xsl"/> 
 
     <xsl:template match="/">
-    <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta charset="utf-8" />
-            <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" />
-        </head>
-        <body>
             <xsl:apply-imports/>
-            <script src="js/jquery-1.js"></script>
-            <script src="js/bootstrap.js"></script>
-        </body>
-    </html>
     </xsl:template>
 </xsl:stylesheet>
