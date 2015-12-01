@@ -429,6 +429,13 @@ sub get_data_corpus ($$) {
 
 # {{{ public directory
 
+sub get_public_library_path ($) {
+    my $self = shift;
+    my $loc  =   shift || undef;
+
+    return $self->get_public_path(join('/', $loc, 'library') );
+}
+
 sub get_public_path ($) {
     my $self = shift;
     my $course  =   shift || undef;
