@@ -297,6 +297,25 @@ sub onMessage {
     ##        if(defined $req->{message}->{user});
 }
 
+sub _type_library($$) {
+    my $c = shift;
+    my $req_msg = shift;
+    my $res = {};
+    $res->{message}->{sendtime} = $req_msg->{sendtime};
+    $res->{user} = $req_msg->{user};
+    $res->{type} = 'page-library';
+
+            my $course_meta_struct  = $c->struct->load_struct(
+                $c->struct->get_public_path($req_msg->{message}->{course}));
+            my $content = "";
+            my $lib_path = $c->struct->get_public_library_path($req_msg->{message}->{course});
+            foreach (values @{$course_meta_struct->{$req_msg->{message}->{module}}->{meta}->{libraries}}) {
+                $content .= _get_page_content(join('/', $lib_path, $_));
+        }
+    $res->{message}->{content} = $content;
+    _send_message($c, $res);
+}
+
 sub _get_page($$) {
     my $msg = shift;
     my $struct = shift;
