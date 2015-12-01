@@ -63,7 +63,10 @@ sub get_node_metastruct ($$$) {
             push @{$hash->{meta}->{authors}}, $_->textContent;
         }
         for ($meta->findnodes('libraries/library')) {
-            push @{$hash->{meta}->{libraries}}, $_->textContent;
+            my $content = $_->textContent;
+            next if ($content =~ m/^\.xml$/);
+            $content =~ s/\.xml$/.html/;
+            push @{$hash->{meta}->{libraries}}, $content;
         }
         for ($meta->findnodes('corpora/corpus')) {
             my $text = $_->textContent;
