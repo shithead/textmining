@@ -472,6 +472,8 @@ sub init_public_course ($$) {
         $self->{log}->error('init_public_course: no module file');
         return undef;
     }
+    $self->create_public_library( $library, $course );
+
     # TODO change parameter for the output of
     # $self->get_data_module($course)
     for my $module_file (values @{$module->{files}}) {
@@ -522,8 +524,6 @@ sub init_public_course ($$) {
                         $module_pages,
                         \@chapter_dirs
                     );
-
-        $self->create_public_library( $library, $course );
 
         #p $module_struct;
         #if (defined $module_struct->{meta}->{corpora} and 0)  {
