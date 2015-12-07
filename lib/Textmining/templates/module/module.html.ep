@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div id="library"  class="tab-pane fade active in">
+    <div id="library"  class="tab-pane fade in">
         <div id="page-library">
         </div>
     </div>
