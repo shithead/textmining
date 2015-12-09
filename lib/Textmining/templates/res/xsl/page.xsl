@@ -3,7 +3,7 @@
     xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     exclude-result-prefixes="tei">
-    <xsl:output indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
+    <xsl:output methode="html" indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
 
     <xsl:template match="action">
         <xsl:apply-templates select="ctext | url"/>
@@ -24,12 +24,23 @@
                         </fieldset>
                     </xsl:when>
                     <xsl:otherwise>
+                         <xsl:variable name="it" select='generate-id(current())'/>
                         <!-- <xsl:when test="@type='radio'"> -->
-                        <!-- ugly hack -->
+                        <div class="btn-group" data-toggle="buttons">
+                        <xsl:apply-templates select="option">
+                            <xsl:call-template name="option-radio"/>
+                             <xsl:with-param name="id" select="$it"/>
+                        </xsl:apply-templates>
+                         </div>
+
                         <div class="tab-content">
-                            <xsl:for-each select="option">
-                                <xsl:call-template name="option-radio"/>
-                            </xsl:for-each>
+                        <xsl:for-each select="option">
+                            <xsl:variable name="counter" select="count(following-sibling::option)"/>
+                            <br />
+                            <div class="tab-pane" id="{$it}{$counter}">
+                            <xsl:apply-templates select="action"/>
+                            </div>
+                        </xsl:for-each>
                         </div>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -451,18 +462,16 @@
      </xsl:template>
 
      <xsl:template match="option" name="option-radio">
-         <xsl:variable name="it" select='generate-id(current())'/>
-         <div class="radio">
-             <label>
-                 <input id="optionsRadios{$it}" type="radio" value="option{$it}" name="optionsRadios"  data-toggle="tab" data-target="#{$it}"/>
+         <xsl:param name="id"/>
+         <xsl:variable name="counter" select="count(following-sibling::option)"/>
+             <label  class="btn btn-primary"  data-toggle="tab" data-target="#{$id}{$counter}"
+                     aria-controls="{$id}{$counter}">
+                 <input id="optionsRadios{$counter}" type="radio"
+                     value="option{$counter}" name="optionsRadios"
+                     autocomplete="off" />
                  <xsl:apply-templates select="ctext"/>
              </label>
-         </div>
-         <br />
-         <div class="tab-pane" id="{$it}">
-             <xsl:apply-templates select="action"/>
-         </div>
-     </xsl:template>
+    </xsl:template>
 
      <xsl:template match="p">
          <xsl:choose>
