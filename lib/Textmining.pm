@@ -18,19 +18,18 @@ sub configure {
 
     $self->config->{home_uri} = "/" unless defined $self->config->{home_uri};
     $self->mode($self->config->{mode} ? $self->config->{mode} : 'development');
-    $self->home->parse($self->config->{home} ? 
-        $self->config->{home} : catdir(dirname(__FILE__), 'Textmining'));
-    $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : 'log/development.log');
+    $self->home->detect;
+    $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : '/log/development.log');
     $self->log->level($self->config->{log}->{level} ? 
         $self->config->{log}->{level} : 'debug');
     # Switch to installable "public" directory
     #unless (-x $self->static->paths->[0]) {
-        $self->static->paths->[0] = $self->home->rel_dir('public');
+        $self->static->paths->[0] = $self->home->rel_file('public');
         #}
 
     # Switch to installable "templates" directory
     #unless (-x $self->renderer->paths->[0]) {
-        $self->renderer->paths->[0] = $self->home->rel_dir('templates');
+        $self->renderer->paths->[0] = $self->home->rel_file('templates');
         #}
 
     # Switch to installable "public/course" directory
@@ -40,7 +39,7 @@ sub configure {
     }
     unless (defined $self->config->{path}->{data} &&
         -x $self->config->{path}->{data}) {
-        $self->config->{path}->{data} = $self->home->rel_dir('data');
+        $self->config->{path}->{data} = $self->home->rel_file('data');
     }
 }
 
