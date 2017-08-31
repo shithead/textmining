@@ -4,8 +4,8 @@
             level => 'debug'
     },
     path => {
-        data => app->home->rel_dir('data'),
-        public => app->home->rel_dir('public/course')
+        data => app->home->rel_file('data'),
+        public => app->home->rel_file('public/course')
     },
     mode  => 'development'
 }
