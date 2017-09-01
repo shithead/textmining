@@ -1,11 +1,18 @@
 {
     log => {
-            path  => 'log/development.log',
+            path  => '/var/log/textmining.log',
             level => 'debug'
     },
     path => {
-        data => app->home->rel_file('data'),
-        public => app->home->rel_file('public/course')
+        data => app->home->rel_file('data')->to_abs,
+        public => app->home->rel_file('public/course')->to_abs
     },
-    mode  => 'development'
+    mode  => 'development',
+    hypnotoad => {
+        listen  => ['http://127.0.0.1:8080'],
+        workers => 10,
+        clients => 10,
+        proxy => 1,
+        pid_file => '/var/run/hypnotoad.pid'
+    }
 }
