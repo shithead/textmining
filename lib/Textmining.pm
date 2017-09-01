@@ -18,18 +18,18 @@ sub configure {
 
     $self->config->{home_uri} = "/" unless defined $self->config->{home_uri};
     $self->mode($self->config->{mode} ? $self->config->{mode} : 'development');
-    $self->home->detect;
-    $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : '/log/development.log');
+    $self->home->detect->to_abs;
+    $self->log->path($self->config->{log}->{path} ? $self->config->{log}->{path} : 'log/development.log');
     $self->log->level($self->config->{log}->{level} ? 
         $self->config->{log}->{level} : 'debug');
     # Switch to installable "public" directory
     #unless (-x $self->static->paths->[0]) {
-        $self->static->paths->[0] = $self->home->rel_file('public');
+        $self->static->paths->[0] = $self->home->rel_file('lib/Textmining/public')->to_abs;
         #}
 
     # Switch to installable "templates" directory
     #unless (-x $self->renderer->paths->[0]) {
-        $self->renderer->paths->[0] = $self->home->rel_file('templates');
+        $self->renderer->paths->[0] = $self->home->rel_file('lib/Textmining/templates')->to_abs;
         #}
 
     # Switch to installable "public/course" directory
